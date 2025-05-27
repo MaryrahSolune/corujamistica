@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'A Tarologa - Mystic Insights', // Brand name, kept as is for main title, can be localized further if needed
-  description: 'Interpretações de Tarot e Baralho Cigano com IA.', // Translated
+  title: 'A Tarologa - Mystic Insights',
+  description: 'Interpretações de Tarot e Baralho Cigano com IA.',
 };
 
 export default function RootLayout({
