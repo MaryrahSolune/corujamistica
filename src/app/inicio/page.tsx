@@ -3,7 +3,8 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette } from 'lucide-react';
+import Image from 'next/image';
+import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film } from 'lucide-react';
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -67,6 +68,12 @@ export default function InicioPage() {
     },
   ];
 
+  const gifPlaceholders = [
+    { src: "https://placehold.co/400x300.gif?text=GIF+M%C3%ADstico+1", hint: "mystical animation space" },
+    { src: "https://placehold.co/400x300.gif?text=GIF+M%C3%ADstico+2", hint: "spiritual symbol sequence" },
+    { src: "https://placehold.co/400x300.gif?text=GIF+M%C3%ADstico+3", hint: "energy flow visualization" },
+  ];
+
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -95,16 +102,27 @@ export default function InicioPage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="py-20 sm:py-28 text-center bg-shiva-hero-bg bg-cover bg-center relative overflow-hidden">
-          {/* Animated Aurora Overlay */}
-          <div className="absolute inset-0 -z-10 animated-aurora-background opacity-60"></div>
+        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden bg-background"> {/* Removed bg-shiva-hero-bg */}
+           {/* Animated Aurora Overlay */}
+           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-60"></div>
           
-          {/* Mystic Icons */}
-          <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} />
-          <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/>
+           {/* Mystic Icons */}
+           <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} />
+           <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/>
           
           <div className="container mx-auto px-4 relative z-10">
-            <Sparkles className="h-20 w-20 text-primary mx-auto mb-6 animate-subtle-pulse" />
+             <div className="relative inline-block mb-6">
+              <div className="absolute inset-0 -z-10 flex items-center justify-center">
+                <Image 
+                  src="/img/shiva.jpg" 
+                  alt="Shiva Background" 
+                  width={120} 
+                  height={120} 
+                  className="rounded-full object-cover opacity-30 blur-sm" 
+                />
+              </div>
+              <Sparkles className="h-20 w-20 text-primary mx-auto animate-subtle-pulse relative z-10" />
+            </div>
             <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
               {t('landingTitle')}
             </h1>
@@ -227,6 +245,44 @@ export default function InicioPage() {
 
         <CustomSeparator />
 
+        {/* Mystical Animated Gallery Section */}
+        <section className="py-16 sm:py-24 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12 animate-fade-in" style={{animationDelay: '0.1s'}}>
+              <Film className="h-12 w-12 text-primary mx-auto mb-3" />
+              <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-2">{t('mysticalGalleryTitle')}</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('mysticalGallerySubtitle')}</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {gifPlaceholders.map((gif, index) => (
+                <div 
+                  key={index} 
+                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-secondary/30"
+                  style={{animationDuration: '0.5s', animationDelay: `${0.2 + index * 0.15}s`}}
+                >
+                  <div className="aspect-w-4 aspect-h-3 relative z-10 bg-black/30 backdrop-blur-sm">
+                    <Image 
+                      src={gif.src} 
+                      alt={t('gifPlaceholderAlt')} 
+                      layout="fill" 
+                      objectFit="contain" 
+                      className="rounded-lg"
+                      data-ai-hint={gif.hint}
+                      unoptimized={true} // Important for GIFs if not optimized
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-muted-foreground mt-8 text-sm animate-fade-in" style={{animationDelay: '0.5s'}}>
+              {/* Você pode adicionar seus GIFs na pasta public/gifs/ e atualizar os caminhos acima. Ex: src="/gifs/meu_gif_1.gif" */}
+              (Em breve: mais animações e símbolos sagrados para sua inspiração!)
+            </p>
+          </div>
+        </section>
+
+        <CustomSeparator />
+
         {/* Final CTA Section */}
         <section className="py-20 sm:py-28 text-center bg-primary/10 relative overflow-hidden">
            <div className="absolute inset-0 -z-10 animated-aurora-background opacity-70"></div>
@@ -256,3 +312,4 @@ export default function InicioPage() {
     </div>
   );
 }
+

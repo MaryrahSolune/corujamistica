@@ -59,6 +59,10 @@ const translations = {
     testimonial2Role: "Conscious Entrepreneur",
     testimonialImageAlt: "Client's photo",
     satisfiedClientsLabel: "Satisfied and Guided Clients",
+    // Mystical Animated Gallery Section
+    mysticalGalleryTitle: "Mystical Animated Gallery",
+    mysticalGallerySubtitle: "Explore a collection of inspiring mystical animations and sacred symbols.",
+    gifPlaceholderAlt: "Mystical Animation Placeholder",
     // Final CTA Section
     finalCTATitle: "Your Future Awaits. Dare to Unveil It.",
     finalCTASubtitle: "Don't let your doubts hold you back. The wisdom of the cards is within your reach. Take the first step towards clarity and self-knowledge.",
@@ -215,6 +219,10 @@ const translations = {
     testimonial2Role: "Empreendedor Consciente",
     testimonialImageAlt: "Foto do consulente",
     satisfiedClientsLabel: "Consulentes Satisfeitos e Guiados",
+    // Mystical Animated Gallery Section
+    mysticalGalleryTitle: "Galeria Mística Animada",
+    mysticalGallerySubtitle: "Explore uma coleção de animações místicas inspiradoras e símbolos sagrados.",
+    gifPlaceholderAlt: "Placeholder de Animação Mística",
     // Final CTA Section
     finalCTATitle: "Seu Futuro Aguarda. Ouse Desvendá-lo.",
     finalCTASubtitle: "Não deixe suas dúvidas te prenderem. A sabedoria das cartas está ao seu alcance. Dê o primeiro passo em direção à clareza e ao autoconhecimento.",
@@ -338,11 +346,13 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const storedLocale = localStorage.getItem('app-locale') as Locale | null;
-    const defaultLang = 'pt-BR';
-    
-    let initialLocale = defaultLang;
+    const browserLang = navigator.language.startsWith('pt') ? 'pt-BR' : 'en';
+    let initialLocale: Locale = 'pt-BR'; // Default to pt-BR
+
     if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
       initialLocale = storedLocale;
+    } else {
+      initialLocale = browserLang; // Fallback to browser language if no stored locale
     }
     
     setLocaleState(initialLocale);
