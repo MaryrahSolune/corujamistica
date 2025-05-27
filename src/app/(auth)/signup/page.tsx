@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'; // Removed AuthError import
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,24 +48,23 @@ export default function SignupPage() {
       toast({ title: t('signupSuccessTitle'), description: t('signupSuccessDescription') });
       router.push('/dashboard');
     } catch (error) {
-      console.error('Signup error:', error); 
+      let toastDescription = t('genericErrorDescription');
+      let logErrorToConsole = true;
 
-      let toastDescription = t('genericErrorDescription'); 
-
-      // Check if it's a Firebase Auth error with a 'code' property
       if (typeof error === 'object' && error !== null && 'code' in error && typeof (error as any).code === 'string') {
-        const firebaseError = error as { code: string; message: string }; // Type assertion
+        const firebaseError = error as { code: string; message: string };
         if (firebaseError.code === 'auth/email-already-in-use') {
           toastDescription = t('emailAlreadyInUseErrorDescription');
+          logErrorToConsole = false; // Don't log this specific, handled error to console
         }
         // You could add more 'else if' cases here for other firebaseError.code values
-        // else {
-        //   // For other Firebase specific errors, you might use firebaseError.message or a different key
-        //   toastDescription = firebaseError.message || t('genericErrorDescription');
-        // }
-      } else if (error instanceof Error) { 
-        // For other generic JavaScript errors (though Firebase errors are usually instances of Error too)
+      } else if (error instanceof Error) {
+        // For other generic JavaScript errors
         // toastDescription = error.message || t('genericErrorDescription');
+      }
+
+      if (logErrorToConsole) {
+        console.error('Signup error:', error);
       }
 
       toast({
