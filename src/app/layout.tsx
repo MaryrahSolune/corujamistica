@@ -27,13 +27,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR"><head></head><body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="pt-BR">
+      {/* Next.js will automatically manage the <head> tag based on metadata and conventions */}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
           <LanguageProvider>
             {children}
             <Toaster />
           </LanguageProvider>
         </AuthProvider>
-      </body></html>
+      </body>
+    </html>
   );
 }
