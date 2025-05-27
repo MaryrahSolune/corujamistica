@@ -119,11 +119,14 @@
     /* -z-10 to be behind the card content */
     /* animation is defined in tailwind.config.ts */
     background: conic-gradient(
-      hsl(var(--primary) / 0.45),      /* Increased opacity/intensity */
-      hsl(var(--accent) / 0.55),       /* Increased opacity/intensity */
-      hsl(var(--secondary) / 0.50),    /* Increased opacity/intensity */
-      hsl(var(--primary) / 0.40),      /* Increased opacity/intensity */
-      transparent 65%                  /* Rays are slightly less transparent */
+      hsl(var(--primary) / 0.35),      /* Purple - Roxo */
+      hsl(var(--secondary) / 0.70),    /* Blue - Azul claro mais forte */
+      hsl(var(--accent) / 0.45),       /* Pink - Rosa */
+      hsl(var(--secondary) / 0.65),    /* Blue - Outro pulso de Azul claro */
+      hsl(var(--primary) / 0.30),      /* Purple - Roxo */
+      hsl(var(--accent) / 0.40),       /* Pink - Rosa mais suave */
+      hsl(var(--secondary) / 0.55),    /* Blue - Azul claro novamente */
+      transparent 70%                  /* Rays are slightly less transparent, transparent transition starts a bit later */
     );
     border-radius: 50%; /* Makes the large square a circle */
     /* transform: translate(-50%, -50%); handled by animate-spin-gradient keyframes */
