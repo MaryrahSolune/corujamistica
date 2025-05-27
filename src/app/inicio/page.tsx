@@ -7,7 +7,8 @@ import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Pal
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { SunIcon, MoonIcon } from '@/components/MysticIcons'; // Import new icons
+import { SunIcon, MoonIcon } from '@/components/MysticIcons'; 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // Custom Separator Component
 const CustomSeparator = () => (
@@ -183,18 +184,34 @@ export default function InicioPage() {
         {/* Testimonials Section */}
         <section className="py-16 sm:py-24 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in" style={{animationDelay: '0.1s'}}>{t('testimonialsTitle')}</h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>{t('testimonialsSubtitle')}</p>
+            <div className="text-center mb-12 animate-fade-in" style={{animationDelay: '0.1s'}}>
+              <Users className="h-12 w-12 text-accent mx-auto mb-3" />
+              <p className="text-4xl font-bold text-primary">
+                +20.000
+              </p>
+              <p className="text-lg text-muted-foreground mt-1">
+                {t('satisfiedClientsLabel')}
+              </p>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in" style={{animationDelay: '0.2s'}}>{t('testimonialsTitle')}</h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.3s'}}>{t('testimonialsSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {testimonials.map((testimonial, index) => (
                 <div 
                   key={index} 
                   className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up"
-                  style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
+                  style={{animationDuration: '0.5s', animationDelay: `${0.4 + index * 0.2}s`}}
                 >
                   <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6 min-h-[200px] flex flex-col justify-center">
                     <CardContent className="text-center">
-                      <Star className="h-8 w-8 text-yellow-400 mx-auto mb-4" />
+                       <Avatar className="w-20 h-20 mx-auto mb-4 border-2 border-primary shadow-lg">
+                        <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="person portrait" alt={t(testimonial.nameKey as any)} />
+                        <AvatarFallback className="bg-primary/20 text-primary font-semibold">
+                          {t(testimonial.nameKey as any).split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <Star className="h-6 w-6 text-yellow-400 mx-auto mb-3" />
                       <p className="text-lg italic text-foreground/90 mb-4">"{t(testimonial.quoteKey as any)}"</p>
                       <p className="font-semibold text-primary">{t(testimonial.nameKey as any)}</p>
                       <p className="text-sm text-muted-foreground">{t(testimonial.roleKey as any)}</p>
@@ -236,3 +253,4 @@ export default function InicioPage() {
     </div>
   );
 }
+

@@ -57,6 +57,8 @@ const translations = {
     testimonial2Quote: "\"I was skeptical at first, but the depth and accuracy of the interpretation amazed me. I found the clarity I was seeking for my decisions. Highly recommend!\"",
     testimonial2Name: "Charles M.",
     testimonial2Role: "Conscious Entrepreneur",
+    testimonialImageAlt: "Client's photo",
+    satisfiedClientsLabel: "Satisfied and Guided Clients",
     // Final CTA Section
     finalCTATitle: "Your Future Awaits. Dare to Unveil It.",
     finalCTASubtitle: "Don't let your doubts hold you back. The wisdom of the cards is within your reach. Take the first step towards clarity and self-knowledge.",
@@ -211,6 +213,8 @@ const translations = {
     testimonial2Quote: "\"Estava cético no início, mas a profundidade e a precisão da interpretação me surpreenderam. Encontrei a clareza que buscava para minhas decisões. Recomendo!\"",
     testimonial2Name: "Carlos M.",
     testimonial2Role: "Empreendedor Consciente",
+    testimonialImageAlt: "Foto do consulente",
+    satisfiedClientsLabel: "Consulentes Satisfeitos e Guiados",
     // Final CTA Section
     finalCTATitle: "Seu Futuro Aguarda. Ouse Desvendá-lo.",
     finalCTASubtitle: "Não deixe suas dúvidas te prenderem. A sabedoria das cartas está ao seu alcance. Dê o primeiro passo em direção à clareza e ao autoconhecimento.",
@@ -330,17 +334,21 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Default to pt-BR
+  const [locale, setLocaleState] = useState<Locale>('pt-BR'); 
 
   useEffect(() => {
-    // Runs only on client
     const storedLocale = localStorage.getItem('app-locale') as Locale | null;
+    const defaultLang = 'pt-BR';
+    
+    let initialLocale = defaultLang;
     if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
-      setLocaleState(storedLocale);
-      document.documentElement.lang = storedLocale;
-    } else {
-      document.documentElement.lang = 'pt-BR';
-      localStorage.setItem('app-locale', 'pt-BR'); // Set default if not stored or invalid
+      initialLocale = storedLocale;
+    }
+    
+    setLocaleState(initialLocale);
+    document.documentElement.lang = initialLocale;
+    if (!storedLocale || storedLocale !== initialLocale) {
+      localStorage.setItem('app-locale', initialLocale);
     }
   }, []);
 
