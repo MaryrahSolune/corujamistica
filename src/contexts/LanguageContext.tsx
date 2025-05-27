@@ -26,8 +26,8 @@ const translations = {
     landingTitle: "Unlock the Wisdom of the Cards",
     landingSubtitle: "Mystic Insights offers AI-powered interpretations for your Tarot and Cigano card readings, guiding you on your spiritual journey with clarity and depth.",
     landingButton: "Begin Your Journey",
-    login: "Login", // Short for button
-    signUp: "Sign Up", // Short for button
+    login: "Login", 
+    signUp: "Sign Up", 
     // Auth Layout
     authLayoutSubtitle: "Unlock the secrets of your path.",
     // Login Page
@@ -70,7 +70,9 @@ const translations = {
     tipJournalReadings: "Journal your readings for reflection.",
     recentReadingsTitle: "Recent Readings",
     noRecentReadings: "You have no recent readings.",
-    startNewReadingLinkText: "new reading",
+    noRecentReadingsPrompt_start: "Start a",
+    noRecentReadingsPrompt_link: "new reading",
+    noRecentReadingsPrompt_end: "to see your history here.",
     discoverYourPathTitle: "Discover Your Path",
     discoverYourPathDescription: "Mystic Insights uses advanced AI to interpret your Tarot and Cigano card spreads, offering personalized guidance based on ancient wisdom and astrological alignments.",
     defaultSeekerName: "Seeker",
@@ -109,7 +111,7 @@ const translations = {
     errorGeneratingInterpretationDescription: "Failed to generate interpretation. Please try again.",
     errorOccurredCardTitle: "An Error Occurred",
     yourMysticalInterpretationTitle: "Your Mystical Interpretation",
-    cardSpreadPreviewAlt: "Card spread preview", // Added
+    cardSpreadPreviewAlt: "Card spread preview",
     // Profile Page
     yourProfileTitle: "Your Profile",
     yourProfileDescription: "Manage your account details and preferences.",
@@ -134,7 +136,7 @@ const translations = {
     profile: "Perfil",
     logout: "Sair",
     toggleTheme: "Alternar tema",
-    mysticInsights: "Mystic Insights", // Manter como nome da marca
+    mysticInsights: "Mystic Insights", 
     language: "Idioma",
     english: "Inglês",
     portuguese: "Português",
@@ -144,8 +146,8 @@ const translations = {
     landingTitle: "Desvende a Sabedoria das Cartas",
     landingSubtitle: "Mystic Insights oferece interpretações com IA para suas leituras de Tarot e Baralho Cigano, guiando você em sua jornada espiritual com clareza e profundidade.",
     landingButton: "Comece Sua Jornada",
-    login: "Entrar", // Curto para botão
-    signUp: "Cadastrar", // Curto para botão
+    login: "Entrar", 
+    signUp: "Cadastrar", 
     // Auth Layout
     authLayoutSubtitle: "Desvende os segredos do seu caminho.",
     // Login Page
@@ -188,7 +190,9 @@ const translations = {
     tipJournalReadings: "Anote suas leituras para reflexão.",
     recentReadingsTitle: "Leituras Recentes",
     noRecentReadings: "Você não possui leituras recentes.",
-    startNewReadingLinkText: "nova leitura",
+    noRecentReadingsPrompt_start: "Comece uma",
+    noRecentReadingsPrompt_link: "nova leitura",
+    noRecentReadingsPrompt_end: "para ver seu histórico aqui.",
     discoverYourPathTitle: "Descubra Seu Caminho",
     discoverYourPathDescription: "Mystic Insights usa IA avançada para interpretar suas tiragens de Tarot e Baralho Cigano, oferecendo orientação personalizada baseada em sabedoria ancestral e alinhamentos astrológicos.",
     defaultSeekerName: "Buscador(a)",
@@ -227,7 +231,7 @@ const translations = {
     errorGeneratingInterpretationDescription: "Falha ao gerar interpretação. Por favor, tente novamente.",
     errorOccurredCardTitle: "Ocorreu um Erro",
     yourMysticalInterpretationTitle: "Sua Interpretação Mística",
-    cardSpreadPreviewAlt: "Prévia da tiragem de cartas", // Added
+    cardSpreadPreviewAlt: "Prévia da tiragem de cartas", 
     // Profile Page
     yourProfileTitle: "Seu Perfil",
     yourProfileDescription: "Gerencie os detalhes e preferências da sua conta.",
@@ -247,7 +251,7 @@ const translations = {
 };
 
 
-export type TranslationKey = keyof typeof translations.en; // Use 'en' as the reference for all keys
+export type TranslationKey = keyof typeof translations.en; 
 
 interface LanguageContextType {
   locale: Locale;
@@ -258,26 +262,25 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Default to pt-BR
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window !== 'undefined') {
+      const storedLocale = localStorage.getItem('app-locale') as Locale | null;
+      if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
+        return storedLocale;
+      }
+    }
+    return 'pt-BR'; // Default to pt-BR
+  });
 
   useEffect(() => {
-    // Runs only on client
-    const storedLocale = localStorage.getItem('app-locale') as Locale | null;
-    if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
-      setLocaleState(storedLocale);
-      document.documentElement.lang = storedLocale;
-    } else {
-      document.documentElement.lang = 'pt-BR'; // Ensure default is set if nothing in storage
-      localStorage.setItem('app-locale', 'pt-BR');
+    if (typeof window !== 'undefined') {
+      document.documentElement.lang = locale;
+      localStorage.setItem('app-locale', locale);
     }
-  }, []);
+  }, [locale]);
 
   const updateLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('app-locale', newLocale);
-      document.documentElement.lang = newLocale;
-    }
   }, []);
 
   const t = useCallback(

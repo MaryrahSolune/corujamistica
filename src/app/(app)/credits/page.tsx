@@ -9,7 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 
 
-const creditPackagesData = (t: Function) => [ // t needs to be passed or used from context
+const creditPackagesData = (t: Function) => [ 
   { id: 1, name: t('seekersPack'), credits: 10, price: 5, description: t('seekersPackDescription'), popular: false, icon: <Zap className="h-5 w-5 text-yellow-500" /> },
   { id: 2, name: t('oraclesBundle'), credits: 50, price: 20, description: t('oraclesBundleDescription'), popular: true, icon: <Zap className="h-5 w-5 text-orange-500" /> },
   { id: 3, name: t('mysticsTrove'), credits: 120, price: 40, description: t('mysticsTroveDescription'), popular: false, icon: <Zap className="h-5 w-5 text-purple-500" /> },
@@ -23,7 +23,7 @@ export default function CreditsPage() {
 
   const handlePurchase = (packageId: number) => {
     toast({
-        title: t('mysticInsights'), // Or a more specific title like "Compra Iniciada"
+        title: t('mysticInsights'), 
         description: t('purchaseInitiatedToast', { packageId: String(packageId) }) 
     });
   };
@@ -40,34 +40,36 @@ export default function CreditsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {creditPackages.map((pkg) => (
-          <Card key={pkg.id} className={`shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col ${pkg.popular ? 'border-2 border-primary ring-2 ring-primary/50' : ''}`}>
-            {pkg.popular && (
-              <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground text-xs font-semibold px-2 py-1 rounded-full shadow-lg">
-                {t('popularBadge')}
-              </div>
-            )}
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-3 p-3 bg-accent/10 rounded-full w-fit">
-                 {pkg.icon}
-              </div>
-              <CardTitle className="text-2xl font-serif">{pkg.name}</CardTitle>
-              <CardDescription>{pkg.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <div className="text-center mb-4">
-                <span className="text-5xl font-bold text-primary">{pkg.credits}</span>
-                <span className="text-muted-foreground"> {t('creditsUnit')}</span>
-              </div>
-              <p className="text-center text-3xl font-semibold text-accent">
-                ${pkg.price.toFixed(2)}
-              </p>
-            </CardContent>
-            <CardFooter className="mt-auto">
-              <Button onClick={() => handlePurchase(pkg.id)} className="w-full text-lg py-3">
-                {t('purchaseNowButton')}
-              </Button>
-            </CardFooter>
-          </Card>
+          <div key={pkg.id} className={`animated-aurora-background rounded-lg ${pkg.popular ? 'p-0.5' : ''}`}>
+            <Card className={`shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full ${pkg.popular ? 'border-transparent ring-2 ring-primary/70' : ''}`}>
+              {pkg.popular && (
+                <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground text-xs font-semibold px-2 py-1 rounded-full shadow-lg z-20">
+                  {t('popularBadge')}
+                </div>
+              )}
+              <CardHeader className="text-center">
+                <div className="mx-auto mb-3 p-3 bg-accent/10 rounded-full w-fit">
+                   {pkg.icon}
+                </div>
+                <CardTitle className="text-2xl font-serif">{pkg.name}</CardTitle>
+                <CardDescription>{pkg.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <div className="text-center mb-4">
+                  <span className="text-5xl font-bold text-primary">{pkg.credits}</span>
+                  <span className="text-muted-foreground"> {t('creditsUnit')}</span>
+                </div>
+                <p className="text-center text-3xl font-semibold text-accent">
+                  ${pkg.price.toFixed(2)}
+                </p>
+              </CardContent>
+              <CardFooter className="mt-auto">
+                <Button onClick={() => handlePurchase(pkg.id)} className="w-full text-lg py-3">
+                  {t('purchaseNowButton')}
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
         ))}
       </div>
 
@@ -86,4 +88,3 @@ export default function CreditsPage() {
     </div>
   );
 }
-

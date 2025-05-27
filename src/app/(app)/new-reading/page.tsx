@@ -80,87 +80,90 @@ export default function NewReadingPage() {
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      <Card className="max-w-2xl mx-auto shadow-xl">
-        <CardHeader>
-          <CardTitle className="text-3xl font-serif flex items-center">
-            <Wand2 className="h-8 w-8 mr-3 text-primary" />
-            {t('newCardReadingTitle')}
-          </CardTitle>
-          <CardDescription>
-            {t('newCardReadingDescription')}
-          </CardDescription>
-        </CardHeader>
-        <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="card-image" className="text-lg">{t('uploadCardSpreadImageLabel')}</Label>
-              <Input
-                id="card-image"
-                type="file"
-                accept="image/png, image/jpeg, image/webp"
-                onChange={handleImageChange}
-                className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
-                disabled={isLoading}
-              />
-              {imagePreview && (
-                <div className="mt-4 border rounded-lg p-2 bg-muted/50 flex justify-center">
-                  <Image
-                    src={imagePreview}
-                    alt={t('cardSpreadPreviewAlt')} 
-                    width={400}
-                    height={300}
-                    className="rounded-md object-contain max-h-[300px]"
-                  />
-                </div>
-              )}
-            </div>
+      <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-8">
+        <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
+          <CardHeader>
+            <CardTitle className="text-3xl font-serif flex items-center">
+              <Wand2 className="h-8 w-8 mr-3 text-primary" />
+              {t('newCardReadingTitle')}
+            </CardTitle>
+            <CardDescription>
+              {t('newCardReadingDescription')}
+            </CardDescription>
+          </CardHeader>
+          <form onSubmit={handleSubmit}>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="card-image" className="text-lg">{t('uploadCardSpreadImageLabel')}</Label>
+                <Input
+                  id="card-image"
+                  type="file"
+                  accept="image/png, image/jpeg, image/webp"
+                  onChange={handleImageChange}
+                  className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                  disabled={isLoading}
+                />
+                {imagePreview && (
+                  <div className="mt-4 border rounded-lg p-2 bg-muted/50 flex justify-center">
+                    <Image
+                      src={imagePreview}
+                      alt={t('cardSpreadPreviewAlt')} 
+                      width={400}
+                      height={300}
+                      className="rounded-md object-contain max-h-[300px]"
+                    />
+                  </div>
+                )}
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="query" className="text-lg">{t('yourQuestionLabel')}</Label>
-              <Textarea
-                id="query"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder={t('questionPlaceholder')}
-                rows={4}
-                className="resize-none"
-                disabled={isLoading}
-              />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button type="submit" className="w-full text-lg py-6" disabled={isLoading || !imageDataUri || !query.trim()}>
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  {t('generatingInterpretationButton')}
-                </>
-              ) : (
-                <>
-                  <UploadCloud className="mr-2 h-5 w-5" />
-                  {t('getYourReadingButton')}
-                </>
-              )}
-            </Button>
-          </CardFooter>
-        </form>
-      </Card>
+              <div className="space-y-2">
+                <Label htmlFor="query" className="text-lg">{t('yourQuestionLabel')}</Label>
+                <Textarea
+                  id="query"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={t('questionPlaceholder')}
+                  rows={4}
+                  className="resize-none"
+                  disabled={isLoading}
+                />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button type="submit" className="w-full text-lg py-6" disabled={isLoading || !imageDataUri || !query.trim()}>
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    {t('generatingInterpretationButton')}
+                  </>
+                ) : (
+                  <>
+                    <UploadCloud className="mr-2 h-5 w-5" />
+                    {t('getYourReadingButton')}
+                  </>
+                )}
+              </Button>
+            </CardFooter>
+          </form>
+        </Card>
+      </div>
 
       {error && (
-        <Card className="max-w-2xl mx-auto mt-8 border-destructive bg-destructive/10 shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-destructive font-serif">{t('errorOccurredCardTitle')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-destructive-foreground">{error}</p>
-          </CardContent>
-        </Card>
+         <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
+          <Card className="relative z-10 bg-destructive/80 dark:bg-destructive/70 backdrop-blur-sm shadow-lg border-destructive">
+            <CardHeader>
+              <CardTitle className="text-destructive-foreground font-serif">{t('errorOccurredCardTitle')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-destructive-foreground">{error}</p>
+            </CardContent>
+          </Card>
+        </div>
       )}
 
       {interpretation && (
         <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
-          <Card className="shadow-2xl bg-gradient-to-br from-primary/5 via-background to-accent/5 relative z-10">
-            {/* z-10 ensures card content is above the ::before pseudo-element from animated-aurora-background */}
+          <Card className="shadow-2xl bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10">
             <CardHeader>
               <CardTitle className="text-2xl font-serif flex items-center">
                 <VenetianMask className="h-7 w-7 mr-3 text-accent" />
