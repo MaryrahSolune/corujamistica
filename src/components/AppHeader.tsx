@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -11,8 +12,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  // DropdownMenuRadioGroup, // No longer used by simplified LanguageSwitcher
-  // DropdownMenuRadioItem, // No longer used by simplified LanguageSwitcher
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
@@ -26,21 +25,22 @@ const navLinks: { href: string; labelKey: TranslationKey; icon: React.ReactNode 
   { href: '/credits', labelKey: 'credits', icon: <CreditCard className="mr-2 h-4 w-4" /> },
 ];
 
-const ThemeToggle = () => {
+export const ThemeToggle = () => {
   const { t } = useLanguage();
   const [isDark, setIsDark] = React.useState(false);
   
   React.useEffect(() => {
+    // This code runs only on the client.
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const savedTheme = localStorage.getItem('theme');
+    let initialIsDark;
     if (savedTheme) {
-      const newIsDark = savedTheme === 'dark';
-      setIsDark(newIsDark);
-      document.documentElement.classList.toggle('dark', newIsDark);
+      initialIsDark = savedTheme === 'dark';
     } else {
-      setIsDark(prefersDark);
-      document.documentElement.classList.toggle('dark', prefersDark);
+      initialIsDark = prefersDark;
     }
+    setIsDark(initialIsDark);
+    document.documentElement.classList.toggle('dark', initialIsDark);
   }, []);
 
   const toggleTheme = () => {
@@ -59,7 +59,7 @@ const ThemeToggle = () => {
   );
 };
 
-const LanguageSwitcher = () => {
+export const LanguageSwitcher = () => {
   const { locale, setLocale, t } = useLanguage();
 
   const handleSwitch = () => {
@@ -68,10 +68,9 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    // Removed size="icon" to allow text to be visible, using p-2 for padding
     <Button variant="ghost" onClick={handleSwitch} aria-label={t('language')} className="p-2">
-      <Globe className="h-5 w-5 mr-1" /> {/* Added margin to icon */}
-      <span className="text-xs">{locale.toUpperCase()}</span> {/* Visible locale text */}
+      <Globe className="h-5 w-5 mr-1" />
+      <span className="text-xs">{locale.toUpperCase()}</span>
     </Button>
   );
 };

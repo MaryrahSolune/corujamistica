@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect } from 'react';
@@ -7,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Sparkles, LogIn, UserPlus, Loader2 } from 'lucide-react';
+import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader'; // Import controls
 
 export default function HomePage() {
   const { currentUser, loading } = useAuth();
@@ -35,7 +37,9 @@ export default function HomePage() {
             <Sparkles className="h-8 w-8 text-primary" />
             <span className="text-2xl font-bold font-serif text-primary">Mystic Insights</span>
           </div>
-          <nav className="space-x-2 sm:space-x-4">
+          <nav className="flex items-center space-x-1 sm:space-x-2"> {/* Adjusted spacing for more controls */}
+            <ThemeToggle />
+            <LanguageSwitcher />
             <Button variant="ghost" asChild>
               <Link href="/login">
                 <LogIn className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">Login</span>
