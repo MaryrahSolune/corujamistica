@@ -96,8 +96,6 @@ export default function HomePage() {
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="py-20 sm:py-28 text-center bg-gato-hero-bg bg-cover bg-center relative overflow-hidden">
-           {/* Darkening overlay for the background image */}
-           <div className="absolute inset-0 bg-black/30 -z-20"></div>
            {/* Animated Aurora Overlay */}
            <div className="absolute inset-0 -z-10 animated-aurora-background opacity-60"></div>
           
@@ -257,3 +255,4 @@ export default function HomePage() {
     </div>
   );
 }
+
