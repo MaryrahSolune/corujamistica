@@ -10,7 +10,7 @@ export default {
   theme: {
   	extend: {
   		backgroundImage: {
-        'gato-hero-bg': "url('/img/gato.jpg')", // Path relativo à pasta public
+        'shiva-hero-bg': "url('/img/shiva.jpg')", // Changed from gato.jpg
       },
       colors: {
   			background: 'hsl(var(--background))',

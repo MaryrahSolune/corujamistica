@@ -95,7 +95,7 @@ export default function InicioPage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="py-20 sm:py-28 text-center bg-gato-hero-bg bg-cover bg-center relative overflow-hidden">
+        <section className="py-20 sm:py-28 text-center bg-shiva-hero-bg bg-cover bg-center relative overflow-hidden"> {/* Changed to shiva-hero-bg */}
           {/* Animated Aurora Overlay */}
           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-60"></div>
           
