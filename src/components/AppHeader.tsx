@@ -17,9 +17,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe } from 'lucide-react';
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, Home as HomeIcon } from 'lucide-react'; // Added HomeIcon
 
 const navLinks: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
+  { href: '/', labelKey: 'home', icon: <HomeIcon className="mr-2 h-4 w-4" /> }, // Added Home link
   { href: '/dashboard', labelKey: 'dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
   { href: '/new-reading', labelKey: 'newReading', icon: <ScanLine className="mr-2 h-4 w-4" /> },
   { href: '/credits', labelKey: 'credits', icon: <CreditCard className="mr-2 h-4 w-4" /> },
@@ -30,7 +31,6 @@ export const ThemeToggle = () => {
   const [isDark, setIsDark] = React.useState(false);
   
   React.useEffect(() => {
-    // This code runs only on the client.
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const savedTheme = localStorage.getItem('theme');
     let initialIsDark;
