@@ -96,8 +96,12 @@ export default {
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         'subtle-pulse': {
-          '0%, 100%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.03)' },
+          '0%, 100%': { opacity: '0.7', transform: 'scale(1)' },
+          '50%': { opacity: '1', transform: 'scale(1.05)' },
+        },
+        'pulse_slow': { // Added from AuthLayout
+          '0%, 100%': { opacity: '0.1', transform: 'scale(1)' },
+          '50%': { opacity: '0.25', transform: 'scale(1.05)' },
         }
   		},
   		animation: {
@@ -106,7 +110,8 @@ export default {
         'fade-in': 'fade-in 0.5s ease-out',
         'fade-out': 'fade-out 0.5s ease-in',
         'slide-in-up': 'slide-in-up 0.5s ease-out',
-        'subtle-pulse': 'subtle-pulse 1.5s ease-in-out infinite',
+        'subtle-pulse': 'subtle-pulse 2s ease-in-out infinite', // Adjusted duration
+        'pulse_slow': 'pulse_slow 6s infinite ease-in-out', // Added from AuthLayout
   		}
   	}
   },
