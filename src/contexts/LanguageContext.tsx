@@ -44,32 +44,33 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Default para SSR, será sobrescrito no cliente
-
-  useEffect(() => {
-    // Este código roda apenas no cliente após a montagem.
-    const storedLocale = localStorage.getItem('app-locale') as Locale | null;
-    let effectiveLocale: Locale = 'pt-BR'; // Default
-
-    if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
-      effectiveLocale = storedLocale;
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    // Esta função é executada apenas na montagem inicial do lado do cliente
+    // ou no servidor (onde window é undefined).
+    if (typeof window !== "undefined") {
+      const storedLocale = localStorage.getItem('app-locale') as Locale | null;
+      if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
+        return storedLocale;
+      }
     }
-    
-    setLocaleState(effectiveLocale);
-    document.documentElement.lang = effectiveLocale;
-    // Garante que o localStorage seja definido/atualizado com o locale efetivo na inicialização do cliente
-    localStorage.setItem('app-locale', effectiveLocale); 
+    return 'pt-BR'; // Padrão se nada for encontrado ou no SSR
+  });
 
-  }, []); // Roda apenas uma vez no mount, no lado do cliente
+  // Este useEffect sincroniza o localStorage e o atributo lang do HTML
+  // sempre que o estado 'locale' mudar.
+  // Ele também define o idioma inicial no HTML na primeira renderização do cliente.
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem('app-locale', locale);
+      document.documentElement.lang = locale;
+    }
+  }, [locale]);
 
   const updateLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
-    localStorage.setItem('app-locale', newLocale);
-    document.documentElement.lang = newLocale;
   };
   
   const t = (key: TranslationKey): string => {
-    // Acessa o 'locale' mais recente diretamente do estado na renderização.
     return translations[locale]?.[key] || translations.en[key] || key;
   };
 
