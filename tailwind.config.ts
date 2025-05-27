@@ -10,7 +10,8 @@ export default {
   theme: {
   	extend: {
   		backgroundImage: {
-        'shiva-hero-bg': "url('/img/shiva.jpg')", // Changed from gato.jpg
+        'shiva-hero-bg': "url('/img/shiva.jpg')",
+        'sacred-geometry-pattern': "url('/img/sacred_geometry_pattern.png')" // Adicionada referência ao padrão
       },
       colors: {
   			background: 'hsl(var(--background))',

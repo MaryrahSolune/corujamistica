@@ -102,6 +102,20 @@
   }
   body {
     @apply bg-background text-foreground;
+    position: relative; /* Necessário para o posicionamento do pseudo-elemento */
+  }
+  body::before {
+    content: "";
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/img/sacred_geometry_pattern.png');
+    background-repeat: repeat;
+    opacity: 0.03; /* Bem sutil - ajuste conforme necessário */
+    z-index: -20; 
+    pointer-events: none; 
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
