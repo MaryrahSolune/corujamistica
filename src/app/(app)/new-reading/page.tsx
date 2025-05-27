@@ -171,7 +171,7 @@ export default function NewReadingPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed">
+              <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
                 {interpretation}
               </div>
             </CardContent>
