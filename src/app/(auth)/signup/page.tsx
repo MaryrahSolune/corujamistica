@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { createUserWithEmailAndPassword, updateProfile, AuthError } from 'firebase/auth'; // Changed FirebaseError to AuthError
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'; // Removed AuthError import
 import { auth } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,22 +48,23 @@ export default function SignupPage() {
       toast({ title: t('signupSuccessTitle'), description: t('signupSuccessDescription') });
       router.push('/dashboard');
     } catch (error) {
-      console.error('Signup error:', error); // Logs the original Firebase error for debugging. This is expected.
+      console.error('Signup error:', error); 
 
-      let toastDescription = t('genericErrorDescription'); // Default user-facing message.
+      let toastDescription = t('genericErrorDescription'); 
 
-      if (error instanceof AuthError) {
-        if (error.code === 'auth/email-already-in-use') {
+      // Check if it's a Firebase Auth error with a 'code' property
+      if (typeof error === 'object' && error !== null && 'code' in error && typeof (error as any).code === 'string') {
+        const firebaseError = error as { code: string; message: string }; // Type assertion
+        if (firebaseError.code === 'auth/email-already-in-use') {
           toastDescription = t('emailAlreadyInUseErrorDescription');
         }
-        // You could add more 'else if' cases here for other AuthError codes if needed.
+        // You could add more 'else if' cases here for other firebaseError.code values
         // else {
-        //   // For other specific AuthErrors, you might want to use error.message or a different translated key.
-        //   // toastDescription = error.message || t('genericErrorDescription');
+        //   // For other Firebase specific errors, you might use firebaseError.message or a different key
+        //   toastDescription = firebaseError.message || t('genericErrorDescription');
         // }
-      } else if (error instanceof Error) {
-        // For other generic JavaScript errors, you might use error.message,
-        // but often the generic app message is better for the user.
+      } else if (error instanceof Error) { 
+        // For other generic JavaScript errors (though Firebase errors are usually instances of Error too)
         // toastDescription = error.message || t('genericErrorDescription');
       }
 
