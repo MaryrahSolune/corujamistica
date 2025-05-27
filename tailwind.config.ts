@@ -9,7 +9,10 @@ export default {
   ],
   theme: {
   	extend: {
-  		colors: {
+  		backgroundImage: {
+        'gato-hero-bg': "url('/img/gato.jpg')", // Path relativo à pasta public
+      },
+      colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

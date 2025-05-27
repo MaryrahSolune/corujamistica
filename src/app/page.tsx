@@ -95,12 +95,16 @@ export default function HomePage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="py-20 sm:py-28 text-center bg-gradient-to-b from-background to-primary/10 relative overflow-hidden">
+        <section className="py-20 sm:py-28 text-center bg-gato-hero-bg bg-cover bg-center relative overflow-hidden">
+           {/* Darkening overlay for the background image */}
+           <div className="absolute inset-0 bg-black/30 -z-20"></div>
+           {/* Animated Aurora Overlay */}
+           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-60"></div>
+          
            {/* Mystic Icons */}
            <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} />
            <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/>
           
-           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-80"></div> {/* Increased opacity */}
           <div className="container mx-auto px-4 relative z-10">
             <Sparkles className="h-20 w-20 text-primary mx-auto mb-6 animate-subtle-pulse" />
             <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
