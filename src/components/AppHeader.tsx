@@ -18,7 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext'; // Import useLanguage
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, Check } from 'lucide-react'; // Added Globe, Check
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe } from 'lucide-react'; // Removed Check icon
 
 // Nav links now use translation keys
 const navLinks: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
