@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, type FirebaseError } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -49,9 +49,13 @@ export default function SignupPage() {
       router.push('/dashboard');
     } catch (error: any) {
       console.error('Signup error:', error);
+      let description = error.message || t('genericErrorDescription');
+      if (error.code === 'auth/email-already-in-use') {
+        description = t('emailAlreadyInUseErrorDescription');
+      }
       toast({
         title: t('signupFailedTitle'),
-        description: error.message || t('genericErrorDescription'),
+        description: description,
         variant: 'destructive',
       });
     } finally {

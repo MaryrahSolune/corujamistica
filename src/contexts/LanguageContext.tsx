@@ -93,6 +93,7 @@ const translations = {
     signupSuccessTitle: "Signup Successful",
     signupSuccessDescription: "Welcome to Mystic Insights!",
     signupFailedTitle: "Signup Failed",
+    emailAlreadyInUseErrorDescription: "This email address is already in use. Try another one or log in.",
     // App Footer
     footerText: "© {year} Mystic Insights. All rights reserved. Spiritual guidance and entertainment purposes.",
     // Dashboard
@@ -253,6 +254,7 @@ const translations = {
     signupSuccessTitle: "Cadastro Bem-sucedido",
     signupSuccessDescription: "Bem-vindo(a) ao Mystic Insights!",
     signupFailedTitle: "Falha no Cadastro",
+    emailAlreadyInUseErrorDescription: "Este endereço de e-mail já está em uso. Tente outro ou faça login.",
     // App Footer
     footerText: "© {year} Mystic Insights. Todos os direitos reservados. Aconselhamento espiritual e entretenimento.",
     // Dashboard
@@ -346,25 +348,31 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const storedLocale = localStorage.getItem('app-locale') as Locale | null;
-    const browserLang = navigator.language.startsWith('pt') ? 'pt-BR' : 'en';
     let initialLocale: Locale = 'pt-BR'; // Default to pt-BR
 
-    if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
-      initialLocale = storedLocale;
-    } else {
-      initialLocale = browserLang; // Fallback to browser language if no stored locale
+    if (typeof window !== 'undefined') { // Ensure localStorage is accessed only on client
+      const browserLang = navigator.language.startsWith('pt') ? 'pt-BR' : 'en';
+      if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
+        initialLocale = storedLocale;
+      } else {
+        initialLocale = browserLang; 
+      }
     }
     
     setLocaleState(initialLocale);
-    document.documentElement.lang = initialLocale;
-    if (!storedLocale || storedLocale !== initialLocale) {
-      localStorage.setItem('app-locale', initialLocale);
+    if (typeof window !== 'undefined') {
+      document.documentElement.lang = initialLocale;
+      if (!storedLocale || storedLocale !== initialLocale) {
+        localStorage.setItem('app-locale', initialLocale);
+      }
     }
   }, []);
 
   const updateLocale = useCallback((newLocale: Locale) => {
-    localStorage.setItem('app-locale', newLocale);
-    document.documentElement.lang = newLocale;
+    if (typeof window !== 'undefined') { // Ensure localStorage is accessed only on client
+      localStorage.setItem('app-locale', newLocale);
+      document.documentElement.lang = newLocale;
+    }
     setLocaleState(newLocale);
   }, []);
 
