@@ -28,7 +28,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      {/* Next.js will automatically manage the <head> tag based on metadata and conventions */}
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
           <LanguageProvider>
