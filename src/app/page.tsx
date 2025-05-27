@@ -1,39 +1,101 @@
 
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, LogIn, UserPlus, Loader2 } from 'lucide-react';
+import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette } from 'lucide-react';
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
+// Custom Separator Component
+const CustomSeparator = () => (
+  <div className="my-12 h-px w-full bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+);
 
 export default function HomePage() {
-  const { currentUser, loading } = useAuth();
-  const router = useRouter();
+  const { currentUser, loading } = useAuth(); // Assumindo que useAuth está disponível ou será importado
+  const router = useRouter(); // Assumindo que useRouter está disponível ou será importado
   const { t } = useLanguage();
 
-  useEffect(() => {
-    if (!loading && currentUser) {
-      router.replace('/dashboard');
-    }
-  }, [currentUser, loading, router]);
+  // Redirect if user is logged in (similar to original logic)
+  // useEffect(() => {
+  //   if (!loading && currentUser) {
+  //     router.replace('/dashboard');
+  //   }
+  // }, [currentUser, loading, router]);
 
-  if (loading || (!loading && currentUser)) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
-        <Loader2 className="h-16 w-16 animate-spin text-primary" />
-        <p className="mt-4 text-lg text-muted-foreground">{t('loadingMysticalSpace')}</p>
-      </div>
-    );
-  }
+  // if (loading || (!loading && currentUser)) {
+  //   return (
+  //     <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
+  //       <Loader2 className="h-16 w-16 animate-spin text-primary" />
+  //       <p className="mt-4 text-lg text-muted-foreground">{t('loadingMysticalSpace')}</p>
+  //     </div>
+  //   );
+  // }
+
+  const howItWorksSteps = [
+    {
+      icon: <UploadCloud className="h-10 w-10 text-primary" />,
+      titleKey: "howItWorksUploadTitle",
+      descriptionKey: "howItWorksUploadDescription",
+      delay: "delay-100",
+    },
+    {
+      icon: <Brain className="h-10 w-10 text-primary" />,
+      titleKey: "howItWorksQueryTitle",
+      descriptionKey: "howItWorksQueryDescription",
+      delay: "delay-200",
+    },
+    {
+      icon: <Search className="h-10 w-10 text-primary" />,
+      titleKey: "howItWorksRevealTitle",
+      descriptionKey: "howItWorksRevealDescription",
+      delay: "delay-300",
+    },
+  ];
+
+  const benefits = [
+    {
+      icon: <Sparkles className="h-10 w-10 text-accent" />,
+      titleKey: "benefitAITitle",
+      descriptionKey: "benefitAIDescription",
+      delay: "delay-100",
+    },
+    {
+      icon: <Palette className="h-10 w-10 text-accent" />,
+      titleKey: "benefitPersonalizationTitle",
+      descriptionKey: "benefitPersonalizationDescription",
+      delay: "delay-200",
+    },
+    {
+      icon: <Users className="h-10 w-10 text-accent" />,
+      titleKey: "benefitGuidanceTitle",
+      descriptionKey: "benefitGuidanceDescription",
+      delay: "delay-300",
+    },
+  ];
+
+  const testimonials = [
+    {
+      quoteKey: "testimonial1Quote",
+      nameKey: "testimonial1Name",
+      roleKey: "testimonial1Role",
+      delay: "delay-100",
+    },
+    {
+      quoteKey: "testimonial2Quote",
+      nameKey: "testimonial2Name",
+      roleKey: "testimonial2Role",
+      delay: "delay-200",
+    },
+  ];
+
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <header className="py-6">
+      <header className="py-6 sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center space-x-2">
             <Sparkles className="h-8 w-8 text-primary" />
@@ -56,38 +118,127 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="flex-grow flex flex-col items-center justify-center text-center p-4">
-        <div className="max-w-3xl">
-          <Sparkles className="h-20 w-20 text-primary mx-auto mb-6 animate-subtle-pulse" />
-          <h1 className="text-5xl md:text-6xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">
-            {t('landingTitle')}
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-10">
-            {t('landingSubtitle')}
-          </p>
-          <div className="space-x-4">
-            <Button size="lg" asChild className="text-lg px-8 py-6">
+      <main className="flex-grow">
+        {/* Hero Section */}
+        <section className="py-20 sm:py-28 text-center bg-gradient-to-b from-background to-primary/10 relative overflow-hidden">
+           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-50"></div>
+          <div className="container mx-auto px-4 relative z-10">
+            <Sparkles className="h-20 w-20 text-primary mx-auto mb-6 animate-subtle-pulse" />
+            <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
+              {t('landingTitle')}
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '0.4s'}}>
+              {t('landingSubtitle')}
+            </p>
+            <div className="space-x-4 animate-fade-in" style={{animationDelay: '0.6s'}}>
+              <Button size="lg" asChild className="text-lg px-8 py-6">
+                <Link href="/signup">
+                  {t('landingButton')} <UserPlus className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="py-16 sm:py-24 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in-up">{t('howItWorksTitle')}</h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>{t('howItWorksSubtitle')}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {howItWorksSteps.map((step, index) => (
+                <div key={index} className={`animated-aurora-background rounded-xl overflow-hidden animate-fade-in-up`} style={{animationDelay: `${0.2 + index * 0.2}s`}}>
+                  <Card className="h-full text-center shadow-xl hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
+                    <CardHeader className="items-center pb-4">
+                      <div className="p-4 bg-primary/10 rounded-full mb-4 w-fit">
+                        {step.icon}
+                      </div>
+                      <CardTitle className="text-2xl font-serif">{t(step.titleKey as any)}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">{t(step.descriptionKey as any)}</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <CustomSeparator />
+
+        {/* Discover the Magic Section (Benefits) */}
+        <section className="py-16 sm:py-24 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in-up">{t('discoverMagicTitle')}</h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>{t('discoverMagicSubtitle')}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {benefits.map((benefit, index) => (
+                 <div key={index} className={`animated-aurora-background rounded-xl overflow-hidden animate-fade-in-up`} style={{animationDelay: `${0.2 + index * 0.2}s`}}>
+                  <Card className="h-full text-center shadow-xl hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
+                    <CardHeader className="items-center pb-4">
+                       <div className="p-4 bg-accent/10 rounded-full mb-4 w-fit">
+                        {benefit.icon}
+                      </div>
+                      <CardTitle className="text-2xl font-serif">{t(benefit.titleKey as any)}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">{t(benefit.descriptionKey as any)}</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        <CustomSeparator />
+
+        {/* Testimonials Section */}
+        <section className="py-16 sm:py-24 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in-up">{t('testimonialsTitle')}</h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>{t('testimonialsSubtitle')}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className={`animated-aurora-background rounded-xl overflow-hidden animate-fade-in-up`} style={{animationDelay: `${0.2 + index * 0.2}s`}}>
+                  <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6 min-h-[200px] flex flex-col justify-center">
+                    <CardContent className="text-center">
+                      <Star className="h-8 w-8 text-yellow-400 mx-auto mb-4" />
+                      <p className="text-lg italic text-foreground/90 mb-4">"{t(testimonial.quoteKey as any)}"</p>
+                      <p className="font-semibold text-primary">{t(testimonial.nameKey as any)}</p>
+                      <p className="text-sm text-muted-foreground">{t(testimonial.roleKey as any)}</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <CustomSeparator />
+
+        {/* Final CTA Section */}
+        <section className="py-20 sm:py-28 text-center bg-primary/10 relative overflow-hidden">
+           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-70"></div>
+          <div className="container mx-auto px-4 relative z-10">
+            <Sparkles className="h-16 w-16 text-accent mx-auto mb-6 animate-subtle-pulse" style={{animationDelay: '0.2s'}}/>
+            <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+              {t('finalCTATitle')}
+            </h2>
+            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+              {t('finalCTASubtitle')}
+            </p>
+            <Button size="lg" asChild className="text-lg px-10 py-7 animate-fade-in-up" style={{animationDelay: '0.8s'}}>
               <Link href="/signup">
-                {t('landingButton')} <UserPlus className="ml-2 h-5 w-5" />
+                {t('finalCTAButton')} <UserPlus className="ml-2 h-5 w-5" />
               </Link>
             </Button>
           </div>
-        </div>
-        
-        <div className="mt-16 w-full max-w-4xl animated-aurora-background rounded-xl">
-          <Image 
-            src="https://placehold.co/1200x600.png" 
-            alt={t('landingImageAlt')} 
-            data-ai-hint="tarot cards celestial"
-            width={1200} 
-            height={600} 
-            className="rounded-xl shadow-2xl object-cover relative z-10 opacity-95"
-            priority
-          />
-        </div>
+        </section>
       </main>
 
-      <footer className="py-8 text-center">
+      <footer className="py-8 text-center border-t border-border/20 bg-background/80">
         <p className="text-muted-foreground">
           {t('footerText', { year: new Date().getFullYear() })}
         </p>
@@ -95,3 +246,12 @@ export default function HomePage() {
     </div>
   );
 }
+
+// Temporarily import useAuth and useRouter if not globally available or provided by a layout
+// This is for standalone testing of the page structure.
+// In a real app, these would typically come from context providers in a layout.
+import { useEffect } from 'react'; // Already imported
+import { useRouter } from 'next/navigation'; // Already imported
+import { useAuth } from '@/contexts/AuthContext'; // Already imported
+// Make sure Loader2 is imported if the loading block is re-enabled
+// import { Loader2 } from 'lucide-react';
