@@ -106,7 +106,7 @@ export default function NewReadingPage() {
                 <div className="mt-4 border rounded-lg p-2 bg-muted/50 flex justify-center">
                   <Image
                     src={imagePreview}
-                    alt={t('cardSpreadPreviewAlt')} // Assuming you add this key to translations
+                    alt={t('cardSpreadPreviewAlt')} 
                     width={400}
                     height={300}
                     className="rounded-md object-contain max-h-[300px]"
@@ -158,19 +158,22 @@ export default function NewReadingPage() {
       )}
 
       {interpretation && (
-        <Card className="max-w-2xl mx-auto mt-8 shadow-2xl bg-gradient-to-br from-primary/5 via-background to-accent/5">
-          <CardHeader>
-            <CardTitle className="text-2xl font-serif flex items-center">
-              <VenetianMask className="h-7 w-7 mr-3 text-accent" />
-              {t('yourMysticalInterpretationTitle')}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="prose prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed">
-              {interpretation}
-            </div>
-          </CardContent>
-        </Card>
+        <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
+          <Card className="shadow-2xl bg-gradient-to-br from-primary/5 via-background to-accent/5 relative z-10">
+            {/* z-10 ensures card content is above the ::before pseudo-element from animated-aurora-background */}
+            <CardHeader>
+              <CardTitle className="text-2xl font-serif flex items-center">
+                <VenetianMask className="h-7 w-7 mr-3 text-accent" />
+                {t('yourMysticalInterpretationTitle')}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed">
+                {interpretation}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       )}
     </div>
   );

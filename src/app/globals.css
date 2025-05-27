@@ -107,3 +107,25 @@
     @apply font-serif;
   }
 }
+
+@layer utilities {
+  .animated-aurora-background {
+    @apply relative overflow-hidden; /* Crucial for containing the pseudo-element and ensuring border-radius is respected */
+  }
+  .animated-aurora-background::before {
+    content: "";
+    @apply absolute top-1/2 left-1/2 w-[150%] pt-[150%] -z-10 animate-spin-gradient;
+    /* The w-[150%] and pt-[150%] (padding-top for aspect ratio) make a large square */
+    /* -z-10 to be behind the card content */
+    /* animation is defined in tailwind.config.ts */
+    background: conic-gradient(
+      hsl(var(--primary) / 0.3),
+      hsl(var(--accent) / 0.4),
+      hsl(var(--secondary) / 0.35),
+      hsl(var(--primary) / 0.25),
+      transparent 70% /* Creates a softer, ray-like effect */
+    );
+    border-radius: 50%; /* Makes the large square a circle */
+    /* transform: translate(-50%, -50%); handled by animate-spin-gradient keyframes */
+  }
+}

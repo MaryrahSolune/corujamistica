@@ -99,10 +99,14 @@ export default {
           '0%, 100%': { opacity: '0.7', transform: 'scale(1)' },
           '50%': { opacity: '1', transform: 'scale(1.05)' },
         },
-        'pulse_slow': { // Added from AuthLayout
+        'pulse_slow': { 
           '0%, 100%': { opacity: '0.1', transform: 'scale(1)' },
           '50%': { opacity: '0.25', transform: 'scale(1.05)' },
-        }
+        },
+        'spin-gradient': {
+          '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+          '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
+        },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
@@ -110,8 +114,9 @@ export default {
         'fade-in': 'fade-in 0.5s ease-out',
         'fade-out': 'fade-out 0.5s ease-in',
         'slide-in-up': 'slide-in-up 0.5s ease-out',
-        'subtle-pulse': 'subtle-pulse 2s ease-in-out infinite', // Adjusted duration
-        'pulse_slow': 'pulse_slow 6s infinite ease-in-out', // Added from AuthLayout
+        'subtle-pulse': 'subtle-pulse 2s ease-in-out infinite',
+        'pulse_slow': 'pulse_slow 6s infinite ease-in-out',
+        'spin-gradient': 'spin-gradient 8s linear infinite',
   		}
   	}
   },
