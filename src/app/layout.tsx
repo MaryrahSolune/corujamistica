@@ -1,11 +1,12 @@
 
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google'; // Restored font imports
+// import { Geist, Geist_Mono } from 'next/font/google'; // Temporarily commented out
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 
+/* // Temporarily commented out
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -15,6 +16,7 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
+*/
 
 export const metadata: Metadata = {
   title: 'A Tarologa - Mystic Insights',
@@ -27,8 +29,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html> {/* Temporarily removed lang="pt-BR" for diagnostics */}
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="pt-BR">
+      {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
+      <body className="antialiased"> {/* Temporarily simplified className */}
         <AuthProvider>
           <LanguageProvider>
             {children}
