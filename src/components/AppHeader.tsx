@@ -11,16 +11,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
+  // DropdownMenuRadioGroup, // No longer used by simplified LanguageSwitcher
+  // DropdownMenuRadioItem, // No longer used by simplified LanguageSwitcher
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
-import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext'; // Import useLanguage
+import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe } from 'lucide-react'; // Removed Check icon
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe } from 'lucide-react';
 
-// Nav links now use translation keys
 const navLinks: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
   { href: '/dashboard', labelKey: 'dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
   { href: '/new-reading', labelKey: 'newReading', icon: <ScanLine className="mr-2 h-4 w-4" /> },
@@ -63,32 +62,24 @@ const ThemeToggle = () => {
 const LanguageSwitcher = () => {
   const { locale, setLocale, t } = useLanguage();
 
+  const handleSwitch = () => {
+    const newLocale = locale === 'en' ? 'pt-BR' : 'en';
+    setLocale(newLocale);
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label={t('language')}>
-          <Globe className="h-5 w-5" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>{t('language')}</DropdownMenuLabel>
-        <DropdownMenuRadioGroup value={locale} onValueChange={(value) => setLocale(value as Locale)}>
-          <DropdownMenuRadioItem value="pt-BR">
-            {t('portuguese')}
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="en">
-            {t('english')}
-          </DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    // Removed size="icon" to allow text to be visible, using p-2 for padding
+    <Button variant="ghost" onClick={handleSwitch} aria-label={t('language')} className="p-2">
+      <Globe className="h-5 w-5 mr-1" /> {/* Added margin to icon */}
+      <span className="text-xs">{locale.toUpperCase()}</span> {/* Visible locale text */}
+    </Button>
   );
 };
 
 
 export default function AppHeader() {
   const { currentUser, logout } = useAuth();
-  const { t } = useLanguage(); // Get translation function
+  const { t } = useLanguage();
   const pathname = usePathname();
 
   const getInitials = (email?: string | null) => {
