@@ -15,44 +15,23 @@ const CustomSeparator = () => (
 );
 
 export default function HomePage() {
-  const { currentUser, loading } = useAuth(); // Assumindo que useAuth está disponível ou será importado
-  const router = useRouter(); // Assumindo que useRouter está disponível ou será importado
   const { t } = useLanguage();
-
-  // Redirect if user is logged in (similar to original logic)
-  // useEffect(() => {
-  //   if (!loading && currentUser) {
-  //     router.replace('/dashboard');
-  //   }
-  // }, [currentUser, loading, router]);
-
-  // if (loading || (!loading && currentUser)) {
-  //   return (
-  //     <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
-  //       <Loader2 className="h-16 w-16 animate-spin text-primary" />
-  //       <p className="mt-4 text-lg text-muted-foreground">{t('loadingMysticalSpace')}</p>
-  //     </div>
-  //   );
-  // }
 
   const howItWorksSteps = [
     {
       icon: <UploadCloud className="h-10 w-10 text-primary" />,
       titleKey: "howItWorksUploadTitle",
       descriptionKey: "howItWorksUploadDescription",
-      delay: "delay-100",
     },
     {
       icon: <Brain className="h-10 w-10 text-primary" />,
       titleKey: "howItWorksQueryTitle",
       descriptionKey: "howItWorksQueryDescription",
-      delay: "delay-200",
     },
     {
       icon: <Search className="h-10 w-10 text-primary" />,
       titleKey: "howItWorksRevealTitle",
       descriptionKey: "howItWorksRevealDescription",
-      delay: "delay-300",
     },
   ];
 
@@ -61,19 +40,16 @@ export default function HomePage() {
       icon: <Sparkles className="h-10 w-10 text-accent" />,
       titleKey: "benefitAITitle",
       descriptionKey: "benefitAIDescription",
-      delay: "delay-100",
     },
     {
       icon: <Palette className="h-10 w-10 text-accent" />,
       titleKey: "benefitPersonalizationTitle",
       descriptionKey: "benefitPersonalizationDescription",
-      delay: "delay-200",
     },
     {
       icon: <Users className="h-10 w-10 text-accent" />,
       titleKey: "benefitGuidanceTitle",
       descriptionKey: "benefitGuidanceDescription",
-      delay: "delay-300",
     },
   ];
 
@@ -82,13 +58,11 @@ export default function HomePage() {
       quoteKey: "testimonial1Quote",
       nameKey: "testimonial1Name",
       roleKey: "testimonial1Role",
-      delay: "delay-100",
     },
     {
       quoteKey: "testimonial2Quote",
       nameKey: "testimonial2Name",
       roleKey: "testimonial2Role",
-      delay: "delay-200",
     },
   ];
 
@@ -143,11 +117,15 @@ export default function HomePage() {
         {/* How It Works Section */}
         <section className="py-16 sm:py-24 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in-up">{t('howItWorksTitle')}</h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>{t('howItWorksSubtitle')}</p>
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in" style={{animationDelay: '0.1s'}}>{t('howItWorksTitle')}</h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>{t('howItWorksSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {howItWorksSteps.map((step, index) => (
-                <div key={index} className={`animated-aurora-background rounded-xl overflow-hidden animate-fade-in-up`} style={{animationDelay: `${0.2 + index * 0.2}s`}}>
+                <div 
+                  key={index} 
+                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up"
+                  style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
+                >
                   <Card className="h-full text-center shadow-xl hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
                     <CardHeader className="items-center pb-4">
                       <div className="p-4 bg-primary/10 rounded-full mb-4 w-fit">
@@ -170,11 +148,15 @@ export default function HomePage() {
         {/* Discover the Magic Section (Benefits) */}
         <section className="py-16 sm:py-24 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in-up">{t('discoverMagicTitle')}</h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>{t('discoverMagicSubtitle')}</p>
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in" style={{animationDelay: '0.1s'}}>{t('discoverMagicTitle')}</h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>{t('discoverMagicSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {benefits.map((benefit, index) => (
-                 <div key={index} className={`animated-aurora-background rounded-xl overflow-hidden animate-fade-in-up`} style={{animationDelay: `${0.2 + index * 0.2}s`}}>
+                 <div 
+                  key={index} 
+                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up"
+                  style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
+                >
                   <Card className="h-full text-center shadow-xl hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
                     <CardHeader className="items-center pb-4">
                        <div className="p-4 bg-accent/10 rounded-full mb-4 w-fit">
@@ -197,11 +179,15 @@ export default function HomePage() {
         {/* Testimonials Section */}
         <section className="py-16 sm:py-24 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in-up">{t('testimonialsTitle')}</h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>{t('testimonialsSubtitle')}</p>
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in" style={{animationDelay: '0.1s'}}>{t('testimonialsTitle')}</h2>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>{t('testimonialsSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className={`animated-aurora-background rounded-xl overflow-hidden animate-fade-in-up`} style={{animationDelay: `${0.2 + index * 0.2}s`}}>
+                <div 
+                  key={index} 
+                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up"
+                  style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
+                >
                   <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6 min-h-[200px] flex flex-col justify-center">
                     <CardContent className="text-center">
                       <Star className="h-8 w-8 text-yellow-400 mx-auto mb-4" />
@@ -223,13 +209,13 @@ export default function HomePage() {
            <div className="absolute inset-0 -z-10 animated-aurora-background opacity-70"></div>
           <div className="container mx-auto px-4 relative z-10">
             <Sparkles className="h-16 w-16 text-accent mx-auto mb-6 animate-subtle-pulse" style={{animationDelay: '0.2s'}}/>
-            <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+            <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 animate-fade-in" style={{animationDelay: '0.4s'}}>
               {t('finalCTATitle')}
             </h2>
-            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.6s'}}>
               {t('finalCTASubtitle')}
             </p>
-            <Button size="lg" asChild className="text-lg px-10 py-7 animate-fade-in-up" style={{animationDelay: '0.8s'}}>
+            <Button size="lg" asChild className="text-lg px-10 py-7 animate-fade-in" style={{animationDelay: '0.8s'}}>
               <Link href="/signup">
                 {t('finalCTAButton')} <UserPlus className="ml-2 h-5 w-5" />
               </Link>
@@ -246,12 +232,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-// Temporarily import useAuth and useRouter if not globally available or provided by a layout
-// This is for standalone testing of the page structure.
-// In a real app, these would typically come from context providers in a layout.
-import { useEffect } from 'react'; // Already imported
-import { useRouter } from 'next/navigation'; // Already imported
-import { useAuth } from '@/contexts/AuthContext'; // Already imported
-// Make sure Loader2 is imported if the loading block is re-enabled
-// import { Loader2 } from 'lucide-react';
