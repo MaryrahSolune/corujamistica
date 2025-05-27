@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -14,10 +15,11 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const loginSchema = z.object({
-  email: z.string().email({ message: 'Invalid email address' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
+  email: z.string().email({ message: 'Endereço de e-mail inválido' }), // Translated
+  password: z.string().min(6, { message: 'A senha deve ter pelo menos 6 caracteres' }), // Translated
 });
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
@@ -26,6 +28,7 @@ export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const { t } = useLanguage();
 
   const {
     register,
@@ -39,13 +42,13 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      toast({ title: 'Login Successful', description: 'Welcome back!' });
+      toast({ title: t('loginSuccessTitle'), description: t('loginSuccessDescription') });
       router.push('/dashboard');
     } catch (error: any) {
       console.error('Login error:', error);
       toast({
-        title: 'Login Failed',
-        description: error.message || 'An unexpected error occurred.',
+        title: t('loginFailedTitle'),
+        description: error.message || t('genericErrorDescription'),
         variant: 'destructive',
       });
     } finally {
@@ -56,35 +59,36 @@ export default function LoginPage() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="text-2xl font-serif">Login</CardTitle>
-        <CardDescription>Enter your credentials to access your account.</CardDescription>
+        <CardTitle className="text-2xl font-serif">{t('loginTitle')}</CardTitle>
+        <CardDescription>{t('loginDescription')}</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" {...register('email')} placeholder="m@example.com" />
+            <Label htmlFor="email">{t('emailLabel')}</Label>
+            <Input id="email" type="email" {...register('email')} placeholder="email@exemplo.com" />
             {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t('passwordLabel')}</Label>
             <Input id="password" type="password" {...register('password')} placeholder="••••••••" />
             {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-            Login
+            {t('loginButton')}
           </Button>
         </form>
       </CardContent>
       <CardFooter className="flex flex-col items-center space-y-2">
         <p className="text-sm text-muted-foreground">
-          Don&apos;t have an account?{' '}
+          {t('dontHaveAccount')}{' '}
           <Button variant="link" asChild className="p-0 h-auto">
-            <Link href="/signup">Sign up</Link>
+            <Link href="/signup">{t('signUpLink')}</Link>
           </Button>
         </p>
       </CardFooter>
     </Card>
   );
 }
+

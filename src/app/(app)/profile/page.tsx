@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -8,28 +9,22 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
-import { updateProfile, updateEmail, type User } from 'firebase/auth'; // reauthenticateWithCredential for email change
-import { auth } from '@/lib/firebase';
+import { updateProfile } from 'firebase/auth';
 import { Loader2, Edit3, UserCircle2 } from 'lucide-react';
-
-// Zod schema for profile update (optional, for more complex validation)
-// import { z } from 'zod';
-// import { zodResolver } from '@hookform/resolvers/zod';
-// import { useForm } from 'react-hook-form';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function ProfilePage() {
   const { currentUser, loading: authLoading } = useAuth();
   const { toast } = useToast();
+  const { t } = useLanguage();
   
   const [displayName, setDisplayName] = useState('');
-  // const [email, setEmail] = useState(''); // Email change is more complex, requires re-authentication
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
       setDisplayName(currentUser.displayName || '');
-      // setEmail(currentUser.email || '');
     }
   }, [currentUser]);
 
@@ -42,16 +37,14 @@ export default function ProfilePage() {
       if (displayName !== currentUser.displayName) {
         await updateProfile(currentUser, { displayName });
       }
-      // Email update requires re-authentication and is more involved.
-      // Example: await updateEmail(currentUser, email);
       
-      toast({ title: 'Profile Updated', description: 'Your profile information has been saved.' });
+      toast({ title: t('profileUpdatedTitle'), description: t('profileUpdatedDescription') });
       setIsEditing(false);
     } catch (error: any) {
       console.error('Profile update error:', error);
       toast({
-        title: 'Update Failed',
-        description: error.message || 'Could not update profile.',
+        title: t('updateFailedTitle'),
+        description: error.message || t('updateFailedDescription'),
         variant: 'destructive',
       });
     } finally {
@@ -62,7 +55,7 @@ export default function ProfilePage() {
   const getInitials = (name?: string | null, mail?: string | null) => {
     if (name) return name.substring(0, 2).toUpperCase();
     if (mail) return mail.substring(0, 2).toUpperCase();
-    return 'MI';
+    return 'MI'; // Mystic Insights initials
   };
 
   if (authLoading) {
@@ -76,7 +69,7 @@ export default function ProfilePage() {
   if (!currentUser) {
     return (
       <div className="container mx-auto p-8 text-center">
-        <p>Please log in to view your profile.</p>
+        <p>{t('pleaseLoginToViewProfile')}</p>
       </div>
     );
   }
@@ -87,7 +80,7 @@ export default function ProfilePage() {
         <CardHeader className="text-center">
           <div className="mx-auto mb-4">
             <Avatar className="h-24 w-24 border-2 border-primary shadow-md">
-              <AvatarImage src={currentUser.photoURL || undefined} alt={currentUser.displayName || 'User'} />
+              <AvatarImage src={currentUser.photoURL || undefined} alt={currentUser.displayName || 'Usuário'} />
               <AvatarFallback className="text-3xl bg-accent text-accent-foreground">
                 {getInitials(currentUser.displayName, currentUser.email)}
               </AvatarFallback>
@@ -95,14 +88,14 @@ export default function ProfilePage() {
           </div>
           <CardTitle className="text-3xl font-serif flex items-center justify-center">
              <UserCircle2 className="h-8 w-8 mr-3 text-primary" />
-            Your Profile
+            {t('yourProfileTitle')}
           </CardTitle>
-          <CardDescription>Manage your account details and preferences.</CardDescription>
+          <CardDescription>{t('yourProfileDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleProfileUpdate} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="displayName">Display Name</Label>
+              <Label htmlFor="displayName">{t('displayNameLabel')}</Label>
               <Input
                 id="displayName"
                 type="text"
@@ -112,33 +105,33 @@ export default function ProfilePage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email Address</Label>
+              <Label htmlFor="email">{t('emailAddressLabel')}</Label>
               <Input
                 id="email"
                 type="email"
                 value={currentUser.email || ''}
-                disabled // Email change is complex, disable for now
+                disabled 
                 readOnly
               />
-              <p className="text-xs text-muted-foreground">Email address cannot be changed here currently.</p>
+              <p className="text-xs text-muted-foreground">{t('emailChangeNotice')}</p>
             </div>
             
             {isEditing ? (
               <div className="flex gap-4">
                 <Button type="submit" className="flex-1" disabled={isLoading}>
                   {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Save Changes
+                  {t('saveChangesButton')}
                 </Button>
                 <Button variant="outline" onClick={() => {
                   setIsEditing(false);
-                  setDisplayName(currentUser.displayName || ''); // Reset changes
+                  setDisplayName(currentUser.displayName || ''); 
                 }} className="flex-1" disabled={isLoading}>
-                  Cancel
+                  {t('cancelButton')}
                 </Button>
               </div>
             ) : (
               <Button onClick={() => setIsEditing(true)} className="w-full" variant="outline">
-                <Edit3 className="mr-2 h-4 w-4" /> Edit Profile
+                <Edit3 className="mr-2 h-4 w-4" /> {t('editProfileButton')}
               </Button>
             )}
           </form>
@@ -147,3 +140,4 @@ export default function ProfilePage() {
     </div>
   );
 }
+

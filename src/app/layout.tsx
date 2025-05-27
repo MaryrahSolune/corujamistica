@@ -1,9 +1,10 @@
+
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { LanguageProvider } from '@/contexts/LanguageContext'; // Added LanguageProvider
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Mystic Insights',
-  description: 'AI-powered Tarot and Cigano card readings.',
+  title: 'Mystic Insights', // Brand name, kept as is for main title, can be localized further if needed
+  description: 'Interpretações de Tarot e Baralho Cigano com IA.', // Translated
 };
 
 export default function RootLayout({
@@ -26,10 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR"> {/* Default lang to pt-BR */}
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
-          <LanguageProvider> {/* Added LanguageProvider wrapper */}
+          <LanguageProvider>
             {children}
             <Toaster />
           </LanguageProvider>
@@ -38,3 +39,4 @@ export default function RootLayout({
     </html>
   );
 }
+

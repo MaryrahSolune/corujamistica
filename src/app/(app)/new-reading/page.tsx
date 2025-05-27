@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, type ChangeEvent, type FormEvent } from 'react';
@@ -10,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { generateReadingInterpretation, type GenerateReadingInterpretationInput } from '@/ai/flows/generate-reading-interpretation';
 import Image from 'next/image';
 import { Loader2, UploadCloud, Wand2, VenetianMask } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function NewReadingPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -19,14 +21,15 @@ export default function NewReadingPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       if (file.size > 4 * 1024 * 1024) { // 4MB limit
         toast({
-          title: "Image too large",
-          description: "Please upload an image smaller than 4MB.",
+          title: t('imageTooLargeTitle'),
+          description: t('imageTooLargeDescription'),
           variant: "destructive",
         });
         return;
@@ -37,7 +40,7 @@ export default function NewReadingPage() {
         setImageDataUri(reader.result as string);
       };
       reader.readAsDataURL(file);
-      setInterpretation(null); // Clear previous interpretation
+      setInterpretation(null); 
       setError(null);
     }
   };
@@ -45,11 +48,11 @@ export default function NewReadingPage() {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (!imageDataUri) {
-      toast({ title: 'No Image', description: 'Please upload an image of your card spread.', variant: 'destructive' });
+      toast({ title: t('noImageErrorTitle'), description: t('noImageErrorDescription'), variant: 'destructive' });
       return;
     }
     if (!query.trim()) {
-      toast({ title: 'No Query', description: 'Please enter your question or context for the reading.', variant: 'destructive' });
+      toast({ title: t('noQueryErrorTitle'), description: t('noQueryErrorDescription'), variant: 'destructive' });
       return;
     }
 
@@ -64,11 +67,12 @@ export default function NewReadingPage() {
       };
       const result = await generateReadingInterpretation(input);
       setInterpretation(result.interpretation);
-      toast({ title: 'Interpretation Ready!', description: 'Your reading has been generated.' });
+      toast({ title: t('interpretationReadyTitle'), description: t('interpretationReadyDescription') });
     } catch (err: any) {
       console.error('Error generating interpretation:', err);
-      setError(err.message || 'Failed to generate interpretation. Please try again.');
-      toast({ title: 'Error', description: err.message || 'Failed to generate interpretation.', variant: 'destructive' });
+      const errorMessage = err.message || t('errorGeneratingInterpretationDescription');
+      setError(errorMessage);
+      toast({ title: t('errorGenericTitle'), description: errorMessage, variant: 'destructive' });
     } finally {
       setIsLoading(false);
     }
@@ -80,16 +84,16 @@ export default function NewReadingPage() {
         <CardHeader>
           <CardTitle className="text-3xl font-serif flex items-center">
             <Wand2 className="h-8 w-8 mr-3 text-primary" />
-            New Card Reading
+            {t('newCardReadingTitle')}
           </CardTitle>
           <CardDescription>
-            Upload an image of your Tarot or Cigano card spread and enter your query to receive an AI-powered interpretation.
+            {t('newCardReadingDescription')}
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="card-image" className="text-lg">Upload Card Spread Image</Label>
+              <Label htmlFor="card-image" className="text-lg">{t('uploadCardSpreadImageLabel')}</Label>
               <Input
                 id="card-image"
                 type="file"
@@ -102,7 +106,7 @@ export default function NewReadingPage() {
                 <div className="mt-4 border rounded-lg p-2 bg-muted/50 flex justify-center">
                   <Image
                     src={imagePreview}
-                    alt="Card spread preview"
+                    alt="Prévia da tiragem de cartas" // Translated
                     width={400}
                     height={300}
                     className="rounded-md object-contain max-h-[300px]"
@@ -112,12 +116,12 @@ export default function NewReadingPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="query" className="text-lg">Your Question or Context</Label>
+              <Label htmlFor="query" className="text-lg">{t('yourQuestionLabel')}</Label>
               <Textarea
                 id="query"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="E.g., 'What should I focus on in my career right now?' or 'General reading for the upcoming month.'"
+                placeholder={t('questionPlaceholder')}
                 rows={4}
                 className="resize-none"
                 disabled={isLoading}
@@ -129,12 +133,12 @@ export default function NewReadingPage() {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Generating Interpretation...
+                  {t('generatingInterpretationButton')}
                 </>
               ) : (
                 <>
                   <UploadCloud className="mr-2 h-5 w-5" />
-                  Get Your Reading
+                  {t('getYourReadingButton')}
                 </>
               )}
             </Button>
@@ -145,7 +149,7 @@ export default function NewReadingPage() {
       {error && (
         <Card className="max-w-2xl mx-auto mt-8 border-destructive bg-destructive/10 shadow-lg">
           <CardHeader>
-            <CardTitle className="text-destructive font-serif">An Error Occurred</CardTitle>
+            <CardTitle className="text-destructive font-serif">{t('errorOccurredCardTitle')}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-destructive-foreground">{error}</p>
@@ -158,7 +162,7 @@ export default function NewReadingPage() {
           <CardHeader>
             <CardTitle className="text-2xl font-serif flex items-center">
               <VenetianMask className="h-7 w-7 mr-3 text-accent" />
-              Your Mystical Interpretation
+              {t('yourMysticalInterpretationTitle')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -171,3 +175,4 @@ export default function NewReadingPage() {
     </div>
   );
 }
+
