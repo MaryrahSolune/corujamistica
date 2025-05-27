@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Mystic Insights', // Brand name, kept as is for main title, can be localized further if needed
+  title: 'A Tarologa - Mystic Insights', // Brand name, kept as is for main title, can be localized further if needed
   description: 'Interpretações de Tarot e Baralho Cigano com IA.', // Translated
 };
 
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR"> {/* Default lang to pt-BR */}
+    <html lang="pt-BR">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
           <LanguageProvider>
@@ -39,4 +39,3 @@ export default function RootLayout({
     </html>
   );
 }
-
