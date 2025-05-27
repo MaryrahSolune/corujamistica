@@ -1,7 +1,8 @@
+
 'use client';
 
-import type { ReactNode } from 'react'; // Removido Dispatch e SetStateAction
-import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
+import type { ReactNode } from 'react';
+import React, { createContext, useContext, useState, useMemo, useEffect, useCallback } from 'react';
 
 export type Locale = 'en' | 'pt-BR';
 
@@ -36,38 +37,36 @@ export type TranslationKey = keyof typeof translations.en;
 
 interface LanguageContextType {
   locale: Locale;
-  setLocale: (newLocale: Locale) => void; // Simplificado para aceitar apenas Locale
+  setLocale: (newLocale: Locale) => void;
   t: (key: TranslationKey) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Estado interno
+  const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Default para SSR, será sobrescrito no cliente
 
   useEffect(() => {
+    // Este código roda apenas no cliente após a montagem.
     const storedLocale = localStorage.getItem('app-locale') as Locale | null;
-    let initialLocale: Locale = 'pt-BR'; // Default
+    let effectiveLocale: Locale = 'pt-BR'; // Default
 
     if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
-      initialLocale = storedLocale;
+      effectiveLocale = storedLocale;
     }
     
-    setLocaleState(initialLocale);
-    document.documentElement.lang = initialLocale;
-    
-    // Se não havia nada ou era inválido, e quisermos persistir o default no localStorage:
-    if (!storedLocale || (storedLocale !== 'en' && storedLocale !== 'pt-BR')) {
-       localStorage.setItem('app-locale', initialLocale);
-    }
+    // Define o estado, o lang do documento e (re)salva no localStorage para consistência.
+    setLocaleState(effectiveLocale);
+    document.documentElement.lang = effectiveLocale;
+    localStorage.setItem('app-locale', effectiveLocale); // Garante que o valor efetivo está salvo
 
-  }, []); // Roda apenas no mount, no lado do cliente
+  }, []); // Roda apenas uma vez no mount, no lado do cliente
 
-  const updateLocale = (newLocale: Locale) => {
+  const updateLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
     localStorage.setItem('app-locale', newLocale);
     document.documentElement.lang = newLocale;
-  };
+  }, []); // setLocaleState é estável, não precisa ser listado como dependência explícita se não usado no corpo
   
   const t = useMemo(() => (key: TranslationKey): string => {
     return translations[locale]?.[key] || translations.en[key] || key;
