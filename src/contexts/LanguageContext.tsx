@@ -45,8 +45,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [locale, setLocaleState] = useState<Locale>(() => {
-    // Esta função é executada apenas na montagem inicial do lado do cliente
-    // ou no servidor (onde window é undefined).
+    // Executado apenas na montagem inicial do lado do cliente ou no SSR.
     if (typeof window !== "undefined") {
       const storedLocale = localStorage.getItem('app-locale') as Locale | null;
       if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
@@ -56,21 +55,24 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return 'pt-BR'; // Padrão se nada for encontrado ou no SSR
   });
 
-  // Este useEffect sincroniza o localStorage e o atributo lang do HTML
-  // sempre que o estado 'locale' mudar.
-  // Ele também define o idioma inicial no HTML na primeira renderização do cliente.
+  // Efeito para definir o lang do HTML na montagem inicial do cliente
   useEffect(() => {
     if (typeof window !== "undefined") {
-      localStorage.setItem('app-locale', locale);
       document.documentElement.lang = locale;
     }
-  }, [locale]);
+  }, []); // Executa apenas uma vez no cliente após a montagem inicial
 
   const updateLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
+    if (typeof window !== "undefined") {
+      localStorage.setItem('app-locale', newLocale);
+      document.documentElement.lang = newLocale;
+    }
   };
   
   const t = (key: TranslationKey): string => {
+    // Se a tradução para o locale atual não existir, usa inglês como fallback,
+    // e se não existir em inglês, usa a própria chave.
     return translations[locale]?.[key] || translations.en[key] || key;
   };
 
