@@ -107,6 +107,14 @@ export default {
           '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
           '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
         },
+        'subtle-glow': {
+          '0%, 100%': { opacity: '0.5', filter: 'drop-shadow(0 0 5px currentColor) drop-shadow(0 0 2px currentColor)' },
+          '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 12px currentColor) drop-shadow(0 0 5px currentColor)' },
+        },
+        'subtle-bob': {
+         '0%, 100%': { transform: 'translateY(0)' },
+         '50%': { transform: 'translateY(-8px)' },
+        },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
@@ -117,6 +125,8 @@ export default {
         'subtle-pulse': 'subtle-pulse 2s ease-in-out infinite',
         'pulse_slow': 'pulse_slow 6s infinite ease-in-out',
         'spin-gradient': 'spin-gradient 8s linear infinite',
+        'subtle-glow': 'subtle-glow 3.5s ease-in-out infinite',
+        'subtle-bob': 'subtle-bob 4.5s ease-in-out infinite',
   		}
   	}
   },
