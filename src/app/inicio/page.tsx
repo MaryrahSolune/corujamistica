@@ -128,10 +128,10 @@ export default function InicioPage() {
               {howItWorksSteps.map((step, index) => (
                 <div 
                   key={index} 
-                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up"
+                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30"
                   style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
                 >
-                  <Card className="h-full text-center shadow-xl hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
+                  <Card className="h-full text-center shadow-xl relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
                     <CardHeader className="items-center pb-4">
                       <div className="p-4 bg-primary/10 rounded-full mb-4 w-fit">
                         {step.icon}
@@ -159,10 +159,10 @@ export default function InicioPage() {
               {benefits.map((benefit, index) => (
                  <div 
                   key={index} 
-                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up"
+                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-accent/30"
                   style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
                 >
-                  <Card className="h-full text-center shadow-xl hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
+                  <Card className="h-full text-center shadow-xl relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
                     <CardHeader className="items-center pb-4">
                        <div className="p-4 bg-accent/10 rounded-full mb-4 w-fit">
                         {benefit.icon}
@@ -200,12 +200,12 @@ export default function InicioPage() {
               {testimonials.map((testimonial, index) => (
                 <div 
                   key={index} 
-                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up"
+                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-accent/30"
                   style={{animationDuration: '0.5s', animationDelay: `${0.4 + index * 0.2}s`}}
                 >
-                  <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6 min-h-[200px] flex flex-col justify-center">
+                  <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6 min-h-[200px] flex flex-col justify-center group">
                     <CardContent className="text-center">
-                       <Avatar className="w-20 h-20 mx-auto mb-4 border-2 border-primary shadow-lg">
+                       <Avatar className="w-20 h-20 mx-auto mb-4 border-2 border-primary shadow-lg transition-transform duration-300 group-hover:scale-110">
                         <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="person portrait" alt={t(testimonial.nameKey as any)} />
                         <AvatarFallback className="bg-primary/20 text-primary font-semibold">
                           {t(testimonial.nameKey as any).split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase()}
@@ -253,4 +253,3 @@ export default function InicioPage() {
     </div>
   );
 }
-
