@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,28 +11,33 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext'; // Import useLanguage
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles } from 'lucide-react'; // Added Sparkles
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, Check } from 'lucide-react'; // Added Globe, Check
 
-const navLinks = [
-  { href: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
-  { href: '/new-reading', label: 'New Reading', icon: <ScanLine className="mr-2 h-4 w-4" /> },
-  { href: '/credits', label: 'Credits', icon: <CreditCard className="mr-2 h-4 w-4" /> },
+// Nav links now use translation keys
+const navLinks: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
+  { href: '/dashboard', labelKey: 'dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
+  { href: '/new-reading', labelKey: 'newReading', icon: <ScanLine className="mr-2 h-4 w-4" /> },
+  { href: '/credits', labelKey: 'credits', icon: <CreditCard className="mr-2 h-4 w-4" /> },
 ];
 
-// Simple theme toggle (conceptual, full implementation requires theme context)
 const ThemeToggle = () => {
+  const { t } = useLanguage();
   const [isDark, setIsDark] = React.useState(false);
+  
   React.useEffect(() => {
-    // Check for saved theme or system preference
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
-      setIsDark(savedTheme === 'dark');
-      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+      const newIsDark = savedTheme === 'dark';
+      setIsDark(newIsDark);
+      document.documentElement.classList.toggle('dark', newIsDark);
     } else {
       setIsDark(prefersDark);
       document.documentElement.classList.toggle('dark', prefersDark);
@@ -39,22 +45,50 @@ const ThemeToggle = () => {
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = !isDark ? 'dark' : 'light';
-    setIsDark(!isDark);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark', !isDark);
+    setIsDark(prevIsDark => {
+      const newIsDark = !prevIsDark;
+      localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', newIsDark);
+      return newIsDark;
+    });
   };
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
+    <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label={t('toggleTheme')}>
       {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
     </Button>
+  );
+};
+
+const LanguageSwitcher = () => {
+  const { locale, setLocale, t } = useLanguage();
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon" aria-label={t('language')}>
+          <Globe className="h-5 w-5" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>{t('language')}</DropdownMenuLabel>
+        <DropdownMenuRadioGroup value={locale} onValueChange={(value) => setLocale(value as Locale)}>
+          <DropdownMenuRadioItem value="pt-BR">
+            {t('portuguese')}
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="en">
+            {t('english')}
+          </DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
 
 export default function AppHeader() {
   const { currentUser, logout } = useAuth();
+  const { t } = useLanguage(); // Get translation function
   const pathname = usePathname();
 
   const getInitials = (email?: string | null) => {
@@ -67,7 +101,7 @@ export default function AppHeader() {
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
           <Sparkles className="h-6 w-6 text-primary" />
-          <span className="font-bold font-serif text-xl sm:inline-block">Mystic Insights</span>
+          <span className="font-bold font-serif text-xl sm:inline-block">{t('mysticInsights')}</span>
         </Link>
         <nav className="flex items-center gap-4 text-sm lg:gap-6 flex-grow">
           {navLinks.map((link) => (
@@ -79,13 +113,14 @@ export default function AppHeader() {
                 pathname === link.href ? 'text-foreground font-semibold' : 'text-foreground/60'
               )}
             >
-              <span className="hidden sm:inline">{link.label}</span>
-              <span className="sm:hidden">{link.icon}</span>
+              <span className="hidden sm:inline">{t(link.labelKey)}</span>
+              <span className="sm:hidden" title={t(link.labelKey)}>{React.cloneElement(link.icon as React.ReactElement, { className: 'h-5 w-5' })}</span>
             </Link>
           ))}
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />
+          <LanguageSwitcher />
           {currentUser && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -111,12 +146,12 @@ export default function AppHeader() {
                 <DropdownMenuItem asChild>
                   <Link href="/profile">
                     <UserCircle2 className="mr-2 h-4 w-4" />
-                    Profile
+                    {t('profile')}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={logout}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  Log out
+                  {t('logout')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
