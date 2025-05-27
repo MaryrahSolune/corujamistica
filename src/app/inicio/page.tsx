@@ -69,9 +69,9 @@ export default function InicioPage() {
   ];
 
   const gifPlaceholders = [
-    { src: "https://placehold.co/400x300.gif?text=GIF+M%C3%ADstico+1", hint: "mystical animation space" },
-    { src: "https://placehold.co/400x300.gif?text=GIF+M%C3%ADstico+2", hint: "spiritual symbol sequence" },
-    { src: "https://placehold.co/400x300.gif?text=GIF+M%C3%ADstico+3", hint: "energy flow visualization" },
+    { src: "/gifs/mystic_aura.gif", hint: "mystical animation space" },
+    { src: "/gifs/sacred_symbols_animated.gif", hint: "spiritual symbol sequence" },
+    { src: "/gifs/cosmic_energy.gif", hint: "energy flow visualization" },
   ];
 
 
@@ -102,23 +102,23 @@ export default function InicioPage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden bg-background"> {/* Removed bg-shiva-hero-bg */}
+        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden bg-shiva-hero-bg">
            {/* Animated Aurora Overlay */}
-           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-60"></div>
+           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-70"></div>
           
            {/* Mystic Icons */}
            <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} />
            <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/>
           
           <div className="container mx-auto px-4 relative z-10">
-             <div className="relative inline-block mb-6">
+            <div className="relative inline-block mb-6">
               <div className="absolute inset-0 -z-10 flex items-center justify-center">
                 <Image 
                   src="/img/shiva.jpg" 
                   alt="Shiva Background" 
                   width={120} 
                   height={120} 
-                  className="rounded-full object-cover opacity-30 blur-sm" 
+                  className="rounded-full object-cover opacity-30 blur-sm animate-subtle-bob" 
                 />
               </div>
               <Sparkles className="h-20 w-20 text-primary mx-auto animate-subtle-pulse relative z-10" />
