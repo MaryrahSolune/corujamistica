@@ -4,73 +4,73 @@
 
 @layer base {
   :root {
-    --background: 276 35% 92%; /* #F0E6EF soft lavender */
-    --foreground: 269 37% 20%; /* Darker purple for text */
+    --background: 210 40% 98%; /* Cosmic Indigo & Starlight Teal: Very light cool gray */
+    --foreground: 220 25% 25%; /* Cosmic Indigo & Starlight Teal: Dark desaturated indigo */
     --card: 0 0% 100%; /* white */
-    --card-foreground: 269 37% 20%; /* Darker purple for text on cards */
+    --card-foreground: 220 25% 25%; /* Cosmic Indigo & Starlight Teal: Dark desaturated indigo */
     --popover: 0 0% 100%;
-    --popover-foreground: 269 37% 20%;
-    --primary: 269 37% 44%; /* #6A459B deep purple */
-    --primary-foreground: 0 0% 98%; /* white/light gray */
-    --secondary: 276 35% 85%; /* Lighter lavender */
-    --secondary-foreground: 269 37% 35%; /* Mid purple for muted text */
-    --muted: 276 35% 85%; /* Lighter lavender for muted backgrounds */
-    --muted-foreground: 269 37% 35%; /* Mid purple for muted text */
-    --accent: 45 65% 52%; /* #D4AF37 gold */
-    --accent-foreground: 269 37% 15%; /* Very dark purple or black for text on gold */
+    --popover-foreground: 220 25% 25%;
+    --primary: 230 50% 55%; /* Cosmic Indigo & Starlight Teal: Deep Indigo */
+    --primary-foreground: 210 40% 98%; /* Cosmic Indigo & Starlight Teal: Light gray / Off-white */
+    --secondary: 210 20% 80%; /* Cosmic Indigo & Starlight Teal: Medium cool gray */
+    --secondary-foreground: 230 40% 40%; /* Cosmic Indigo & Starlight Teal: Darker Indigo */
+    --muted: 210 30% 90%; /* Cosmic Indigo & Starlight Teal: Light cool gray */
+    --muted-foreground: 220 15% 50%; /* Cosmic Indigo & Starlight Teal: Medium gray */
+    --accent: 170 70% 45%; /* Cosmic Indigo & Starlight Teal: Vibrant Teal */
+    --accent-foreground: 220 30% 20%; /* Cosmic Indigo & Starlight Teal: Dark slate */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 276 35% 80%; /* Slightly darker lavender for borders */
-    --input: 276 35% 88%; /* Lavender for inputs */
-    --ring: 269 37% 44%; /* Primary color for rings */
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --border: 210 20% 85%; /* Cosmic Indigo & Starlight Teal: Medium light gray */
+    --input: 210 30% 94%; /* Cosmic Indigo & Starlight Teal: Very light gray */
+    --ring: 230 50% 55%; /* Cosmic Indigo & Starlight Teal: Primary color for rings */
+    --chart-1: 170 70% 45%; /* Vibrant Teal */
+    --chart-2: 230 50% 55%; /* Deep Indigo */
+    --chart-3: 170 50% 65%; /* Lighter Teal */
+    --chart-4: 230 40% 70%; /* Lighter Indigo */
+    --chart-5: 210 20% 50%; /* Medium Cool Gray */
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 220 30% 95%; /* Very light cool indigo/gray */
+    --sidebar-foreground: 220 25% 30%; /* Dark desaturated indigo */
+    --sidebar-primary: 230 50% 55%; /* Deep Indigo */
+    --sidebar-primary-foreground: 210 40% 98%; /* Light gray / Off-white */
+    --sidebar-accent: 220 30% 90%; /* Slightly darker than bg, for hover */
+    --sidebar-accent-foreground: 230 50% 55%; /* Deep Indigo */
+    --sidebar-border: 210 20% 85%; /* Medium light gray */
+    --sidebar-ring: 170 70% 45%; /* Vibrant Teal for focus ring */
   }
   .dark {
-    --background: 269 20% 10%; /* Dark purple */
-    --foreground: 276 35% 92%; /* Soft lavender for text */
-    --card: 269 20% 15%; /* Slightly lighter dark purple for cards */
-    --card-foreground: 276 35% 92%;
-    --popover: 269 20% 10%;
-    --popover-foreground: 276 35% 92%;
-    --primary: 45 65% 52%; /* Gold as primary in dark mode for contrast */
-    --primary-foreground: 269 37% 15%; /* Dark purple for text on gold */
-    --secondary: 269 20% 25%; /* Lighter dark purple */
-    --secondary-foreground: 276 35% 92%;
-    --muted: 269 20% 25%;
-    --muted-foreground: 276 35% 70%; /* Lighter lavender for muted text */
-    --accent: 269 37% 44%; /* Deep purple as accent in dark mode */
-    --accent-foreground: 0 0% 98%;
+    --background: 220 20% 12%; /* Cosmic Indigo & Starlight Teal: Very dark desaturated indigo */
+    --foreground: 210 30% 85%; /* Cosmic Indigo & Starlight Teal: Light cool gray */
+    --card: 220 20% 18%; /* Cosmic Indigo & Starlight Teal: Dark indigo */
+    --card-foreground: 210 30% 85%;
+    --popover: 220 20% 12%;
+    --popover-foreground: 210 30% 85%;
+    --primary: 170 70% 50%; /* Cosmic Indigo & Starlight Teal: Vibrant Teal */
+    --primary-foreground: 220 25% 15%; /* Cosmic Indigo & Starlight Teal: Dark Indigo */
+    --secondary: 220 15% 30%; /* Cosmic Indigo & Starlight Teal: Dark gray-blue */
+    --secondary-foreground: 210 30% 80%;
+    --muted: 220 15% 25%;
+    --muted-foreground: 210 20% 65%; /* Cosmic Indigo & Starlight Teal: Medium cool gray */
+    --accent: 230 60% 65%; /* Cosmic Indigo & Starlight Teal: Bright Indigo */
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 269 20% 20%;
-    --input: 269 20% 20%;
-    --ring: 45 65% 52%; /* Gold for rings */
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 220 20% 22%; /* Cosmic Indigo & Starlight Teal: Dark gray-blue */
+    --input: 220 20% 22%;
+    --ring: 170 70% 50%; /* Cosmic Indigo & Starlight Teal: Teal for rings */
+    --chart-1: 170 70% 50%; /* Primary Teal - Dark */
+    --chart-2: 230 60% 65%; /* Bright Indigo - Accent Dark */
+    --chart-3: 170 60% 35%; /* Darker Teal */
+    --chart-4: 230 50% 45%; /* Darker Bright Indigo */
+    --chart-5: 210 20% 70%; /* Light Cool Gray */
+    --sidebar-background: 220 20% 15%; /* Dark indigo */
+    --sidebar-foreground: 210 30% 80%; /* Light cool gray */
+    --sidebar-primary: 170 70% 50%; /* Vibrant Teal */
+    --sidebar-primary-foreground: 220 25% 15%; /* Dark Indigo */
+    --sidebar-accent: 220 20% 20%; /* Slightly lighter than bg, for hover */
+    --sidebar-accent-foreground: 170 70% 50%; /* Vibrant Teal */
+    --sidebar-border: 220 20% 25%; /* Dark gray-blue */
+    --sidebar-ring: 230 60% 65%; /* Bright Indigo */
   }
 }
 
