@@ -1,15 +1,9 @@
 'use client';
 
-import type { Dispatch, ReactNode, SetStateAction } from 'react';
+import type { ReactNode } from 'react'; // Removido Dispatch e SetStateAction
 import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
 
 export type Locale = 'en' | 'pt-BR';
-
-interface LanguageContextType {
-  locale: Locale;
-  setLocale: Dispatch<SetStateAction<Locale>>;
-  t: (key: TranslationKey) => string;
-}
 
 const translations = {
   en: {
@@ -40,23 +34,37 @@ const translations = {
 
 export type TranslationKey = keyof typeof translations.en;
 
+interface LanguageContextType {
+  locale: Locale;
+  setLocale: (newLocale: Locale) => void; // Simplificado para aceitar apenas Locale
+  t: (key: TranslationKey) => string;
+}
+
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocale] = useState<Locale>('pt-BR'); // Default to Portuguese
+  const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Estado interno
 
   useEffect(() => {
     const storedLocale = localStorage.getItem('app-locale') as Locale | null;
-    if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
-      setLocale(storedLocale);
-      document.documentElement.lang = storedLocale;
-    } else {
-      document.documentElement.lang = 'pt-BR'; // Set initial lang if not stored
-    }
-  }, []);
+    let initialLocale: Locale = 'pt-BR'; // Default
 
-  const handleSetLocale = (newLocale: Locale) => {
-    setLocale(newLocale);
+    if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
+      initialLocale = storedLocale;
+    }
+    
+    setLocaleState(initialLocale);
+    document.documentElement.lang = initialLocale;
+    
+    // Se não havia nada ou era inválido, e quisermos persistir o default no localStorage:
+    if (!storedLocale || (storedLocale !== 'en' && storedLocale !== 'pt-BR')) {
+       localStorage.setItem('app-locale', initialLocale);
+    }
+
+  }, []); // Roda apenas no mount, no lado do cliente
+
+  const updateLocale = (newLocale: Locale) => {
+    setLocaleState(newLocale);
     localStorage.setItem('app-locale', newLocale);
     document.documentElement.lang = newLocale;
   };
@@ -66,7 +74,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   }, [locale]);
 
   return (
-    <LanguageContext.Provider value={{ locale, setLocale: handleSetLocale as Dispatch<SetStateAction<Locale>>, t }}>
+    <LanguageContext.Provider value={{ locale, setLocale: updateLocale, t }}>
       {children}
     </LanguageContext.Provider>
   );
