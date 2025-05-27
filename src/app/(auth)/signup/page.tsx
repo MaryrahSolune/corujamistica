@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { createUserWithEmailAndPassword, updateProfile, type FirebaseError } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, AuthError } from 'firebase/auth'; // Changed FirebaseError to AuthError
 import { auth } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,9 +18,9 @@ import { Loader2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const signupSchema = z.object({
-  displayName: z.string().min(2, { message: 'O nome deve ter pelo menos 2 caracteres' }).max(50), // Translated
-  email: z.string().email({ message: 'Endereço de e-mail inválido' }), // Translated
-  password: z.string().min(6, { message: 'A senha deve ter pelo menos 6 caracteres' }), // Translated
+  displayName: z.string().min(2, { message: 'O nome deve ter pelo menos 2 caracteres' }).max(50),
+  email: z.string().email({ message: 'Endereço de e-mail inválido' }),
+  password: z.string().min(6, { message: 'A senha deve ter pelo menos 6 caracteres' }),
 });
 
 type SignupFormInputs = z.infer<typeof signupSchema>;
@@ -47,15 +47,29 @@ export default function SignupPage() {
       
       toast({ title: t('signupSuccessTitle'), description: t('signupSuccessDescription') });
       router.push('/dashboard');
-    } catch (error: any) {
-      console.error('Signup error:', error);
-      let description = error.message || t('genericErrorDescription');
-      if (error.code === 'auth/email-already-in-use') {
-        description = t('emailAlreadyInUseErrorDescription');
+    } catch (error) {
+      console.error('Signup error:', error); // Logs the original Firebase error for debugging. This is expected.
+
+      let toastDescription = t('genericErrorDescription'); // Default user-facing message.
+
+      if (error instanceof AuthError) {
+        if (error.code === 'auth/email-already-in-use') {
+          toastDescription = t('emailAlreadyInUseErrorDescription');
+        }
+        // You could add more 'else if' cases here for other AuthError codes if needed.
+        // else {
+        //   // For other specific AuthErrors, you might want to use error.message or a different translated key.
+        //   // toastDescription = error.message || t('genericErrorDescription');
+        // }
+      } else if (error instanceof Error) {
+        // For other generic JavaScript errors, you might use error.message,
+        // but often the generic app message is better for the user.
+        // toastDescription = error.message || t('genericErrorDescription');
       }
+
       toast({
         title: t('signupFailedTitle'),
-        description: description,
+        description: toastDescription,
         variant: 'destructive',
       });
     } finally {
@@ -103,4 +117,3 @@ export default function SignupPage() {
     </Card>
   );
 }
-
