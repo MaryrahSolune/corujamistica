@@ -109,6 +109,7 @@ const translations = {
     errorGeneratingInterpretationDescription: "Failed to generate interpretation. Please try again.",
     errorOccurredCardTitle: "An Error Occurred",
     yourMysticalInterpretationTitle: "Your Mystical Interpretation",
+    cardSpreadPreviewAlt: "Card spread preview", // Added
     // Profile Page
     yourProfileTitle: "Your Profile",
     yourProfileDescription: "Manage your account details and preferences.",
@@ -124,7 +125,6 @@ const translations = {
     updateFailedDescription: "Could not update profile.",
     // AuthGuard
     pleaseLoginToViewProfile: "Please log in to view your profile.",
-
   },
   'pt-BR': {
     // Header & General
@@ -227,6 +227,7 @@ const translations = {
     errorGeneratingInterpretationDescription: "Falha ao gerar interpretação. Por favor, tente novamente.",
     errorOccurredCardTitle: "Ocorreu um Erro",
     yourMysticalInterpretationTitle: "Sua Interpretação Mística",
+    cardSpreadPreviewAlt: "Prévia da tiragem de cartas", // Added
     // Profile Page
     yourProfileTitle: "Seu Perfil",
     yourProfileDescription: "Gerencie os detalhes e preferências da sua conta.",
@@ -257,22 +258,20 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocaleState] = useState<Locale>(() => {
-    if (typeof window !== 'undefined') {
-      const storedLocale = localStorage.getItem('app-locale') as Locale | null;
-      if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
-        return storedLocale;
-      }
-    }
-    return 'pt-BR';
-  });
+  const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Default to pt-BR
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      document.documentElement.lang = locale;
+    // Runs only on client
+    const storedLocale = localStorage.getItem('app-locale') as Locale | null;
+    if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
+      setLocaleState(storedLocale);
+      document.documentElement.lang = storedLocale;
+    } else {
+      document.documentElement.lang = 'pt-BR'; // Ensure default is set if nothing in storage
+      localStorage.setItem('app-locale', 'pt-BR');
     }
-  }, [locale]);
-  
+  }, []);
+
   const updateLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
     if (typeof window !== 'undefined') {

@@ -106,7 +106,7 @@ export default function NewReadingPage() {
                 <div className="mt-4 border rounded-lg p-2 bg-muted/50 flex justify-center">
                   <Image
                     src={imagePreview}
-                    alt="Prévia da tiragem de cartas" // Translated
+                    alt={t('cardSpreadPreviewAlt')} // Assuming you add this key to translations
                     width={400}
                     height={300}
                     className="rounded-md object-contain max-h-[300px]"
@@ -166,7 +166,7 @@ export default function NewReadingPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed">
+            <div className="prose prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed">
               {interpretation}
             </div>
           </CardContent>
@@ -175,4 +175,3 @@ export default function NewReadingPage() {
     </div>
   );
 }
-
