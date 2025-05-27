@@ -32,7 +32,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-background">
       <header className="py-6">
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center space-x-2">
@@ -58,8 +58,8 @@ export default function HomePage() {
 
       <main className="flex-grow flex flex-col items-center justify-center text-center p-4">
         <div className="max-w-3xl">
-          <Sparkles className="h-20 w-20 text-primary mx-auto mb-6 animate-pulse" />
-          <h1 className="text-5xl md:text-6xl font-bold font-serif mb-6">
+          <Sparkles className="h-20 w-20 text-primary mx-auto mb-6 animate-subtle-pulse" />
+          <h1 className="text-5xl md:text-6xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">
             {t('landingTitle')}
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-10">
@@ -74,14 +74,14 @@ export default function HomePage() {
           </div>
         </div>
         
-        <div className="mt-16 w-full max-w-4xl">
+        <div className="mt-16 w-full max-w-4xl animated-aurora-background rounded-xl">
           <Image 
             src="https://placehold.co/1200x600.png" 
-            alt="Colagem mística de cartas de tarot e imagens celestiais" 
+            alt={t('landingImageAlt')} 
             data-ai-hint="tarot cards celestial"
             width={1200} 
             height={600} 
-            className="rounded-xl shadow-2xl object-cover"
+            className="rounded-xl shadow-2xl object-cover relative z-10 opacity-95"
             priority
           />
         </div>
@@ -95,4 +95,3 @@ export default function HomePage() {
     </div>
   );
 }
-

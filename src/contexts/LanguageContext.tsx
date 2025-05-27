@@ -26,9 +26,11 @@ const translations = {
     landingTitle: "Unlock the Wisdom of the Cards",
     landingSubtitle: "Mystic Insights offers AI-powered interpretations for your Tarot and Cigano card readings, guiding you on your spiritual journey with clarity and depth.",
     landingButton: "Begin Your Journey",
+    landingImageAlt: "Mystical collage of tarot cards and celestial imagery",
     login: "Login", 
     signUp: "Sign Up", 
     // Auth Layout
+    authLayoutTitle: "Mystic Insights", // Added for consistency, though hardcoded in layout
     authLayoutSubtitle: "Unlock the secrets of your path.",
     // Login Page
     loginTitle: "Login",
@@ -90,7 +92,7 @@ const translations = {
     purchaseNowButton: "Purchase Now",
     securePaymentsTitle: "Secure Payments",
     securePaymentsDescription: "All transactions are securely processed. Your financial information is protected.",
-    purchaseInitiatedToast: "Purchase initiated for package ID: {packageId}. Payment integration TBD.",
+    purchaseInitiatedToast: "Purchase initiated for package ID: {packageId}. Payment integration TBD.", // This seems like a toast message, not directly UI
     // New Reading Page
     newCardReadingTitle: "New Card Reading",
     newCardReadingDescription: "Upload an image of your Tarot or Cigano card spread and enter your query to receive an AI-powered interpretation.",
@@ -99,16 +101,16 @@ const translations = {
     questionPlaceholder: "E.g., 'What should I focus on in my career right now?' or 'General reading for the upcoming month.'",
     getYourReadingButton: "Get Your Reading",
     generatingInterpretationButton: "Generating Interpretation...",
-    imageTooLargeTitle: "Image too large",
-    imageTooLargeDescription: "Please upload an image smaller than 4MB.",
-    noImageErrorTitle: "No Image",
-    noImageErrorDescription: "Please upload an image of your card spread.",
-    noQueryErrorTitle: "No Query",
-    noQueryErrorDescription: "Please enter your question or context for the reading.",
-    interpretationReadyTitle: "Interpretation Ready!",
-    interpretationReadyDescription: "Your reading has been generated.",
-    errorGenericTitle: "Error",
-    errorGeneratingInterpretationDescription: "Failed to generate interpretation. Please try again.",
+    imageTooLargeTitle: "Image too large", // Toast
+    imageTooLargeDescription: "Please upload an image smaller than 4MB.", // Toast
+    noImageErrorTitle: "No Image", // Toast
+    noImageErrorDescription: "Please upload an image of your card spread.", // Toast
+    noQueryErrorTitle: "No Query", // Toast
+    noQueryErrorDescription: "Please enter your question or context for the reading.", // Toast
+    interpretationReadyTitle: "Interpretation Ready!", // Toast
+    interpretationReadyDescription: "Your reading has been generated.", // Toast
+    errorGenericTitle: "Error", // Toast
+    errorGeneratingInterpretationDescription: "Failed to generate interpretation. Please try again.", // Toast / Error Display
     errorOccurredCardTitle: "An Error Occurred",
     yourMysticalInterpretationTitle: "Your Mystical Interpretation",
     cardSpreadPreviewAlt: "Card spread preview",
@@ -121,10 +123,10 @@ const translations = {
     saveChangesButton: "Save Changes",
     cancelButton: "Cancel",
     editProfileButton: "Edit Profile",
-    profileUpdatedTitle: "Profile Updated",
-    profileUpdatedDescription: "Your profile information has been saved.",
-    updateFailedTitle: "Update Failed",
-    updateFailedDescription: "Could not update profile.",
+    profileUpdatedTitle: "Profile Updated", // Toast
+    profileUpdatedDescription: "Your profile information has been saved.", // Toast
+    updateFailedTitle: "Update Failed", // Toast
+    updateFailedDescription: "Could not update profile.", // Toast
     // AuthGuard
     pleaseLoginToViewProfile: "Please log in to view your profile.",
   },
@@ -146,9 +148,11 @@ const translations = {
     landingTitle: "Desvende a Sabedoria das Cartas",
     landingSubtitle: "Mystic Insights oferece interpretações com IA para suas leituras de Tarot e Baralho Cigano, guiando você em sua jornada espiritual com clareza e profundidade.",
     landingButton: "Comece Sua Jornada",
+    landingImageAlt: "Colagem mística de cartas de tarot e imagens celestiais",
     login: "Entrar", 
     signUp: "Cadastrar", 
     // Auth Layout
+    authLayoutTitle: "Mystic Insights", // Adicionado para consistência
     authLayoutSubtitle: "Desvende os segredos do seu caminho.",
     // Login Page
     loginTitle: "Entrar",
@@ -210,7 +214,7 @@ const translations = {
     purchaseNowButton: "Comprar Agora",
     securePaymentsTitle: "Pagamentos Seguros",
     securePaymentsDescription: "Todas as transações são processadas com segurança. Suas informações financeiras estão protegidas.",
-    purchaseInitiatedToast: "Compra iniciada para o pacote ID: {packageId}. Integração de pagamento pendente.",
+    purchaseInitiatedToast: "Compra iniciada para o pacote ID: {packageId}. Integração de pagamento pendente.", // Toast
     // New Reading Page
     newCardReadingTitle: "Nova Leitura de Cartas",
     newCardReadingDescription: "Faça o upload de uma imagem da sua tiragem de Tarot ou Baralho Cigano e insira sua pergunta para receber uma interpretação com IA.",
@@ -219,16 +223,16 @@ const translations = {
     questionPlaceholder: "Ex: 'No que devo focar na minha carreira agora?' ou 'Leitura geral para o próximo mês.'",
     getYourReadingButton: "Obtenha Sua Leitura",
     generatingInterpretationButton: "Gerando Interpretação...",
-    imageTooLargeTitle: "Imagem muito grande",
-    imageTooLargeDescription: "Por favor, envie uma imagem menor que 4MB.",
-    noImageErrorTitle: "Nenhuma Imagem",
-    noImageErrorDescription: "Por favor, envie uma imagem da sua tiragem de cartas.",
-    noQueryErrorTitle: "Nenhuma Pergunta",
-    noQueryErrorDescription: "Por favor, insira sua pergunta ou contexto para a leitura.",
-    interpretationReadyTitle: "Interpretação Pronta!",
-    interpretationReadyDescription: "Sua leitura foi gerada.",
-    errorGenericTitle: "Erro",
-    errorGeneratingInterpretationDescription: "Falha ao gerar interpretação. Por favor, tente novamente.",
+    imageTooLargeTitle: "Imagem muito grande", // Toast
+    imageTooLargeDescription: "Por favor, envie uma imagem menor que 4MB.", // Toast
+    noImageErrorTitle: "Nenhuma Imagem", // Toast
+    noImageErrorDescription: "Por favor, envie uma imagem da sua tiragem de cartas.", // Toast
+    noQueryErrorTitle: "Nenhuma Pergunta", // Toast
+    noQueryErrorDescription: "Por favor, insira sua pergunta ou contexto para a leitura.", // Toast
+    interpretationReadyTitle: "Interpretação Pronta!", // Toast
+    interpretationReadyDescription: "Sua leitura foi gerada.", // Toast
+    errorGenericTitle: "Erro", // Toast
+    errorGeneratingInterpretationDescription: "Falha ao gerar interpretação. Por favor, tente novamente.", // Toast / Erro
     errorOccurredCardTitle: "Ocorreu um Erro",
     yourMysticalInterpretationTitle: "Sua Interpretação Mística",
     cardSpreadPreviewAlt: "Prévia da tiragem de cartas", 
@@ -241,10 +245,10 @@ const translations = {
     saveChangesButton: "Salvar Alterações",
     cancelButton: "Cancelar",
     editProfileButton: "Editar Perfil",
-    profileUpdatedTitle: "Perfil Atualizado",
-    profileUpdatedDescription: "Suas informações de perfil foram salvas.",
-    updateFailedTitle: "Falha na Atualização",
-    updateFailedDescription: "Não foi possível atualizar o perfil.",
+    profileUpdatedTitle: "Perfil Atualizado", // Toast
+    profileUpdatedDescription: "Suas informações de perfil foram salvas.", // Toast
+    updateFailedTitle: "Falha na Atualização", // Toast
+    updateFailedDescription: "Não foi possível atualizar o perfil.", // Toast
     // AuthGuard
     pleaseLoginToViewProfile: "Por favor, faça login para ver seu perfil.",
   },
@@ -272,14 +276,18 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return 'pt-BR'; // Default to pt-BR
   });
 
+  // Effect for initializing document lang on client mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
       document.documentElement.lang = locale;
-      localStorage.setItem('app-locale', locale);
     }
-  }, [locale]);
+  }, []); // Runs once on mount to set initial lang based on derived locale
 
   const updateLocale = useCallback((newLocale: Locale) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('app-locale', newLocale);
+      document.documentElement.lang = newLocale;
+    }
     setLocaleState(newLocale);
   }, []);
 
