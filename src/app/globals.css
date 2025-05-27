@@ -4,73 +4,95 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%; /* Cosmic Indigo & Starlight Teal: Very light cool gray */
-    --foreground: 220 25% 25%; /* Cosmic Indigo & Starlight Teal: Dark desaturated indigo */
-    --card: 0 0% 100%; /* white */
-    --card-foreground: 220 25% 25%; /* Cosmic Indigo & Starlight Teal: Dark desaturated indigo */
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 25%;
-    --primary: 230 50% 55%; /* Cosmic Indigo & Starlight Teal: Deep Indigo */
-    --primary-foreground: 210 40% 98%; /* Cosmic Indigo & Starlight Teal: Light gray / Off-white */
-    --secondary: 210 20% 80%; /* Cosmic Indigo & Starlight Teal: Medium cool gray */
-    --secondary-foreground: 230 40% 40%; /* Cosmic Indigo & Starlight Teal: Darker Indigo */
-    --muted: 210 30% 90%; /* Cosmic Indigo & Starlight Teal: Light cool gray */
-    --muted-foreground: 220 15% 50%; /* Cosmic Indigo & Starlight Teal: Medium gray */
-    --accent: 170 70% 45%; /* Cosmic Indigo & Starlight Teal: Vibrant Teal */
-    --accent-foreground: 220 30% 20%; /* Cosmic Indigo & Starlight Teal: Dark slate */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 210 20% 85%; /* Cosmic Indigo & Starlight Teal: Medium light gray */
-    --input: 210 30% 94%; /* Cosmic Indigo & Starlight Teal: Very light gray */
-    --ring: 230 50% 55%; /* Cosmic Indigo & Starlight Teal: Primary color for rings */
-    --chart-1: 170 70% 45%; /* Vibrant Teal */
-    --chart-2: 230 50% 55%; /* Deep Indigo */
-    --chart-3: 170 50% 65%; /* Lighter Teal */
-    --chart-4: 230 40% 70%; /* Lighter Indigo */
-    --chart-5: 210 20% 50%; /* Medium Cool Gray */
-    --radius: 0.5rem;
-    --sidebar-background: 220 30% 95%; /* Very light cool indigo/gray */
-    --sidebar-foreground: 220 25% 30%; /* Dark desaturated indigo */
-    --sidebar-primary: 230 50% 55%; /* Deep Indigo */
-    --sidebar-primary-foreground: 210 40% 98%; /* Light gray / Off-white */
-    --sidebar-accent: 220 30% 90%; /* Slightly darker than bg, for hover */
-    --sidebar-accent-foreground: 230 50% 55%; /* Deep Indigo */
-    --sidebar-border: 210 20% 85%; /* Medium light gray */
-    --sidebar-ring: 170 70% 45%; /* Vibrant Teal for focus ring */
+    /* Aurora Neon - Light Theme */
+    --background: 240 20% 98%; /* Very light cool gray, almost white */
+    --foreground: 270 30% 25%; /* Dark desaturated purple */
+
+    --card: 250 30% 100%; /* Slightly purplish white */
+    --card-foreground: 270 30% 25%;
+
+    --popover: 250 30% 100%;
+    --popover-foreground: 270 30% 25%;
+
+    --primary: 270 70% 58%; /* Medium vibrant purple */
+    --primary-foreground: 300 80% 98%; /* Very light pinkish/lavender for contrast */
+
+    --secondary: 210 75% 55%; /* Bright medium blue */
+    --secondary-foreground: 210 80% 98%; /* Light cyan/white */
+
+    --muted: 240 20% 94%; /* Light cool gray */
+    --muted-foreground: 260 20% 55%; /* Muted purple-gray */
+
+    --accent: 320 80% 60%; /* Vibrant pink */
+    --accent-foreground: 320 80% 98%; /* Very light pink for contrast */
+
+    --destructive: 0 75% 55%; /* Keeping destructive clear */
+    --destructive-foreground: 0 80% 98%;
+
+    --border: 270 30% 88%; /* Light purple-gray border */
+    --input: 270 30% 96%; /* Very light purplish input background */
+    --ring: 320 80% 60%; /* Pink ring for focus */
+
+    --chart-1: 270 70% 58%; /* Primary Purple */
+    --chart-2: 320 80% 60%; /* Accent Pink */
+    --chart-3: 210 75% 55%; /* Secondary Blue */
+    --chart-4: 270 50% 75%; /* Lighter Purple */
+    --chart-5: 320 60% 75%; /* Lighter Pink */
+
+    --sidebar-background: 260 30% 96%; /* Light lavender */
+    --sidebar-foreground: 270 40% 30%; /* Dark purple */
+    --sidebar-primary: 270 70% 58%; /* Primary purple */
+    --sidebar-primary-foreground: 300 80% 98%;
+    --sidebar-accent: 270 50% 90%; /* Lighter hover for sidebar items */
+    --sidebar-accent-foreground: 270 70% 58%;
+    --sidebar-border: 270 30% 85%;
+    --sidebar-ring: 320 80% 60%; /* Pink focus */
   }
+
   .dark {
-    --background: 220 20% 12%; /* Cosmic Indigo & Starlight Teal: Very dark desaturated indigo */
-    --foreground: 210 30% 85%; /* Cosmic Indigo & Starlight Teal: Light cool gray */
-    --card: 220 20% 18%; /* Cosmic Indigo & Starlight Teal: Dark indigo */
-    --card-foreground: 210 30% 85%;
-    --popover: 220 20% 12%;
-    --popover-foreground: 210 30% 85%;
-    --primary: 170 70% 50%; /* Cosmic Indigo & Starlight Teal: Vibrant Teal */
-    --primary-foreground: 220 25% 15%; /* Cosmic Indigo & Starlight Teal: Dark Indigo */
-    --secondary: 220 15% 30%; /* Cosmic Indigo & Starlight Teal: Dark gray-blue */
-    --secondary-foreground: 210 30% 80%;
-    --muted: 220 15% 25%;
-    --muted-foreground: 210 20% 65%; /* Cosmic Indigo & Starlight Teal: Medium cool gray */
-    --accent: 230 60% 65%; /* Cosmic Indigo & Starlight Teal: Bright Indigo */
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 220 20% 22%; /* Cosmic Indigo & Starlight Teal: Dark gray-blue */
-    --input: 220 20% 22%;
-    --ring: 170 70% 50%; /* Cosmic Indigo & Starlight Teal: Teal for rings */
-    --chart-1: 170 70% 50%; /* Primary Teal - Dark */
-    --chart-2: 230 60% 65%; /* Bright Indigo - Accent Dark */
-    --chart-3: 170 60% 35%; /* Darker Teal */
-    --chart-4: 230 50% 45%; /* Darker Bright Indigo */
-    --chart-5: 210 20% 70%; /* Light Cool Gray */
-    --sidebar-background: 220 20% 15%; /* Dark indigo */
-    --sidebar-foreground: 210 30% 80%; /* Light cool gray */
-    --sidebar-primary: 170 70% 50%; /* Vibrant Teal */
-    --sidebar-primary-foreground: 220 25% 15%; /* Dark Indigo */
-    --sidebar-accent: 220 20% 20%; /* Slightly lighter than bg, for hover */
-    --sidebar-accent-foreground: 170 70% 50%; /* Vibrant Teal */
-    --sidebar-border: 220 20% 25%; /* Dark gray-blue */
-    --sidebar-ring: 230 60% 65%; /* Bright Indigo */
+    /* Aurora Neon - Dark Theme */
+    --background: 260 30% 8%; /* Very dark deep indigo/purple */
+    --foreground: 270 40% 88%; /* Light lavender/gray for text */
+
+    --card: 265 30% 12%; /* Dark indigo card */
+    --card-foreground: 270 40% 88%;
+
+    --popover: 260 30% 8%;
+    --popover-foreground: 270 40% 88%;
+
+    --primary: 275 90% 68%; /* Electric Purple */
+    --primary-foreground: 270 20% 95%; /* Light lavender/white for contrast */
+
+    --secondary: 190 90% 60%; /* Electric Cyan/Blue */
+    --secondary-foreground: 190 20% 95%; /* Light cyan/white */
+
+    --muted: 260 25% 18%; /* Darker muted indigo */
+    --muted-foreground: 270 30% 70%; /* Muted lavender */
+
+    --accent: 330 100% 70%; /* Hot Pink/Magenta */
+    --accent-foreground: 330 20% 95%; /* Light pink/white */
+
+    --destructive: 0 80% 65%; /* Bright red for destructive actions */
+    --destructive-foreground: 0 20% 95%;
+
+    --border: 270 20% 25%; /* Dark purple-gray border */
+    --input: 270 20% 20%; /* Dark input background */
+    --ring: 330 100% 70%; /* Hot pink ring for focus */
+    
+    --chart-1: 275 90% 68%; /* Electric Purple */
+    --chart-2: 330 100% 70%; /* Hot Pink */
+    --chart-3: 190 90% 60%; /* Electric Cyan */
+    --chart-4: 275 70% 80%; /* Lighter Electric Purple */
+    --chart-5: 330 80% 80%; /* Lighter Hot Pink */
+
+    --sidebar-background: 265 30% 10%; /* Dark indigo for sidebar */
+    --sidebar-foreground: 270 40% 85%;
+    --sidebar-primary: 275 90% 68%; /* Electric Purple */
+    --sidebar-primary-foreground: 270 20% 95%;
+    --sidebar-accent: 270 30% 15%; /* Darker hover for sidebar items */
+    --sidebar-accent-foreground: 275 90% 68%;
+    --sidebar-border: 270 20% 22%;
+    --sidebar-ring: 330 100% 70%; /* Hot pink focus */
   }
 }
 
