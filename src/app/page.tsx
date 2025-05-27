@@ -95,7 +95,7 @@ export default function HomePage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="py-20 sm:py-28 text-center bg-shiva-hero-bg bg-cover bg-center relative overflow-hidden"> {/* Changed to shiva-hero-bg */}
+        <section className="py-20 sm:py-28 text-center bg-shiva-hero-bg bg-cover bg-center relative overflow-hidden"> 
            {/* Animated Aurora Overlay */}
            <div className="absolute inset-0 -z-10 animated-aurora-background opacity-60"></div>
           
@@ -247,12 +247,12 @@ export default function HomePage() {
         </section>
       </main>
 
-      <footer className="py-8 text-center border-t border-border/20 bg-background/80">
-        <p className="text-muted-foreground">
+      <footer className="py-8 text-center border-t border-border/20 bg-background/80 relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 animated-aurora-background opacity-40"></div>
+        <p className="text-muted-foreground relative z-10">
           {t('footerText', { year: new Date().getFullYear() })}
         </p>
       </footer>
     </div>
   );
 }
-
