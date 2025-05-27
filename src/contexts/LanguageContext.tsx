@@ -73,6 +73,7 @@ const translations = {
     startNewReadingLinkText: "new reading",
     discoverYourPathTitle: "Discover Your Path",
     discoverYourPathDescription: "Mystic Insights uses advanced AI to interpret your Tarot and Cigano card spreads, offering personalized guidance based on ancient wisdom and astrological alignments.",
+    defaultSeekerName: "Seeker",
     // Credits Page
     purchaseCreditsTitle: "Purchase Credits",
     purchaseCreditsDescription: "Unlock deeper insights with more readings. Choose a credit package that suits your journey.",
@@ -190,6 +191,7 @@ const translations = {
     startNewReadingLinkText: "nova leitura",
     discoverYourPathTitle: "Descubra Seu Caminho",
     discoverYourPathDescription: "Mystic Insights usa IA avançada para interpretar suas tiragens de Tarot e Baralho Cigano, oferecendo orientação personalizada baseada em sabedoria ancestral e alinhamentos astrológicos.",
+    defaultSeekerName: "Buscador(a)",
     // Credits Page
     purchaseCreditsTitle: "Comprar Créditos",
     purchaseCreditsDescription: "Desbloqueie insights mais profundos com mais leituras. Escolha o pacote de créditos que combina com sua jornada.",
@@ -256,41 +258,44 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [locale, setLocaleState] = useState<Locale>(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const storedLocale = localStorage.getItem('app-locale') as Locale | null;
       if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
         return storedLocale;
       }
     }
-    return 'pt-BR'; // Default to pt-BR
+    return 'pt-BR';
   });
 
   useEffect(() => {
-    // This effect runs once on mount on the client to set initial document lang
-    // and also whenever locale changes to keep it in sync.
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       document.documentElement.lang = locale;
-      localStorage.setItem('app-locale', locale);
     }
   }, [locale]);
-
-  const setLocale = useCallback((newLocale: Locale) => {
+  
+  const updateLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
-    // localStorage and document.lang update will be handled by the useEffect above
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('app-locale', newLocale);
+      document.documentElement.lang = newLocale;
+    }
   }, []);
 
-  const t = useCallback((key: TranslationKey, params?: Record<string, string | number>): string => {
-    let translation = translations[locale]?.[key] || translations.en[key] || key;
-    if (params) {
-      Object.entries(params).forEach(([paramKey, value]) => {
-        translation = translation.replace(`{${paramKey}}`, String(value));
-      });
-    }
-    return translation;
-  }, [locale]);
+  const t = useCallback(
+    (key: TranslationKey, params?: Record<string, string | number>): string => {
+      let translation = translations[locale]?.[key] || translations.en[key] || String(key);
+      if (params) {
+        Object.entries(params).forEach(([paramKey, value]) => {
+          translation = translation.replace(`{${paramKey}}`, String(value));
+        });
+      }
+      return translation;
+    },
+    [locale]
+  );
 
   return (
-    <LanguageContext.Provider value={{ locale, setLocale, t }}>
+    <LanguageContext.Provider value={{ locale, setLocale: updateLocale, t }}>
       {children}
     </LanguageContext.Provider>
   );
@@ -303,4 +308,3 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
-
