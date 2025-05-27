@@ -2,7 +2,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import React, { createContext, useContext, useState, useMemo, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export type Locale = 'en' | 'pt-BR';
 
@@ -55,22 +55,23 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       effectiveLocale = storedLocale;
     }
     
-    // Define o estado, o lang do documento e (re)salva no localStorage para consistência.
     setLocaleState(effectiveLocale);
     document.documentElement.lang = effectiveLocale;
-    localStorage.setItem('app-locale', effectiveLocale); // Garante que o valor efetivo está salvo
+    // Garante que o localStorage seja definido/atualizado com o locale efetivo na inicialização do cliente
+    localStorage.setItem('app-locale', effectiveLocale); 
 
   }, []); // Roda apenas uma vez no mount, no lado do cliente
 
-  const updateLocale = useCallback((newLocale: Locale) => {
+  const updateLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
     localStorage.setItem('app-locale', newLocale);
     document.documentElement.lang = newLocale;
-  }, []); // setLocaleState é estável, não precisa ser listado como dependência explícita se não usado no corpo
+  };
   
-  const t = useMemo(() => (key: TranslationKey): string => {
+  const t = (key: TranslationKey): string => {
+    // Acessa o 'locale' mais recente diretamente do estado na renderização.
     return translations[locale]?.[key] || translations.en[key] || key;
-  }, [locale]);
+  };
 
   return (
     <LanguageContext.Provider value={{ locale, setLocale: updateLocale, t }}>
