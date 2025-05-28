@@ -13,6 +13,7 @@ const translations = {
     home: "Home",
     dashboard: "Dashboard",
     newReading: "New Reading",
+    dreamInterpretation: "Dream Interpretation", // Nova tradução
     credits: "Credits",
     profile: "Profile",
     logout: "Log out",
@@ -28,8 +29,8 @@ const translations = {
     landingSubtitle: "Receive Tarot and Cigano card interpretations with the depth of ancient wisdom and the clarity of artificial intelligence. Your journey of self-discovery starts here.",
     landingButton: "Begin Your Enlightened Journey",
     landingImageAlt: "Mystical collage of tarot cards, celestial symbols and flowing energy",
-    login: "Login", 
-    signUp: "Sign Up", 
+    login: "Login",
+    signUp: "Sign Up",
     // How It Works Section
     howItWorksTitle: "Your Enlightenment in Three Simple Steps",
     howItWorksSubtitle: "Accessing the wisdom of the cards has never been easier or more revealing. Here’s how:",
@@ -61,14 +62,14 @@ const translations = {
     satisfiedClientsLabel: "Satisfied and Guided Clients",
     // Mystical Animated Gallery Section
     mysticalGalleryTitle: "Mystical Animated Gallery",
-    mysticalGallerySubtitle: "Healing comes from Nature", // Updated
+    mysticalGallerySubtitle: "Healing comes from Nature",
     gifPlaceholderAlt: "Mystical Animation Placeholder",
     // Final CTA Section
     finalCTATitle: "Your Future Awaits. Dare to Unveil It.",
     finalCTASubtitle: "Don't let your doubts hold you back. The wisdom of the cards is within your reach. Take the first step towards clarity and self-knowledge.",
     finalCTAButton: "Reveal My Paths Now",
     // Auth Layout
-    authLayoutTitle: "Mystic Insights", 
+    authLayoutTitle: "Mystic Insights",
     authLayoutSubtitle: "Unlock the secrets of your path.",
     // Login Page
     loginTitle: "Login",
@@ -140,16 +141,16 @@ const translations = {
     questionPlaceholder: "E.g., 'What should I focus on in my career right now?' or 'General reading for the upcoming month.'",
     getYourReadingButton: "Get Your Reading",
     generatingInterpretationButton: "Generating Interpretation...",
-    imageTooLargeTitle: "Image too large", 
-    imageTooLargeDescription: "Please upload an image smaller than 4MB.", 
-    noImageErrorTitle: "No Image", 
-    noImageErrorDescription: "Please upload an image of your card spread.", 
-    noQueryErrorTitle: "No Query", 
-    noQueryErrorDescription: "Please enter your question or context for the reading.", 
-    interpretationReadyTitle: "Interpretation Ready!", 
-    interpretationReadyDescription: "Your reading has been generated.", 
-    errorGenericTitle: "Error", 
-    errorGeneratingInterpretationDescription: "Failed to generate interpretation. Please try again.", 
+    imageTooLargeTitle: "Image too large",
+    imageTooLargeDescription: "Please upload an image smaller than 4MB.",
+    noImageErrorTitle: "No Image",
+    noImageErrorDescription: "Please upload an image of your card spread.",
+    noQueryErrorTitle: "No Query",
+    noQueryErrorDescription: "Please enter your question or context for the reading.",
+    interpretationReadyTitle: "Interpretation Ready!",
+    interpretationReadyDescription: "Your reading has been generated.",
+    errorGenericTitle: "Error",
+    errorGeneratingInterpretationDescription: "Failed to generate interpretation. Please try again.",
     errorOccurredCardTitle: "An Error Occurred",
     yourMysticalInterpretationTitle: "Your Mystical Interpretation",
     cardSpreadPreviewAlt: "Card spread preview",
@@ -162,23 +163,36 @@ const translations = {
     saveChangesButton: "Save Changes",
     cancelButton: "Cancel",
     editProfileButton: "Edit Profile",
-    profileUpdatedTitle: "Profile Updated", 
-    profileUpdatedDescription: "Your profile information has been saved.", 
-    updateFailedTitle: "Update Failed", 
-    updateFailedDescription: "Could not update profile.", 
+    profileUpdatedTitle: "Profile Updated",
+    profileUpdatedDescription: "Your profile information has been saved.",
+    updateFailedTitle: "Update Failed",
+    updateFailedDescription: "Could not update profile.",
     // AuthGuard
     pleaseLoginToViewProfile: "Please log in to view your profile.",
+    // Dream Interpretation Page
+    dreamInterpretationTitle: "Dream Interpretation",
+    dreamInterpretationDescription: "Describe your dream in detail, and the Prophet Daniel will unveil its hidden meanings.",
+    yourDreamLabel: "Describe Your Dream",
+    dreamPlaceholder: "E.g., 'I dreamed I was flying over a city of gold...' or 'I had a recurring dream about a mysterious door...'",
+    getDreamInterpretationButton: "Interpret My Dream",
+    generatingDreamInterpretationButton: "Interpreting Dream...",
+    noDreamErrorTitle: "No Dream Description",
+    noDreamErrorDescription: "Please describe your dream to receive an interpretation.",
+    dreamInterpretationReadyTitle: "Dream Interpretation Ready!",
+    dreamInterpretationReadyDescription: "Your dream interpretation has been generated.",
+    yourPropheticInterpretationTitle: "Your Prophetic Interpretation",
   },
   'pt-BR': {
     // Header & General
     home: "Início",
     dashboard: "Painel",
     newReading: "Nova Leitura",
+    dreamInterpretation: "Interpretação de Sonhos", // Nova tradução
     credits: "Créditos",
     profile: "Perfil",
     logout: "Sair",
     toggleTheme: "Alternar tema",
-    mysticInsights: "Mystic Insights", 
+    mysticInsights: "Mystic Insights",
     language: "Idioma",
     english: "Inglês",
     portuguese: "Português",
@@ -189,8 +203,8 @@ const translations = {
     landingSubtitle: "Receba interpretações de Tarot e Baralho Cigano com a profundidade da sabedoria ancestral e a clareza da inteligência artificial. Sua jornada de autoconhecimento começa aqui.",
     landingButton: "Inicie Sua Jornada Iluminada",
     landingImageAlt: "Colagem mística de cartas de tarot, símbolos celestiais e energia fluindo",
-    login: "Entrar", 
-    signUp: "Cadastrar", 
+    login: "Entrar",
+    signUp: "Cadastrar",
     // How It Works Section
     howItWorksTitle: "Sua Iluminação em Três Passos Simples",
     howItWorksSubtitle: "Acessar a sabedoria das cartas nunca foi tão fácil e revelador. Veja como:",
@@ -222,7 +236,7 @@ const translations = {
     satisfiedClientsLabel: "Consulentes Satisfeitos e Guiados",
     // Mystical Animated Gallery Section
     mysticalGalleryTitle: "Galeria Mística Animada",
-    mysticalGallerySubtitle: "A cura vem da Natureza", // Updated
+    mysticalGallerySubtitle: "A cura vem da Natureza",
     gifPlaceholderAlt: "Animação Mística Placeholder",
     // Final CTA Section
     finalCTATitle: "Seu Futuro Aguarda. Ouse Desvendá-lo.",
@@ -292,7 +306,7 @@ const translations = {
     purchaseNowButton: "Comprar Agora",
     securePaymentsTitle: "Pagamentos Seguros",
     securePaymentsDescription: "Todas as transações são processadas com segurança. Suas informações financeiras estão protegidas.",
-    purchaseInitiatedToast: "Compra iniciada para o pacote ID: {packageId}. Integração de pagamento pendente.", 
+    purchaseInitiatedToast: "Compra iniciada para o pacote ID: {packageId}. Integração de pagamento pendente.",
     // New Reading Page
     newCardReadingTitle: "Nova Leitura de Cartas",
     newCardReadingDescription: "Faça o upload de uma imagem da sua tiragem de Tarot ou Baralho Cigano e insira sua pergunta para receber uma interpretação com IA.",
@@ -301,19 +315,19 @@ const translations = {
     questionPlaceholder: "Ex: 'No que devo focar na minha carreira agora?' ou 'Leitura geral para o próximo mês.'",
     getYourReadingButton: "Obtenha Sua Leitura",
     generatingInterpretationButton: "Gerando Interpretação...",
-    imageTooLargeTitle: "Imagem muito grande", 
-    imageTooLargeDescription: "Por favor, envie uma imagem menor que 4MB.", 
-    noImageErrorTitle: "Nenhuma Imagem", 
-    noImageErrorDescription: "Por favor, envie uma imagem da sua tiragem de cartas.", 
-    noQueryErrorTitle: "Nenhuma Pergunta", 
-    noQueryErrorDescription: "Por favor, insira sua pergunta ou contexto para a leitura.", 
-    interpretationReadyTitle: "Interpretação Pronta!", 
-    interpretationReadyDescription: "Sua leitura foi gerada.", 
-    errorGenericTitle: "Erro", 
-    errorGeneratingInterpretationDescription: "Falha ao gerar interpretação. Por favor, tente novamente.", 
+    imageTooLargeTitle: "Imagem muito grande",
+    imageTooLargeDescription: "Por favor, envie uma imagem menor que 4MB.",
+    noImageErrorTitle: "Nenhuma Imagem",
+    noImageErrorDescription: "Por favor, envie uma imagem da sua tiragem de cartas.",
+    noQueryErrorTitle: "Nenhuma Pergunta",
+    noQueryErrorDescription: "Por favor, insira sua pergunta ou contexto para a leitura.",
+    interpretationReadyTitle: "Interpretação Pronta!",
+    interpretationReadyDescription: "Sua leitura foi gerada.",
+    errorGenericTitle: "Erro",
+    errorGeneratingInterpretationDescription: "Falha ao gerar interpretação. Por favor, tente novamente.",
     errorOccurredCardTitle: "Ocorreu um Erro",
     yourMysticalInterpretationTitle: "Sua Interpretação Mística",
-    cardSpreadPreviewAlt: "Prévia da tiragem de cartas", 
+    cardSpreadPreviewAlt: "Prévia da tiragem de cartas",
     // Profile Page
     yourProfileTitle: "Seu Perfil",
     yourProfileDescription: "Gerencie os detalhes e preferências da sua conta.",
@@ -323,17 +337,29 @@ const translations = {
     saveChangesButton: "Salvar Alterações",
     cancelButton: "Cancelar",
     editProfileButton: "Editar Perfil",
-    profileUpdatedTitle: "Perfil Atualizado", 
-    profileUpdatedDescription: "Suas informações de perfil foram salvas.", 
-    updateFailedTitle: "Falha na Atualização", 
-    updateFailedDescription: "Não foi possível atualizar o perfil.", 
+    profileUpdatedTitle: "Perfil Atualizado",
+    profileUpdatedDescription: "Suas informações de perfil foram salvas.",
+    updateFailedTitle: "Falha na Atualização",
+    updateFailedDescription: "Não foi possível atualizar o perfil.",
     // AuthGuard
     pleaseLoginToViewProfile: "Por favor, faça login para ver seu perfil.",
+    // Dream Interpretation Page
+    dreamInterpretationTitle: "Interpretação de Sonhos",
+    dreamInterpretationDescription: "Descreva seu sonho em detalhes, e o Profeta Daniel revelará seus significados ocultos.",
+    yourDreamLabel: "Descreva Seu Sonho",
+    dreamPlaceholder: "Ex: 'Sonhei que estava voando sobre uma cidade de ouro...' ou 'Tive um sonho recorrente sobre uma porta misteriosa...'",
+    getDreamInterpretationButton: "Interpretar Meu Sonho",
+    generatingDreamInterpretationButton: "Interpretando Sonho...",
+    noDreamErrorTitle: "Nenhuma Descrição do Sonho",
+    noDreamErrorDescription: "Por favor, descreva seu sonho para receber uma interpretação.",
+    dreamInterpretationReadyTitle: "Interpretação do Sonho Pronta!",
+    dreamInterpretationReadyDescription: "A interpretação do seu sonho foi gerada.",
+    yourPropheticInterpretationTitle: "Sua Interpretação Profética",
   },
 };
 
 
-export type TranslationKey = keyof typeof translations.en; 
+export type TranslationKey = keyof typeof translations.en;
 
 interface LanguageContextType {
   locale: Locale;
@@ -344,7 +370,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocaleState] = useState<Locale>('pt-BR'); 
+  const [locale, setLocaleState] = useState<Locale>('pt-BR');
 
   useEffect(() => {
     let initialLocale: Locale = 'pt-BR';
@@ -354,22 +380,23 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
         initialLocale = storedLocale;
       } else {
-        initialLocale = browserLang; 
-      }
-      document.documentElement.lang = initialLocale;
-      if (!storedLocale || storedLocale !== initialLocale) {
-        localStorage.setItem('app-locale', initialLocale);
+        initialLocale = browserLang;
       }
     }
     setLocaleState(initialLocale);
+    // Set lang attribute on mount and when locale changes
+    if (typeof window !== 'undefined') {
+      document.documentElement.lang = initialLocale;
+    }
   }, []);
 
+
   const updateLocale = useCallback((newLocale: Locale) => {
+    setLocaleState(newLocale);
     if (typeof window !== 'undefined') {
       localStorage.setItem('app-locale', newLocale);
       document.documentElement.lang = newLocale;
     }
-    setLocaleState(newLocale);
   }, []);
 
   const t = useCallback(
@@ -399,4 +426,3 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
-
