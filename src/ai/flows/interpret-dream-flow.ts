@@ -2,11 +2,12 @@
 'use server';
 /**
  * @fileOverview Flow for interpreting dreams in the persona of the Prophet,
- * now also generating illustrative images.
+ * now generating illustrative images interleaved with text.
  *
  * - interpretDream - Interprets a dream description and generates accompanying images.
  * - InterpretDreamInput - Input type for the interpretDream function.
- * - InterpretDreamOutput - Output type for the interpretDream function.
+ * - ProcessedStorySegment - The type for individual segments (text or image) in the final output.
+ * - InterpretDreamOutput - Output type for the interpretDream function (array of ProcessedStorySegment).
  */
 
 import { ai } from '@/ai/genkit';
@@ -20,15 +21,25 @@ const InterpretDreamInputSchema = z.object({
 });
 export type InterpretDreamInput = z.infer<typeof InterpretDreamInputSchema>;
 
-const InterpretDreamOutputSchema = z.object({
-  interpretation: z
+// Schema for the output of the main text-generation prompt
+const DreamInterpretationWithPlaceholdersSchema = z.object({
+  interpretationWithPlaceholders: z
     .string()
-    .describe('The AI-generated interpretation of the dream, delivered in the persona of the Prophet.'),
-  generatedImages: z
-    .array(z.string())
-    .describe('An array of data URIs for images generated to illustrate the dream interpretation. Expected format: "data:<mimetype>;base64,<encoded_data>".'),
+    .describe(
+      "The dream interpretation text, with special placeholders like [GENERATE_IMAGE_HERE: \"A prompt for an image based on the preceding text.\"] where images should be inserted. Include 1-2 such placeholders."
+    ),
 });
+
+// Schema for the final processed output of the flow
+const ProcessedStorySegmentSchema = z.union([
+  z.object({ type: z.literal('text'), content: z.string() }),
+  z.object({ type: z.literal('image'), dataUri: z.string(), alt: z.string() }),
+]);
+export type ProcessedStorySegment = z.infer<typeof ProcessedStorySegmentSchema>;
+
+const InterpretDreamOutputSchema = z.array(ProcessedStorySegmentSchema);
 export type InterpretDreamOutput = z.infer<typeof InterpretDreamOutputSchema>;
+
 
 export async function interpretDream(input: InterpretDreamInput): Promise<InterpretDreamOutput> {
   return interpretDreamFlow(input);
@@ -37,14 +48,16 @@ export async function interpretDream(input: InterpretDreamInput): Promise<Interp
 const interpretDreamPrompt = ai.definePrompt({
   name: 'interpretDreamPrompt',
   input: { schema: InterpretDreamInputSchema },
-  // The output schema here defines what this specific prompt is structured to return (the text part).
-  // The flow will then add images to the final InterpretDreamOutput.
-  output: { schema: z.object({ interpretation: InterpretDreamOutputSchema.shape.interpretation }) },
+  output: { schema: DreamInterpretationWithPlaceholdersSchema },
   prompt: `Você é o Profeta, renomado por sua sabedoria divina concedida por Deus e por sua extraordinária habilidade em interpretar sonhos e visões, como demonstrado nas sagradas escrituras. Um consulente aflito ou curioso descreveu um sonho e busca sua profunda e espiritual interpretação.
 
 Com a iluminação que lhe foi outorgada, analise cuidadosamente os símbolos, o enredo, as emoções e o contexto presentes no sonho. Revele seu significado oculto, as mensagens divinas ou os avisos que ele pode conter. Sua interpretação deve ser profunda, sábia, espiritual e, quando relevante e respeitoso, pode tocar em simbolismos, arquétipos ou narrativas bíblicas que ajudem a elucidar a mensagem do sonho, sempre com um tom de conselho e orientação espiritual.
 
 Lembre-se de sua humildade perante o Altíssimo, reconhecendo que a verdadeira interpretação vem Dele.
+
+Apresente a interpretação em parágrafos. Após 1 ou 2 parágrafos, se sentir que uma imagem pode enriquecer a narrativa, insira um placeholder especial no seguinte formato:
+[GENERATE_IMAGE_HERE: "Um prompt conciso e vívido para uma imagem que ilustre o parágrafo ou conceito anterior."]
+Use este placeholder de 1 a 2 vezes no máximo durante toda a interpretação. O prompt dentro do placeholder deve ser claro para um modelo de geração de imagem.
 
 Considere os seguintes aspectos ao formular sua interpretação:
 - **Símbolos Principais:** Quais são os objetos, pessoas, animais ou lugares mais marcantes no sonho? Qual o seu significado tradicional ou simbólico, e como se aplicam ao contexto do sonhador?
@@ -75,28 +88,38 @@ const interpretDreamFlow = ai.defineFlow(
     outputSchema: InterpretDreamOutputSchema,
   },
   async (input) => {
-    // 1. Generate the textual interpretation
-    const { output: textOutput } = await interpretDreamPrompt(input);
-    if (!textOutput?.interpretation) {
+    // 1. Generate the textual interpretation with image placeholders
+    const { output: mainOutput } = await interpretDreamPrompt(input);
+    if (!mainOutput?.interpretationWithPlaceholders) {
       throw new Error('Failed to generate dream interpretation text.');
     }
-    const textualInterpretation = textOutput.interpretation;
+    const interpretationWithPlaceholders = mainOutput.interpretationWithPlaceholders;
 
-    // 2. Generate illustrative images
-    const generatedImages: string[] = [];
-    const imageGenerationPrompts = [
-      `A vivid, artistic illustration of the core elements and atmosphere from this dream: "${input.dreamDescription}". Emphasize surreal or symbolic aspects if present.`,
-      `Another visual perspective of the dream: "${input.dreamDescription}". Focus on the emotional tone or a key moment.`,
-    ];
+    const processedSegments: ProcessedStorySegment[] = [];
+    const placeholderRegex = /\[GENERATE_IMAGE_HERE: \"(.*?)\"\]/g;
+    
+    let lastIndex = 0;
+    let match;
 
-    for (const imgPrompt of imageGenerationPrompts) {
+    while ((match = placeholderRegex.exec(interpretationWithPlaceholders)) !== null) {
+      // Add text segment before the placeholder
+      if (match.index > lastIndex) {
+        processedSegments.push({
+          type: 'text',
+          content: interpretationWithPlaceholders.substring(lastIndex, match.index).trim(),
+        });
+      }
+
+      const imageGenPrompt = match[1]; // The captured group (the prompt itself)
+      
+      // Generate image
       try {
         const { media } = await ai.generate({
           model: 'googleai/gemini-2.0-flash-exp',
-          prompt: imgPrompt,
+          prompt: imageGenPrompt,
           config: {
-            responseModalities: ['TEXT', 'IMAGE'], // MUST provide both
-            safetySettings: [ // Consistent safety settings
+            responseModalities: ['TEXT', 'IMAGE'],
+            safetySettings: [
               { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
               { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
               { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
@@ -105,17 +128,33 @@ const interpretDreamFlow = ai.defineFlow(
           },
         });
         if (media?.url) {
-          generatedImages.push(media.url);
+          processedSegments.push({
+            type: 'image',
+            dataUri: media.url,
+            alt: `Ilustração do sonho: ${imageGenPrompt.substring(0,50)}...` // Simple alt text
+          });
         }
       } catch (e) {
         console.error('Error generating a dream image:', e);
-        // Optionally, could push a placeholder or error image data URI
+        // Optionally, push a placeholder or error image/text segment
+        processedSegments.push({
+          type: 'text',
+          content: `(Erro ao gerar imagem para: "${imageGenPrompt}")`
+        });
       }
+      
+      lastIndex = placeholderRegex.lastIndex;
     }
 
-    return {
-      interpretation: textualInterpretation,
-      generatedImages: generatedImages,
-    };
+    // Add remaining text segment after the last placeholder
+    if (lastIndex < interpretationWithPlaceholders.length) {
+      const remainingText = interpretationWithPlaceholders.substring(lastIndex).trim();
+      if (remainingText) {
+        processedSegments.push({ type: 'text', content: remainingText });
+      }
+    }
+    
+    // Filter out empty text segments that might have resulted from trimming
+    return processedSegments.filter(segment => segment.type === 'image' || (segment.type === 'text' && segment.content.length > 0));
   }
 );
