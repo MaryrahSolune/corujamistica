@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { interpretDream, type InterpretDreamInput } from '@/ai/flows/interpret-dream-flow';
-import { Loader2, MessageCircleQuestion, BookOpenText } from 'lucide-react';
+import { Loader2, MessageCircleQuestion, BookOpenText, BrainCircuit } from 'lucide-react'; // Added BrainCircuit
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function DreamInterpretationPage() {
