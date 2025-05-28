@@ -28,7 +28,7 @@ const translations = {
     landingTitle: "Unlock the Secrets of Your Destiny, Today.",
     landingSubtitle: "Receive Tarot and Cigano card interpretations with the depth of ancient wisdom and the clarity of artificial intelligence. Your journey of self-discovery starts here.",
     landingButton: "Begin Your Enlightened Journey",
-    landingImageAlt: "Mystical collage of tarot cards, celestial symbols and flowing energy",
+    landingImageAlt: "Mystical collage of tarot cards, celestial symbols and flowing energy", // Placeholder, actual image alt will be more specific
     login: "Login",
     signUp: "Sign Up",
     // How It Works Section
@@ -171,7 +171,7 @@ const translations = {
     pleaseLoginToViewProfile: "Please log in to view your profile.",
     // Dream Interpretation Page
     dreamInterpretationTitle: "Dream Interpretation",
-    dreamInterpretationDescription: "Describe your dream in detail, and the Prophet Daniel will unveil its hidden meanings.",
+    dreamInterpretationDescription: "Describe your dream in detail, and the Prophet will unveil its hidden meanings.",
     yourDreamLabel: "Describe Your Dream",
     dreamPlaceholder: "E.g., 'I dreamed I was flying over a city of gold...' or 'I had a recurring dream about a mysterious door...'",
     getDreamInterpretationButton: "Interpret My Dream",
@@ -203,7 +203,7 @@ const translations = {
     landingTitle: "Desvende os Segredos do Seu Destino, Hoje.",
     landingSubtitle: "Receba interpretações de Tarot e Baralho Cigano com a profundidade da sabedoria ancestral e a clareza da inteligência artificial. Sua jornada de autoconhecimento começa aqui.",
     landingButton: "Inicie Sua Jornada Iluminada",
-    landingImageAlt: "Colagem mística de cartas de tarot, símbolos celestiais e energia fluindo",
+    landingImageAlt: "Colagem mística de cartas de tarot, símbolos celestiais e energia fluindo", // Placeholder, atual imagem alt será mais específica
     login: "Entrar",
     signUp: "Cadastrar",
     // How It Works Section
@@ -346,7 +346,7 @@ const translations = {
     pleaseLoginToViewProfile: "Por favor, faça login para ver seu perfil.",
     // Dream Interpretation Page
     dreamInterpretationTitle: "Interpretação de Sonhos",
-    dreamInterpretationDescription: "Descreva seu sonho em detalhes, e o Profeta Daniel revelará seus significados ocultos.",
+    dreamInterpretationDescription: "Descreva seu sonho em detalhes, e o Profeta revelará seus significados ocultos.",
     yourDreamLabel: "Descreva Seu Sonho",
     dreamPlaceholder: "Ex: 'Sonhei que estava voando sobre uma cidade de ouro...' ou 'Tive um sonho recorrente sobre uma porta misteriosa...'",
     getDreamInterpretationButton: "Interpretar Meu Sonho",
@@ -375,18 +375,23 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Default to pt-BR
 
   useEffect(() => {
-    let initialLocale: Locale = 'pt-BR'; // Default to pt-BR
+    let initialLocale: Locale = 'pt-BR';
     if (typeof window !== 'undefined') {
       const storedLocale = localStorage.getItem('app-locale') as Locale | null;
       if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
         initialLocale = storedLocale;
       } else {
-        // Fallback to browser language if no preference is stored, then to pt-BR
-        const browserLang = navigator.language.startsWith('pt') ? 'pt-BR' : 'en';
-        initialLocale = browserLang;
+        const browserLang = navigator.language.toLowerCase();
+        if (browserLang.startsWith('pt')) {
+          initialLocale = 'pt-BR';
+        } else if (browserLang.startsWith('en')) {
+          initialLocale = 'en';
+        }
+        // If neither, keeps 'pt-BR' as default
       }
       setLocaleState(initialLocale);
       document.documentElement.lang = initialLocale;
+      localStorage.setItem('app-locale', initialLocale); // Ensure localStorage is set on initial load if derived from browser
     }
   }, []);
 
@@ -425,3 +430,4 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
+

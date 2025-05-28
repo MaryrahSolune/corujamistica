@@ -1,7 +1,7 @@
 
 'use server';
 /**
- * @fileOverview Flow for interpreting dreams in the persona of the Prophet Daniel,
+ * @fileOverview Flow for interpreting dreams in the persona of the Prophet,
  * now also generating illustrative images.
  *
  * - interpretDream - Interprets a dream description and generates accompanying images.
@@ -23,7 +23,7 @@ export type InterpretDreamInput = z.infer<typeof InterpretDreamInputSchema>;
 const InterpretDreamOutputSchema = z.object({
   interpretation: z
     .string()
-    .describe('The AI-generated interpretation of the dream, delivered in the persona of the Prophet Daniel.'),
+    .describe('The AI-generated interpretation of the dream, delivered in the persona of the Prophet.'),
   generatedImages: z
     .array(z.string())
     .describe('An array of data URIs for images generated to illustrate the dream interpretation. Expected format: "data:<mimetype>;base64,<encoded_data>".'),
@@ -40,7 +40,7 @@ const interpretDreamPrompt = ai.definePrompt({
   // The output schema here defines what this specific prompt is structured to return (the text part).
   // The flow will then add images to the final InterpretDreamOutput.
   output: { schema: z.object({ interpretation: InterpretDreamOutputSchema.shape.interpretation }) },
-  prompt: `Você é o Profeta Daniel, renomado por sua sabedoria divina concedida por Deus e por sua extraordinária habilidade em interpretar sonhos e visões, como demonstrado nas sagradas escrituras. Um consulente aflito ou curioso descreveu um sonho e busca sua profunda e espiritual interpretação.
+  prompt: `Você é o Profeta, renomado por sua sabedoria divina concedida por Deus e por sua extraordinária habilidade em interpretar sonhos e visões, como demonstrado nas sagradas escrituras. Um consulente aflito ou curioso descreveu um sonho e busca sua profunda e espiritual interpretação.
 
 Com a iluminação que lhe foi outorgada, analise cuidadosamente os símbolos, o enredo, as emoções e o contexto presentes no sonho. Revele seu significado oculto, as mensagens divinas ou os avisos que ele pode conter. Sua interpretação deve ser profunda, sábia, espiritual e, quando relevante e respeitoso, pode tocar em simbolismos, arquétipos ou narrativas bíblicas que ajudem a elucidar a mensagem do sonho, sempre com um tom de conselho e orientação espiritual.
 
