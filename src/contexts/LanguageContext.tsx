@@ -13,7 +13,7 @@ const translations = {
     home: "Home",
     dashboard: "Dashboard",
     newReading: "New Reading",
-    dreamInterpretation: "Dream Interpretation", // Nova tradução
+    dreamInterpretation: "Dream Interpretation",
     credits: "Credits",
     profile: "Profile",
     logout: "Log out",
@@ -152,7 +152,7 @@ const translations = {
     errorGenericTitle: "Error",
     errorGeneratingInterpretationDescription: "Failed to generate interpretation. Please try again.",
     errorOccurredCardTitle: "An Error Occurred",
-    yourMysticalInterpretationTitle: "Your Mystical Interpretation",
+    yourMysticalInterpretationTitle: "Sua Interpretação Mística",
     cardSpreadPreviewAlt: "Card spread preview",
     // Profile Page
     yourProfileTitle: "Your Profile",
@@ -181,13 +181,14 @@ const translations = {
     dreamInterpretationReadyTitle: "Dream Interpretation Ready!",
     dreamInterpretationReadyDescription: "Your dream interpretation has been generated.",
     yourPropheticInterpretationTitle: "Your Prophetic Interpretation",
+    dreamIllustrationAlt: "Dream illustration {number}",
   },
   'pt-BR': {
     // Header & General
     home: "Início",
     dashboard: "Painel",
     newReading: "Nova Leitura",
-    dreamInterpretation: "Interpretação de Sonhos", // Nova tradução
+    dreamInterpretation: "Interpretação de Sonhos",
     credits: "Créditos",
     profile: "Perfil",
     logout: "Sair",
@@ -355,6 +356,7 @@ const translations = {
     dreamInterpretationReadyTitle: "Interpretação do Sonho Pronta!",
     dreamInterpretationReadyDescription: "A interpretação do seu sonho foi gerada.",
     yourPropheticInterpretationTitle: "Sua Interpretação Profética",
+    dreamIllustrationAlt: "Ilustração do sonho {number}",
   },
 };
 
@@ -370,26 +372,23 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocaleState] = useState<Locale>('pt-BR');
+  const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Default to pt-BR
 
   useEffect(() => {
-    let initialLocale: Locale = 'pt-BR';
+    let initialLocale: Locale = 'pt-BR'; // Default to pt-BR
     if (typeof window !== 'undefined') {
       const storedLocale = localStorage.getItem('app-locale') as Locale | null;
-      const browserLang = navigator.language.startsWith('pt') ? 'pt-BR' : 'en';
       if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
         initialLocale = storedLocale;
       } else {
+        // Fallback to browser language if no preference is stored, then to pt-BR
+        const browserLang = navigator.language.startsWith('pt') ? 'pt-BR' : 'en';
         initialLocale = browserLang;
       }
-    }
-    setLocaleState(initialLocale);
-    // Set lang attribute on mount and when locale changes
-    if (typeof window !== 'undefined') {
+      setLocaleState(initialLocale);
       document.documentElement.lang = initialLocale;
     }
   }, []);
-
 
   const updateLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);

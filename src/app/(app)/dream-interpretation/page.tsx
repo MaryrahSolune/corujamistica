@@ -8,12 +8,14 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { interpretDream, type InterpretDreamInput } from '@/ai/flows/interpret-dream-flow';
-import { Loader2, MessageCircleQuestion, BookOpenText, BrainCircuit } from 'lucide-react'; // Added BrainCircuit
+import { Loader2, MessageCircleQuestion, BookOpenText, BrainCircuit } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import Image from 'next/image'; // Import next/image
 
 export default function DreamInterpretationPage() {
   const [dreamDescription, setDreamDescription] = useState<string>('');
   const [interpretation, setInterpretation] = useState<string | null>(null);
+  const [generatedImages, setGeneratedImages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
@@ -28,16 +30,18 @@ export default function DreamInterpretationPage() {
 
     setIsLoading(true);
     setInterpretation(null);
+    setGeneratedImages([]);
     setError(null);
 
     try {
       const input: InterpretDreamInput = { dreamDescription };
       const result = await interpretDream(input);
       setInterpretation(result.interpretation);
+      setGeneratedImages(result.generatedImages || []);
       toast({ title: t('dreamInterpretationReadyTitle'), description: t('dreamInterpretationReadyDescription') });
     } catch (err: any) {
       console.error('Error interpreting dream:', err);
-      const errorMessage = err.message || t('errorGeneratingInterpretationDescription'); // Reutilizando a tradução genérica
+      const errorMessage = err.message || t('errorGeneratingInterpretationDescription');
       setError(errorMessage);
       toast({ title: t('errorGenericTitle'), description: errorMessage, variant: 'destructive' });
     } finally {
@@ -105,7 +109,7 @@ export default function DreamInterpretationPage() {
         </div>
       )}
 
-      {interpretation && (
+      { (interpretation || generatedImages.length > 0) && !isLoading && (
         <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
           <Card className="shadow-2xl bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10">
             <CardHeader>
@@ -115,9 +119,28 @@ export default function DreamInterpretationPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                {interpretation}
-              </div>
+              {generatedImages.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                  {generatedImages.map((imgDataUri, index) => (
+                    <div key={index} className="rounded-lg overflow-hidden shadow-lg animated-aurora-background">
+                       {/* Added bg-black/10 for better visibility of aurora on potentially transparent image parts */}
+                      <Image
+                        src={imgDataUri}
+                        alt={`${t('dreamIllustrationAlt', { number: index + 1 })}`}
+                        width={500} 
+                        height={300}
+                        className="w-full h-auto object-contain relative z-10 bg-black/10"
+                        data-ai-hint="dream scene abstract"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+              {interpretation && (
+                <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                  {interpretation}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
