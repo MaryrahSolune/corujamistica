@@ -91,7 +91,7 @@ Orixá: Ogum – guerreiro, cortes, caminhos abertos.
 Astrologia: Marte – ação, decisões, cortes.
 
 Chicote (11)
-Significado: Conflitos, repetições, disciplina. O chicote também pode indicar a necessidade de ação.
+Significado: Conflitos, repetições, disciplina. O chicote também pode indicar a necessidade de ação e traz notícias.
 Orixá: Xangô – justiça, equilíbrio, força.
 Astrologia: Saturno – disciplina, karma, estrutura.
 
@@ -121,8 +121,8 @@ Orixá: Oxalá – paz, espiritualidade, luz.
 Astrologia: Aquário – inovação, espiritualidade, visão.
 
 Cegonha (17)
-Significado: Mudanças, novidades, renascimento.
-Orixá: Oxum – fertilidade, amor, renovação.
+Significado: Mudanças, novidades, renascimento. Oxalá está relacionado a esta carta.
+Orixá: Oxum – fertilidade, amor, renovação. (Considere a relação com Oxalá também)
 Astrologia: Câncer – maternidade, emoções, renovação.
 
 Cachorro (18)
@@ -171,7 +171,7 @@ Orixá: Pretos Velhos – sabedoria, conhecimento, humildade.
 Astrologia: Mercúrio – conhecimento, comunicação, mente.
 
 Carta (27)
-Significado: Mensagens, notícias, comunicação. A carta traz notícias importantes ou mensagens.
+Significado: Mensagens, notícias importantes ou comunicação. Esta carta traz notícias.
 Orixá: Pomba Gira – comunicação, mensagens, relações.
 Astrologia: Gêmeos – comunicação, trocas, mensagens.
 
@@ -186,17 +186,17 @@ Orixá: Oxum – feminilidade, intuição, amor.
 Astrologia: Lua – emoções, intuição, feminilidade.
 
 Lírios (30)
-Significado: Paz, pureza, espiritualidade.
-Orixá: Oxalá – paz, pureza, espiritualidade.
+Significado: Paz, pureza, espiritualidade. Oxum está relacionada a esta carta.
+Orixá: Oxalá – paz, pureza, espiritualidade. (Considere a relação com Oxum também)
 Astrologia: Peixes – espiritualidade, compaixão, sensibilidade.
 
 Sol (31)
-Significado: Sucesso, vitalidade, clareza.
-Orixá: Oxalá – luz, clareza, sucesso.
+Significado: Sucesso, vitalidade, clareza. Oxum está relacionada a esta carta.
+Orixá: Oxalá – luz, clareza, sucesso. (Considere a relação com Oxum também)
 Astrologia: Sol – vitalidade, sucesso, brilho.
 
 Lua (32)
-Significado: Intuição, emoções, ciclos. A Lua é um símbolo multifacetado. Pode representar a intuição profunda, os mistérios da noite, mas também, dependendo das cartas ao redor, pode indicar momentos de depressão, a influência de uma Deusa Lunar, o feminino, o submundo ou uma sensação de falta de orientação. Analise sempre o contexto da tiragem para a interpretação da Lua.
+Significado: Intuição profunda, mistérios da noite, mas também, dependendo das cartas ao redor, pode indicar momentos de depressão, a influência de uma Deusa Lunar, o feminino, o submundo ou uma sensação de falta de orientação. Analise sempre o contexto da tiragem para a interpretação da Lua.
 Orixá: Iemanjá – emoções, maternidade, intuição.
 Astrologia: Lua – emoções, intuição, ciclos.
 
@@ -206,8 +206,8 @@ Orixá: Exu – abertura de caminhos, soluções.
 Astrologia: Urano – soluções, inovações, surpresas.
 
 Peixes (34)
-Significado: Prosperidade, abundância, finanças.
-Orixá: Oxum – riqueza, prosperidade, abundância.
+Significado: Prosperidade, abundância, finanças. Yemanjá está relacionada a esta carta.
+Orixá: Oxum – riqueza, prosperidade, abundância. (Considere a relação com Yemanjá também)
 Astrologia: Júpiter – expansão, prosperidade, abundância.
 
 Âncora (35)
@@ -219,6 +219,119 @@ Cruz (36)
 Significado: Destino, fé, provações.
 Orixá: Ob.
 Astrologia: (Não fornecido)
+
+
+🌟 Arcanos Maiores do Tarot com Correspondência aos Orixás e Influência Astrológica 🌟
+
+0 - O Louco
+Significado Profundo: Início de jornada, entrega ao desconhecido, liberdade espiritual. Convite à fé e ao improviso.
+Orixá: Exu
+Astrologia: Urano / Elemento Ar
+
+I - O Mago
+Significado Profundo: Poder de manifestação, vontade consciente, domínio dos quatro elementos. Iniciação e criatividade executiva.
+Orixá: Ogum
+Astrologia: Mercúrio
+
+II - A Sacerdotisa
+Significado Profundo: Intuição, mistério, sabedoria oculta. Canal de conhecimento interior e acesso ao inconsciente coletivo.
+Orixá: Iansã
+Astrologia: Lua
+
+III - A Imperatriz
+Significado Profundo: Criatividade fértil, nutrição, abundância material e espiritual. Conexão com a Mãe Terra.
+Orixá: Oxum
+Astrologia: Vênus
+
+IV - O Imperador
+Significado Profundo: Estrutura, autoridade, estabilidade. Poder patriarcal equilibrado, governança justa.
+Orixá: Xangô
+Astrologia: Áries
+
+V - O Hierofante
+Significado Profundo: Tradição, ensino espiritual, transmissão de conhecimento sagrado. Conexão com o divino através de rituais.
+Orixá: Oxalá
+Astrologia: Touro
+
+VI - Os Amantes
+Significado Profundo: Escolhas de alma, união de opostos, amor sagrado. Decisão ética que define destino afetivo e espiritual.
+Orixá: Oxalufã (Yemanjá)
+Astrologia: Gêmeos
+
+VII - O Carro
+Significado Profundo: Vitória, controle de forças antagônicas, disciplina. Triunfo pela vontade e pela coragem.
+Orixá: Ogum
+Astrologia: Câncer
+
+VIII - A Justiça
+Significado Profundo: Equilíbrio, lei universal, causa e efeito (karma). Julgamento imparcial, responsabilidade e reparação.
+Orixá: Obaluaiê
+Astrologia: Libra
+
+IX - O Eremita
+Significado Profundo: Retiro, busca interior, isolamento sábio. Luz própria, guia espiritual.
+Orixá: Nanã
+Astrologia: Virgem
+
+X - A Roda da Fortuna
+Significado Profundo: Ciclos de mudança, destinos interligados, oportunidade e risco. Aceitar o fluxo cósmico.
+Orixá: Oxumaré
+Astrologia: Júpiter
+
+XI - A Força
+Significado Profundo: Coragem compassiva, domínio dos instintos, paciência. Vitória pela suavidade, não pela violência.
+Orixá: Iansã
+Astrologia: Leão
+
+XII - O Enforcado
+Significado Profundo: Suspensão, sacrifício voluntário, nova perspectiva. Morte do ego antiga para renascimento interno.
+Orixá: Oshosi (Oxóssi)
+Astrologia: Netuno
+
+XIII - A Morte
+Significado Profundo: Transformação radical, fim de ciclo, liberação de padrões obsoletos. Ressurgir através da renovação profunda.
+Orixá: Iemanjá
+Astrologia: Escorpião
+
+XIV - A Temperança
+Significado Profundo: Alquimia interior, equilíbrio dos opostos, cura por moderação. União de corpos e almas em harmonia fluida.
+Orixá: Oxalá
+Astrologia: Sagitário
+
+XV - O Diabo
+Significado Profundo: Enfrentamento das próprias sombras, desejos e vícios. Libertação consciente dos grilhões psíquicos.
+Orixá: Omolu/Obaluaiê
+Astrologia: Capricórnio
+
+XVI - A Torre
+Significado Profundo: Ruptura súbita de estruturas falsas, choque revelador. Necessidade de reconstruir sobre bases autênticas.
+Orixá: Exu
+Astrologia: Marte
+
+XVII - A Estrela
+Significado Profundo: Esperança, inspiração divina, renovação da fé. Canal de cura e orientação cósmica.
+Orixá: Oxum
+Astrologia: Aquário
+
+XVIII - A Lua
+Significado Profundo: Mistérios, ilusões, sombras interiores. Jornada pelo inconsciente, intuição em alerta. (Considere também as múltiplas facetas da Lua: noite, depressão, Deusa Lunar, feminino, submundo, falta de orientação, dependendo das cartas ao redor).
+Orixá: Iansã
+Astrologia: Peixes
+
+XIX - O Sol
+Significado Profundo: Clareza, vitalidade, realização, alegria pura. Símbolo de iluminação e sucesso genuíno.
+Orixá: Oxalá
+Astrologia: Sol
+
+XX - O Julgamento
+Significado Profundo: Ressurreição espiritual, chamamento para a verdade. Despertar coletivo e pessoal para a missão de alma.
+Orixá: Omolu/Obaluaiê
+Astrologia: Plutão
+
+XXI - O Mundo
+Significado Profundo: Conclusão de ciclo, integração, totalidade. União com o todo e retorno ao divino.
+Orixá: Oxalá
+Astrologia: Saturno
 
 Interprete a seguinte tiragem de cartas:
 
@@ -256,3 +369,4 @@ const analyzeCardReadingFlow = ai.defineFlow(
     return output!;
   }
 );
+
