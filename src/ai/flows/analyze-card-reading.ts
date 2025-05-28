@@ -333,6 +333,244 @@ Significado Profundo: Conclusão de ciclo, integração, totalidade. União com 
 Orixá: Oxalá
 Astrologia: Saturno
 
+🌟 Arcanos Menores do Tarot com Correspondência aos Orixás e Influência Astrológica 🌟
+
+Naipe de Paus (Elemento Fogo - Ação, Vontade, Criatividade)
+
+Ás de Paus
+Significado Profundo: Faísca criativa, novo projeto, paixão interior, impulso divino.
+Orixá: Ogum
+Astrologia: Marte
+
+2 de Paus
+Significado Profundo: Planejamento visionário, escolha de caminhos, expansão.
+Astrologia: Sol em Áries (1º decanato)
+
+3 de Paus
+Significado Profundo: Colheita de frutos iniciais, parcerias, comércio.
+Astrologia: Lua em Áries (2º decanato)
+
+4 de Paus
+Significado Profundo: Celebração, equilíbrio entre lar e missão, estabilidade festiva.
+Astrologia: Vênus em Áries (3º decanato)
+
+5 de Paus
+Significado Profundo: Conflito saudável, competição criativa, teste de força de vontade.
+Astrologia: Marte em Leão (1º decanato)
+
+6 de Paus
+Significado Profundo: Reconhecimento público, vitória justa, liderança inspiradora.
+Astrologia: Sol em Leão (2º decanato)
+
+7 de Paus
+Significado Profundo: Defesa de posições, coragem em face de adversários.
+Astrologia: Júpiter em Leão (3º decanato)
+
+8 de Paus
+Significado Profundo: Movimento rápido, mensageiro, catalisador, aceleração de processos.
+Astrologia: Mercúrio em Sagitário (1º decanato)
+
+9 de Paus
+Significado Profundo: Perseverança cansada, vigilância honrada, resiliência contra obstáculos finais.
+Astrologia: Saturno em Sagitário (2º decanato)
+
+10 de Paus
+Significado Profundo: Fardo de responsabilidades, necessidade de delegar, limite de capacidade.
+Astrologia: Marte em Sagitário (3º decanato)
+
+Pajem de Paus
+Significado Profundo: Mensageiro de oportunidades, curiosidade audaciosa, aprendizado prático.
+Astrologia: Sol em Leão
+
+Cavaleiro de Paus
+Significado Profundo: Espírito aventureiro, energia indomável, início de jornada intensa.
+Astrologia: Marte em Sagitário
+
+Rainha de Paus
+Significado Profundo: Paixão criativa, coragem compassiva, liderança carismática.
+Astrologia: Júpiter em Leão
+
+Rei de Paus
+Significado Profundo: Visão empreendedora, força de vontade inspiradora, comando otimista.
+Astrologia: Sol em Sagitário
+
+Naipe de Copas (Elemento Água - Emoções, Intuição, Relacionamentos)
+
+Ás de Copas
+Significado Profundo: Fonte emocional, renascimento do coração, canal de intuição pura.
+Orixá: Oxum
+Astrologia: Lua
+
+2 de Copas
+Significado Profundo: Amor recíproco, aliança de almas, cura mútua.
+Astrologia: Vênus em Câncer
+
+3 de Copas
+Significado Profundo: Comunhão festiva, irmandade, celebração do afeto.
+Astrologia: Mercúrio em Câncer
+
+4 de Copas
+Significado Profundo: Tédio interior, necessidade de gratidão, tensão entre desejo e apatia.
+Astrologia: Sol em Câncer
+
+5 de Copas
+Significado Profundo: Perda afetiva, luto, redenção pela aceitação emocional.
+Astrologia: Marte em Escorpião (1º decanato)
+
+6 de Copas
+Significado Profundo: Memória afetiva, nostalgia curativa, reconciliação com o passado.
+Astrologia: Vênus em Leão (2º decanato)
+
+7 de Copas
+Significado Profundo: Ilusões, múltiplas possibilidades, escolha sábia versus fuga dos sentimentos.
+Astrologia: Mercúrio em Escorpião (3º decanato)
+
+8 de Copas
+Significado Profundo: Partida evolutiva, busca de sentido maior, abandono de padrões emocionais obsoletos.
+Astrologia: Saturno em Peixes (1º decanato)
+
+9 de Copas
+Significado Profundo: Satisfação plena, gratidão abundante, realização dos desejos do coração.
+Astrologia: Júpiter em Peixes (2º decanato)
+
+10 de Copas
+Significado Profundo: Harmonia familiar, felicidade duradoura, bênção coletiva.
+Astrologia: Sol em Peixes (3º decanato)
+
+Pajem de Copas
+Significado Profundo: Mensageiro de intuição, sensibilidade artística, convite à empatia.
+Astrologia: Mercúrio em Peixes
+
+Cavaleiro de Copas
+Significado Profundo: Proposta romântica, idealismo afetivo, gestação de sonhos emocionais.
+Astrologia: Vênus em Peixes
+
+Rainha de Copas
+Significado Profundo: Profundidade intuitiva, empatia curadora, guardiã dos segredos do coração.
+Astrologia: Lua em Escorpião
+
+Rei de Copas
+Significado Profundo: Maestria emocional, compaixão equilibrada, diplomacia afetiva.
+Astrologia: Júpiter em Câncer
+
+Naipe de Espadas (Elemento Ar - Intelecto, Verdade, Desafios Mentais)
+
+Ás de Espadas
+Significado Profundo: Claridade intelectual, corte de ilusões, verdade revelada.
+Orixá: Iansã
+Astrologia: Mercúrio
+
+2 de Espadas
+Significado Profundo: Impasse mental, equilíbrio de opostos, pausa para meditação.
+Astrologia: Lua em Libra
+
+3 de Espadas
+Significado Profundo: Dor psicológica, separação de crenças, cura através do luto.
+Astrologia: Saturno em Libra
+
+4 de Espadas
+Significado Profundo: Retiro mental, descanso estratégico, preparação interior.
+Astrologia: Sol em Libra
+
+5 de Espadas
+Significado Profundo: Vitória egoísta, necessidade de rever estratégia, honestidade após conflito.
+Astrologia: Vênus em Aquário
+
+6 de Espadas
+Significado Profundo: Transição guiada, passagem para águas mais calmas, ajuda espiritual.
+Astrologia: Mercúrio em Aquário
+
+7 de Espadas
+Significado Profundo: Astúcia, segredo estratégico, necessidade de transparência ou redefinição de objetivos.
+Astrologia: Lua em Aquário
+
+8 de Espadas
+Significado Profundo: Limitações autoimpostas, medo mental, libertação pelo autoempoderamento.
+Astrologia: Júpiter em Gêmeos
+
+9 de Espadas
+Significado Profundo: Angústia, ansiedade, ritual de purificação mental.
+Astrologia: Marte em Gêmeos (1º decanato)
+
+10 de Espadas
+Significado Profundo: Ruptura de paradigmas, renascimento da mente, reconstrução de crenças.
+Astrologia: Saturno em Gêmeos
+
+Pajem de Espadas
+Significado Profundo: Investigação incisiva, curiosidade afiada, mensagem-truth seeker.
+Astrologia: Mercúrio em Gêmeos
+
+Cavaleiro de Espadas
+Significado Profundo: Ação intelectual rápida, defesa de ideias, coragem argumentativa.
+Astrologia: Marte em Aquário
+
+Rainha de Espadas
+Significado Profundo: Sabedoria objetiva, empoderamento mental, clareza em meio ao caos.
+Astrologia: Saturno em Libra
+
+Rei de Espadas
+Significado Profundo: Justiça imparcial, autoridade intelectual, comando lógico.
+Astrologia: Júpiter em Libra
+
+Naipe de Ouros (Elemento Terra - Matéria, Segurança, Trabalho, Saúde)
+
+Ás de Ouros
+Significado Profundo: Semente material, oportunidade financeira ou de saúde, prosperidade nascente.
+Orixá: Xangô
+Astrologia: Terra (exaltação de Terra na Astrologia Arquetípica)
+
+2 de Ouros
+Significado Profundo: Balanço de recursos, adaptabilidade prática, harmonia entre sustento e mudança.
+Astrologia: Mercúrio em Capricórnio
+
+3 de Ouros
+Significado Profundo: Trabalho em equipe, maestria artesanal, reconhecimento por competência.
+Astrologia: Marte em Capricórnio
+
+4 de Ouros
+Significado Profundo: Apegos, segurança financeira excessiva, convite à generosidade.
+Astrologia: Sol em Capricórnio
+
+5 de Ouros
+Significado Profundo: Crise material, apoio espiritual em dificuldades, lições de compaixão.
+Astrologia: Mercúrio em Touro (1º decanato)
+
+6 de Ouros
+Significado Profundo: Generosidade justa, fluxo equilibrado de dar e receber.
+Astrologia: Vênus em Touro
+
+7 de Ouros
+Significado Profundo: Avaliação de colheita, paciência recompensada, revisão de planos de longo prazo.
+Astrologia: Sol em Touro
+
+8 de Ouros
+Significado Profundo: Dedicação ao ofício, aperfeiçoamento, disciplina criativa.
+Astrologia: Mercúrio em Virgem
+
+9 de Ouros
+Significado Profundo: Conquista individual, conforto refinado, celebração do esforço.
+Astrologia: Vênus em Virgem
+
+10 de Ouros
+Significado Profundo: Legado duradouro, estabilidade familiar, riqueza espiritual e material compartilhada.
+Astrologia: Júpiter em Touro
+
+Pajem de Ouros
+Significado Profundo: Nova proposta prática, estudo de finanças, convite à terra e ao conhecimento aplicado.
+Astrologia: Mercúrio em Touro
+
+Cavaleiro de Ouros
+Significado Profundo: Trabalho consistente, progresso confiável, passo a passo rumo à meta.
+Astrologia: Saturno em Touro
+
+Rainha de Ouros
+Significado Profundo: Nutrição material, sabedoria financeira, guardiã do lar e dos recursos.
+Astrologia: Lua em Touro
+
+Rei de Ouros
+Significado Profundo: Mestre da abundância, liderança responsável, visão empresarial justa.
+Astrologia: Sol em Touro
+
 Interprete a seguinte tiragem de cartas:
 
 {{media url=photoDataUri}}`,
