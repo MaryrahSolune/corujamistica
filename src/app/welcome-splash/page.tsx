@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext'; 
 
-const SPLASH_DURATION = 5000; // 5 seconds, adjust as needed for your GIF's length
+const SPLASH_DURATION = 500; // 0.5 seconds, adjust as needed for your GIF's length
 
 export default function WelcomeSplashPage() {
   const router = useRouter();
