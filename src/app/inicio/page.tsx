@@ -10,6 +10,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SunIcon, MoonIcon } from '@/components/MysticIcons';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useEffect, useState } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 // Custom Separator Component
 const CustomSeparator = () => (
@@ -18,6 +20,11 @@ const CustomSeparator = () => (
 
 export default function InicioPage() {
   const { t } = useLanguage();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const howItWorksSteps = [
     {
@@ -74,6 +81,45 @@ export default function InicioPage() {
     { src: "/gifs/cosmic_energy.gif", hint: "energy flow visualization", altKey: "gifPlaceholderAlt" },
   ];
 
+  if (!isClient) {
+    return (
+      <div className="flex min-h-screen flex-col bg-background">
+        <header className="py-6 sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="container mx-auto flex justify-between items-center px-4">
+            <div className="flex items-center space-x-2">
+              <Skeleton className="h-8 w-8 rounded-full" />
+              <Skeleton className="h-6 w-32" />
+            </div>
+            <div className="flex items-center space-x-1 sm:space-x-2">
+              <Skeleton className="h-8 w-8" />
+              <Skeleton className="h-8 w-8" />
+              <Skeleton className="h-9 w-20" />
+              <Skeleton className="h-9 w-24" />
+            </div>
+          </div>
+        </header>
+        <main className="flex-grow container mx-auto p-4">
+          <section className="py-20 sm:py-28 text-center">
+            <Skeleton className="h-20 w-20 rounded-full mx-auto mb-6" />
+            <Skeleton className="h-12 w-3/4 mx-auto mb-6" />
+            <Skeleton className="h-8 w-1/2 mx-auto mb-10" />
+            <Skeleton className="h-12 w-48 mx-auto" />
+          </section>
+          <CustomSeparator />
+          <section className="py-16 sm:py-24">
+            <Skeleton className="h-10 w-1/2 mx-auto mb-4" />
+            <Skeleton className="h-6 w-3/4 mx-auto mb-12" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[1,2,3].map(i => <Skeleton key={i} className="h-64 rounded-xl" />)}
+            </div>
+          </section>
+        </main>
+        <footer className="py-8 text-center border-t border-border/20 bg-background/80">
+          <Skeleton className="h-5 w-1/3 mx-auto" />
+        </footer>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -102,14 +148,10 @@ export default function InicioPage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden"> {/* Removed bg-shiva-hero-bg, will use Image component */}
-           {/* Animated Aurora Overlay */}
+        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden">
            <div className="absolute inset-0 -z-10 animated-aurora-background opacity-70"></div>
-
-           {/* Mystic Icons */}
            <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} />
            <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/>
-
           <div className="container mx-auto px-4 relative z-10">
             <div className="relative inline-block mb-6">
               <div className="absolute inset-0 -z-10 flex items-center justify-center">
@@ -121,6 +163,7 @@ export default function InicioPage() {
                   height={120}
                   className="rounded-full object-cover opacity-30 blur-sm animate-subtle-bob"
                   style={{ objectFit: 'cover' }}
+                  priority
                 />
               </div>
               <Sparkles className="h-20 w-20 text-primary mx-auto animate-subtle-pulse relative z-10" />
@@ -276,7 +319,7 @@ export default function InicioPage() {
                 </div>
               ))}
             </div>
-            <p className="text-center text-muted-foreground mt-8 text-sm animate-fade-in" style={{animationDelay: '0.5s'}}>
+             <p className="text-center text-muted-foreground mt-8 text-sm animate-fade-in" style={{animationDelay: '0.5s'}}>
               (Em breve: mais animações e símbolos sagrados para sua inspiração!)
             </p>
           </div>
