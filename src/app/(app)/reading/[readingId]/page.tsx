@@ -10,7 +10,7 @@ import { getReadingById, type ReadingData } from '@/services/readingService';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon } from 'lucide-react';
+import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, HeartHandshake } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { format, fromUnixTime } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
@@ -86,12 +86,11 @@ export default function ViewReadingPage() {
   }
 
   if (!reading) {
-    // Should be caught by error state, but as a fallback
     return (
         <div className="container mx-auto p-4 sm:p-6 lg:p-8 max-w-3xl text-center">
              <p>{t('readingNotFound')}</p>
              <Button asChild variant="link" className="mt-4">
-                <Link href="/dashboard">{t('backToDashboardButton')}</Link>
+                <Link href="/dashboard"><span>{t('backToDashboardButton')}</span></Link>
             </Button>
         </div>
     );
@@ -101,18 +100,28 @@ export default function ViewReadingPage() {
     if (typeof timestamp === 'number') {
       return format(fromUnixTime(timestamp / 1000), 'PPP p', { locale: getDateFnsLocale() });
     }
-    // If it's a serverTimestamp object, it might not be resolved yet, or this is an old record
     return t('timestampProcessing');
   };
   
-  const pageTitle = reading.type === 'tarot' ? t('tarotReadingDetailsTitle') : t('dreamInterpretationDetailsTitle');
-  const PageIcon = reading.type === 'tarot' ? VenetianMask : BrainCircuit;
+  let pageTitle = '';
+  let PageIcon = BookOpenText;
+
+  if (reading.type === 'tarot') {
+    pageTitle = t('tarotReadingDetailsTitle');
+    PageIcon = VenetianMask;
+  } else if (reading.type === 'dream') {
+    pageTitle = t('dreamInterpretationDetailsTitle');
+    PageIcon = BrainCircuit;
+  } else if (reading.type === 'loveOracle') {
+    pageTitle = t('loveOracleDetailsTitle');
+    PageIcon = HeartHandshake;
+  }
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 max-w-3xl">
         <Button asChild variant="outline" size="sm" className="mb-6">
           <Link href="/dashboard">
-            <ArrowLeft className="mr-2 h-4 w-4" /> {t('backToDashboardButton')}
+            <ArrowLeft className="mr-2 h-4 w-4" /> <span>{t('backToDashboardButton')}</span>
           </Link>
         </Button>
 
@@ -215,6 +224,45 @@ export default function ViewReadingPage() {
                                 height={300}
                                 className="w-full h-auto object-contain relative z-10 bg-black/10"
                                 data-ai-hint="dream scene abstract"
+                                />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+
+            {reading.type === 'loveOracle' && (
+              <>
+                <div>
+                  <h3 className="text-xl font-semibold font-serif mb-2 text-accent">{t('yourLoveProblemLabel')}</h3>
+                  <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90">
+                    {reading.problemDescription}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold font-serif mb-4 text-accent flex items-center">
+                     <BookOpenText className="mr-2 h-5 w-5"/> {t('loveOracleAdviceTitle')}
+                  </h3>
+                  <div className="space-y-4">
+                    {reading.adviceSegments.map((segment, index) => (
+                      <div key={index}>
+                        {segment.type === 'text' && segment.content && (
+                          <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                            {segment.content}
+                          </p>
+                        )}
+                        {segment.type === 'image' && segment.dataUri && (
+                            <div className="my-4 animated-aurora-background rounded-lg overflow-hidden shadow-lg">
+                                <Image
+                                src={segment.dataUri}
+                                alt={t('loveOracleImageAlt', { number: index + 1 }) + `: ${segment.alt || 'Visualização do conselho'}`}
+                                width={500}
+                                height={300}
+                                className="w-full h-auto object-contain relative z-10 bg-black/10"
+                                data-ai-hint="love advice symbolic"
                                 />
                           </div>
                         )}

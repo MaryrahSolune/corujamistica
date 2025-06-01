@@ -14,6 +14,7 @@ const translations = {
     dashboard: "Dashboard",
     newReading: "New Reading",
     dreamInterpretation: "Dream Interpretation",
+    loveOracle: "Love Oracle", // New
     credits: "Credits",
     profile: "Profile",
     logout: "Log out",
@@ -106,6 +107,9 @@ const translations = {
     startNewReadingButton: "Start a New Reading",
     dreamInterpretationCardDescription: "Unveil the mysteries hidden in your dreams.",
     interpretDreamButton: "Interpret My Dream",
+    loveOracleCardTitle: "Love Oracle", // New
+    loveOracleCardDescription: "Seek guidance for matters of the heart.", // New
+    consultLoveOracleButton: "Consult Love Oracle", // New
     yourCreditsCardTitle: "Your Credits",
     creditsRemaining: "credits remaining",
     purchaseMoreCreditsButton: "Purchase More Credits",
@@ -123,6 +127,7 @@ const translations = {
     defaultSeekerName: "Seeker",
     tarotReadingType: "Tarot/Oracle Card Reading",
     dreamInterpretationType: "Dream Interpretation",
+    loveOracleReadingType: "Love Oracle Consultation", // New
     dailyGiftTitle: "Daily Gift",
     claimYourDailyGift: "Claim Your Daily Gift ({count} Credit)",
     dailyGiftClaimed: "Gift Claimed!",
@@ -186,9 +191,11 @@ const translations = {
     authErrorTitle: "Authentication Error",
     mustBeLoggedInToRead: "You must be logged in to perform a reading.",
     mustBeLoggedInToInterpret: "You must be logged in to interpret a dream.",
+    mustBeLoggedInToConsultOracle: "You must be logged in to consult the Love Oracle.", // New
     insufficientCreditsTitle: "Insufficient Credits",
     insufficientCreditsDescription: "You do not have enough credits for a card reading. Please purchase more.",
     insufficientCreditsForDreamDescription: "You do not have enough credits for a dream interpretation. Please purchase more.",
+    insufficientCreditsForOracleDescription: "You do not have enough credits to consult the Love Oracle. Please purchase more.", // New
     creditDeductionFailedError: "Failed to deduct credit. Please try again.",
     // Profile Page
     yourProfileTitle: "Your Profile",
@@ -219,6 +226,19 @@ const translations = {
     yourPropheticInterpretationTitle: "Your Prophetic Interpretation",
     dreamIllustrationAlt: "Dream illustration {number}",
     dreamDescriptionTooShortError: "Dream description must be at least 10 characters long.",
+    // Love Oracle Page
+    loveOracleTitle: "Love Oracle", // New
+    loveOracleDescription: "Share your heart's concerns, and the Oracle of Love will offer wise counsel.", // New
+    yourLoveProblemLabel: "Your Love Problem or Feeling", // New
+    loveProblemPlaceholder: "E.g., 'I feel distant from my partner lately...' or 'How can I find true love?'", // New
+    getLoveAdviceButton: "Get Love Advice (1 Credit)", // New
+    consultingOracleButton: "Consulting Oracle...", // New
+    loveProblemTooShortError: "The description of your love problem must be at least 20 characters long.", // New
+    loveOracleReadyTitle: "Love Oracle Has Spoken!", // New
+    loveOracleReadyDescription: "Your loving guidance has been generated.", // New
+    loveOracleAdviceTitle: "The Oracle's Counsel", // New
+    loveOracleImageAlt: "Visual counsel from the Love Oracle {number}", // New
+    errorGeneratingLoveAdviceDescription: "Failed to generate love advice. Please try again.", // New
     // Admin Panel
     adminDashboardTitle: "Admin Dashboard",
     adminDashboardDescription: "Manage users and application settings.",
@@ -249,6 +269,7 @@ const translations = {
     // Reading View Page
     tarotReadingDetailsTitle: "Tarot Reading Details",
     dreamInterpretationDetailsTitle: "Dream Interpretation Details",
+    loveOracleDetailsTitle: "Love Oracle Consultation Details", // New
     readingPerformedOn: "Reading performed on: {date}",
     cardSpreadImageTitle: "Card Spread Image",
     interpretationTitle: "Interpretation",
@@ -265,6 +286,7 @@ const translations = {
     dashboard: "Painel",
     newReading: "Nova Leitura",
     dreamInterpretation: "Interpretação de Sonhos",
+    loveOracle: "Oráculo do Amor", // New
     credits: "Créditos",
     profile: "Perfil",
     logout: "Sair",
@@ -357,6 +379,9 @@ const translations = {
     startNewReadingButton: "Iniciar Nova Leitura",
     dreamInterpretationCardDescription: "Desvende os mistérios ocultos em seus sonhos.",
     interpretDreamButton: "Interpretar Meu Sonho",
+    loveOracleCardTitle: "Oráculo do Amor", // New
+    loveOracleCardDescription: "Busque orientação para assuntos do coração.", // New
+    consultLoveOracleButton: "Consultar Oráculo do Amor", // New
     yourCreditsCardTitle: "Seus Créditos",
     creditsRemaining: "créditos restantes",
     purchaseMoreCreditsButton: "Comprar Mais Créditos",
@@ -374,6 +399,7 @@ const translations = {
     defaultSeekerName: "Buscador(a)",
     tarotReadingType: "Leitura de Tarot/Oráculo",
     dreamInterpretationType: "Interpretação de Sonho",
+    loveOracleReadingType: "Consulta ao Oráculo do Amor", // New
     dailyGiftTitle: "Presente Diário",
     claimYourDailyGift: "Resgate Seu Presente Diário ({count} Crédito)",
     dailyGiftClaimed: "Presente Resgatado!",
@@ -437,9 +463,11 @@ const translations = {
     authErrorTitle: "Erro de Autenticação",
     mustBeLoggedInToRead: "Você precisa estar logado para realizar uma leitura.",
     mustBeLoggedInToInterpret: "Você precisa estar logado para interpretar um sonho.",
+    mustBeLoggedInToConsultOracle: "Você precisa estar logado para consultar o Oráculo do Amor.", // New
     insufficientCreditsTitle: "Créditos Insuficientes",
     insufficientCreditsDescription: "Você não tem créditos suficientes para uma leitura de cartas. Por favor, compre mais.",
     insufficientCreditsForDreamDescription: "Você não tem créditos suficientes para uma interpretação de sonho. Por favor, compre mais.",
+    insufficientCreditsForOracleDescription: "Você não tem créditos suficientes para consultar o Oráculo do Amor. Por favor, compre mais.", // New
     creditDeductionFailedError: "Falha ao deduzir crédito. Por favor, tente novamente.",
     // Profile Page
     yourProfileTitle: "Seu Perfil",
@@ -470,6 +498,19 @@ const translations = {
     yourPropheticInterpretationTitle: "Sua Interpretação Profética",
     dreamIllustrationAlt: "Ilustração do sonho {number}",
     dreamDescriptionTooShortError: "A descrição do sonho deve ter pelo menos 10 caracteres.",
+    // Love Oracle Page
+    loveOracleTitle: "Oráculo do Amor", // New
+    loveOracleDescription: "Compartilhe as inquietações do seu coração, e o Oráculo do Amor oferecerá sábios conselhos.", // New
+    yourLoveProblemLabel: "Seu Problema Amoroso ou Sentimento", // New
+    loveProblemPlaceholder: "Ex: 'Sinto-me distante do meu parceiro ultimamente...' ou 'Como posso encontrar o amor verdadeiro?'", // New
+    getLoveAdviceButton: "Receber Conselho Amoroso (1 Crédito)", // New
+    consultingOracleButton: "Consultando Oráculo...", // New
+    loveProblemTooShortError: "A descrição do seu problema amoroso deve ter pelo menos 20 caracteres.", // New
+    loveOracleReadyTitle: "O Oráculo do Amor Falou!", // New
+    loveOracleReadyDescription: "Sua orientação amorosa foi gerada.", // New
+    loveOracleAdviceTitle: "O Conselho do Oráculo", // New
+    loveOracleImageAlt: "Conselho visual do Oráculo do Amor {number}", // New
+    errorGeneratingLoveAdviceDescription: "Falha ao gerar o conselho amoroso. Por favor, tente novamente.", // New
     // Admin Panel
     adminDashboardTitle: "Painel do Administrador",
     adminDashboardDescription: "Gerenciar usuários e configurações do aplicativo.",
@@ -500,6 +541,7 @@ const translations = {
     // Reading View Page
     tarotReadingDetailsTitle: "Detalhes da Leitura de Tarot",
     dreamInterpretationDetailsTitle: "Detalhes da Interpretação de Sonho",
+    loveOracleDetailsTitle: "Detalhes da Consulta ao Oráculo do Amor", // New
     readingPerformedOn: "Leitura realizada em: {date}",
     cardSpreadImageTitle: "Imagem da Tiragem",
     interpretationTitle: "Interpretação",
@@ -571,7 +613,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
         console.warn(`Translation missing for key: "${String(key)}" in locale: "${effectiveLocale}" and fallback "en"`);
         return String(key);
       }
-      if (!translation) { // Ultimate fallback for truly missing key.
+      if (!translation) { 
          return `Missing translation for: ${String(key)}`;
       }
 
@@ -600,4 +642,3 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
-

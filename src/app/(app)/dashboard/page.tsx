@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut } from 'lucide-react'; // Added BrainCircuit, LogOut
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, HeartHandshake } from 'lucide-react'; // Added HeartHandshake
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -61,7 +61,7 @@ export default function DashboardPage() {
   useEffect(() => {
     if (currentUser?.uid) {
       setLoadingReadings(true);
-      getUserReadings(currentUser.uid, 3)
+      getUserReadings(currentUser.uid, 3) // Fetch 3 most recent readings
         .then(readings => setRecentReadings(readings))
         .catch(error => console.error("Error fetching recent readings:", error))
         .finally(() => setLoadingReadings(false));
@@ -119,19 +119,36 @@ export default function DashboardPage() {
     await logout();
     router.push('/login');
   };
+  
+  const getReadingTitle = (reading: ReadingData) => {
+    const maxLength = 40;
+    let title = '';
+    if (reading.type === 'tarot') title = reading.query;
+    else if (reading.type === 'dream') title = reading.dreamDescription;
+    else if (reading.type === 'loveOracle') title = reading.problemDescription;
+    
+    return title.substring(0, maxLength) + (title.length > maxLength ? '...' : '');
+  };
+
+  const getReadingTypeTranslation = (type: ReadingData['type']) => {
+    if (type === 'tarot') return t('tarotReadingType');
+    if (type === 'dream') return t('dreamInterpretationType');
+    if (type === 'loveOracle') return t('loveOracleReadingType');
+    return 'Leitura';
+  }
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold font-serif mb-2">
-          {t('welcomeMessage', { name: displayName })}
+          <span>{t('welcomeMessage', { name: displayName })}</span>
         </h1>
         <p className="text-lg text-muted-foreground">
           {t('dashboardSubtitle')}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
         <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -169,6 +186,23 @@ export default function DashboardPage() {
         <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-xl font-serif">{t('loveOracleCardTitle')}</CardTitle>
+              <HeartHandshake className="h-6 w-6 text-primary" />
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <p className="text-muted-foreground mb-4">{t('loveOracleCardDescription')}</p>
+            </CardContent>
+            <CardFooter>
+              <Button asChild className="w-full">
+                <Link href="/love-oracle"><span>{t('consultLoveOracleButton')}</span></Link>
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+
+        <div className="rounded-lg animated-aurora-background">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-serif">{t('yourCreditsCardTitle')}</CardTitle>
               <CreditCard className="h-6 w-6 text-accent" />
             </CardHeader>
@@ -188,7 +222,7 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        <div className="rounded-lg animated-aurora-background">
+        <div className="rounded-lg animated-aurora-background md:col-span-2 lg:col-span-1"> {/* Adjust span for daily gift */}
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-serif">{t('dailyGiftTitle')}</CardTitle>
@@ -219,7 +253,7 @@ export default function DashboardPage() {
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('claimingButton')}
                   </span>
                 ) : (
-                  t('claimNowButton')
+                  <span>{t('claimNowButton')}</span>
                 )}
               </Button>
             </CardFooter>
@@ -254,11 +288,11 @@ export default function DashboardPage() {
                             <h3 className="text-lg font-semibold text-primary flex items-center">
                             <BookMarked className="h-5 w-5 mr-2 flex-shrink-0" />
                             <span className="truncate">
-                                {reading.type === 'tarot' ? (reading.query.substring(0, 40) + (reading.query.length > 40 ? '...' : '')) : (reading.dreamDescription.substring(0,40) + (reading.dreamDescription.length > 40 ? '...' : ''))}
+                                {getReadingTitle(reading)}
                             </span>
                             </h3>
                             <p className="text-sm text-muted-foreground mt-1 ml-7">
-                            {reading.type === 'tarot' ? t('tarotReadingType') : t('dreamInterpretationType')}
+                              {getReadingTypeTranslation(reading.type)}
                             </p>
                         </div>
                         <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 w-full sm:w-auto">
@@ -314,7 +348,7 @@ export default function DashboardPage() {
       <div className="mt-16 mb-8 text-center">
         <Button variant="outline" onClick={handleLogout} size="lg">
           <LogOut className="mr-2 h-5 w-5" />
-          {t('logout')}
+          <span>{t('logout')}</span>
         </Button>
       </div>
     </div>

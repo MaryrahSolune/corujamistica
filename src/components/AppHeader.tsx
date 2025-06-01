@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
-import { Button, buttonVariants } from '@/components/ui/button'; // Import buttonVariants
+import { Button, buttonVariants } from '@/components/ui/button'; 
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,12 +17,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn } from 'lucide-react'; // Added UserPlus, LogIn
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn, HeartHandshake } from 'lucide-react'; // Added HeartHandshake
 
 const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
   { href: '/dashboard', labelKey: 'dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
   { href: '/new-reading', labelKey: 'newReading', icon: <ScanLine className="mr-2 h-4 w-4" /> },
   { href: '/dream-interpretation', labelKey: 'dreamInterpretation', icon: <BrainCircuit className="mr-2 h-4 w-4" /> },
+  { href: '/love-oracle', labelKey: 'loveOracle', icon: <HeartHandshake className="mr-2 h-4 w-4" /> },
   { href: '/credits', labelKey: 'credits', icon: <CreditCard className="mr-2 h-4 w-4" /> },
 ];
 
@@ -129,11 +130,9 @@ export default function AppHeader() {
   const homeLink = isAdmin ? "/admin" : "/dashboard";
 
 
-  // Determine if the current page is an auth page (login/signup) or the landing page
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
-  const isLandingPage = pathname === '/' || pathname === '/inicio'; // Assuming / and /inicio are landing pages
+  const isLandingPage = pathname === '/' || pathname === '/inicio'; 
 
-  // Show auth links (Login/Sign Up) only if not logged in AND on landing page context
   const showAuthLinks = !currentUser && (isLandingPage || isAuthPage);
 
   return (
@@ -155,8 +154,8 @@ export default function AppHeader() {
                   pathname === link.href ? 'text-foreground font-semibold' : 'text-foreground/60'
                 )}
               >
-                <span className="hidden sm:inline">{t(link.labelKey)}</span>
-                <span className="sm:hidden" title={t(link.labelKey)}>{React.cloneElement(link.icon as React.ReactElement, { className: 'h-5 w-5' })}</span>
+                <span className="hidden md:inline">{t(link.labelKey)}</span>
+                <span className="md:hidden" title={t(link.labelKey)}>{React.cloneElement(link.icon as React.ReactElement, { className: 'h-5 w-5' })}</span>
               </Link>
             ))}
           </nav>
@@ -192,14 +191,14 @@ export default function AppHeader() {
                 <DropdownMenuItem asChild>
                   <Link href="/profile">
                     <UserCircle2 className="mr-2 h-4 w-4" />
-                    {t('profile')}
+                    <span>{t('profile')}</span>
                   </Link>
                 </DropdownMenuItem>
                 {isAdmin && !pathname.startsWith('/admin') && (
                   <DropdownMenuItem asChild>
                     <Link href="/admin">
                       <ShieldCheck className="mr-2 h-4 w-4" />
-                      {t('adminPanel')}
+                       <span>{t('adminPanel')}</span>
                     </Link>
                   </DropdownMenuItem>
                 )}
@@ -207,13 +206,13 @@ export default function AppHeader() {
                     <DropdownMenuItem asChild>
                         <Link href="/dashboard">
                         <LayoutDashboard className="mr-2 h-4 w-4" />
-                        {t('dashboard')}
+                        <span>{t('dashboard')}</span>
                         </Link>
                     </DropdownMenuItem>
                 )}
                 <DropdownMenuItem onClick={logout}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  {t('logout')}
+                  <span>{t('logout')}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -224,7 +223,7 @@ export default function AppHeader() {
                   <Button
                     asChild
                     variant="default"
-                    className="login-btn-custom relative z-[1]"
+                    className="login-btn-custom relative z-[1]" 
                   >
                     <Link href="/login">
                       <LogIn className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('login')}</span>
@@ -246,4 +245,3 @@ export default function AppHeader() {
     </header>
   );
 }
-
