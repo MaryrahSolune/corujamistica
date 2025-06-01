@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -220,15 +219,17 @@ export default function AppHeader() {
           )}
           {isClient && showAuthLinks && (
              <div className="flex items-center space-x-1 sm:space-x-2">
-                <Link
-                  href="/login"
-                  className={cn(
-                    buttonVariants({ variant: 'ghost' }),
-                    'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
-                  )}
-                >
-                  <LogIn className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('login')}</span>
-                </Link>
+                <div className="login-button-aura-wrapper">
+                  <Link
+                    href="/login"
+                    className={cn(
+                      buttonVariants({ variant: 'default' }), // Changed from 'ghost' to 'default'
+                      'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
+                    )}
+                  >
+                    <LogIn className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('login')}</span>
+                  </Link>
+                </div>
                 <Link
                   href="/signup"
                   className={cn(
