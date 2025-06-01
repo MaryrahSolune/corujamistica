@@ -4,95 +4,97 @@
 
 @layer base {
   :root {
-    /* Aurora Neon - Light Theme */
-    --background: 240 20% 98%; /* Very light cool gray, almost white */
-    --foreground: 270 30% 25%; /* Dark desaturated purple */
+    /* Mystic Insights - Light Theme (PRD Aligned) */
+    --background: 276 33% 90%; /* Soft lavender (#F0E6EF) */
+    --foreground: 273 37% 25%; /* Darker Deep Purple for text */
 
-    --card: 250 30% 100%; /* Slightly purplish white */
-    --card-foreground: 270 30% 25%;
+    --card: 276 33% 95%; /* Slightly lighter lavender/off-white */
+    --card-foreground: 273 37% 25%;
 
-    --popover: 250 30% 100%;
-    --popover-foreground: 270 30% 25%;
+    --popover: 276 33% 95%;
+    --popover-foreground: 273 37% 25%;
 
-    --primary: 270 70% 58%; /* Medium vibrant purple */
-    --primary-foreground: 300 80% 98%; /* Very light pinkish/lavender for contrast */
+    --primary: 273 37% 44%; /* Deep purple (#6A459B) */
+    --primary-foreground: 276 60% 97%; /* Very light lavender for contrast */
 
-    --secondary: 210 75% 55%; /* Bright medium blue */
-    --secondary-foreground: 210 80% 98%; /* Light cyan/white */
+    --secondary: 273 30% 65%; /* Supporting lighter purple */
+    --secondary-foreground: 276 60% 97%;
 
-    --muted: 240 20% 94%; /* Light cool gray */
-    --muted-foreground: 260 20% 55%; /* Muted purple-gray */
+    --muted: 276 30% 85%; /* Muted lavender */
+    --muted-foreground: 273 30% 50%; /* Darker muted purple */
 
-    --accent: 320 80% 60%; /* Vibrant pink */
-    --accent-foreground: 320 80% 98%; /* Very light pink for contrast */
+    --accent: 45 74% 52%; /* Gold (#D4AF37) */
+    --accent-foreground: 45 100% 15%; /* Dark brown/black for contrast */
 
-    --destructive: 0 75% 55%; /* Keeping destructive clear */
-    --destructive-foreground: 0 80% 98%;
+    --destructive: 0 70% 50%; /* Standard Red */
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 270 30% 88%; /* Light purple-gray border */
-    --input: 270 30% 96%; /* Very light purplish input background */
-    --ring: 320 80% 60%; /* Pink ring for focus */
+    --border: 273 25% 75%; /* Lavender-gray border */
+    --input: 276 30% 92%; /* Very light lavender input background */
+    --ring: 45 74% 52%; /* Gold ring for focus */
 
-    --chart-1: 270 70% 58%; /* Primary Purple */
-    --chart-2: 320 80% 60%; /* Accent Pink */
-    --chart-3: 210 75% 55%; /* Secondary Blue */
-    --chart-4: 270 50% 75%; /* Lighter Purple */
-    --chart-5: 320 60% 75%; /* Lighter Pink */
+    --radius: 0.5rem;
 
-    --sidebar-background: 260 30% 96%; /* Light lavender */
-    --sidebar-foreground: 270 40% 30%; /* Dark purple */
-    --sidebar-primary: 270 70% 58%; /* Primary purple */
-    --sidebar-primary-foreground: 300 80% 98%;
-    --sidebar-accent: 270 50% 90%; /* Lighter hover for sidebar items */
-    --sidebar-accent-foreground: 270 70% 58%;
-    --sidebar-border: 270 30% 85%;
-    --sidebar-ring: 320 80% 60%; /* Pink focus */
+    --chart-1: 273 37% 44%; /* Primary Deep Purple */
+    --chart-2: 45 74% 52%; /* Accent Gold */
+    --chart-3: 273 30% 65%; /* Secondary Lighter Purple */
+    --chart-4: 273 37% 55%; /* Lighter Deep Purple */
+    --chart-5: 45 74% 65%; /* Lighter Gold */
+
+    --sidebar-background: 276 33% 88%; /* Slightly darker lavender for sidebar */
+    --sidebar-foreground: 273 37% 20%; /* Darkest purple */
+    --sidebar-primary: 273 37% 44%; /* Deep purple */
+    --sidebar-primary-foreground: 276 60% 97%;
+    --sidebar-accent: 276 33% 80%; /* Lighter hover for sidebar items */
+    --sidebar-accent-foreground: 273 37% 44%;
+    --sidebar-border: 273 20% 65%;
+    --sidebar-ring: 45 74% 52%; /* Gold focus */
   }
 
   .dark {
-    /* Aurora Neon - Dark Theme */
-    --background: 260 30% 8%; /* Very dark deep indigo/purple */
-    --foreground: 270 40% 88%; /* Light lavender/gray for text */
+    /* Mystic Insights - Dark Theme (PRD Aligned) */
+    --background: 273 30% 10%; /* Very dark deep purple */
+    --foreground: 276 30% 85%; /* Light lavender for text */
 
-    --card: 265 30% 12%; /* Dark indigo card */
-    --card-foreground: 270 40% 88%;
+    --card: 273 25% 15%; /* Dark purple card */
+    --card-foreground: 276 30% 85%;
 
-    --popover: 260 30% 8%;
-    --popover-foreground: 270 40% 88%;
+    --popover: 273 30% 10%;
+    --popover-foreground: 276 30% 85%;
 
-    --primary: 275 90% 68%; /* Electric Purple */
-    --primary-foreground: 270 20% 95%; /* Light lavender/white for contrast */
+    --primary: 273 45% 58%; /* Brighter Deep Purple for dark mode */
+    --primary-foreground: 276 80% 95%; /* Very light lavender for contrast */
 
-    --secondary: 190 90% 60%; /* Electric Cyan/Blue */
-    --secondary-foreground: 190 20% 95%; /* Light cyan/white */
+    --secondary: 273 35% 70%; /* Brighter supporting purple */
+    --secondary-foreground: 273 30% 15%; /* Dark contrast for secondary */
 
-    --muted: 260 25% 18%; /* Darker muted indigo */
-    --muted-foreground: 270 30% 70%; /* Muted lavender */
+    --muted: 273 20% 20%; /* Darker muted purple */
+    --muted-foreground: 276 25% 65%; /* Muted lavender */
 
-    --accent: 330 100% 70%; /* Hot Pink/Magenta */
-    --accent-foreground: 330 20% 95%; /* Light pink/white */
+    --accent: 45 80% 60%; /* Brighter Gold for dark mode */
+    --accent-foreground: 45 100% 10%; /* Very dark brown/black for contrast */
 
-    --destructive: 0 80% 65%; /* Bright red for destructive actions */
-    --destructive-foreground: 0 20% 95%;
+    --destructive: 0 75% 60%; /* Standard Red */
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 270 20% 25%; /* Dark purple-gray border */
-    --input: 270 20% 20%; /* Dark input background */
-    --ring: 330 100% 70%; /* Hot pink ring for focus */
+    --border: 273 20% 30%; /* Dark purple-gray border */
+    --input: 273 20% 25%; /* Dark input background */
+    --ring: 45 80% 60%; /* Brighter Gold ring for focus */
     
-    --chart-1: 275 90% 68%; /* Electric Purple */
-    --chart-2: 330 100% 70%; /* Hot Pink */
-    --chart-3: 190 90% 60%; /* Electric Cyan */
-    --chart-4: 275 70% 80%; /* Lighter Electric Purple */
-    --chart-5: 330 80% 80%; /* Lighter Hot Pink */
+    --chart-1: 273 45% 58%; /* Primary Brighter Deep Purple */
+    --chart-2: 45 80% 60%; /* Accent Brighter Gold */
+    --chart-3: 273 35% 70%; /* Secondary Brighter Supporting Purple */
+    --chart-4: 273 45% 68%; /* Lighter Brighter Deep Purple */
+    --chart-5: 45 80% 70%; /* Lighter Brighter Gold */
 
-    --sidebar-background: 265 30% 10%; /* Dark indigo for sidebar */
-    --sidebar-foreground: 270 40% 85%;
-    --sidebar-primary: 275 90% 68%; /* Electric Purple */
-    --sidebar-primary-foreground: 270 20% 95%;
-    --sidebar-accent: 270 30% 15%; /* Darker hover for sidebar items */
-    --sidebar-accent-foreground: 275 90% 68%;
-    --sidebar-border: 270 20% 22%;
-    --sidebar-ring: 330 100% 70%; /* Hot pink focus */
+    --sidebar-background: 273 28% 12%; /* Darker purple for sidebar */
+    --sidebar-foreground: 276 30% 80%;
+    --sidebar-primary: 273 45% 58%; /* Brighter Deep Purple */
+    --sidebar-primary-foreground: 276 80% 95%;
+    --sidebar-accent: 273 25% 20%; /* Darker hover for sidebar items */
+    --sidebar-accent-foreground: 273 45% 58%;
+    --sidebar-border: 273 15% 25%;
+    --sidebar-ring: 45 80% 60%; /* Gold focus */
   }
 }
 
@@ -101,8 +103,8 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
-    position: relative; /* Necessário para o posicionamento do pseudo-elemento */
+    @apply bg-background text-foreground font-sans; /* Ensure font-sans is default for body */
+    position: relative;
   }
   body::before {
     content: "";
@@ -113,36 +115,31 @@
     height: 100%;
     background-image: url('/img/sacred_geometry_pattern.png');
     background-repeat: repeat;
-    opacity: 0.03; /* Bem sutil - ajuste conforme necessário */
+    opacity: 0.03; 
     z-index: -20; 
     pointer-events: none; 
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    @apply font-serif; /* Serif for headings */
   }
 }
 
 @layer utilities {
   .animated-aurora-background {
-    @apply relative overflow-hidden; /* Crucial for containing the pseudo-element and ensuring border-radius is respected */
+    @apply relative overflow-hidden;
   }
   .animated-aurora-background::before {
     content: "";
     @apply absolute top-1/2 left-1/2 w-[150%] pt-[150%] -z-10 animate-spin-gradient;
-    /* The w-[150%] and pt-[150%] (padding-top for aspect ratio) make a large square */
-    /* -z-10 to be behind the card content */
-    /* animation is defined in tailwind.config.ts */
     background: conic-gradient(
-      hsl(var(--primary) / 0.35),      /* Purple - Roxo */
-      hsl(var(--secondary) / 0.70),    /* Blue - Azul claro mais forte */
-      hsl(var(--accent) / 0.45),       /* Pink - Rosa */
-      hsl(var(--secondary) / 0.65),    /* Blue - Outro pulso de Azul claro */
-      hsl(var(--primary) / 0.30),      /* Purple - Roxo */
-      hsl(var(--accent) / 0.40),       /* Pink - Rosa mais suave */
-      hsl(var(--secondary) / 0.55),    /* Blue - Azul claro novamente */
-      transparent 70%                  /* Rays are slightly less transparent, transparent transition starts a bit later */
+      hsl(var(--primary) / 0.45),      /* Primary - Deep Purple */
+      hsl(var(--accent) / 0.60),       /* Accent - Gold */
+      hsl(var(--secondary) / 0.55),    /* Secondary - Lighter Purple */
+      hsl(var(--primary) / 0.40),      /* Primary - Deep Purple */
+      hsl(var(--accent) / 0.50),       /* Accent - Gold */
+      hsl(var(--secondary) / 0.50),    /* Secondary - Lighter Purple */
+      transparent 70%
     );
-    border-radius: 50%; /* Makes the large square a circle */
-    /* transform: translate(-50%, -50%); handled by animate-spin-gradient keyframes */
+    border-radius: 50%;
   }
 }

@@ -1,4 +1,6 @@
+
 import type { Config } from "tailwindcss";
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
     darkMode: ["class"],
@@ -9,9 +11,13 @@ export default {
   ],
   theme: {
   	extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
+        serif: ['Georgia', 'Times New Roman', 'serif'], // Explicit system serifs
+      },
   		backgroundImage: {
         'shiva-hero-bg': "url('/img/shiva.jpg')",
-        'sacred-geometry-pattern': "url('/img/sacred_geometry_pattern.png')" // Adicionada referência ao padrão
+        'sacred-geometry-pattern': "url('/img/sacred_geometry_pattern.png')"
       },
       colors: {
   			background: 'hsl(var(--background))',
