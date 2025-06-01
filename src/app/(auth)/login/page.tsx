@@ -51,7 +51,7 @@ export default function LoginPage() {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       toast({ title: t('loginSuccessTitle'), description: t('loginSuccessDescription') });
-      router.push('/dashboard');
+      router.push('/welcome-splash'); // Redirect to the new welcome splash screen
     } catch (error: any) {
       console.error('Login error:', error);
       toast({
@@ -127,5 +127,3 @@ export default function LoginPage() {
     </Card>
   );
 }
-
-    
