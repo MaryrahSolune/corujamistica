@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, HeartHandshake } from 'lucide-react'; // Added HeartHandshake
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -125,7 +125,7 @@ export default function DashboardPage() {
     let title = '';
     if (reading.type === 'tarot') title = reading.query;
     else if (reading.type === 'dream') title = reading.dreamDescription;
-    else if (reading.type === 'loveOracle') title = reading.problemDescription;
+    // else if (reading.type === 'loveOracle') title = reading.problemDescription; // Removido
     
     return title.substring(0, maxLength) + (title.length > maxLength ? '...' : '');
   };
@@ -133,7 +133,7 @@ export default function DashboardPage() {
   const getReadingTypeTranslation = (type: ReadingData['type']) => {
     if (type === 'tarot') return t('tarotReadingType');
     if (type === 'dream') return t('dreamInterpretationType');
-    if (type === 'loveOracle') return t('loveOracleReadingType');
+    // if (type === 'loveOracle') return t('loveOracleReadingType'); // Removido
     return 'Leitura';
   }
 
@@ -183,22 +183,7 @@ export default function DashboardPage() {
           </Card>
         </div>
         
-        <div className="rounded-lg animated-aurora-background">
-          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-serif">{t('loveOracleCardTitle')}</CardTitle>
-              <HeartHandshake className="h-6 w-6 text-primary" />
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="text-muted-foreground mb-4">{t('loveOracleCardDescription')}</p>
-            </CardContent>
-            <CardFooter>
-              <Button asChild className="w-full">
-                <Link href="/love-oracle"><span>{t('consultLoveOracleButton')}</span></Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
+        {/* Card do Oráculo do Amor removido */}
 
         <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
@@ -222,7 +207,7 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        <div className="rounded-lg animated-aurora-background md:col-span-2 lg:col-span-1"> {/* Adjust span for daily gift */}
+        <div className="rounded-lg animated-aurora-background md:col-span-2 lg:col-span-1">
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-serif">{t('dailyGiftTitle')}</CardTitle>

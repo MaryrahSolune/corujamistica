@@ -17,13 +17,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn, HeartHandshake } from 'lucide-react'; // Added HeartHandshake
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn } from 'lucide-react';
 
 const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
   { href: '/dashboard', labelKey: 'dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
   { href: '/new-reading', labelKey: 'newReading', icon: <ScanLine className="mr-2 h-4 w-4" /> },
   { href: '/dream-interpretation', labelKey: 'dreamInterpretation', icon: <BrainCircuit className="mr-2 h-4 w-4" /> },
-  { href: '/love-oracle', labelKey: 'loveOracle', icon: <HeartHandshake className="mr-2 h-4 w-4" /> },
+  // { href: '/love-oracle', labelKey: 'loveOracle', icon: <HeartHandshake className="mr-2 h-4 w-4" /> }, // Removido
   { href: '/credits', labelKey: 'credits', icon: <CreditCard className="mr-2 h-4 w-4" /> },
 ];
 

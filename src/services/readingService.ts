@@ -19,14 +19,9 @@ export interface DreamInterpretationData {
   interpretationTimestamp: number | object;
 }
 
-export interface LoveOracleReadingData {
-  type: 'loveOracle';
-  problemDescription: string;
-  adviceSegments: ProcessedStorySegment[];
-  interpretationTimestamp: number | object;
-}
+// LoveOracleReadingData interface removida
 
-export type ReadingData = TarotReadingData | DreamInterpretationData | LoveOracleReadingData;
+export type ReadingData = TarotReadingData | DreamInterpretationData; // LoveOracleReadingData removido da união
 
 export async function saveReading(uid: string, readingData: Omit<ReadingData, 'interpretationTimestamp'>): Promise<string | null> {
   const readingsRef = ref(rtdb, `users/${uid}/readings`);
@@ -57,8 +52,6 @@ export async function getUserReadings(uid: string, limit: number = 5): Promise<A
       snapshot.forEach((childSnapshot) => {
         readings.push({ id: childSnapshot.key!, ...childSnapshot.val() } as ReadingData & { id: string });
       });
-      // Sort by timestamp descending (newest first) if serverTimestamp resolved to numbers
-      // Firebase returns them in ascending order by the ordered child.
       readings.sort((a, b) => {
         const tsA = typeof a.interpretationTimestamp === 'number' ? a.interpretationTimestamp : 0;
         const tsB = typeof b.interpretationTimestamp === 'number' ? b.interpretationTimestamp : 0;
