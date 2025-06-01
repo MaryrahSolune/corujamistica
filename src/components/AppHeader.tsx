@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button'; // Import buttonVariants
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, BrainCircuit, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn } from 'lucide-react'; // Added UserPlus, LogIn
 
 const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
   { href: '/dashboard', labelKey: 'dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
@@ -60,7 +60,6 @@ export const ThemeToggle = () => {
   };
 
   if (!mounted) {
-    // Render a placeholder or nothing on the server and initial client render
     return <Button variant="ghost" size="icon" aria-label={t('toggleTheme')} disabled><Sparkles className="h-5 w-5" /></Button>;
   }
 
@@ -84,20 +83,34 @@ export const LanguageSwitcher = () => {
     setLocale(newLocale);
   };
 
+  if (!mounted) {
+    return (
+        <Button variant="ghost" aria-label={t('language')} className="p-2" disabled>
+            <Globe className="h-5 w-5 mr-1" />
+            <span className="text-xs">--</span>
+        </Button>
+    );
+  }
+
   return (
     <Button variant="ghost" onClick={handleSwitch} aria-label={t('language')} className="p-2">
       <Globe className="h-5 w-5 mr-1" />
-      {mounted && <span className="text-xs">{locale.toUpperCase()}</span>}
-      {!mounted && <span className="text-xs">--</span>} {/* Placeholder */}
+      <span className="text-xs">{locale.toUpperCase()}</span>
     </Button>
   );
 };
 
 
 export default function AppHeader() {
-  const { currentUser, userProfile, logout } = useAuth(); 
+  const { currentUser, userProfile, logout } = useAuth();
   const { t } = useLanguage();
   const pathname = usePathname();
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
 
   const getInitials = (name?: string | null, email?: string | null) => {
     if (name && name.trim()) {
@@ -110,38 +123,51 @@ export default function AppHeader() {
     if (email) return email.substring(0, 2).toUpperCase();
     return 'MI';
   };
-  
+
   const isAdmin = userProfile?.role === 'admin';
   const currentNavLinks = isAdmin ? navLinksAdmin : navLinksRegularUser;
   const homeLink = isAdmin ? "/admin" : "/dashboard";
 
 
+  // Determine if the current page is an auth page (login/signup) or the landing page
+  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
+  const isLandingPage = pathname === '/' || pathname === '/inicio'; // Assuming / and /inicio are landing pages
+
+  // Show auth links (Login/Sign Up) only if not logged in AND on landing page context
+  const showAuthLinks = !currentUser && (isLandingPage || isAuthPage);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
-        <Link href={homeLink} className="mr-6 flex items-center space-x-2">
+        <Link href={showAuthLinks ? "/" : homeLink} className="mr-6 flex items-center space-x-2">
           <Sparkles className="h-6 w-6 text-primary" />
           <span className="font-bold font-serif text-xl sm:inline-block">{t('mysticInsights')}</span>
         </Link>
-        <nav className="flex items-center gap-4 text-sm lg:gap-6 flex-grow">
-          {currentNavLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                'transition-colors hover:text-foreground/80',
-                pathname === link.href ? 'text-foreground font-semibold' : 'text-foreground/60'
-              )}
-            >
-              <span className="hidden sm:inline">{t(link.labelKey)}</span>
-              <span className="sm:hidden" title={t(link.labelKey)}>{React.cloneElement(link.icon as React.ReactElement, { className: 'h-5 w-5' })}</span>
-            </Link>
-          ))}
-        </nav>
+
+        {!isAuthPage && !isLandingPage && currentUser && (
+          <nav className="flex items-center gap-4 text-sm lg:gap-6 flex-grow">
+            {currentNavLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'transition-colors hover:text-foreground/80',
+                  pathname === link.href ? 'text-foreground font-semibold' : 'text-foreground/60'
+                )}
+              >
+                <span className="hidden sm:inline">{t(link.labelKey)}</span>
+                <span className="sm:hidden" title={t(link.labelKey)}>{React.cloneElement(link.icon as React.ReactElement, { className: 'h-5 w-5' })}</span>
+              </Link>
+            ))}
+          </nav>
+        )}
+         {(isAuthPage || isLandingPage) && <div className="flex-grow"></div>}
+
+
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <LanguageSwitcher />
-          {currentUser && (
+          {isClient && currentUser && !isAuthPage && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -177,7 +203,7 @@ export default function AppHeader() {
                     </Link>
                   </DropdownMenuItem>
                 )}
-                 {!isAdmin && pathname.startsWith('/admin') && ( 
+                 {!isAdmin && pathname.startsWith('/admin') && (
                     <DropdownMenuItem asChild>
                         <Link href="/dashboard">
                         <LayoutDashboard className="mr-2 h-4 w-4" />
@@ -192,10 +218,30 @@ export default function AppHeader() {
               </DropdownMenuContent>
             </DropdownMenu>
           )}
+          {isClient && showAuthLinks && (
+             <div className="flex items-center space-x-1 sm:space-x-2">
+                <Link
+                  href="/login"
+                  className={cn(
+                    buttonVariants({ variant: 'ghost' }),
+                    'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
+                  )}
+                >
+                  <LogIn className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('login')}</span>
+                </Link>
+                <Link
+                  href="/signup"
+                  className={cn(
+                    buttonVariants({ variant: 'default' }),
+                     'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
+                  )}
+                >
+                  <UserPlus className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('signUp')}</span>
+                </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>
   );
 }
-
-    

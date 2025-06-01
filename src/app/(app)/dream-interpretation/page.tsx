@@ -28,15 +28,19 @@ export default function DreamInterpretationPage() {
     event.preventDefault();
 
     if (!currentUser) {
-      toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToInterpret'), variant: 'destructive' }); // Add these translations
+      toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToInterpret'), variant: 'destructive' });
       return;
     }
     if (!userCredits || userCredits.balance < 1) {
-      toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsForDreamDescription'), variant: 'destructive' }); // Add these translations
+      toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsForDreamDescription'), variant: 'destructive' });
       return;
     }
     if (!dreamDescription.trim()) {
       toast({ title: t('noDreamErrorTitle'), description: t('noDreamErrorDescription'), variant: 'destructive' });
+      return;
+    }
+    if (dreamDescription.trim().length < 10) {
+      toast({ title: t('errorGenericTitle'), description: t('dreamDescriptionTooShortError'), variant: 'destructive' });
       return;
     }
 

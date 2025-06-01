@@ -202,6 +202,7 @@ const translations = {
     dreamInterpretationReadyDescription: "Your dream interpretation has been generated.",
     yourPropheticInterpretationTitle: "Your Prophetic Interpretation",
     dreamIllustrationAlt: "Dream illustration {number}",
+    dreamDescriptionTooShortError: "Dream description must be at least 10 characters long.",
     // Admin Panel
     adminDashboardTitle: "Admin Dashboard",
     adminDashboardDescription: "Manage users and application settings.",
@@ -424,6 +425,7 @@ const translations = {
     dreamInterpretationReadyDescription: "A interpretação do seu sonho foi gerada.",
     yourPropheticInterpretationTitle: "Sua Interpretação Profética",
     dreamIllustrationAlt: "Ilustração do sonho {number}",
+    dreamDescriptionTooShortError: "A descrição do sonho deve ter pelo menos 10 caracteres.",
     // Admin Panel
     adminDashboardTitle: "Painel do Administrador",
     adminDashboardDescription: "Gerenciar usuários e configurações do aplicativo.",
@@ -454,7 +456,7 @@ const translations = {
   },
 };
 
-export type TranslationKey = keyof typeof translations.en;
+export type TranslationKey = keyof typeof translations.en; // or 'pt-BR'
 
 interface LanguageContextType {
   locale: Locale;
@@ -465,27 +467,30 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Default to pt-BR
+  const [locale, setLocaleState] = useState<Locale>('pt-BR');
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    let initialLocale: Locale = 'pt-BR'; // Default if no stored or browser preference
+    let initialLocale: Locale = 'pt-BR';
     const storedLocale = localStorage.getItem('app-locale') as Locale | null;
     
     if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
       initialLocale = storedLocale;
     } else {
-      const browserLang = navigator.language.toLowerCase();
-      if (browserLang.startsWith('pt')) {
-        initialLocale = 'pt-BR';
-      } else if (browserLang.startsWith('en')) {
-        initialLocale = 'en';
+      if (typeof navigator !== "undefined") { // Check if navigator is defined
+        const browserLang = navigator.language.toLowerCase();
+        if (browserLang.startsWith('pt')) {
+          initialLocale = 'pt-BR';
+        } else if (browserLang.startsWith('en')) {
+          initialLocale = 'en';
+        }
       }
     }
     setLocaleState(initialLocale);
-    document.documentElement.lang = initialLocale;
-    // localStorage.setItem('app-locale', initialLocale); // Already set in updateLocale
+    if (typeof document !== "undefined") { // Check if document is defined
+        document.documentElement.lang = initialLocale;
+    }
   }, []);
 
   const updateLocale = useCallback((newLocale: Locale) => {
@@ -498,10 +503,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const t = useCallback(
     (key: TranslationKey, params?: Record<string, string | number>): string => {
-      // Use 'pt-BR' (initial state) if not mounted, otherwise use the determined client-side locale.
-      // This ensures server render and initial client render match before useEffect updates locale.
       const effectiveLocale = isMounted ? locale : 'pt-BR';
       let translation = translations[effectiveLocale]?.[key] || translations.en[key] || String(key);
+
       if (params) {
         Object.entries(params).forEach(([paramKey, value]) => {
           translation = translation.replace(`{${paramKey}}`, String(value));
