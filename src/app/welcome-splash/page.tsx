@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect } from 'react';
@@ -5,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext'; 
 
-const SPLASH_DURATION = 500; // 0.5 seconds, adjust as needed for your GIF's length
+const SPLASH_DURATION = 1500; // 1.5 seconds, adjust as needed for your GIF's length
 
 export default function WelcomeSplashPage() {
   const router = useRouter();
@@ -58,3 +59,4 @@ export default function WelcomeSplashPage() {
     </div>
   );
 }
+
