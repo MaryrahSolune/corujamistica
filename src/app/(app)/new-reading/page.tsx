@@ -251,6 +251,19 @@ export default function NewReadingPage() {
           </Card>
         </div>
       )}
+
+      {/* Added GIF at the end of the page */}
+      <div className="mt-12 flex justify-center">
+        <Image
+          src="/img/h4m.gif"
+          alt="Animação Mística Decorativa"
+          data-ai-hint="mystical animation abstract"
+          width={300}
+          height={200}
+          unoptimized={true}
+          className="rounded-lg shadow-lg"
+        />
+      </div>
     </div>
   );
 }
