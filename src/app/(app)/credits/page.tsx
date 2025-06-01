@@ -10,8 +10,8 @@ import { useToast } from '@/hooks/use-toast';
 
 const USD_TO_BRL_RATE = 5.0; // Fixed conversion rate: 1 USD = 5 BRL
 
-const creditPackagesData = (t: Function) => [ 
-  { id: 4, name: t('freeTrialPack'), credits: 7, priceUSD: 0, description: t('freeTrialPackDescription'), popular: false, icon: <Gift className="h-5 w-5 text-green-500" /> },
+const creditPackagesData = (t: Function) => [
+  { id: 4, name: t('freeTrialPack'), credits: 1, priceUSD: 0, description: t('freeTrialPackDescription'), popular: false, icon: <Gift className="h-5 w-5 text-green-500" /> },
   { id: 1, name: t('seekersPack'), credits: 10, priceUSD: 5, description: t('seekersPackDescription'), popular: false, icon: <Zap className="h-5 w-5 text-yellow-500" /> },
   { id: 2, name: t('oraclesBundle'), credits: 50, priceUSD: 20, description: t('oraclesBundleDescription'), popular: true, icon: <Zap className="h-5 w-5 text-orange-500" /> },
   { id: 3, name: t('mysticsTrove'), credits: 120, priceUSD: 40, description: t('mysticsTroveDescription'), popular: false, icon: <Zap className="h-5 w-5 text-purple-500" /> },
@@ -23,15 +23,23 @@ export default function CreditsPage() {
   const creditPackages = creditPackagesData(t);
 
   const handlePurchase = (pkgId: number, isFree: boolean) => {
+    // TODO: Implement IP check and backend logic for free credit claim
+    // For now, this is a frontend simulation.
+    // A real implementation would involve:
+    // 1. Getting user's IP (potentially via a backend endpoint).
+    // 2. Sending IP and user ID to backend upon free credit claim.
+    // 3. Backend checks if IP or user ID has already claimed.
+    // 4. Backend updates user's credit balance and logs the claim.
+    
     if (isFree) {
       toast({
         title: t('mysticInsights'),
-        description: t('freeCreditsClaimedToast') 
+        description: t('freeCreditClaimedToast', { count: String(1) }) 
       });
     } else {
       toast({
-          title: t('mysticInsights'), 
-          description: t('purchaseInitiatedToast', { packageId: String(pkgId) }) 
+          title: t('mysticInsights'),
+          description: t('purchaseInitiatedToast', { packageId: String(pkgId) })
       });
     }
   };
