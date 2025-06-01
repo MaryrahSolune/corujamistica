@@ -28,7 +28,7 @@ const translations = {
     landingTitle: "Unlock the Secrets of Your Destiny, Today.",
     landingSubtitle: "Receive Tarot and Cigano card interpretations with the depth of ancient wisdom and the clarity of artificial intelligence. Your journey of self-discovery starts here.",
     landingButton: "Begin Your Enlightened Journey",
-    landingImageAlt: "Mystical collage of tarot cards, celestial symbols and flowing energy", // Placeholder, actual image alt will be more specific
+    landingImageAlt: "Mystical collage of tarot cards, celestial symbols and flowing energy",
     login: "Login",
     signUp: "Sign Up",
     // How It Works Section
@@ -121,8 +121,10 @@ const translations = {
     // Credits Page
     purchaseCreditsTitle: "Purchase Credits",
     purchaseCreditsDescription: "Unlock deeper insights with more readings. Choose a credit package that suits your journey.",
+    freeTrialPack: "Free Trial",
+    freeTrialPackDescription: "Get 7 credits to explore!",
     seekersPack: "Seeker's Pack",
-    seekersPackDescription: "Perfect for trying out.",
+    seekersPackDescription: "Perfect for trying out more.",
     oraclesBundle: "Oracle's Bundle",
     oraclesBundleDescription: "Best value for regular users.",
     mysticsTrove: "Mystic's Trove",
@@ -130,9 +132,11 @@ const translations = {
     popularBadge: "Popular",
     creditsUnit: "credits",
     purchaseNowButton: "Purchase Now",
+    getItNowButton: "Get It Now",
     securePaymentsTitle: "Secure Payments",
     securePaymentsDescription: "All transactions are securely processed. Your financial information is protected.",
     purchaseInitiatedToast: "Purchase initiated for package ID: {packageId}. Payment integration TBD.",
+    freeCreditsClaimedToast: "Your 7 free credits have been added! Enjoy your readings.",
     // New Reading Page
     newCardReadingTitle: "New Card Reading",
     newCardReadingDescription: "Upload an image of your Tarot or Cigano card spread and enter your query to receive an AI-powered interpretation.",
@@ -152,7 +156,9 @@ const translations = {
     errorGenericTitle: "Error",
     errorGeneratingInterpretationDescription: "Failed to generate interpretation. Please try again.",
     errorOccurredCardTitle: "An Error Occurred",
-    yourMysticalInterpretationTitle: "Sua Interpretação Mística",
+    yourMysticalInterpretationTitle: "Your Mystical Interpretation",
+    yourVisualBlessingTitle: "Your Visual Blessing",
+    summaryImageAlt: "Visual summary of your reading's guidance and Orixá blessings.",
     cardSpreadPreviewAlt: "Card spread preview",
     // Profile Page
     yourProfileTitle: "Your Profile",
@@ -203,7 +209,7 @@ const translations = {
     landingTitle: "Desvende os Segredos do Seu Destino, Hoje.",
     landingSubtitle: "Receba interpretações de Tarot e Baralho Cigano com a profundidade da sabedoria ancestral e a clareza da inteligência artificial. Sua jornada de autoconhecimento começa aqui.",
     landingButton: "Inicie Sua Jornada Iluminada",
-    landingImageAlt: "Colagem mística de cartas de tarot, símbolos celestiais e energia fluindo", // Placeholder, atual imagem alt será mais específica
+    landingImageAlt: "Colagem mística de cartas de tarot, símbolos celestiais e energia fluindo",
     login: "Entrar",
     signUp: "Cadastrar",
     // How It Works Section
@@ -296,8 +302,10 @@ const translations = {
     // Credits Page
     purchaseCreditsTitle: "Comprar Créditos",
     purchaseCreditsDescription: "Desbloqueie insights mais profundos com mais leituras. Escolha o pacote de créditos que combina com sua jornada.",
+    freeTrialPack: "Teste Gratuito",
+    freeTrialPackDescription: "Ganhe 7 créditos para explorar!",
     seekersPack: "Pacote do Buscador",
-    seekersPackDescription: "Perfeito para experimentar.",
+    seekersPackDescription: "Perfeito para experimentar mais.",
     oraclesBundle: "Combo do Oráculo",
     oraclesBundleDescription: "Melhor valor para usuários regulares.",
     mysticsTrove: "Tesouro do Místico",
@@ -305,9 +313,11 @@ const translations = {
     popularBadge: "Popular",
     creditsUnit: "créditos",
     purchaseNowButton: "Comprar Agora",
+    getItNowButton: "Obter Agora",
     securePaymentsTitle: "Pagamentos Seguros",
     securePaymentsDescription: "Todas as transações são processadas com segurança. Suas informações financeiras estão protegidas.",
     purchaseInitiatedToast: "Compra iniciada para o pacote ID: {packageId}. Integração de pagamento pendente.",
+    freeCreditsClaimedToast: "Seus 7 créditos gratuitos foram adicionados! Aproveite suas leituras.",
     // New Reading Page
     newCardReadingTitle: "Nova Leitura de Cartas",
     newCardReadingDescription: "Faça o upload de uma imagem da sua tiragem de Tarot ou Baralho Cigano e insira sua pergunta para receber uma interpretação com IA.",
@@ -328,6 +338,8 @@ const translations = {
     errorGeneratingInterpretationDescription: "Falha ao gerar interpretação. Por favor, tente novamente.",
     errorOccurredCardTitle: "Ocorreu um Erro",
     yourMysticalInterpretationTitle: "Sua Interpretação Mística",
+    yourVisualBlessingTitle: "Sua Bênção Visual",
+    summaryImageAlt: "Resumo visual da orientação da sua leitura e bênçãos dos Orixás.",
     cardSpreadPreviewAlt: "Prévia da tiragem de cartas",
     // Profile Page
     yourProfileTitle: "Seu Perfil",

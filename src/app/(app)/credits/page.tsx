@@ -3,7 +3,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { CreditCard, ShieldCheck, Zap } from 'lucide-react';
+import { CreditCard, ShieldCheck, Zap, Gift } from 'lucide-react'; // Gift icon added
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 const USD_TO_BRL_RATE = 5.0; // Fixed conversion rate: 1 USD = 5 BRL
 
 const creditPackagesData = (t: Function) => [ 
+  { id: 4, name: t('freeTrialPack'), credits: 7, priceUSD: 0, description: t('freeTrialPackDescription'), popular: false, icon: <Gift className="h-5 w-5 text-green-500" /> },
   { id: 1, name: t('seekersPack'), credits: 10, priceUSD: 5, description: t('seekersPackDescription'), popular: false, icon: <Zap className="h-5 w-5 text-yellow-500" /> },
   { id: 2, name: t('oraclesBundle'), credits: 50, priceUSD: 20, description: t('oraclesBundleDescription'), popular: true, icon: <Zap className="h-5 w-5 text-orange-500" /> },
   { id: 3, name: t('mysticsTrove'), credits: 120, priceUSD: 40, description: t('mysticsTroveDescription'), popular: false, icon: <Zap className="h-5 w-5 text-purple-500" /> },
@@ -21,14 +22,24 @@ export default function CreditsPage() {
   const { toast } = useToast();
   const creditPackages = creditPackagesData(t);
 
-  const handlePurchase = (packageId: number) => {
-    toast({
-        title: t('mysticInsights'), 
-        description: t('purchaseInitiatedToast', { packageId: String(packageId) }) 
-    });
+  const handlePurchase = (pkgId: number, isFree: boolean) => {
+    if (isFree) {
+      toast({
+        title: t('mysticInsights'),
+        description: t('freeCreditsClaimedToast') 
+      });
+    } else {
+      toast({
+          title: t('mysticInsights'), 
+          description: t('purchaseInitiatedToast', { packageId: String(pkgId) }) 
+      });
+    }
   };
 
   const getDisplayPrice = (priceUSD: number) => {
+    if (priceUSD === 0) {
+      return locale === 'pt-BR' ? 'GRÁTIS' : 'FREE';
+    }
     if (locale === 'pt-BR') {
       const priceBRL = priceUSD * USD_TO_BRL_RATE;
       return `R$ ${priceBRL.toFixed(2).replace('.', ',')}`;
@@ -46,7 +57,7 @@ export default function CreditsPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"> {/* Adjusted for 4 items */}
         {creditPackages.map((pkg) => (
           <div key={pkg.id} className={`animated-aurora-background rounded-lg ${pkg.popular ? 'p-0.5' : ''}`}>
             <Card className={`shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full ${pkg.popular ? 'border-transparent ring-2 ring-primary/70' : ''}`}>
@@ -67,13 +78,13 @@ export default function CreditsPage() {
                   <span className="text-5xl font-bold text-primary">{pkg.credits}</span>
                   <span className="text-muted-foreground"> {t('creditsUnit')}</span>
                 </div>
-                <p className="text-center text-3xl font-semibold text-accent">
+                <p className={`text-center text-3xl font-semibold ${pkg.priceUSD === 0 ? 'text-green-600 dark:text-green-500' : 'text-accent'}`}>
                   {getDisplayPrice(pkg.priceUSD)}
                 </p>
               </CardContent>
               <CardFooter className="mt-auto">
-                <Button onClick={() => handlePurchase(pkg.id)} className="w-full text-lg py-3">
-                  {t('purchaseNowButton')}
+                <Button onClick={() => handlePurchase(pkg.id, pkg.priceUSD === 0)} className="w-full text-lg py-3">
+                  {pkg.priceUSD === 0 ? t('getItNowButton') : t('purchaseNowButton')}
                 </Button>
               </CardFooter>
             </Card>
