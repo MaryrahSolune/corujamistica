@@ -187,6 +187,19 @@ export default function DreamInterpretationPage() {
           </Card>
         </div>
       )}
+
+      {/* Added GIF at the end of the page */}
+      <div className="mt-12 flex justify-center">
+        <Image
+          src="/img/lu.gif"
+          alt="Animação Lua Mística Decorativa"
+          data-ai-hint="moon animation mystical"
+          width={300} 
+          height={200} 
+          unoptimized={true}
+          className="rounded-lg shadow-lg"
+        />
+      </div>
     </div>
   );
 }
