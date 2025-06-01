@@ -8,24 +8,32 @@ import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 
+const USD_TO_BRL_RATE = 5.0; // Fixed conversion rate: 1 USD = 5 BRL
 
 const creditPackagesData = (t: Function) => [ 
-  { id: 1, name: t('seekersPack'), credits: 10, price: 5, description: t('seekersPackDescription'), popular: false, icon: <Zap className="h-5 w-5 text-yellow-500" /> },
-  { id: 2, name: t('oraclesBundle'), credits: 50, price: 20, description: t('oraclesBundleDescription'), popular: true, icon: <Zap className="h-5 w-5 text-orange-500" /> },
-  { id: 3, name: t('mysticsTrove'), credits: 120, price: 40, description: t('mysticsTroveDescription'), popular: false, icon: <Zap className="h-5 w-5 text-purple-500" /> },
+  { id: 1, name: t('seekersPack'), credits: 10, priceUSD: 5, description: t('seekersPackDescription'), popular: false, icon: <Zap className="h-5 w-5 text-yellow-500" /> },
+  { id: 2, name: t('oraclesBundle'), credits: 50, priceUSD: 20, description: t('oraclesBundleDescription'), popular: true, icon: <Zap className="h-5 w-5 text-orange-500" /> },
+  { id: 3, name: t('mysticsTrove'), credits: 120, priceUSD: 40, description: t('mysticsTroveDescription'), popular: false, icon: <Zap className="h-5 w-5 text-purple-500" /> },
 ];
 
 export default function CreditsPage() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const { toast } = useToast();
   const creditPackages = creditPackagesData(t);
-
 
   const handlePurchase = (packageId: number) => {
     toast({
         title: t('mysticInsights'), 
         description: t('purchaseInitiatedToast', { packageId: String(packageId) }) 
     });
+  };
+
+  const getDisplayPrice = (priceUSD: number) => {
+    if (locale === 'pt-BR') {
+      const priceBRL = priceUSD * USD_TO_BRL_RATE;
+      return `R$ ${priceBRL.toFixed(2).replace('.', ',')}`;
+    }
+    return `$${priceUSD.toFixed(2)}`;
   };
 
   return (
@@ -60,7 +68,7 @@ export default function CreditsPage() {
                   <span className="text-muted-foreground"> {t('creditsUnit')}</span>
                 </div>
                 <p className="text-center text-3xl font-semibold text-accent">
-                  ${pkg.price.toFixed(2)}
+                  {getDisplayPrice(pkg.priceUSD)}
                 </p>
               </CardContent>
               <CardFooter className="mt-auto">
