@@ -23,7 +23,6 @@ const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React
   { href: '/dashboard', labelKey: 'dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
   { href: '/new-reading', labelKey: 'newReading', icon: <ScanLine className="mr-2 h-4 w-4" /> },
   { href: '/dream-interpretation', labelKey: 'dreamInterpretation', icon: <BrainCircuit className="mr-2 h-4 w-4" /> },
-  // { href: '/love-oracle', labelKey: 'loveOracle', icon: <HeartHandshake className="mr-2 h-4 w-4" /> }, // Removido
   { href: '/credits', labelKey: 'credits', icon: <CreditCard className="mr-2 h-4 w-4" /> },
 ];
 
@@ -127,8 +126,9 @@ export default function AppHeader() {
 
   const isAdmin = userProfile?.role === 'admin';
   const currentNavLinks = isAdmin ? navLinksAdmin : navLinksRegularUser;
-  const homeLink = isAdmin ? "/admin" : "/dashboard";
-
+  
+  // Always link logo to homepage
+  const logoLink = "/"; 
 
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
   const isLandingPage = pathname === '/' || pathname === '/inicio'; 
@@ -138,7 +138,7 @@ export default function AppHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
-        <Link href={showAuthLinks ? "/" : homeLink} className="mr-6 flex items-center space-x-2">
+        <Link href={logoLink} className="mr-6 flex items-center space-x-2">
           <Sparkles className="h-6 w-6 text-primary" />
           <span className="font-bold font-serif text-xl sm:inline-block">{t('mysticInsights')}</span>
         </Link>

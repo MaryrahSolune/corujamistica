@@ -56,7 +56,7 @@ export default function DashboardPage() {
         setDailyGiftStatus({ claimable: false, timeRemaining: formattedTime, cooldownEndTime: endTime });
       }
     }
-  }, [userCredits, locale]);
+  }, [userCredits, locale]); // Added locale to dependencies
 
   useEffect(() => {
     if (currentUser?.uid) {
@@ -316,9 +316,9 @@ export default function DashboardPage() {
           </p>
           <div className="animated-aurora-background rounded-xl inline-block">
             <Image 
-              src="/img/gato.gif" 
+              src="/img/shiva.gif" 
               alt={t('discoverYourPathTitle')}
-              data-ai-hint="mystical cat animation" 
+              data-ai-hint="shiva animation meditation" 
               width={800} 
               height={400} 
               className="rounded-lg shadow-xl mx-auto relative z-10"
