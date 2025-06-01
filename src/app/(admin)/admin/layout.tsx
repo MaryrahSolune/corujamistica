@@ -6,11 +6,12 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { Loader2 } from 'lucide-react';
+import { Loader2, LogOut } from 'lucide-react';
 import AppHeader from '@/components/AppHeader'; // Assuming you want the same header
+import { Button } from '@/components/ui/button';
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
-  const { userProfile, loading: authLoading, currentUser } = useAuth();
+  const { userProfile, loading: authLoading, currentUser, logout } = useAuth();
   const { t } = useLanguage();
   const router = useRouter();
 
@@ -40,6 +41,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     return null;
   }
 
+  const handleLogout = async () => {
+    await logout();
+    router.push('/login'); // Redirect to login after logout
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <AppHeader /> {/* You might want a specific AdminHeader later */}
@@ -51,6 +57,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
             {t('footerText', { year: new Date().getFullYear() })} - {t('adminPanel')}
           </p>
+          <Button variant="outline" size="sm" onClick={handleLogout}>
+            <LogOut className="mr-2 h-4 w-4" />
+            {t('logout')}
+          </Button>
         </div>
       </footer>
     </div>
