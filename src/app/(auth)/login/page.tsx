@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm, type SubmitHandler } from 'react-hook-form';
@@ -17,10 +17,12 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
+
 
 const loginSchema = z.object({
-  email: z.string().email({ message: 'Endereço de e-mail inválido' }), // Translated
-  password: z.string().min(6, { message: 'A senha deve ter pelo menos 6 caracteres' }), // Translated
+  email: z.string().email({ message: 'Endereço de e-mail inválido' }), 
+  password: z.string().min(6, { message: 'A senha deve ter pelo menos 6 caracteres' }),
 });
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
@@ -30,6 +32,11 @@ export default function LoginPage() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const { t } = useLanguage();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const {
     register,
@@ -56,6 +63,31 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+
+  if (!isClient) {
+    return (
+      <Card className="w-full">
+        <CardHeader>
+          <Skeleton className="h-7 w-20 mb-2" />
+          <Skeleton className="h-4 w-48" />
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Skeleton className="h-5 w-12" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+          <div className="space-y-2">
+            <Skeleton className="h-5 w-12" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+          <Skeleton className="h-10 w-full" />
+        </CardContent>
+        <CardFooter className="flex flex-col items-center space-y-2">
+          <Skeleton className="h-5 w-56" />
+        </CardFooter>
+      </Card>
+    );
+  }
 
   return (
     <Card className="w-full">
@@ -95,3 +127,5 @@ export default function LoginPage() {
     </Card>
   );
 }
+
+    

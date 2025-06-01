@@ -28,17 +28,16 @@ const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React
 
 const navLinksAdmin: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
   { href: '/admin', labelKey: 'adminPanel', icon: <ShieldCheck className="mr-2 h-4 w-4" /> },
-  // Admins can also access regular user features if desired, or have a completely separate view
-  // For now, let's assume admin panel is the primary view for an admin.
-  // If admins should also see user links, merge or conditionally add them.
 ];
 
 
 export const ThemeToggle = () => {
   const { t } = useLanguage();
   const [isDark, setIsDark] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setMounted(true);
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const savedTheme = localStorage.getItem('theme');
     let initialIsDark;
@@ -60,6 +59,11 @@ export const ThemeToggle = () => {
     });
   };
 
+  if (!mounted) {
+    // Render a placeholder or nothing on the server and initial client render
+    return <Button variant="ghost" size="icon" aria-label={t('toggleTheme')} disabled><Sparkles className="h-5 w-5" /></Button>;
+  }
+
   return (
     <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label={t('toggleTheme')}>
       {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -69,6 +73,11 @@ export const ThemeToggle = () => {
 
 export const LanguageSwitcher = () => {
   const { locale, setLocale, t } = useLanguage();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSwitch = () => {
     const newLocale = locale === 'en' ? 'pt-BR' : 'en';
@@ -78,14 +87,15 @@ export const LanguageSwitcher = () => {
   return (
     <Button variant="ghost" onClick={handleSwitch} aria-label={t('language')} className="p-2">
       <Globe className="h-5 w-5 mr-1" />
-      <span className="text-xs">{locale.toUpperCase()}</span>
+      {mounted && <span className="text-xs">{locale.toUpperCase()}</span>}
+      {!mounted && <span className="text-xs">--</span>} {/* Placeholder */}
     </Button>
   );
 };
 
 
 export default function AppHeader() {
-  const { currentUser, userProfile, logout } = useAuth(); // Added userProfile
+  const { currentUser, userProfile, logout } = useAuth(); 
   const { t } = useLanguage();
   const pathname = usePathname();
 
@@ -159,7 +169,6 @@ export default function AppHeader() {
                     {t('profile')}
                   </Link>
                 </DropdownMenuItem>
-                {/* Conditionally show admin panel link if not already in admin section */}
                 {isAdmin && !pathname.startsWith('/admin') && (
                   <DropdownMenuItem asChild>
                     <Link href="/admin">
@@ -168,7 +177,7 @@ export default function AppHeader() {
                     </Link>
                   </DropdownMenuItem>
                 )}
-                 {!isAdmin && pathname.startsWith('/admin') && ( // If user somehow lands on admin but isn't admin
+                 {!isAdmin && pathname.startsWith('/admin') && ( 
                     <DropdownMenuItem asChild>
                         <Link href="/dashboard">
                         <LayoutDashboard className="mr-2 h-4 w-4" />
@@ -188,3 +197,5 @@ export default function AppHeader() {
     </header>
   );
 }
+
+    

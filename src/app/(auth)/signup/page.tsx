@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm, type SubmitHandler } from 'react-hook-form';
@@ -19,6 +19,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { createUserProfile } from '@/services/userService';
 import { initializeUserCredits } from '@/services/creditService';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const signupSchema = z.object({
   displayName: z.string().min(2, { message: 'O nome deve ter pelo menos 2 caracteres' }).max(50),
@@ -33,6 +34,11 @@ export default function SignupPage() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const { t } = useLanguage();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const {
     register,
@@ -48,7 +54,6 @@ export default function SignupPage() {
       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
       await updateFirebaseAuthProfile(userCredential.user, { displayName: data.displayName });
       
-      // Create user profile and initialize credits in RTDB
       await createUserProfile(userCredential.user);
       await initializeUserCredits(userCredential.user.uid);
       
@@ -64,8 +69,6 @@ export default function SignupPage() {
           toastDescription = t('emailAlreadyInUseErrorDescription');
           logErrorToConsole = false; 
         }
-      } else if (error instanceof Error) {
-        // toastDescription = error.message || t('genericErrorDescription');
       }
 
       if (logErrorToConsole) {
@@ -81,6 +84,35 @@ export default function SignupPage() {
       setLoading(false);
     }
   };
+
+  if (!isClient) {
+    return (
+      <Card className="w-full">
+        <CardHeader>
+          <Skeleton className="h-7 w-24 mb-2" />
+          <Skeleton className="h-4 w-52" />
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Skeleton className="h-5 w-16" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+          <div className="space-y-2">
+            <Skeleton className="h-5 w-12" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+          <div className="space-y-2">
+            <Skeleton className="h-5 w-12" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+          <Skeleton className="h-10 w-full" />
+        </CardContent>
+        <CardFooter className="flex flex-col items-center space-y-2">
+          <Skeleton className="h-5 w-60" />
+        </CardFooter>
+      </Card>
+    );
+  }
 
   return (
     <Card className="w-full">
@@ -125,3 +157,5 @@ export default function SignupPage() {
     </Card>
   );
 }
+
+    
