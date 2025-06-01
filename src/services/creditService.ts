@@ -5,22 +5,32 @@ import { ref, set, get, update, runTransaction, serverTimestamp } from 'firebase
 export interface UserCreditsData {
   balance: number;
   freeCreditClaimed: boolean;
-  lastFreeCreditClaimTimestamp?: number | object;
+  lastFreeCreditClaimTimestamp?: number | object | null; // For the initial one-time claim
+  lastDailyGiftClaimTimestamp?: number | object | null; // New for daily gift
 }
 
 const FREE_CREDITS_ON_CLAIM = 1;
-const INITIAL_CREDITS = 0; 
+const INITIAL_CREDITS = 0;
+const DAILY_GIFT_AMOUNT = 1;
+const GIFT_COOLDOWN_MILLISECONDS = 24 * 60 * 60 * 1000; // 24 hours
 
 export async function initializeUserCredits(uid: string): Promise<void> {
   const creditsRef = ref(rtdb, `users/${uid}/credits`);
   const initialData: UserCreditsData = {
-    balance: INITIAL_CREDITS, 
-    freeCreditClaimed: false, 
+    balance: INITIAL_CREDITS,
+    freeCreditClaimed: false,
+    lastDailyGiftClaimTimestamp: null, // Initialize as null or 0
   };
   try {
     const snapshot = await get(creditsRef);
     if (!snapshot.exists()) {
       await set(creditsRef, initialData);
+    } else {
+      // If credits node exists but lastDailyGiftClaimTimestamp doesn't, add it.
+      const currentData = snapshot.val() as UserCreditsData;
+      if (currentData.lastDailyGiftClaimTimestamp === undefined) {
+        await update(creditsRef, { lastDailyGiftClaimTimestamp: null });
+      }
     }
   } catch (error) {
     console.error("Error initializing user credits in RTDB:", error);
@@ -35,15 +45,12 @@ export async function getUserCredits(uid: string): Promise<UserCreditsData | nul
     if (snapshot.exists()) {
       return snapshot.val() as UserCreditsData;
     }
-    // If no credits node, initialize it and return the initial state
-    await initializeUserCredits(uid); // ensure this doesn't recurse indefinitely on fail
-    const newSnapshot = await get(creditsRef); // fetch again after initialization
-    return newSnapshot.val() as UserCreditsData // This should now exist
+    await initializeUserCredits(uid);
+    const newSnapshot = await get(creditsRef);
+    return newSnapshot.val() as UserCreditsData
   } catch (error) {
     console.error("Error fetching user credits from RTDB:", error);
-    // Return a default structure if fetching fails or user has no credits yet
-    // This helps prevent app crashes if RTDB is briefly unavailable or rules deny access initially
-    return { balance: 0, freeCreditClaimed: false };
+    return { balance: 0, freeCreditClaimed: false, lastDailyGiftClaimTimestamp: null };
   }
 }
 
@@ -51,26 +58,26 @@ export async function claimFreeCredit(uid: string): Promise<{ success: boolean, 
   const creditsRef = ref(rtdb, `users/${uid}/credits`);
   try {
     const result = await runTransaction(creditsRef, (currentData: UserCreditsData | null) => {
-      if (currentData === null) { // User might not have credits node yet
-        // Initialize if null, then claim
-        return { balance: FREE_CREDITS_ON_CLAIM, freeCreditClaimed: true, lastFreeCreditClaimTimestamp: serverTimestamp() };
+      if (currentData === null) {
+        return { balance: FREE_CREDITS_ON_CLAIM, freeCreditClaimed: true, lastFreeCreditClaimTimestamp: serverTimestamp(), lastDailyGiftClaimTimestamp: currentData?.lastDailyGiftClaimTimestamp === undefined ? null : currentData.lastDailyGiftClaimTimestamp };
       }
       if (currentData.freeCreditClaimed) {
-        return; // Abort transaction: free credit already claimed
+        return;
       }
       currentData.balance = (currentData.balance || 0) + FREE_CREDITS_ON_CLAIM;
       currentData.freeCreditClaimed = true;
       currentData.lastFreeCreditClaimTimestamp = serverTimestamp();
+      if (currentData.lastDailyGiftClaimTimestamp === undefined) {
+        currentData.lastDailyGiftClaimTimestamp = null;
+      }
       return currentData;
     });
 
     if (result.committed && result.snapshot.exists()) {
       return { success: true, message: "Free credit claimed successfully!", newBalance: result.snapshot.val().balance };
     } else if (!result.committed && result.snapshot?.val()?.freeCreditClaimed) {
-        // Transaction aborted because freeCreditClaimed was already true
         return { success: false, message: "Free credit already claimed." };
     } else {
-      // Other reasons for transaction not committing.
       return { success: false, message: "Failed to claim free credit. Credits data might be missing or an error occurred." };
     }
   } catch (error: any) {
@@ -79,12 +86,58 @@ export async function claimFreeCredit(uid: string): Promise<{ success: boolean, 
   }
 }
 
+export async function claimDailyGift(uid: string): Promise<{ success: boolean, message: string, newBalance?: number, cooldownEndTime?: number }> {
+  const creditsRef = ref(rtdb, `users/${uid}/credits`);
+  try {
+    const result = await runTransaction(creditsRef, (currentData: UserCreditsData | null) => {
+      if (currentData === null) {
+        // Should not happen if initializeUserCredits was called, but as a fallback:
+        return { 
+          balance: DAILY_GIFT_AMOUNT, 
+          freeCreditClaimed: currentData?.freeCreditClaimed || false, // Preserve if exists
+          lastDailyGiftClaimTimestamp: serverTimestamp(),
+          lastFreeCreditClaimTimestamp: currentData?.lastFreeCreditClaimTimestamp === undefined ? null : currentData.lastFreeCreditClaimTimestamp
+        };
+      }
+
+      const now = Date.now();
+      const lastClaim = currentData.lastDailyGiftClaimTimestamp ? Number(currentData.lastDailyGiftClaimTimestamp) : 0;
+      
+      if (lastClaim && (now - lastClaim < GIFT_COOLDOWN_MILLISECONDS)) {
+        // Abort transaction: still in cooldown
+        return; 
+      }
+
+      currentData.balance = (currentData.balance || 0) + DAILY_GIFT_AMOUNT;
+      currentData.lastDailyGiftClaimTimestamp = serverTimestamp();
+      if (currentData.freeCreditClaimed === undefined) currentData.freeCreditClaimed = false;
+      if (currentData.lastFreeCreditClaimTimestamp === undefined) currentData.lastFreeCreditClaimTimestamp = null;
+
+      return currentData;
+    });
+
+    if (result.committed && result.snapshot.exists()) {
+      return { success: true, message: "Daily gift claimed successfully!", newBalance: result.snapshot.val().balance };
+    } else {
+      // Transaction aborted, likely due to cooldown
+      const currentSnapshot = await get(creditsRef);
+      const lastClaimTime = currentSnapshot.val()?.lastDailyGiftClaimTimestamp;
+      const cooldownEndTime = lastClaimTime ? Number(lastClaimTime) + GIFT_COOLDOWN_MILLISECONDS : Date.now() + GIFT_COOLDOWN_MILLISECONDS;
+      return { success: false, message: "Daily gift is still on cooldown.", cooldownEndTime };
+    }
+  } catch (error: any) {
+    console.error("Error claiming daily gift:", error);
+    return { success: false, message: error.message || "An error occurred while claiming daily gift." };
+  }
+}
+
+
 export async function deductCredit(uid: string, amount: number = 1): Promise<{ success: boolean, message: string, newBalance?: number }> {
   const creditsRef = ref(rtdb, `users/${uid}/credits`);
   try {
     const result = await runTransaction(creditsRef, (currentData: UserCreditsData | null) => {
       if (currentData === null || (currentData.balance || 0) < amount) {
-        return; // Abort transaction: insufficient credits or no credits node
+        return; 
       }
       currentData.balance = currentData.balance - amount;
       return currentData;
@@ -93,7 +146,6 @@ export async function deductCredit(uid: string, amount: number = 1): Promise<{ s
     if (result.committed && result.snapshot.exists()) {
       return { success: true, message: "Credit deducted successfully.", newBalance: result.snapshot.val().balance };
     } else {
-      // If transaction aborted, it means balance was insufficient or data was null
       return { success: false, message: "Insufficient credits or failed to deduct." };
     }
   } catch (error: any) {
@@ -102,7 +154,6 @@ export async function deductCredit(uid: string, amount: number = 1): Promise<{ s
   }
 }
 
-// Admin function to add credits
 export async function adminAddCredits(uid: string, amount: number): Promise<{ success: boolean, message: string, newBalance?: number }> {
   if (amount <= 0) {
     return { success: false, message: "Credit amount must be positive." };
@@ -111,10 +162,12 @@ export async function adminAddCredits(uid: string, amount: number): Promise<{ su
   try {
     const result = await runTransaction(creditsRef, (currentData: UserCreditsData | null) => {
       if (currentData === null) {
-        // If user has no credits node, initialize it with the added amount
-        return { balance: amount, freeCreditClaimed: false }; // Assuming admin add doesn't affect free credit
+        return { balance: amount, freeCreditClaimed: false, lastDailyGiftClaimTimestamp: null };
       }
       currentData.balance = (currentData.balance || 0) + amount;
+      if (currentData.lastDailyGiftClaimTimestamp === undefined) {
+        currentData.lastDailyGiftClaimTimestamp = null;
+      }
       return currentData;
     });
 

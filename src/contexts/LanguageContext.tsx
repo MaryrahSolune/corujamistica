@@ -121,6 +121,19 @@ const translations = {
     defaultSeekerName: "Seeker",
     tarotReadingType: "Tarot/Oracle Card Reading",
     dreamInterpretationType: "Dream Interpretation",
+    dailyGiftTitle: "Daily Gift",
+    claimYourDailyGift: "Claim Your Daily Gift ({count} Credit)",
+    dailyGiftClaimed: "Gift Claimed!",
+    nextGiftIn: "Next gift in:",
+    comeBackTomorrow: "Come back tomorrow for another gift.",
+    claimNowButton: "Claim Now",
+    claimingButton: "Claiming...",
+    dailyGiftSuccessToastTitle: "Gift Claimed!",
+    dailyGiftSuccessToastDescription: "You've received {count} credit. Enjoy!",
+    dailyGiftErrorToastTitle: "Claim Failed",
+    dailyGiftCooldownError: "You've already claimed your daily gift. Next gift available in {time}.",
+    dailyGiftGenericError: "Could not claim daily gift. Please try again.",
+    giftIconLabel: "Gift Icon",
     // Credits Page
     purchaseCreditsTitle: "Purchase Credits",
     purchaseCreditsDescription: "Unlock deeper insights with more readings. Choose a credit package that suits your journey.",
@@ -344,6 +357,19 @@ const translations = {
     defaultSeekerName: "Buscador(a)",
     tarotReadingType: "Leitura de Tarot/Oráculo",
     dreamInterpretationType: "Interpretação de Sonho",
+    dailyGiftTitle: "Presente Diário",
+    claimYourDailyGift: "Resgate Seu Presente Diário ({count} Crédito)",
+    dailyGiftClaimed: "Presente Resgatado!",
+    nextGiftIn: "Próximo presente em:",
+    comeBackTomorrow: "Volte amanhã para outro presente.",
+    claimNowButton: "Resgatar Agora",
+    claimingButton: "Resgatando...",
+    dailyGiftSuccessToastTitle: "Presente Resgatado!",
+    dailyGiftSuccessToastDescription: "Você recebeu {count} crédito. Aproveite!",
+    dailyGiftErrorToastTitle: "Falha ao Resgatar",
+    dailyGiftCooldownError: "Você já resgatou seu presente diário. Próximo presente disponível em {time}.",
+    dailyGiftGenericError: "Não foi possível resgatar o presente diário. Por favor, tente novamente.",
+    giftIconLabel: "Ícone de Presente",
     // Credits Page
     purchaseCreditsTitle: "Comprar Créditos",
     purchaseCreditsDescription: "Desbloqueie insights mais profundos com mais leituras. Escolha o pacote de créditos que combina com sua jornada.",
@@ -503,8 +529,18 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const t = useCallback(
     (key: TranslationKey, params?: Record<string, string | number>): string => {
-      const effectiveLocale = isMounted ? locale : 'pt-BR';
-      let translation = translations[effectiveLocale]?.[key] || translations.en[key] || String(key);
+      const effectiveLocale = isMounted ? locale : 'pt-BR'; // Default to 'pt-BR' if not mounted to avoid undefined keys during SSR/initial load
+      let translationSet = translations[effectiveLocale];
+      if (!translationSet) { // Fallback to 'en' if effectiveLocale is somehow invalid (should not happen with current logic)
+        translationSet = translations.en;
+      }
+      
+      let translation = translationSet[key] || translations.en[key]; // Fallback to English if key missing in current locale
+
+      if (!translation) { // If still no translation (key missing in English too), return the key itself
+        console.warn(`Translation missing for key: "${key}" in locale: "${effectiveLocale}" and fallback "en"`);
+        return String(key);
+      }
 
       if (params) {
         Object.entries(params).forEach(([paramKey, value]) => {
