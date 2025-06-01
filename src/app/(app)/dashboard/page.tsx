@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye } from 'lucide-react'; // Added Eye
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut } from 'lucide-react'; // Added BrainCircuit, LogOut
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -15,14 +15,16 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { formatDistanceToNow, formatDuration, intervalToDuration } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
 
 const GIFT_COOLDOWN_MILLISECONDS = 24 * 60 * 60 * 1000;
 const DAILY_GIFT_AMOUNT = 1;
 
 export default function DashboardPage() {
-  const { currentUser, userCredits, refreshCredits } = useAuth();
+  const { currentUser, userCredits, refreshCredits, logout } = useAuth();
   const { t, locale } = useLanguage();
   const { toast } = useToast();
+  const router = useRouter();
 
   const [recentReadings, setRecentReadings] = useState<(ReadingData & { id: string })[]>([]);
   const [loadingReadings, setLoadingReadings] = useState(true);
@@ -54,7 +56,7 @@ export default function DashboardPage() {
         setDailyGiftStatus({ claimable: false, timeRemaining: formattedTime, cooldownEndTime: endTime });
       }
     }
-  }, [userCredits, locale]);
+  }, [userCredits, locale]); // Removed getDateFnsLocale from dependencies as it's stable
 
   useEffect(() => {
     if (currentUser?.uid) {
@@ -75,6 +77,7 @@ export default function DashboardPage() {
         updateDailyGiftStatus();
       } else if (dailyGiftStatus.cooldownEndTime && Date.now() >= dailyGiftStatus.cooldownEndTime) {
         setDailyGiftStatus({ claimable: true, timeRemaining: null, cooldownEndTime: null });
+        // No need to clear interval here if it should keep checking for next eligibility
       }
     }, 1000); 
 
@@ -113,6 +116,11 @@ export default function DashboardPage() {
     }
   };
 
+  const handleLogout = async () => {
+    await logout();
+    router.push('/login');
+  };
+
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       <div className="mb-8">
@@ -141,8 +149,25 @@ export default function DashboardPage() {
             </CardFooter>
           </Card>
         </div>
-        
+
         <div className="rounded-lg animated-aurora-background">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-xl font-serif">{t('dreamInterpretation')}</CardTitle> {/* Reusing existing key */}
+              <BrainCircuit className="h-6 w-6 text-primary" />
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <p className="text-muted-foreground mb-4">{t('dreamInterpretationCardDescription')}</p> {/* New key needed */}
+            </CardContent>
+            <CardFooter>
+              <Button asChild className="w-full">
+                <Link href="/dream-interpretation">{t('interpretDreamButton')}</Link> {/* New key needed */}
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+        
+        <div className="rounded-lg animated-aurora-background"> {/* Neon glow for this card's background */}
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-serif">{t('yourCreditsCardTitle')}</CardTitle>
@@ -157,7 +182,7 @@ export default function DashboardPage() {
               </p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline" asChild className="w-full btn-neon-credits">
+              <Button variant="outline" asChild className="w-full"> {/* Removed btn-neon-credits */}
                 <Link href="/credits">{t('purchaseMoreCreditsButton')}</Link>
               </Button>
             </CardFooter>
@@ -284,6 +309,14 @@ export default function DashboardPage() {
             />
           </div>
         </div>
+      
+      <div className="mt-16 mb-8 text-center">
+        <Button variant="outline" onClick={handleLogout} size="lg">
+          <LogOut className="mr-2 h-5 w-5" />
+          {t('logout')}
+        </Button>
+      </div>
     </div>
   );
 }
+

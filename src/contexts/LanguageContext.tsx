@@ -104,6 +104,8 @@ const translations = {
     newReadingCardTitle: "New Reading",
     newReadingCardDescription: "Ready for new insights? Upload your card spread.",
     startNewReadingButton: "Start a New Reading",
+    dreamInterpretationCardDescription: "Unveil the mysteries hidden in your dreams.",
+    interpretDreamButton: "Interpret My Dream",
     yourCreditsCardTitle: "Your Credits",
     creditsRemaining: "credits remaining",
     purchaseMoreCreditsButton: "Purchase More Credits",
@@ -353,6 +355,8 @@ const translations = {
     newReadingCardTitle: "Nova Leitura",
     newReadingCardDescription: "Pronto para novos insights? Faça o upload da sua tiragem de cartas.",
     startNewReadingButton: "Iniciar Nova Leitura",
+    dreamInterpretationCardDescription: "Desvende os mistérios ocultos em seus sonhos.",
+    interpretDreamButton: "Interpretar Meu Sonho",
     yourCreditsCardTitle: "Seus Créditos",
     creditsRemaining: "créditos restantes",
     purchaseMoreCreditsButton: "Comprar Mais Créditos",
@@ -596,3 +600,4 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
+
