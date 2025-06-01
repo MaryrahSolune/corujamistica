@@ -56,7 +56,7 @@ export default function DashboardPage() {
         setDailyGiftStatus({ claimable: false, timeRemaining: formattedTime, cooldownEndTime: endTime });
       }
     }
-  }, [userCredits, locale]); // Removed getDateFnsLocale from dependencies as it's stable
+  }, [userCredits, locale]);
 
   useEffect(() => {
     if (currentUser?.uid) {
@@ -77,7 +77,6 @@ export default function DashboardPage() {
         updateDailyGiftStatus();
       } else if (dailyGiftStatus.cooldownEndTime && Date.now() >= dailyGiftStatus.cooldownEndTime) {
         setDailyGiftStatus({ claimable: true, timeRemaining: null, cooldownEndTime: null });
-        // No need to clear interval here if it should keep checking for next eligibility
       }
     }, 1000); 
 
@@ -144,7 +143,7 @@ export default function DashboardPage() {
             </CardContent>
             <CardFooter>
               <Button asChild className="w-full">
-                <Link href="/new-reading">{t('startNewReadingButton')}</Link>
+                <Link href="/new-reading"><span>{t('startNewReadingButton')}</span></Link>
               </Button>
             </CardFooter>
           </Card>
@@ -153,21 +152,21 @@ export default function DashboardPage() {
         <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-serif">{t('dreamInterpretation')}</CardTitle> {/* Reusing existing key */}
+              <CardTitle className="text-xl font-serif">{t('dreamInterpretation')}</CardTitle>
               <BrainCircuit className="h-6 w-6 text-primary" />
             </CardHeader>
             <CardContent className="flex-grow">
-              <p className="text-muted-foreground mb-4">{t('dreamInterpretationCardDescription')}</p> {/* New key needed */}
+              <p className="text-muted-foreground mb-4">{t('dreamInterpretationCardDescription')}</p>
             </CardContent>
             <CardFooter>
               <Button asChild className="w-full">
-                <Link href="/dream-interpretation">{t('interpretDreamButton')}</Link> {/* New key needed */}
+                <Link href="/dream-interpretation"><span>{t('interpretDreamButton')}</span></Link>
               </Button>
             </CardFooter>
           </Card>
         </div>
         
-        <div className="rounded-lg animated-aurora-background"> {/* Neon glow for this card's background */}
+        <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-serif">{t('yourCreditsCardTitle')}</CardTitle>
@@ -182,8 +181,8 @@ export default function DashboardPage() {
               </p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline" asChild className="w-full"> {/* Removed btn-neon-credits */}
-                <Link href="/credits">{t('purchaseMoreCreditsButton')}</Link>
+              <Button variant="outline" asChild className="w-full">
+                <Link href="/credits"><span>{t('purchaseMoreCreditsButton')}</span></Link>
               </Button>
             </CardFooter>
           </Card>
@@ -268,7 +267,9 @@ export default function DashboardPage() {
                             </span>
                             <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
                                 <Link href={`/reading/${reading.id}`}>
-                                    <Eye className="mr-2 h-4 w-4" /> {t('viewReadingButton')}
+                                    <span>
+                                        <Eye className="mr-2 h-4 w-4" /> {t('viewReadingButton')}
+                                    </span>
                                 </Link>
                             </Button>
                         </div>
@@ -319,4 +320,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
