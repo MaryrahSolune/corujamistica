@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -80,7 +81,7 @@
     --border: 273 20% 30%; /* Dark purple-gray border */
     --input: 273 20% 25%; /* Dark input background */
     --ring: 45 80% 60%; /* Brighter Gold ring for focus */
-    
+
     --chart-1: 273 45% 58%; /* Primary Brighter Deep Purple */
     --chart-2: 45 80% 60%; /* Accent Brighter Gold */
     --chart-3: 273 35% 70%; /* Secondary Brighter Supporting Purple */
@@ -108,16 +109,16 @@
   }
   body::before {
     content: "";
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/img/sacred_geometry_pattern.png');
+    background-image: url('/img/sacred_geometry_pattern.png'); /* Corrected path for public folder */
     background-repeat: repeat;
-    opacity: 0.03; 
-    z-index: -20; 
-    pointer-events: none; 
+    opacity: 0.03;
+    z-index: -20;
+    pointer-events: none;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif; /* Serif for headings */

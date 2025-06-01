@@ -8,7 +8,7 @@ import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Pal
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { SunIcon, MoonIcon } from '@/components/MysticIcons'; 
+import { SunIcon, MoonIcon } from '@/components/MysticIcons';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // Custom Separator Component
@@ -102,7 +102,7 @@ export default function HomePage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden bg-shiva-hero-bg"> 
+        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden"> {/* Removed bg-shiva-hero-bg, will use Image component */}
            {/* Animated Aurora Overlay */}
            <div className="absolute inset-0 -z-10 animated-aurora-background opacity-70"></div>
           
@@ -113,13 +113,14 @@ export default function HomePage() {
           <div className="container mx-auto px-4 relative z-10">
             <div className="relative inline-block mb-6">
               <div className="absolute inset-0 -z-10 flex items-center justify-center">
-                <Image 
-                  src="/img/shiva.jpg" 
+                <Image
+                  src="/img/shiva.jpg"
                   alt={t('landingImageAlt')}
                   data-ai-hint="shiva mystical"
-                  width={120} 
-                  height={120} 
-                  className="rounded-full object-cover opacity-30 blur-sm animate-subtle-bob" 
+                  width={120}
+                  height={120}
+                  className="rounded-full object-cover opacity-30 blur-sm animate-subtle-bob"
+                  style={{ objectFit: 'cover' }}
                 />
               </div>
               <Sparkles className="h-20 w-20 text-primary mx-auto animate-subtle-pulse relative z-10" />
@@ -148,8 +149,8 @@ export default function HomePage() {
             <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>{t('howItWorksSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {howItWorksSteps.map((step, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30"
                   style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
                 >
@@ -179,8 +180,8 @@ export default function HomePage() {
             <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>{t('discoverMagicSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {benefits.map((benefit, index) => (
-                 <div 
-                  key={index} 
+                 <div
+                  key={index}
                   className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-accent/30"
                   style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
                 >
@@ -200,7 +201,7 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        
+
         <CustomSeparator />
 
         {/* Testimonials Section */}
@@ -220,8 +221,8 @@ export default function HomePage() {
             <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.3s'}}>{t('testimonialsSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {testimonials.map((testimonial, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-accent/30"
                   style={{animationDuration: '0.5s', animationDelay: `${0.4 + index * 0.2}s`}}
                 >
@@ -257,17 +258,17 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {gifPlaceholders.map((gif, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-secondary/30"
                   style={{animationDuration: '0.5s', animationDelay: `${0.2 + index * 0.15}s`}}
                 >
                   <div className="aspect-w-4 aspect-h-3 relative z-10 bg-black/30 backdrop-blur-sm">
-                    <Image 
-                      src={gif.src} 
-                      alt={t(gif.altKey as any)} 
-                      layout="fill" 
-                      objectFit="contain" 
+                    <Image
+                      src={gif.src}
+                      alt={t(gif.altKey as any)}
+                      fill
+                      style={{ objectFit: 'contain' }}
                       className="rounded-lg"
                       data-ai-hint={gif.hint}
                       unoptimized={true} // Important for GIFs
@@ -277,7 +278,6 @@ export default function HomePage() {
               ))}
             </div>
              <p className="text-center text-muted-foreground mt-8 text-sm animate-fade-in" style={{animationDelay: '0.5s'}}>
-              {/* Você pode adicionar seus GIFs na pasta public/gifs/ e atualizar os caminhos acima. Ex: src="/gifs/meu_gif_1.gif" */}
               (Em breve: mais animações e símbolos sagrados para sua inspiração!)
             </p>
           </div>
@@ -314,4 +314,3 @@ export default function HomePage() {
     </div>
   );
 }
-
