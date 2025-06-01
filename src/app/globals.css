@@ -144,44 +144,54 @@
     filter: blur(25px); /* Adjust blur for desired neon intensity behind card */
   }
 
-  /* Styles for the Login button's aura effect */
   .login-button-aura-wrapper {
-    @apply relative inline-flex items-center justify-center; /* Ensures wrapper sizes to button */
+    @apply relative inline-flex items-center justify-center;
   }
 
   .login-button-aura-wrapper::before {
     content: '';
-    @apply absolute top-1/2 left-1/2 -z-[5]; /* Ensure it's behind the button */
-    width: calc(100% + 20px); 
-    height: calc(100% + 20px); 
-    /* Red & Yellow/Gold Conic Gradient Aura */
+    @apply absolute top-1/2 left-1/2 -z-[5]; /* Behind the button */
+    width: calc(100% + 16px); /* Aura slightly larger than button */
+    height: calc(100% + 16px);
     background: conic-gradient(
-      hsl(var(--destructive) / 0.5) 0deg, /* Red */
-      hsl(var(--accent) / 0.6) 90deg,    /* Yellow/Gold */
-      hsl(var(--destructive) / 0.5) 180deg, /* Red */
-      hsl(var(--accent) / 0.6) 270deg,   /* Yellow/Gold */
-      hsl(var(--destructive) / 0.5) 360deg /* Red */
+      hsl(var(--destructive) / 0.6) 0deg,   /* Red */
+      hsl(var(--accent) / 0.7) 90deg,       /* Yellow/Gold */
+      hsl(var(--destructive) / 0.6) 180deg,  /* Red */
+      hsl(var(--accent) / 0.7) 270deg,      /* Yellow/Gold */
+      hsl(var(--destructive) / 0.6) 360deg   /* Red */
     );
-    border-radius: calc(var(--radius) + 10px); 
-    filter: blur(15px); 
+    border-radius: calc(var(--radius) + 8px); /* Slightly more rounded than button */
+    filter: blur(12px); /* Soft glow */
     animation: subtle-breathing-glow 2.2s ease-in-out infinite alternate, spin-aura 10s linear infinite;
     transform: translate(-50%, -50%); /* Center the aura */
-    pointer-events: none; /* Allow clicks to pass through */
+    pointer-events: none;
     transition: opacity 0.3s ease-out, transform 0.3s ease-out;
   }
 
   .login-button-aura-wrapper:hover::before {
-    animation-play-state: paused; /* Pause animation on hover */
-    opacity: 0.3; /* Reduce opacity */
-    transform: translate(-50%, -50%) scale(1.1); /* Slight expansion of aura */
+    animation-play-state: paused;
+    opacity: 0.8; /* Aura can be slightly more prominent on hover if desired */
+    transform: translate(-50%, -50%) scale(1.15); /* Aura expands more */
   }
+
+  /* Custom hover for the Login button itself */
+  .login-btn-custom:hover {
+    background-image: none !important;
+    background-color: hsl(var(--accent) / 0.15) !important; /* Light gold background */
+    transform: scale(1.03) !important;
+    box-shadow: 0 0 10px hsl(var(--accent) / 0.5) !important; /* Subtle gold shadow */
+    color: hsl(var(--primary-foreground)) !important; /* Keep text color consistent */
+  }
+
 
   @keyframes subtle-breathing-glow {
     0% {
-      opacity: 0.4;
+      opacity: 0.5;
+      transform: translate(-50%, -50%) scale(1);
     }
     100% {
-      opacity: 0.7;
+      opacity: 0.8;
+      transform: translate(-50%, -50%) scale(1.05);
     }
   }
 

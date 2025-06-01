@@ -224,10 +224,7 @@ export default function AppHeader() {
                   <Button
                     asChild
                     variant="default"
-                    className={cn(
-                      'relative z-[1]' // Ensure button is above its wrapper's pseudo-elements
-                      // Removed custom sizing classes for now: 'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
-                    )}
+                    className="login-btn-custom relative z-[1]"
                   >
                     <Link href="/login">
                       <LogIn className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('login')}</span>
@@ -237,9 +234,6 @@ export default function AppHeader() {
                 <Button
                   asChild
                   variant="default"
-                  className={cn(
-                     // Removed custom sizing classes for now: 'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
-                  )}
                 >
                   <Link href="/signup">
                     <UserPlus className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('signUp')}</span>
