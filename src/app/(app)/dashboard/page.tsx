@@ -125,7 +125,6 @@ export default function DashboardPage() {
     let title = '';
     if (reading.type === 'tarot') title = reading.query;
     else if (reading.type === 'dream') title = reading.dreamDescription;
-    // else if (reading.type === 'loveOracle') title = reading.problemDescription; // Removido
     
     return title.substring(0, maxLength) + (title.length > maxLength ? '...' : '');
   };
@@ -133,7 +132,6 @@ export default function DashboardPage() {
   const getReadingTypeTranslation = (type: ReadingData['type']) => {
     if (type === 'tarot') return t('tarotReadingType');
     if (type === 'dream') return t('dreamInterpretationType');
-    // if (type === 'loveOracle') return t('loveOracleReadingType'); // Removido
     return 'Leitura';
   }
 
@@ -183,8 +181,6 @@ export default function DashboardPage() {
           </Card>
         </div>
         
-        {/* Card do Oráculo do Amor removido */}
-
         <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -320,12 +316,13 @@ export default function DashboardPage() {
           </p>
           <div className="animated-aurora-background rounded-xl inline-block">
             <Image 
-              src="https://placehold.co/800x400.png" 
+              src="/img/gato.gif" 
               alt={t('discoverYourPathTitle')}
-              data-ai-hint="tarot cards mystical" 
+              data-ai-hint="mystical cat animation" 
               width={800} 
               height={400} 
-              className="rounded-lg shadow-xl mx-auto relative z-10" 
+              className="rounded-lg shadow-xl mx-auto relative z-10"
+              unoptimized={true}
             />
           </div>
         </div>
