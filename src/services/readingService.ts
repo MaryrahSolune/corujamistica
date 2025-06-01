@@ -1,6 +1,4 @@
 
-'use server'; // Or remove if only client-side.
-
 import { rtdb } from '@/lib/firebase';
 import { ref, push, set, get, serverTimestamp, query, orderByChild, limitToLast } from 'firebase/database';
 import type { ProcessedStorySegment } from '@/ai/flows/interpret-dream-flow';

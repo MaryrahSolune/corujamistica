@@ -1,6 +1,4 @@
 
-'use server'; // Or remove if only client-side.
-
 import { rtdb } from '@/lib/firebase';
 import { ref, set, get, update, runTransaction, serverTimestamp } from 'firebase/database';
 
@@ -37,12 +35,14 @@ export async function getUserCredits(uid: string): Promise<UserCreditsData | nul
     if (snapshot.exists()) {
       return snapshot.val() as UserCreditsData;
     }
-    await initializeUserCredits(uid);
-    const newSnapshot = await get(creditsRef);
-    return newSnapshot.val() as UserCreditsData
+    // If no credits node, initialize it and return the initial state
+    await initializeUserCredits(uid); // ensure this doesn't recurse indefinitely on fail
+    const newSnapshot = await get(creditsRef); // fetch again after initialization
+    return newSnapshot.val() as UserCreditsData // This should now exist
   } catch (error) {
     console.error("Error fetching user credits from RTDB:", error);
     // Return a default structure if fetching fails or user has no credits yet
+    // This helps prevent app crashes if RTDB is briefly unavailable or rules deny access initially
     return { balance: 0, freeCreditClaimed: false };
   }
 }
@@ -51,11 +51,12 @@ export async function claimFreeCredit(uid: string): Promise<{ success: boolean, 
   const creditsRef = ref(rtdb, `users/${uid}/credits`);
   try {
     const result = await runTransaction(creditsRef, (currentData: UserCreditsData | null) => {
-      if (currentData === null) {
+      if (currentData === null) { // User might not have credits node yet
+        // Initialize if null, then claim
         return { balance: FREE_CREDITS_ON_CLAIM, freeCreditClaimed: true, lastFreeCreditClaimTimestamp: serverTimestamp() };
       }
       if (currentData.freeCreditClaimed) {
-        return; 
+        return; // Abort transaction: free credit already claimed
       }
       currentData.balance = (currentData.balance || 0) + FREE_CREDITS_ON_CLAIM;
       currentData.freeCreditClaimed = true;
@@ -65,9 +66,11 @@ export async function claimFreeCredit(uid: string): Promise<{ success: boolean, 
 
     if (result.committed && result.snapshot.exists()) {
       return { success: true, message: "Free credit claimed successfully!", newBalance: result.snapshot.val().balance };
-    } else if (!result.committed && result.snapshot.val()?.freeCreditClaimed) {
+    } else if (!result.committed && result.snapshot?.val()?.freeCreditClaimed) {
+        // Transaction aborted because freeCreditClaimed was already true
         return { success: false, message: "Free credit already claimed." };
     } else {
+      // Other reasons for transaction not committing.
       return { success: false, message: "Failed to claim free credit. Credits data might be missing or an error occurred." };
     }
   } catch (error: any) {
@@ -81,7 +84,7 @@ export async function deductCredit(uid: string, amount: number = 1): Promise<{ s
   try {
     const result = await runTransaction(creditsRef, (currentData: UserCreditsData | null) => {
       if (currentData === null || (currentData.balance || 0) < amount) {
-        return; 
+        return; // Abort transaction: insufficient credits or no credits node
       }
       currentData.balance = currentData.balance - amount;
       return currentData;
@@ -90,6 +93,7 @@ export async function deductCredit(uid: string, amount: number = 1): Promise<{ s
     if (result.committed && result.snapshot.exists()) {
       return { success: true, message: "Credit deducted successfully.", newBalance: result.snapshot.val().balance };
     } else {
+      // If transaction aborted, it means balance was insufficient or data was null
       return { success: false, message: "Insufficient credits or failed to deduct." };
     }
   } catch (error: any) {
@@ -107,12 +111,13 @@ export async function adminAddCredits(uid: string, amount: number): Promise<{ su
   try {
     const result = await runTransaction(creditsRef, (currentData: UserCreditsData | null) => {
       if (currentData === null) {
-        // If user has no credits node, initialize it
-        return { balance: amount, freeCreditClaimed: false }; 
+        // If user has no credits node, initialize it with the added amount
+        return { balance: amount, freeCreditClaimed: false }; // Assuming admin add doesn't affect free credit
       }
       currentData.balance = (currentData.balance || 0) + amount;
       return currentData;
     });
+
      if (result.committed && result.snapshot.exists()) {
       return { success: true, message: `${amount} credits added successfully.`, newBalance: result.snapshot.val().balance };
     } else {

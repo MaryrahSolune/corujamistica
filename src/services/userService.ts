@@ -1,6 +1,4 @@
 
-'use server';
-
 import { rtdb } from '@/lib/firebase';
 import { ref, set, get, serverTimestamp, update, remove } from 'firebase/database';
 import type { User } from 'firebase/auth';
@@ -26,6 +24,11 @@ export async function createUserProfile(user: User): Promise<void> {
         email: user.email || existingProfile.email,
         photoURL: user.photoURL || existingProfile.photoURL,
     };
+    // Ensure uid is part of the update if it's missing, or use existing
+    if (!updates.uid && existingProfile.uid) updates.uid = existingProfile.uid;
+    else if (!updates.uid) updates.uid = user.uid;
+
+
     await update(userProfileRef, updates);
     return;
   }
@@ -53,6 +56,7 @@ export async function getUserProfile(uid: string): Promise<UserProfileData | nul
   try {
     const snapshot = await get(userProfileRef);
     if (snapshot.exists()) {
+      // Ensure the returned profile includes the uid, as it's used in the admin panel
       return { uid, ...snapshot.val() } as UserProfileData;
     }
     return null;
@@ -87,6 +91,7 @@ export async function getAllUserProfiles(): Promise<Array<UserProfileData>> {
       snapshot.forEach((childSnapshot) => {
         const profileData = childSnapshot.child('profile').val();
         if (profileData) {
+          // Ensure uid is consistently part of the profile object
           profiles.push({ uid: childSnapshot.key!, ...profileData } as UserProfileData);
         }
       });
