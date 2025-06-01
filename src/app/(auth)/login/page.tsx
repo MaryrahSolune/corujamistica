@@ -51,7 +51,7 @@ export default function LoginPage() {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       toast({ title: t('loginSuccessTitle'), description: t('loginSuccessDescription') });
-      router.push('/welcome-splash'); // Redirect to the new welcome splash screen
+      router.push('/dashboard'); // Redirect directly to dashboard
     } catch (error: any) {
       console.error('Login error:', error);
       toast({
