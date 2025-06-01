@@ -69,9 +69,9 @@ export default function HomePage() {
   ];
 
   const gifPlaceholders = [
-    { src: "/gifs/mystic_aura.gif", hint: "mystical animation space" },
-    { src: "/gifs/sacred_symbols_animated.gif", hint: "spiritual symbol sequence" },
-    { src: "/gifs/cosmic_energy.gif", hint: "energy flow visualization" },
+    { src: "/gifs/mystic_aura.gif", hint: "mystical animation space", altKey: "gifPlaceholderAlt" },
+    { src: "/gifs/sacred_symbols_animated.gif", hint: "spiritual symbol sequence", altKey: "gifPlaceholderAlt" },
+    { src: "/gifs/cosmic_energy.gif", hint: "energy flow visualization", altKey: "gifPlaceholderAlt" },
   ];
 
 
@@ -115,7 +115,8 @@ export default function HomePage() {
               <div className="absolute inset-0 -z-10 flex items-center justify-center">
                 <Image 
                   src="/img/shiva.jpg" 
-                  alt="Shiva Background" 
+                  alt={t('landingImageAlt')}
+                  data-ai-hint="shiva mystical"
                   width={120} 
                   height={120} 
                   className="rounded-full object-cover opacity-30 blur-sm animate-subtle-bob" 
@@ -264,12 +265,12 @@ export default function HomePage() {
                   <div className="aspect-w-4 aspect-h-3 relative z-10 bg-black/30 backdrop-blur-sm">
                     <Image 
                       src={gif.src} 
-                      alt={t('gifPlaceholderAlt')} 
+                      alt={t(gif.altKey as any)} 
                       layout="fill" 
                       objectFit="contain" 
                       className="rounded-lg"
                       data-ai-hint={gif.hint}
-                      unoptimized={true} // Important for GIFs if not optimized
+                      unoptimized={true} // Important for GIFs
                     />
                   </div>
                 </div>

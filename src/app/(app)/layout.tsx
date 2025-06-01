@@ -2,13 +2,13 @@
 import AuthGuard from '@/components/AuthGuard';
 import AppHeader from '@/components/AppHeader';
 import type { ReactNode } from 'react';
-// import { LanguageProviderClientComponentApp } from './language-provider-client-app'; // Temporariamente removido
+import { LanguageProviderClientComponentApp } from './language-provider-client-app';
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <AuthGuard>
-      {/* <LanguageProviderClientComponentApp> */} {/* Temporariamente removido */}
-      {/*  {({ t }) => ( */} {/* Temporariamente removido */}
+      <LanguageProviderClientComponentApp>
+        {({ t }) => (
           <div className="flex min-h-screen flex-col">
             <AppHeader />
             <main className="flex-1">
@@ -17,14 +17,14 @@ export default function AppLayout({ children }: { children: ReactNode }) {
             <footer className="py-6 md:px-8 md:py-0 bg-background border-t">
               <div className="container flex flex-col items-center justify-between gap-4 md:h-20 md:flex-row">
                 <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
-                  {/* Texto anteriormente: {t('footerText', { year: new Date().getFullYear() })} */}
-                  © {new Date().getFullYear()} Mystic Insights. Todos os direitos reservados.
+                  {t('footerText', { year: new Date().getFullYear() })}
                 </p>
               </div>
             </footer>
           </div>
-      {/*  )} */} {/* Temporariamente removido */}
-      {/* </LanguageProviderClientComponentApp> */} {/* Temporariamente removido */}
+        )}
+      </LanguageProviderClientComponentApp>
     </AuthGuard>
   );
 }
+

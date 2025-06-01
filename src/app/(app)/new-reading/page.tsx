@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { generateReadingInterpretation, type GenerateReadingInterpretationInput } from '@/ai/flows/generate-reading-interpretation';
+import { generateReadingInterpretation, type GenerateReadingInterpretationInput, type GenerateReadingInterpretationOutput } from '@/ai/flows/generate-reading-interpretation';
 import Image from 'next/image';
 import { Loader2, UploadCloud, Wand2, VenetianMask } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -17,7 +17,7 @@ export default function NewReadingPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageDataUri, setImageDataUri] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('');
-  const [interpretation, setInterpretation] = useState<string | null>(null);
+  const [interpretationResult, setInterpretationResult] = useState<GenerateReadingInterpretationOutput | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
@@ -40,7 +40,7 @@ export default function NewReadingPage() {
         setImageDataUri(reader.result as string);
       };
       reader.readAsDataURL(file);
-      setInterpretation(null); 
+      setInterpretationResult(null); 
       setError(null);
     }
   };
@@ -57,7 +57,7 @@ export default function NewReadingPage() {
     }
 
     setIsLoading(true);
-    setInterpretation(null);
+    setInterpretationResult(null);
     setError(null);
 
     try {
@@ -66,7 +66,7 @@ export default function NewReadingPage() {
         query: query,
       };
       const result = await generateReadingInterpretation(input);
-      setInterpretation(result.interpretation);
+      setInterpretationResult(result);
       toast({ title: t('interpretationReadyTitle'), description: t('interpretationReadyDescription') });
     } catch (err: any) {
       console.error('Error generating interpretation:', err);
@@ -161,7 +161,7 @@ export default function NewReadingPage() {
         </div>
       )}
 
-      {interpretation && (
+      {interpretationResult && interpretationResult.interpretation && (
         <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
           <Card className="shadow-2xl bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10">
             <CardHeader>
@@ -172,8 +172,31 @@ export default function NewReadingPage() {
             </CardHeader>
             <CardContent>
               <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                {interpretation}
+                {interpretationResult.interpretation}
               </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {interpretationResult && interpretationResult.summaryImageUri && (
+        <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
+          <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
+            <CardHeader>
+              <CardTitle className="text-2xl font-serif flex items-center">
+                <Sparkles className="h-7 w-7 mr-3 text-primary" /> 
+                {t('yourVisualBlessingTitle')}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex justify-center">
+              <Image
+                src={interpretationResult.summaryImageUri}
+                alt={t('summaryImageAlt')}
+                data-ai-hint="spiritual guidance orixa blessing"
+                width={512}
+                height={512}
+                className="rounded-lg shadow-lg object-contain"
+              />
             </CardContent>
           </Card>
         </div>
@@ -181,3 +204,4 @@ export default function NewReadingPage() {
     </div>
   );
 }
+
