@@ -115,7 +115,12 @@ export default function DreamInterpretationPage() {
               <Button 
                 type="submit" 
                 className="w-full text-lg py-6" 
-                disabled={isLoading || !dreamDescription.trim() || (userCredits && userCredits.balance < 1)}
+                disabled={
+                  isLoading || 
+                  !dreamDescription.trim() || 
+                  dreamDescription.trim().length < 10 || 
+                  (userCredits && userCredits.balance < 1)
+                }
               >
                 {isLoading ? (
                   <>

@@ -16,11 +16,16 @@ import { useAuth } from '@/contexts/AuthContext';
 import { deductCredit } from '@/services/creditService';
 import { saveReading, type TarotReadingData } from '@/services/readingService';
 
+// Explicitly type the result from the AI flow if it might include optional fields not in the base type
+interface ExtendedGenerateReadingOutput extends GenerateReadingInterpretationOutput {
+  summaryImageUri?: string;
+}
+
 export default function NewReadingPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageDataUri, setImageDataUri] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('');
-  const [interpretationResult, setInterpretationResult] = useState<GenerateReadingInterpretationOutput | null>(null);
+  const [interpretationResult, setInterpretationResult] = useState<ExtendedGenerateReadingOutput | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
@@ -31,11 +36,11 @@ export default function NewReadingPage() {
     event.preventDefault();
 
     if (!currentUser) {
-      toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToRead'), variant: 'destructive' }); // Add these translations
+      toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToRead'), variant: 'destructive' }); 
       return;
     }
     if (!userCredits || userCredits.balance < 1) {
-      toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsDescription'), variant: 'destructive' }); // Add these translations
+      toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsDescription'), variant: 'destructive' }); 
       return;
     }
     if (!imageDataUri) {
@@ -52,31 +57,37 @@ export default function NewReadingPage() {
     setError(null);
 
     try {
-      // 1. Deduct credit first (ideally this is a backend validated operation)
+      // 1. Deduct credit first
       const deductResult = await deductCredit(currentUser.uid);
       if (!deductResult.success) {
-        throw new Error(deductResult.message || t('creditDeductionFailedError')); // Add this translation
+        throw new Error(deductResult.message || t('creditDeductionFailedError')); 
       }
-      refreshCredits(); // Update credit display
+      refreshCredits(); 
 
       // 2. Generate interpretation
       const input: GenerateReadingInterpretationInput = {
         cardSpreadImage: imageDataUri,
         query: query,
       };
-      const result = await generateReadingInterpretation(input);
+      const result = await generateReadingInterpretation(input) as ExtendedGenerateReadingOutput; // Cast to include potential summaryImageUri
       setInterpretationResult(result);
 
       // 3. Save reading to RTDB
       if (result.interpretation) {
-        const readingToSave: Omit<TarotReadingData, 'interpretationTimestamp'> = {
+        const readingToSave: Partial<Omit<TarotReadingData, 'interpretationTimestamp'>> & Pick<TarotReadingData, 'type' | 'query' | 'interpretationText'> = {
           type: 'tarot',
           query: query,
-          cardSpreadImageUri: imageDataUri, // Storing data URI for simplicity, GCS path is better for large images
           interpretationText: result.interpretation,
-          summaryImageUri: result.summaryImageUri,
         };
-        await saveReading(currentUser.uid, readingToSave);
+        if (imageDataUri) {
+          readingToSave.cardSpreadImageUri = imageDataUri;
+        }
+        // Only add summaryImageUri if it exists and is a non-empty string
+        if (result.summaryImageUri && typeof result.summaryImageUri === 'string' && result.summaryImageUri.trim() !== '') {
+          readingToSave.summaryImageUri = result.summaryImageUri;
+        }
+        
+        await saveReading(currentUser.uid, readingToSave as Omit<TarotReadingData, 'interpretationTimestamp'>);
       }
 
       toast({ title: t('interpretationReadyTitle'), description: t('interpretationReadyDescription') });
@@ -85,7 +96,6 @@ export default function NewReadingPage() {
       const errorMessage = err.message || t('errorGeneratingInterpretationDescription');
       setError(errorMessage);
       toast({ title: t('errorGenericTitle'), description: errorMessage, variant: 'destructive' });
-      // TODO: Consider refunding credit if interpretation fails after deduction. This needs robust backend logic.
     } finally {
       setIsLoading(false);
     }
