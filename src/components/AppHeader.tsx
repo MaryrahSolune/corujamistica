@@ -221,26 +221,30 @@ export default function AppHeader() {
           {isClient && showAuthLinks && (
              <div className="flex items-center space-x-1 sm:space-x-2">
                 <div className="login-button-aura-wrapper">
-                  <Link
-                    href="/login"
+                  <Button
+                    asChild
+                    variant="default"
                     className={cn(
-                      buttonVariants({ variant: 'default' }),
-                      'relative z-[1]', // Ensure button is above its wrapper's pseudo-elements
-                      'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
+                      'relative z-[1]' // Ensure button is above its wrapper's pseudo-elements
+                      // Removed custom sizing classes for now: 'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
                     )}
                   >
-                    <LogIn className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('login')}</span>
-                  </Link>
+                    <Link href="/login">
+                      <LogIn className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('login')}</span>
+                    </Link>
+                  </Button>
                 </div>
-                <Link
-                  href="/signup"
+                <Button
+                  asChild
+                  variant="default"
                   className={cn(
-                    buttonVariants({ variant: 'default' }),
-                     'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
+                     // Removed custom sizing classes for now: 'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
                   )}
                 >
-                  <UserPlus className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('signUp')}</span>
-                </Link>
+                  <Link href="/signup">
+                    <UserPlus className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('signUp')}</span>
+                  </Link>
+                </Button>
             </div>
           )}
         </div>
@@ -248,3 +252,4 @@ export default function AppHeader() {
     </header>
   );
 }
+
