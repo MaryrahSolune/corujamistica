@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect } from 'react';
@@ -30,9 +29,9 @@ export default function WelcomeSplashPage() {
       
       <div className="z-10">
         <Image
-          src="/gifs/mystic_loading_animation.gif" 
+          src="/img/gato.gif" 
           alt={t('mysticInsights') + " - Loading"} 
-          data-ai-hint="mystical loading animation" 
+          data-ai-hint="mystical loading animation cat" 
           width={400} 
           height={300} 
           unoptimized={true} 
