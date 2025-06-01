@@ -143,4 +143,100 @@
     );
     border-radius: 50%;
   }
+
+  /* Neon effect for credits button */
+  .btn-neon-credits {
+    position: relative;
+    overflow: visible; /* Allow pseudo-elements to extend for glow */
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    border-color: hsl(var(--border)); /* Default border */
+    color: hsl(var(--foreground));
+    background-color: transparent;
+    z-index: 0; /* Ensure button content is above pseudo-elements if they get positive z-index */
+  }
+
+  .btn-neon-credits::before,
+  .btn-neon-credits::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 250%; /* Make pseudo-elements larger for a wider glow */
+    padding-bottom: 250%;
+    border-radius: 50%;
+    transform-origin: center center;
+    z-index: -1; /* Behind button content */
+    filter: blur(35px); /* Stronger blur for neon effect */
+    will-change: transform, opacity; /* Performance hint */
+  }
+
+  .btn-neon-credits::before {
+    background: radial-gradient(circle, hsla(0, 100%, 50%, 0.7) 0%, hsla(0, 100%, 50%, 0) 60%); /* Red glow */
+    animation: neon-effect-red 5s infinite linear;
+  }
+
+  .btn-neon-credits::after {
+    background: radial-gradient(circle, hsla(60, 100%, 50%, 0.7) 0%, hsla(60, 100%, 50%, 0) 60%); /* Yellow glow */
+    animation: neon-effect-yellow 5s infinite linear 0.3s; /* Offset animation */
+  }
+
+  .btn-neon-credits:hover {
+    transform: scale(1.05);
+    background-color: hsl(var(--accent) / 0.2); /* Levemente amarelado */
+    border-color: hsl(var(--accent));
+    box-shadow: 0 0 10px hsl(var(--accent) / 0.4), 0 0 20px hsl(var(--accent) / 0.2);
+  }
+
+  .btn-neon-credits:hover::before,
+  .btn-neon-credits:hover::after {
+    animation-play-state: paused; /* Pause animation on hover */
+    opacity: 0; /* Hide the animated pseudo-elements to rely on box-shadow for hover glow */
+  }
+
+  @keyframes neon-effect-red {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+      opacity: 0;
+    }
+    20% {
+      transform: translate(-50%, -50%) scale(1) rotate(72deg);
+      opacity: 0.7;
+    }
+    40% {
+      transform: translate(-50%, -50%) scale(0.8) rotate(144deg);
+      opacity: 0.4;
+    }
+    60% {
+      transform: translate(-50%, -50%) scale(1) rotate(216deg);
+      opacity: 0.6;
+    }
+    80% {
+      transform: translate(-50%, -50%) scale(0.7) rotate(288deg);
+      opacity: 0.3;
+    }
+  }
+
+  @keyframes neon-effect-yellow {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+      opacity: 0;
+    }
+    20% {
+      transform: translate(-50%, -50%) scale(1.05) rotate(-60deg); /* Different scale and rotation */
+      opacity: 0.6;
+    }
+    40% {
+      transform: translate(-50%, -50%) scale(0.85) rotate(-120deg);
+      opacity: 0.3;
+    }
+    60% {
+      transform: translate(-50%, -50%) scale(1.05) rotate(-180deg);
+      opacity: 0.5;
+    }
+    80% {
+      transform: translate(-50%, -50%) scale(0.75) rotate(-240deg);
+      opacity: 0.2;
+    }
+  }
 }
+

@@ -157,7 +157,7 @@ export default function DashboardPage() {
               </p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline" asChild className="w-full">
+              <Button variant="outline" asChild className="w-full btn-neon-credits">
                 <Link href="/credits">{t('purchaseMoreCreditsButton')}</Link>
               </Button>
             </CardFooter>
