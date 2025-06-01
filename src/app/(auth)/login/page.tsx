@@ -9,13 +9,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { cn } from '@/lib/utils';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Endereço de e-mail inválido' }), // Translated
@@ -83,12 +84,14 @@ export default function LoginPage() {
       <CardFooter className="flex flex-col items-center space-y-2">
         <p className="text-sm text-muted-foreground">
           {t('dontHaveAccount')}{' '}
-          <Button variant="link" asChild className="p-0 h-auto">
-            <Link href="/signup">{t('signUpLink')}</Link>
-          </Button>
+          <Link 
+            href="/signup" 
+            className={cn(buttonVariants({ variant: 'link' }), "p-0 h-auto text-sm")}
+          >
+            {t('signUpLink')}
+          </Link>
         </p>
       </CardFooter>
     </Card>
   );
 }
-

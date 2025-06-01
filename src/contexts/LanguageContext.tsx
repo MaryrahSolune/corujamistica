@@ -466,25 +466,26 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [locale, setLocaleState] = useState<Locale>('pt-BR'); // Default to pt-BR
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    let initialLocale: Locale = 'pt-BR';
-    if (typeof window !== 'undefined') {
-      const storedLocale = localStorage.getItem('app-locale') as Locale | null;
-      if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
-        initialLocale = storedLocale;
-      } else {
-        const browserLang = navigator.language.toLowerCase();
-        if (browserLang.startsWith('pt')) {
-          initialLocale = 'pt-BR';
-        } else if (browserLang.startsWith('en')) {
-          initialLocale = 'en';
-        }
+    setIsMounted(true);
+    let initialLocale: Locale = 'pt-BR'; // Default if no stored or browser preference
+    const storedLocale = localStorage.getItem('app-locale') as Locale | null;
+    
+    if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
+      initialLocale = storedLocale;
+    } else {
+      const browserLang = navigator.language.toLowerCase();
+      if (browserLang.startsWith('pt')) {
+        initialLocale = 'pt-BR';
+      } else if (browserLang.startsWith('en')) {
+        initialLocale = 'en';
       }
-      setLocaleState(initialLocale);
-      document.documentElement.lang = initialLocale;
-      localStorage.setItem('app-locale', initialLocale);
     }
+    setLocaleState(initialLocale);
+    document.documentElement.lang = initialLocale;
+    // localStorage.setItem('app-locale', initialLocale); // Already set in updateLocale
   }, []);
 
   const updateLocale = useCallback((newLocale: Locale) => {
@@ -497,7 +498,10 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const t = useCallback(
     (key: TranslationKey, params?: Record<string, string | number>): string => {
-      let translation = translations[locale]?.[key] || translations.en[key] || String(key);
+      // Use 'pt-BR' (initial state) if not mounted, otherwise use the determined client-side locale.
+      // This ensures server render and initial client render match before useEffect updates locale.
+      const effectiveLocale = isMounted ? locale : 'pt-BR';
+      let translation = translations[effectiveLocale]?.[key] || translations.en[key] || String(key);
       if (params) {
         Object.entries(params).forEach(([paramKey, value]) => {
           translation = translation.replace(`{${paramKey}}`, String(value));
@@ -505,7 +509,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       }
       return translation;
     },
-    [locale]
+    [locale, isMounted]
   );
 
   return (

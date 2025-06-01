@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { createUserWithEmailAndPassword, updateProfile as updateFirebaseAuthProfile } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +18,7 @@ import { Loader2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { createUserProfile } from '@/services/userService';
 import { initializeUserCredits } from '@/services/creditService';
+import { cn } from '@/lib/utils';
 
 const signupSchema = z.object({
   displayName: z.string().min(2, { message: 'O nome deve ter pelo menos 2 caracteres' }).max(50),
@@ -113,9 +114,12 @@ export default function SignupPage() {
       <CardFooter className="flex flex-col items-center space-y-2">
         <p className="text-sm text-muted-foreground">
           {t('alreadyHaveAccount')}{' '}
-          <Button variant="link" asChild className="p-0 h-auto">
-            <Link href="/login">{t('loginLink')}</Link>
-          </Button>
+          <Link 
+            href="/login" 
+            className={cn(buttonVariants({ variant: 'link' }), "p-0 h-auto text-sm")}
+          >
+            {t('loginLink')}
+          </Link>
         </p>
       </CardFooter>
     </Card>
