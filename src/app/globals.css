@@ -145,28 +145,37 @@
 
   /* Styles for the Login button's aura effect */
   .login-button-aura-wrapper {
-    @apply relative inline-flex; /* Ensures wrapper fits button */
+    @apply relative inline-flex items-center justify-center;
   }
 
   .login-button-aura-wrapper::before {
     content: '';
-    @apply absolute top-1/2 left-1/2 -z-10; /* Position behind and centered */
-    width: calc(100% + 10px); /* Slightly larger than the button */
-    height: calc(100% + 10px);
-    background: radial-gradient(ellipse at center, hsl(var(--accent) / 0.25) 0%, transparent 70%); /* Soft accent glow */
-    border-radius: calc(var(--radius) + 5px); /* Match button's rounding, slightly larger */
-    filter: blur(5px);
-    animation: subtle-breathing-glow 4s ease-in-out infinite alternate;
+    @apply absolute top-1/2 left-1/2 -z-10;
+    width: calc(100% + 16px); /* Increased spread */
+    height: calc(100% + 16px); /* Increased spread */
+    background: radial-gradient(ellipse at center, hsl(var(--accent) / 0.5) 0%, hsl(var(--accent) / 0.2) 40%, transparent 70%); /* Center more opaque, softer transition */
+    border-radius: calc(var(--radius) + 8px); /* Adjusted to match increased size */
+    filter: blur(10px); /* Increased blur for softer, wider glow */
+    animation: subtle-breathing-glow 2.5s ease-in-out infinite alternate;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: opacity 0.3s ease-out; /* For fading out the glow on hover */
   }
 
+  .login-button-aura-wrapper:hover::before {
+    animation-play-state: paused; /* Pause the glow animation */
+    opacity: 0.2; /* Optionally reduce glow opacity further on hover or make it disappear */
+  }
+
+
   @keyframes subtle-breathing-glow {
-    from {
+    0% {
       opacity: 0.6;
       transform: translate(-50%, -50%) scale(1);
     }
-    to {
-      opacity: 0.9;
-      transform: translate(-50%, -50%) scale(1.03);
+    100% {
+      opacity: 1; /* Brighter peak opacity */
+      transform: translate(-50%, -50%) scale(1.08); /* Slightly more pronounced pulse */
     }
   }
 }
