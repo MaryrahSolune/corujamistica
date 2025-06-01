@@ -6,8 +6,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAllUserProfiles, deleteUserRtdbData, type UserProfileData } from '@/services/userService';
 import { adminAddCredits, getUserCredits, type UserCreditsData } from '@/services/creditService';
+import { getPromptContent, updatePromptContent, type PromptName } from '@/services/promptManagementService';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -39,8 +40,9 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, ShieldCheck, UserPlus, Trash2, Coins, Edit } from 'lucide-react';
+import { Loader2, ShieldCheck, UserPlus, Trash2, Coins, Edit, MessageSquareQuote } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface UserWithCredits extends UserProfileData {
@@ -48,7 +50,7 @@ interface UserWithCredits extends UserProfileData {
 }
 
 export default function AdminDashboardPage() {
-  const { userProfile: adminProfile, refreshUserProfile } = useAuth();
+  const { userProfile: adminProfile } = useAuth();
   const { t } = useLanguage();
   const { toast } = useToast();
 
@@ -57,6 +59,12 @@ export default function AdminDashboardPage() {
   const [selectedUserForCredits, setSelectedUserForCredits] = useState<UserWithCredits | null>(null);
   const [creditsToAdd, setCreditsToAdd] = useState<number>(0);
   const [isAddingCredits, setIsAddingCredits] = useState(false);
+
+  const [cardReadingPrompt, setCardReadingPrompt] = useState('');
+  const [dreamInterpretationPrompt, setDreamInterpretationPrompt] = useState('');
+  const [isLoadingPrompts, setIsLoadingPrompts] = useState(true);
+  const [isSavingCardPrompt, setIsSavingCardPrompt] = useState(false);
+  const [isSavingDreamPrompt, setIsSavingDreamPrompt] = useState(false);
 
   const fetchUsersAndCredits = async () => {
     setIsLoadingUsers(true);
@@ -76,9 +84,27 @@ export default function AdminDashboardPage() {
     }
   };
 
+  const fetchAllPrompts = async () => {
+    setIsLoadingPrompts(true);
+    try {
+      const [cardPrompt, dreamPrompt] = await Promise.all([
+        getPromptContent('analyzeCardReading'),
+        getPromptContent('interpretDream')
+      ]);
+      setCardReadingPrompt(cardPrompt);
+      setDreamInterpretationPrompt(dreamPrompt);
+    } catch (error) {
+      console.error("Error fetching prompts:", error);
+      toast({ title: t('errorGenericTitle'), description: t('promptLoadError'), variant: 'destructive' });
+    } finally {
+      setIsLoadingPrompts(false);
+    }
+  };
+
   useEffect(() => {
     if (adminProfile?.role === 'admin') {
       fetchUsersAndCredits();
+      fetchAllPrompts();
     }
   }, [adminProfile]);
 
@@ -116,9 +142,28 @@ export default function AdminDashboardPage() {
       toast({ title: t('errorGenericTitle'), description: error.message || t('deleteUserErrorToast', { email: email || 'User' }), variant: 'destructive' });
     }
   };
+
+  const handleSavePrompt = async (promptName: PromptName, content: string) => {
+    if (promptName === 'analyzeCardReading') setIsSavingCardPrompt(true);
+    if (promptName === 'interpretDream') setIsSavingDreamPrompt(true);
+
+    try {
+      const result = await updatePromptContent(promptName, content);
+      if (result.success) {
+        toast({ title: t('mysticInsights'), description: t('promptSaveSuccess') });
+      } else {
+        toast({ title: t('errorGenericTitle'), description: result.message || t('promptSaveError'), variant: 'destructive' });
+      }
+    } catch (error: any) {
+      toast({ title: t('errorGenericTitle'), description: error.message || t('promptSaveError'), variant: 'destructive' });
+    } finally {
+      if (promptName === 'analyzeCardReading') setIsSavingCardPrompt(false);
+      if (promptName === 'interpretDream') setIsSavingDreamPrompt(false);
+    }
+  };
   
   if (adminProfile?.role !== 'admin') {
-    return ( // Should be handled by AdminLayout, but good for safety
+    return ( 
       <div className="container mx-auto p-8 text-center">
         <p>Access Denied.</p>
       </div>
@@ -139,7 +184,8 @@ export default function AdminDashboardPage() {
         </div>
       </Card>
 
-      <Card className="shadow-xl animated-aurora-background">
+      {/* User Management Section */}
+      <Card className="mb-8 shadow-xl animated-aurora-background">
         <div className="relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-2xl font-serif">{t('usersTableTitle')}</CardTitle>
@@ -259,6 +305,75 @@ export default function AdminDashboardPage() {
           </CardContent>
         </div>
       </Card>
+
+      {/* AI Prompt Management Section */}
+      <Card className="shadow-xl animated-aurora-background">
+        <div className="relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
+          <CardHeader>
+            <CardTitle className="text-2xl font-serif flex items-center">
+              <MessageSquareQuote className="h-7 w-7 mr-3 text-primary" />
+              {t('promptManagementTitle')}
+            </CardTitle>
+            <CardDescription>{t('promptEditingDisclaimer')}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {isLoadingPrompts ? (
+              <div className="space-y-4">
+                <Skeleton className="h-8 w-1/3" />
+                <Skeleton className="h-32 w-full" />
+                <Skeleton className="h-10 w-24" />
+                <Skeleton className="h-8 w-1/3 mt-4" />
+                <Skeleton className="h-32 w-full" />
+                <Skeleton className="h-10 w-24" />
+              </div>
+            ) : (
+              <>
+                {/* Card Reading Prompt Editor */}
+                <div>
+                  <Label htmlFor="card-reading-prompt" className="text-lg font-semibold">{t('cardReadingPromptLabel')}</Label>
+                  <Textarea
+                    id="card-reading-prompt"
+                    value={cardReadingPrompt}
+                    onChange={(e) => setCardReadingPrompt(e.target.value)}
+                    rows={15}
+                    className="mt-2 mb-3 font-mono text-xs"
+                    disabled={isSavingCardPrompt}
+                  />
+                  <Button
+                    onClick={() => handleSavePrompt('analyzeCardReading', cardReadingPrompt)}
+                    disabled={isSavingCardPrompt}
+                  >
+                    {isSavingCardPrompt && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {t('savePromptButton')}
+                  </Button>
+                </div>
+
+                {/* Dream Interpretation Prompt Editor */}
+                <div>
+                  <Label htmlFor="dream-interpretation-prompt" className="text-lg font-semibold">{t('dreamInterpretationPromptLabel')}</Label>
+                  <Textarea
+                    id="dream-interpretation-prompt"
+                    value={dreamInterpretationPrompt}
+                    onChange={(e) => setDreamInterpretationPrompt(e.target.value)}
+                    rows={15}
+                    className="mt-2 mb-3 font-mono text-xs"
+                    disabled={isSavingDreamPrompt}
+                  />
+                  <Button
+                    onClick={() => handleSavePrompt('interpretDream', dreamInterpretationPrompt)}
+                    disabled={isSavingDreamPrompt}
+                  >
+                    {isSavingDreamPrompt && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {t('savePromptButton')}
+                  </Button>
+                </div>
+              </>
+            )}
+          </CardContent>
+        </div>
+      </Card>
     </div>
   );
 }
+
+    
