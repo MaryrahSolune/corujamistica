@@ -2,7 +2,7 @@
 import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
 import { getAuth, type Auth } from 'firebase/auth';
 // import { getFirestore, type Firestore } from 'firebase/firestore'; // Descomente se você precisar do Firestore
-// import { getDatabase, type Database } from 'firebase/database'; // Descomente se você precisar do Realtime Database
+import { getDatabase, type Database } from 'firebase/database'; // Adicionado para Realtime Database
 
 // Configuração do Firebase da sua aplicação web
 const firebaseConfig = {
@@ -26,6 +26,6 @@ if (!getApps().length) {
 
 const auth: Auth = getAuth(app);
 // const firestoreDb: Firestore = getFirestore(app); // Descomente se você precisar do Firestore
-// const rtdb: Database = getDatabase(app); // Descomente se você precisar do Realtime Database
+const rtdb: Database = getDatabase(app); // Inicializa o Realtime Database
 
-export { app, auth /*, firestoreDb, rtdb */ };
+export { app, auth, rtdb /*, firestoreDb */ };

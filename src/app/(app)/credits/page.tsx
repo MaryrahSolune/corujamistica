@@ -1,11 +1,15 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { CreditCard, ShieldCheck, Zap, Gift } from 'lucide-react'; // Gift icon added
+import { CreditCard, ShieldCheck, Zap, Gift, Loader2 } from 'lucide-react'; // Gift icon added, Loader2
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext'; // Import useAuth
+import { claimFreeCredit } from '@/services/creditService'; // Import claimFreeCredit
+import { useState } from 'react';
 
 const USD_TO_BRL_RATE = 5.0; // Fixed conversion rate: 1 USD = 5 BRL
 
@@ -19,27 +23,64 @@ const creditPackagesData = (t: Function) => [
 export default function CreditsPage() {
   const { t, locale } = useLanguage();
   const { toast } = useToast();
+  const { currentUser, userCredits, refreshCredits } = useAuth(); // Get currentUser and userCredits
   const creditPackages = creditPackagesData(t);
+  const [claimingFreeCredit, setClaimingFreeCredit] = useState(false);
+  const [purchasingPackageId, setPurchasingPackageId] = useState<number | null>(null);
 
-  const handlePurchase = (pkgId: number, isFree: boolean) => {
-    // TODO: Implement IP check and backend logic for free credit claim
-    // For now, this is a frontend simulation.
-    // A real implementation would involve:
-    // 1. Getting user's IP (potentially via a backend endpoint).
-    // 2. Sending IP and user ID to backend upon free credit claim.
-    // 3. Backend checks if IP or user ID has already claimed.
-    // 4. Backend updates user's credit balance and logs the claim.
-    
+
+  const handlePurchase = async (pkgId: number, isFree: boolean, creditsAmount: number) => {
+    if (!currentUser) {
+      toast({ title: "Authentication Error", description: "You must be logged in.", variant: "destructive" });
+      return;
+    }
+
     if (isFree) {
-      toast({
-        title: t('mysticInsights'),
-        description: t('freeCreditClaimedToast', { count: String(1) }) 
-      });
+      if (userCredits?.freeCreditClaimed) {
+        toast({
+          title: t('mysticInsights'),
+          description: t('freeCreditAlreadyClaimedToast'), // Add this translation key
+          variant: 'default'
+        });
+        return;
+      }
+      setClaimingFreeCredit(true);
+      const result = await claimFreeCredit(currentUser.uid);
+      if (result.success) {
+        toast({
+          title: t('mysticInsights'),
+          description: t('freeCreditClaimedToast', { count: String(creditsAmount) }) 
+        });
+        refreshCredits(); // Refresh credits in AuthContext
+      } else {
+        toast({
+          title: t('errorGenericTitle'),
+          description: result.message || t('freeCreditClaimFailedToast'), // Add this translation key
+          variant: 'destructive'
+        });
+      }
+      setClaimingFreeCredit(false);
     } else {
+      // TODO: Implement actual payment gateway integration here.
+      // For now, this simulates a purchase.
+      // In a real app, this would call a backend function to create a payment intent,
+      // then redirect to a payment provider, and upon successful payment,
+      // a webhook or callback would trigger a Cloud Function to add credits.
+      setPurchasingPackageId(pkgId);
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500)); 
+
       toast({
           title: t('mysticInsights'),
-          description: t('purchaseInitiatedToast', { packageId: String(pkgId) })
+          description: t('purchaseInitiatedToast', { packageId: String(pkgId) }) + " (Simulation)"
       });
+       // IMPORTANT: In a real scenario, call a backend function to securely add credits after payment confirmation.
+      // Example (client-side for demo, move to backend):
+      // if (currentUser) {
+      //   await addCredits(currentUser.uid, creditsAmount);
+      //   refreshCredits();
+      // }
+      setPurchasingPackageId(null);
     }
   };
 
@@ -64,7 +105,7 @@ export default function CreditsPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"> {/* Adjusted for 4 items */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {creditPackages.map((pkg) => (
           <div key={pkg.id} className={`animated-aurora-background rounded-lg ${pkg.popular ? 'p-0.5' : ''}`}>
             <Card className={`shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full ${pkg.popular ? 'border-transparent ring-2 ring-primary/70' : ''}`}>
@@ -85,13 +126,23 @@ export default function CreditsPage() {
                   <span className="text-5xl font-bold text-primary">{pkg.credits}</span>
                   <span className="text-muted-foreground"> {t('creditsUnit')}</span>
                 </div>
-                <p className={`text-center text-3xl font-semibold ${pkg.priceUSD === 0 ? 'text-green-600 dark:text-green-500' : 'text-accent'}`}>
+                <p className={`text-center text-3xl font-semibold ${pkg.priceUSD === 0 ? 'text-green-600 dark:text-green-500' : ''}`}>
                   {getDisplayPrice(pkg.priceUSD)}
                 </p>
               </CardContent>
               <CardFooter className="mt-auto">
-                <Button onClick={() => handlePurchase(pkg.id, pkg.priceUSD === 0)} className="w-full text-lg py-3">
-                  {pkg.priceUSD === 0 ? t('getItNowButton') : t('purchaseNowButton')}
+                <Button 
+                  onClick={() => handlePurchase(pkg.id, pkg.priceUSD === 0, pkg.credits)} 
+                  className="w-full text-lg py-3"
+                  disabled={
+                    (pkg.priceUSD === 0 && (claimingFreeCredit || !!userCredits?.freeCreditClaimed)) ||
+                    (pkg.priceUSD !== 0 && (purchasingPackageId !== null || claimingFreeCredit)) ||
+                    purchasingPackageId === pkg.id
+                  }
+                >
+                  {pkg.priceUSD === 0 && claimingFreeCredit && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+                  {pkg.priceUSD !== 0 && purchasingPackageId === pkg.id && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+                  {pkg.priceUSD === 0 ? (userCredits?.freeCreditClaimed ? t('freeCreditAlreadyClaimedButton') : t('getItNowButton')) : t('purchaseNowButton')}
                 </Button>
               </CardFooter>
             </Card>

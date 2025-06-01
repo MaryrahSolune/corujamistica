@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile as updateFirebaseAuthProfile } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,6 +16,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { createUserProfile } from '@/services/userService';
+import { initializeUserCredits } from '@/services/creditService';
 
 const signupSchema = z.object({
   displayName: z.string().min(2, { message: 'O nome deve ter pelo menos 2 caracteres' }).max(50),
@@ -43,7 +45,11 @@ export default function SignupPage() {
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-      await updateProfile(userCredential.user, { displayName: data.displayName });
+      await updateFirebaseAuthProfile(userCredential.user, { displayName: data.displayName });
+      
+      // Create user profile and initialize credits in RTDB
+      await createUserProfile(userCredential.user);
+      await initializeUserCredits(userCredential.user.uid);
       
       toast({ title: t('signupSuccessTitle'), description: t('signupSuccessDescription') });
       router.push('/dashboard');
@@ -55,11 +61,9 @@ export default function SignupPage() {
         const firebaseError = error as { code: string; message: string };
         if (firebaseError.code === 'auth/email-already-in-use') {
           toastDescription = t('emailAlreadyInUseErrorDescription');
-          logErrorToConsole = false; // Don't log this specific, handled error to console
+          logErrorToConsole = false; 
         }
-        // You could add more 'else if' cases here for other firebaseError.code values
       } else if (error instanceof Error) {
-        // For other generic JavaScript errors
         // toastDescription = error.message || t('genericErrorDescription');
       }
 

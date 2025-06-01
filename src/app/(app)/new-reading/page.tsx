@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useState, type ChangeEvent, type FormEvent, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,8 +10,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { generateReadingInterpretation, type GenerateReadingInterpretationInput, type GenerateReadingInterpretationOutput } from '@/ai/flows/generate-reading-interpretation';
 import Image from 'next/image';
-import { Loader2, UploadCloud, Wand2, VenetianMask } from 'lucide-react';
+import { Loader2, UploadCloud, Wand2, VenetianMask, Sparkles } from 'lucide-react'; // Added Sparkles
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { deductCredit } from '@/services/creditService';
+import { saveReading, type TarotReadingData } from '@/services/readingService';
 
 export default function NewReadingPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -22,6 +25,71 @@ export default function NewReadingPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const { t } = useLanguage();
+  const { currentUser, userCredits, refreshCredits } = useAuth();
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+
+    if (!currentUser) {
+      toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToRead'), variant: 'destructive' }); // Add these translations
+      return;
+    }
+    if (!userCredits || userCredits.balance < 1) {
+      toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsDescription'), variant: 'destructive' }); // Add these translations
+      return;
+    }
+    if (!imageDataUri) {
+      toast({ title: t('noImageErrorTitle'), description: t('noImageErrorDescription'), variant: 'destructive' });
+      return;
+    }
+    if (!query.trim()) {
+      toast({ title: t('noQueryErrorTitle'), description: t('noQueryErrorDescription'), variant: 'destructive' });
+      return;
+    }
+
+    setIsLoading(true);
+    setInterpretationResult(null);
+    setError(null);
+
+    try {
+      // 1. Deduct credit first (ideally this is a backend validated operation)
+      const deductResult = await deductCredit(currentUser.uid);
+      if (!deductResult.success) {
+        throw new Error(deductResult.message || t('creditDeductionFailedError')); // Add this translation
+      }
+      refreshCredits(); // Update credit display
+
+      // 2. Generate interpretation
+      const input: GenerateReadingInterpretationInput = {
+        cardSpreadImage: imageDataUri,
+        query: query,
+      };
+      const result = await generateReadingInterpretation(input);
+      setInterpretationResult(result);
+
+      // 3. Save reading to RTDB
+      if (result.interpretation) {
+        const readingToSave: Omit<TarotReadingData, 'interpretationTimestamp'> = {
+          type: 'tarot',
+          query: query,
+          cardSpreadImageUri: imageDataUri, // Storing data URI for simplicity, GCS path is better for large images
+          interpretationText: result.interpretation,
+          summaryImageUri: result.summaryImageUri,
+        };
+        await saveReading(currentUser.uid, readingToSave);
+      }
+
+      toast({ title: t('interpretationReadyTitle'), description: t('interpretationReadyDescription') });
+    } catch (err: any) {
+      console.error('Error in reading process:', err);
+      const errorMessage = err.message || t('errorGeneratingInterpretationDescription');
+      setError(errorMessage);
+      toast({ title: t('errorGenericTitle'), description: errorMessage, variant: 'destructive' });
+      // TODO: Consider refunding credit if interpretation fails after deduction. This needs robust backend logic.
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -45,39 +113,6 @@ export default function NewReadingPage() {
     }
   };
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    if (!imageDataUri) {
-      toast({ title: t('noImageErrorTitle'), description: t('noImageErrorDescription'), variant: 'destructive' });
-      return;
-    }
-    if (!query.trim()) {
-      toast({ title: t('noQueryErrorTitle'), description: t('noQueryErrorDescription'), variant: 'destructive' });
-      return;
-    }
-
-    setIsLoading(true);
-    setInterpretationResult(null);
-    setError(null);
-
-    try {
-      const input: GenerateReadingInterpretationInput = {
-        cardSpreadImage: imageDataUri,
-        query: query,
-      };
-      const result = await generateReadingInterpretation(input);
-      setInterpretationResult(result);
-      toast({ title: t('interpretationReadyTitle'), description: t('interpretationReadyDescription') });
-    } catch (err: any) {
-      console.error('Error generating interpretation:', err);
-      const errorMessage = err.message || t('errorGeneratingInterpretationDescription');
-      setError(errorMessage);
-      toast({ title: t('errorGenericTitle'), description: errorMessage, variant: 'destructive' });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-8">
@@ -88,7 +123,7 @@ export default function NewReadingPage() {
               {t('newCardReadingTitle')}
             </CardTitle>
             <CardDescription>
-              {t('newCardReadingDescription')}
+              {t('newCardReadingDescription')} {userCredits && t('creditsAvailable', {count: userCredits.balance})}
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
@@ -108,6 +143,7 @@ export default function NewReadingPage() {
                     <Image
                       src={imagePreview}
                       alt={t('cardSpreadPreviewAlt')} 
+                      data-ai-hint="tarot card spread user upload"
                       width={400}
                       height={300}
                       className="rounded-md object-contain max-h-[300px]"
@@ -130,7 +166,11 @@ export default function NewReadingPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button type="submit" className="w-full text-lg py-6" disabled={isLoading || !imageDataUri || !query.trim()}>
+              <Button 
+                type="submit" 
+                className="w-full text-lg py-6" 
+                disabled={isLoading || !imageDataUri || !query.trim() || (userCredits && userCredits.balance < 1)}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -204,4 +244,3 @@ export default function NewReadingPage() {
     </div>
   );
 }
-

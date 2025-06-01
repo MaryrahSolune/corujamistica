@@ -118,6 +118,8 @@ const translations = {
     discoverYourPathTitle: "Discover Your Path",
     discoverYourPathDescription: "Mystic Insights uses advanced AI to interpret your Tarot and Cigano card spreads, offering personalized guidance based on ancient wisdom and astrological alignments.",
     defaultSeekerName: "Seeker",
+    tarotReadingType: "Tarot/Oracle Card Reading",
+    dreamInterpretationType: "Dream Interpretation",
     // Credits Page
     purchaseCreditsTitle: "Purchase Credits",
     purchaseCreditsDescription: "Unlock deeper insights with more readings. Choose a credit package that suits your journey.",
@@ -137,13 +139,16 @@ const translations = {
     securePaymentsDescription: "All transactions are securely processed. Your financial information is protected.",
     purchaseInitiatedToast: "Purchase initiated for package ID: {packageId}. Payment integration TBD.",
     freeCreditClaimedToast: "Your {count} free credit has been added! Enjoy your readings.",
-    // New Reading Page
+    freeCreditAlreadyClaimedToast: "You have already claimed your free credit.",
+    freeCreditClaimFailedToast: "Failed to claim free credit. Please try again later.",
+    freeCreditAlreadyClaimedButton: "Already Claimed",
+    // New Reading & Dream Interpretation Page
     newCardReadingTitle: "New Card Reading",
     newCardReadingDescription: "Upload an image of your Tarot or Cigano card spread and enter your query to receive an AI-powered interpretation.",
     uploadCardSpreadImageLabel: "Upload Card Spread Image",
     yourQuestionLabel: "Your Question or Context",
     questionPlaceholder: "E.g., 'What should I focus on in my career right now?' or 'General reading for the upcoming month.'",
-    getYourReadingButton: "Get Your Reading",
+    getYourReadingButton: "Get Your Reading (1 Credit)",
     generatingInterpretationButton: "Generating Interpretation...",
     imageTooLargeTitle: "Image too large",
     imageTooLargeDescription: "Please upload an image smaller than 4MB.",
@@ -157,9 +162,17 @@ const translations = {
     errorGeneratingInterpretationDescription: "Failed to generate interpretation. Please try again.",
     errorOccurredCardTitle: "An Error Occurred",
     yourMysticalInterpretationTitle: "Your Mystical Interpretation",
-    yourVisualBlessingTitle: "Your Visual Blessing",
+    yourVisualBlessingTitle: "Sua Bênção Visual",
     summaryImageAlt: "Visual summary of your reading's guidance and Orixá blessings.",
     cardSpreadPreviewAlt: "Card spread preview",
+    creditsAvailable: "({count} credits available)",
+    authErrorTitle: "Authentication Error",
+    mustBeLoggedInToRead: "You must be logged in to perform a reading.",
+    mustBeLoggedInToInterpret: "You must be logged in to interpret a dream.",
+    insufficientCreditsTitle: "Insufficient Credits",
+    insufficientCreditsDescription: "You do not have enough credits for a card reading. Please purchase more.",
+    insufficientCreditsForDreamDescription: "You do not have enough credits for a dream interpretation. Please purchase more.",
+    creditDeductionFailedError: "Failed to deduct credit. Please try again.",
     // Profile Page
     yourProfileTitle: "Your Profile",
     yourProfileDescription: "Manage your account details and preferences.",
@@ -180,7 +193,7 @@ const translations = {
     dreamInterpretationDescription: "Describe your dream in detail, and the Prophet will unveil its hidden meanings.",
     yourDreamLabel: "Describe Your Dream",
     dreamPlaceholder: "E.g., 'I dreamed I was flying over a city of gold...' or 'I had a recurring dream about a mysterious door...'",
-    getDreamInterpretationButton: "Interpret My Dream",
+    getDreamInterpretationButton: "Interpret My Dream (1 Credit)",
     generatingDreamInterpretationButton: "Interpreting Dream...",
     noDreamErrorTitle: "No Dream Description",
     noDreamErrorDescription: "Please describe your dream to receive an interpretation.",
@@ -299,6 +312,8 @@ const translations = {
     discoverYourPathTitle: "Descubra Seu Caminho",
     discoverYourPathDescription: "Mystic Insights usa IA avançada para interpretar suas tiragens de Tarot e Baralho Cigano, oferecendo orientação personalizada baseada em sabedoria ancestral e alinhamentos astrológicos.",
     defaultSeekerName: "Buscador(a)",
+    tarotReadingType: "Leitura de Tarot/Oráculo",
+    dreamInterpretationType: "Interpretação de Sonho",
     // Credits Page
     purchaseCreditsTitle: "Comprar Créditos",
     purchaseCreditsDescription: "Desbloqueie insights mais profundos com mais leituras. Escolha o pacote de créditos que combina com sua jornada.",
@@ -318,13 +333,16 @@ const translations = {
     securePaymentsDescription: "Todas as transações são processadas com segurança. Suas informações financeiras estão protegidas.",
     purchaseInitiatedToast: "Compra iniciada para o pacote ID: {packageId}. Integração de pagamento pendente.",
     freeCreditClaimedToast: "Seu {count} crédito gratuito foi adicionado! Aproveite suas leituras.",
-    // New Reading Page
+    freeCreditAlreadyClaimedToast: "Você já resgatou seu crédito gratuito.",
+    freeCreditClaimFailedToast: "Falha ao resgatar crédito gratuito. Por favor, tente novamente mais tarde.",
+    freeCreditAlreadyClaimedButton: "Já Resgatado",
+     // New Reading & Dream Interpretation Page
     newCardReadingTitle: "Nova Leitura de Cartas",
     newCardReadingDescription: "Faça o upload de uma imagem da sua tiragem de Tarot ou Baralho Cigano e insira sua pergunta para receber uma interpretação com IA.",
     uploadCardSpreadImageLabel: "Upload da Imagem da Tiragem",
     yourQuestionLabel: "Sua Pergunta ou Contexto",
     questionPlaceholder: "Ex: 'No que devo focar na minha carreira agora?' ou 'Leitura geral para o próximo mês.'",
-    getYourReadingButton: "Obtenha Sua Leitura",
+    getYourReadingButton: "Obter Sua Leitura (1 Crédito)",
     generatingInterpretationButton: "Gerando Interpretação...",
     imageTooLargeTitle: "Imagem muito grande",
     imageTooLargeDescription: "Por favor, envie uma imagem menor que 4MB.",
@@ -341,6 +359,14 @@ const translations = {
     yourVisualBlessingTitle: "Sua Bênção Visual",
     summaryImageAlt: "Resumo visual da orientação da sua leitura e bênçãos dos Orixás.",
     cardSpreadPreviewAlt: "Prévia da tiragem de cartas",
+    creditsAvailable: "({count} créditos disponíveis)",
+    authErrorTitle: "Erro de Autenticação",
+    mustBeLoggedInToRead: "Você precisa estar logado para realizar uma leitura.",
+    mustBeLoggedInToInterpret: "Você precisa estar logado para interpretar um sonho.",
+    insufficientCreditsTitle: "Créditos Insuficientes",
+    insufficientCreditsDescription: "Você não tem créditos suficientes para uma leitura de cartas. Por favor, compre mais.",
+    insufficientCreditsForDreamDescription: "Você não tem créditos suficientes para uma interpretação de sonho. Por favor, compre mais.",
+    creditDeductionFailedError: "Falha ao deduzir crédito. Por favor, tente novamente.",
     // Profile Page
     yourProfileTitle: "Seu Perfil",
     yourProfileDescription: "Gerencie os detalhes e preferências da sua conta.",
@@ -361,7 +387,7 @@ const translations = {
     dreamInterpretationDescription: "Descreva seu sonho em detalhes, e o Profeta revelará seus significados ocultos.",
     yourDreamLabel: "Descreva Seu Sonho",
     dreamPlaceholder: "Ex: 'Sonhei que estava voando sobre uma cidade de ouro...' ou 'Tive um sonho recorrente sobre uma porta misteriosa...'",
-    getDreamInterpretationButton: "Interpretar Meu Sonho",
+    getDreamInterpretationButton: "Interpretar Meu Sonho (1 Crédito)",
     generatingDreamInterpretationButton: "Interpretando Sonho...",
     noDreamErrorTitle: "Nenhuma Descrição do Sonho",
     noDreamErrorDescription: "Por favor, descreva seu sonho para receber uma interpretação.",
@@ -371,7 +397,6 @@ const translations = {
     dreamIllustrationAlt: "Ilustração do sonho {number}",
   },
 };
-
 
 export type TranslationKey = keyof typeof translations.en;
 
@@ -442,4 +467,3 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
-

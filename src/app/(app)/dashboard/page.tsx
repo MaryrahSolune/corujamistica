@@ -1,19 +1,49 @@
 
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle } from 'lucide-react';
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getUserReadings, type ReadingData } from '@/services/readingService';
+import { Skeleton } from '@/components/ui/skeleton';
+import { formatDistanceToNow } from 'date-fns';
+import { ptBR, enUS } from 'date-fns/locale';
 
 export default function DashboardPage() {
-  const { currentUser } = useAuth();
-  const { t } = useLanguage();
+  const { currentUser, userCredits } = useAuth();
+  const { t, locale } = useLanguage();
+  const [recentReadings, setRecentReadings] = useState<(ReadingData & { id: string })[]>([]);
+  const [loadingReadings, setLoadingReadings] = useState(true);
 
   const displayName = currentUser?.displayName || currentUser?.email?.split('@')[0] || t('defaultSeekerName');
+
+  useEffect(() => {
+    if (currentUser?.uid) {
+      setLoadingReadings(true);
+      getUserReadings(currentUser.uid, 3) // Fetch last 3 readings
+        .then(readings => {
+          setRecentReadings(readings);
+        })
+        .catch(error => {
+          console.error("Error fetching recent readings:", error);
+          // Potentially show a toast or error message to the user
+        })
+        .finally(() => {
+          setLoadingReadings(false);
+        });
+    } else {
+      setLoadingReadings(false);
+    }
+  }, [currentUser?.uid]);
+
+  const getDateFnsLocale = () => {
+    return locale === 'pt-BR' ? ptBR : enUS;
+  };
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -51,7 +81,9 @@ export default function DashboardPage() {
               <CreditCard className="h-6 w-6 text-accent" />
             </CardHeader>
             <CardContent className="flex-grow">
-              <div className="text-4xl font-bold text-primary">10</div> {/* Placeholder */}
+              <div className="text-4xl font-bold text-primary">
+                {userCredits !== null ? userCredits.balance : <Skeleton className="h-10 w-16 inline-block" />}
+              </div>
               <p className="text-xs text-muted-foreground mb-4">
                 {t('creditsRemaining')}
               </p>
@@ -86,16 +118,44 @@ export default function DashboardPage() {
         <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
             <CardContent className="pt-6">
-              <div className="flex flex-col items-center justify-center text-center text-muted-foreground py-8">
-                <BookOpen className="h-12 w-12 mb-4" />
-                <p className="text-lg">{t('noRecentReadings')}</p>
-                <p>{t('noRecentReadingsPrompt_start')}{' '}
-                  <Link href="/new-reading" className="text-primary hover:underline font-semibold">
-                    {t('noRecentReadingsPrompt_link')}
-                  </Link>{' '}
-                  {t('noRecentReadingsPrompt_end')}
-                </p>
-              </div>
+              {loadingReadings ? (
+                <div className="space-y-4 py-8">
+                  <Skeleton className="h-8 w-3/4 mx-auto" />
+                  <Skeleton className="h-6 w-1/2 mx-auto" />
+                  <Skeleton className="h-6 w-1/2 mx-auto" />
+                </div>
+              ) : recentReadings.length > 0 ? (
+                <ul className="space-y-4">
+                  {recentReadings.map(reading => (
+                    <li key={reading.id} className="border-b border-border/50 pb-4 last:border-b-0 last:pb-0">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-semibold text-primary flex items-center">
+                          <BookMarked className="h-5 w-5 mr-2" />
+                          {reading.type === 'tarot' ? (reading.query.substring(0, 50) + (reading.query.length > 50 ? '...' : '')) : (reading.dreamDescription.substring(0,50) + (reading.dreamDescription.length > 50 ? '...' : ''))}
+                        </h3>
+                        <span className="text-xs text-muted-foreground">
+                          {typeof reading.interpretationTimestamp === 'number' ? formatDistanceToNow(new Date(reading.interpretationTimestamp), { addSuffix: true, locale: getDateFnsLocale() }) : 'Recent'}
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {reading.type === 'tarot' ? t('tarotReadingType') : t('dreamInterpretationType')}
+                      </p>
+                      {/* TODO: Add a Link to view the full reading details: <Link href={`/readings/${reading.id}`}>View Details</Link> */}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="flex flex-col items-center justify-center text-center text-muted-foreground py-8">
+                  <BookOpen className="h-12 w-12 mb-4" />
+                  <p className="text-lg">{t('noRecentReadings')}</p>
+                  <p>{t('noRecentReadingsPrompt_start')}{' '}
+                    <Link href="/new-reading" className="text-primary hover:underline font-semibold">
+                      {t('noRecentReadingsPrompt_link')}
+                    </Link>{' '}
+                    {t('noRecentReadingsPrompt_end')}
+                  </p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

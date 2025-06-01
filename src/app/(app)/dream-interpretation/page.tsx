@@ -11,6 +11,9 @@ import { interpretDream, type InterpretDreamInput, type ProcessedStorySegment } 
 import { Loader2, MessageCircleQuestion, BookOpenText, BrainCircuit } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
+import { useAuth } from '@/contexts/AuthContext';
+import { deductCredit } from '@/services/creditService';
+import { saveReading, type DreamInterpretationData } from '@/services/readingService';
 
 export default function DreamInterpretationPage() {
   const [dreamDescription, setDreamDescription] = useState<string>('');
@@ -19,9 +22,19 @@ export default function DreamInterpretationPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const { t } = useLanguage();
+  const { currentUser, userCredits, refreshCredits } = useAuth();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+
+    if (!currentUser) {
+      toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToInterpret'), variant: 'destructive' }); // Add these translations
+      return;
+    }
+    if (!userCredits || userCredits.balance < 1) {
+      toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsForDreamDescription'), variant: 'destructive' }); // Add these translations
+      return;
+    }
     if (!dreamDescription.trim()) {
       toast({ title: t('noDreamErrorTitle'), description: t('noDreamErrorDescription'), variant: 'destructive' });
       return;
@@ -32,15 +45,35 @@ export default function DreamInterpretationPage() {
     setError(null);
 
     try {
+      // 1. Deduct credit
+      const deductResult = await deductCredit(currentUser.uid);
+      if (!deductResult.success) {
+        throw new Error(deductResult.message || t('creditDeductionFailedError'));
+      }
+      refreshCredits();
+
+      // 2. Interpret dream
       const input: InterpretDreamInput = { dreamDescription };
       const result = await interpretDream(input);
       setStorySegments(result || []);
+
+      // 3. Save dream interpretation
+      if (result && result.length > 0) {
+        const dreamToSave: Omit<DreamInterpretationData, 'interpretationTimestamp'> = {
+          type: 'dream',
+          dreamDescription: dreamDescription,
+          interpretationSegments: result,
+        };
+        await saveReading(currentUser.uid, dreamToSave);
+      }
+      
       toast({ title: t('dreamInterpretationReadyTitle'), description: t('dreamInterpretationReadyDescription') });
     } catch (err: any) {
       console.error('Error interpreting dream:', err);
       const errorMessage = err.message || t('errorGeneratingInterpretationDescription');
       setError(errorMessage);
       toast({ title: t('errorGenericTitle'), description: errorMessage, variant: 'destructive' });
+      // TODO: Consider refunding credit if interpretation fails after deduction.
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +89,7 @@ export default function DreamInterpretationPage() {
               {t('dreamInterpretationTitle')}
             </CardTitle>
             <CardDescription>
-              {t('dreamInterpretationDescription')}
+              {t('dreamInterpretationDescription')} {userCredits && t('creditsAvailable', {count: userCredits.balance})}
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
@@ -75,7 +108,11 @@ export default function DreamInterpretationPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button type="submit" className="w-full text-lg py-6" disabled={isLoading || !dreamDescription.trim()}>
+              <Button 
+                type="submit" 
+                className="w-full text-lg py-6" 
+                disabled={isLoading || !dreamDescription.trim() || (userCredits && userCredits.balance < 1)}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
