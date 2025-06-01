@@ -6,50 +6,47 @@ import { createContext, useContext, useEffect, useState, useCallback } from 'rea
 import { auth, rtdb } from '@/lib/firebase';
 import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import { ref, onValue, off } from 'firebase/database';
+import { ref, onValue, off, get } from 'firebase/database'; // Added get
 import type { UserCreditsData } from '@/services/creditService';
-import { getUserProfile, type UserProfileData } from '@/services/userService'; // Import
-import type { Locale } from './LanguageContext'; // Assuming Locale might be needed if profile has lang pref
+import { getUserProfile, type UserProfileData } from '@/services/userService';
 
 interface AuthContextType {
   currentUser: User | null;
-  userProfile: UserProfileData | null; // Added userProfile
+  userProfile: UserProfileData | null;
   userCredits: UserCreditsData | null;
   loading: boolean;
   logout: () => Promise<void>;
   refreshCredits: () => void;
-  refreshUserProfile: () => void; // Added
+  refreshUserProfile: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [userProfile, setUserProfile] = useState<UserProfileData | null>(null); // Added
+  const [userProfile, setUserProfile] = useState<UserProfileData | null>(null);
   const [userCredits, setUserCredits] = useState<UserCreditsData | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const fetchUserData = useCallback(async (uid: string) => {
-    // Fetch Profile
+    let profileData: UserProfileData | null = null;
     try {
-      const profile = await getUserProfile(uid);
-      setUserProfile(profile);
+      profileData = await getUserProfile(uid);
+      setUserProfile(profileData);
     } catch (error) {
       console.error("Error fetching user profile:", error);
       setUserProfile(null);
     }
 
-    // Fetch Credits (and setup listener)
     const creditsRef = ref(rtdb, `users/${uid}/credits`);
     const creditsListener = onValue(creditsRef, (snapshot) => {
-      const data = snapshot.val();
-      setUserCredits(data as UserCreditsData);
+      setUserCredits(snapshot.val() as UserCreditsData);
     }, (error) => {
       console.error("Error fetching user credits:", error);
       setUserCredits(null);
     });
-    return () => off(creditsRef, 'value', creditsListener); // Return cleanup for credits listener
+    return () => off(creditsRef, 'value', creditsListener);
   }, []);
 
 
@@ -61,12 +58,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (user) {
         creditsCleanup = await fetchUserData(user.uid);
       } else {
-        setUserProfile(null);
-        setUserCredits(null);
+        setUserProfile(null); // Explicitly clear profile on logout
+        setUserCredits(null); // Explicitly clear credits on logout
       }
       setLoading(false);
       
-      // Return a cleanup function that also cleans up credits listener
       return () => {
         if (creditsCleanup) {
           creditsCleanup();
@@ -76,25 +72,29 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     return () => {
       unsubscribeAuth();
-      // The cleanup for credits listener is handled inside unsubscribeAuth's return
     };
   }, [fetchUserData]);
 
   const logout = async () => {
     try {
       await firebaseSignOut(auth);
-      // router.push('/login'); // Redirect is now handled by AppLayout or AuthGuard based on currentUser
+      setUserProfile(null); // Clear profile immediately on logout action
+      setUserCredits(null); // Clear credits immediately on logout action
+      // router.push('/login'); // Handled by AuthGuard or layout effects
     } catch (error) {
       console.error('Error signing out:', error);
     }
   };
 
-  const refreshCredits = useCallback(() => {
+  const refreshCredits = useCallback(async () => {
     if (currentUser) {
       const creditsRef = ref(rtdb, `users/${currentUser.uid}/credits`);
-       get(creditsRef).then(snapshot => {
-         setUserCredits(snapshot.val() as UserCreditsData);
-       }).catch(error => console.error("Error refreshing credits manually:", error));
+       try {
+          const snapshot = await get(creditsRef);
+          setUserCredits(snapshot.val() as UserCreditsData);
+       } catch (error) {
+          console.error("Error refreshing credits manually:", error);
+       }
     }
   }, [currentUser]);
 
@@ -111,12 +111,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   
   const value = {
     currentUser,
-    userProfile, // Added
+    userProfile,
     userCredits,
     loading,
     logout,
     refreshCredits,
-    refreshUserProfile, // Added
+    refreshUserProfile,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
