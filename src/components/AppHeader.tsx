@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -16,15 +17,22 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, BrainCircuit } from 'lucide-react';
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, BrainCircuit, ShieldCheck } from 'lucide-react';
 
-const navLinks: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
-  // { href: '/', labelKey: 'home', icon: <HomeIcon className="mr-2 h-4 w-4" /> }, // Removed as Dashboard is the primary authenticated home
+const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
   { href: '/dashboard', labelKey: 'dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
   { href: '/new-reading', labelKey: 'newReading', icon: <ScanLine className="mr-2 h-4 w-4" /> },
   { href: '/dream-interpretation', labelKey: 'dreamInterpretation', icon: <BrainCircuit className="mr-2 h-4 w-4" /> },
   { href: '/credits', labelKey: 'credits', icon: <CreditCard className="mr-2 h-4 w-4" /> },
 ];
+
+const navLinksAdmin: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
+  { href: '/admin', labelKey: 'adminPanel', icon: <ShieldCheck className="mr-2 h-4 w-4" /> },
+  // Admins can also access regular user features if desired, or have a completely separate view
+  // For now, let's assume admin panel is the primary view for an admin.
+  // If admins should also see user links, merge or conditionally add them.
+];
+
 
 export const ThemeToggle = () => {
   const { t } = useLanguage();
@@ -77,24 +85,36 @@ export const LanguageSwitcher = () => {
 
 
 export default function AppHeader() {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, userProfile, logout } = useAuth(); // Added userProfile
   const { t } = useLanguage();
   const pathname = usePathname();
 
-  const getInitials = (email?: string | null) => {
-    if (!email) return 'MI';
-    return email.substring(0, 2).toUpperCase();
+  const getInitials = (name?: string | null, email?: string | null) => {
+    if (name && name.trim()) {
+        const parts = name.split(' ');
+        if (parts.length > 1) {
+            return (parts[0][0] + parts[parts.length -1][0]).toUpperCase();
+        }
+        return name.substring(0, 2).toUpperCase();
+    }
+    if (email) return email.substring(0, 2).toUpperCase();
+    return 'MI';
   };
+  
+  const isAdmin = userProfile?.role === 'admin';
+  const currentNavLinks = isAdmin ? navLinksAdmin : navLinksRegularUser;
+  const homeLink = isAdmin ? "/admin" : "/dashboard";
+
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
-        <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
+        <Link href={homeLink} className="mr-6 flex items-center space-x-2">
           <Sparkles className="h-6 w-6 text-primary" />
           <span className="font-bold font-serif text-xl sm:inline-block">{t('mysticInsights')}</span>
         </Link>
         <nav className="flex items-center gap-4 text-sm lg:gap-6 flex-grow">
-          {navLinks.map((link) => (
+          {currentNavLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -116,8 +136,8 @@ export default function AppHeader() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src={currentUser.photoURL || undefined} alt={currentUser.displayName || currentUser.email || 'User'} />
-                    <AvatarFallback>{getInitials(currentUser.email)}</AvatarFallback>
+                    <AvatarImage src={currentUser.photoURL || userProfile?.photoURL || undefined} alt={userProfile?.displayName || currentUser.email || 'User'} />
+                    <AvatarFallback>{getInitials(userProfile?.displayName || currentUser.displayName, currentUser.email)}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -125,7 +145,7 @@ export default function AppHeader() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      {currentUser.displayName || currentUser.email?.split('@')[0]}
+                      {userProfile?.displayName || currentUser.displayName || currentUser.email?.split('@')[0]}
                     </p>
                     <p className="text-xs leading-none text-muted-foreground">
                       {currentUser.email}
@@ -139,6 +159,23 @@ export default function AppHeader() {
                     {t('profile')}
                   </Link>
                 </DropdownMenuItem>
+                {/* Conditionally show admin panel link if not already in admin section */}
+                {isAdmin && !pathname.startsWith('/admin') && (
+                  <DropdownMenuItem asChild>
+                    <Link href="/admin">
+                      <ShieldCheck className="mr-2 h-4 w-4" />
+                      {t('adminPanel')}
+                    </Link>
+                  </DropdownMenuItem>
+                )}
+                 {!isAdmin && pathname.startsWith('/admin') && ( // If user somehow lands on admin but isn't admin
+                    <DropdownMenuItem asChild>
+                        <Link href="/dashboard">
+                        <LayoutDashboard className="mr-2 h-4 w-4" />
+                        {t('dashboard')}
+                        </Link>
+                    </DropdownMenuItem>
+                )}
                 <DropdownMenuItem onClick={logout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   {t('logout')}

@@ -24,6 +24,7 @@ const translations = {
     portuguese: "Portuguese",
     allRightsReserved: "All rights reserved.",
     loadingMysticalSpace: "Loading your mystical space...",
+    adminPanel: "Admin Panel",
     // Landing Page
     landingTitle: "Unlock the Secrets of Your Destiny, Today.",
     landingSubtitle: "Receive Tarot and Cigano card interpretations with the depth of ancient wisdom and the clarity of artificial intelligence. Your journey of self-discovery starts here.",
@@ -201,6 +202,33 @@ const translations = {
     dreamInterpretationReadyDescription: "Your dream interpretation has been generated.",
     yourPropheticInterpretationTitle: "Your Prophetic Interpretation",
     dreamIllustrationAlt: "Dream illustration {number}",
+    // Admin Panel
+    adminDashboardTitle: "Admin Dashboard",
+    adminDashboardDescription: "Manage users and application settings.",
+    usersTableTitle: "Registered Users",
+    userUid: "User ID",
+    userName: "Name",
+    userEmail: "Email",
+    userRole: "Role",
+    userCredits: "Credits",
+    userActions: "Actions",
+    addCreditsButton: "Add Credits",
+    deleteUserButton: "Delete User",
+    confirmDeleteUserTitle: "Confirm Deletion",
+    confirmDeleteUserDescription: "Are you sure you want to delete user {email}? This action cannot be undone. RTDB data will be removed. Auth user must be deleted separately via Firebase Console or Admin SDK.",
+    addCreditsModalTitle: "Add Credits to User",
+    creditsAmountLabel: "Credits to Add",
+    addCreditsSubmitButton: "Add Credits",
+    addCreditsSuccessToast: "{count} credits added to {email}.",
+    addCreditsErrorToast: "Failed to add credits to {email}.",
+    deleteUserSuccessToast: "User {email} RTDB data deleted.",
+    deleteUserErrorToast: "Failed to delete user {email} RTDB data.",
+    noUsersFound: "No users found.",
+    roleAdmin: "Admin",
+    roleUser: "User",
+    manageUserLabel: "Manage User",
+    creditsCouldNotBeFetched: "Credits could not be fetched",
+    fetchingUsers: "Fetching users...",
   },
   'pt-BR': {
     // Header & General
@@ -218,6 +246,7 @@ const translations = {
     portuguese: "Português",
     allRightsReserved: "Todos os direitos reservados.",
     loadingMysticalSpace: "Carregando seu espaço místico...",
+    adminPanel: "Painel Admin",
     // Landing Page
     landingTitle: "Desvende os Segredos do Seu Destino, Hoje.",
     landingSubtitle: "Receba interpretações de Tarot e Baralho Cigano com a profundidade da sabedoria ancestral e a clareza da inteligência artificial. Sua jornada de autoconhecimento começa aqui.",
@@ -395,6 +424,33 @@ const translations = {
     dreamInterpretationReadyDescription: "A interpretação do seu sonho foi gerada.",
     yourPropheticInterpretationTitle: "Sua Interpretação Profética",
     dreamIllustrationAlt: "Ilustração do sonho {number}",
+    // Admin Panel
+    adminDashboardTitle: "Painel do Administrador",
+    adminDashboardDescription: "Gerenciar usuários e configurações do aplicativo.",
+    usersTableTitle: "Usuários Registrados",
+    userUid: "ID do Usuário",
+    userName: "Nome",
+    userEmail: "Email",
+    userRole: "Função",
+    userCredits: "Créditos",
+    userActions: "Ações",
+    addCreditsButton: "Adicionar Créditos",
+    deleteUserButton: "Excluir Usuário",
+    confirmDeleteUserTitle: "Confirmar Exclusão",
+    confirmDeleteUserDescription: "Tem certeza que deseja excluir o usuário {email}? Esta ação não pode ser desfeita. Os dados do RTDB serão removidos. O usuário de autenticação deve ser excluído separadamente pelo Console do Firebase ou Admin SDK.",
+    addCreditsModalTitle: "Adicionar Créditos ao Usuário",
+    creditsAmountLabel: "Quantidade de Créditos",
+    addCreditsSubmitButton: "Adicionar Créditos",
+    addCreditsSuccessToast: "{count} créditos adicionados a {email}.",
+    addCreditsErrorToast: "Falha ao adicionar créditos para {email}.",
+    deleteUserSuccessToast: "Dados do usuário {email} (RTDB) excluídos.",
+    deleteUserErrorToast: "Falha ao excluir dados do usuário {email} (RTDB).",
+    noUsersFound: "Nenhum usuário encontrado.",
+    roleAdmin: "Admin",
+    roleUser: "Usuário",
+    manageUserLabel: "Gerenciar Usuário",
+    creditsCouldNotBeFetched: "Não foi possível buscar os créditos",
+    fetchingUsers: "Buscando usuários...",
   },
 };
 
@@ -424,11 +480,10 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
         } else if (browserLang.startsWith('en')) {
           initialLocale = 'en';
         }
-        // If neither, keeps 'pt-BR' as default
       }
       setLocaleState(initialLocale);
       document.documentElement.lang = initialLocale;
-      localStorage.setItem('app-locale', initialLocale); // Ensure localStorage is set on initial load if derived from browser
+      localStorage.setItem('app-locale', initialLocale);
     }
   }, []);
 

@@ -1,24 +1,41 @@
 
-'use server'; // Can be 'use server' if called from Server Actions, or remove if only client-side.
-              // For direct RTDB calls from client components, this directive isn't strictly needed here.
+'use server';
 
 import { rtdb } from '@/lib/firebase';
-import { ref, set, get, serverTimestamp, update } from 'firebase/database';
+import { ref, set, get, serverTimestamp, update, remove } from 'firebase/database';
 import type { User } from 'firebase/auth';
 
 export interface UserProfileData {
+  uid: string; // Added uid for convenience when listing all users
   displayName: string | null;
   email: string | null;
-  createdAt: number | object; // Using object for serverTimestamp
+  createdAt: number | object;
   photoURL?: string | null;
+  role: 'user' | 'admin'; // Added role
 }
 
 export async function createUserProfile(user: User): Promise<void> {
   const userProfileRef = ref(rtdb, `users/${user.uid}/profile`);
+  // Check if profile already exists to prevent overwriting role by signup
+  const snapshot = await get(userProfileRef);
+  if (snapshot.exists()) {
+    // Profile exists, perhaps update specific fields if needed, but don't overwrite role
+    const existingProfile = snapshot.val() as UserProfileData;
+    const updates: Partial<UserProfileData> = {
+        displayName: user.displayName || existingProfile.displayName,
+        email: user.email || existingProfile.email,
+        photoURL: user.photoURL || existingProfile.photoURL,
+    };
+    await update(userProfileRef, updates);
+    return;
+  }
+
   const profileData: UserProfileData = {
+    uid: user.uid,
     displayName: user.displayName,
     email: user.email,
-    createdAt: serverTimestamp(), // Use server timestamp for consistency
+    createdAt: serverTimestamp(),
+    role: 'user', // Default role for new signups
   };
   if (user.photoURL) {
     profileData.photoURL = user.photoURL;
@@ -27,7 +44,7 @@ export async function createUserProfile(user: User): Promise<void> {
     await set(userProfileRef, profileData);
   } catch (error) {
     console.error("Error creating user profile in RTDB:", error);
-    throw error; // Re-throw to handle it in the calling function
+    throw error;
   }
 }
 
@@ -36,7 +53,7 @@ export async function getUserProfile(uid: string): Promise<UserProfileData | nul
   try {
     const snapshot = await get(userProfileRef);
     if (snapshot.exists()) {
-      return snapshot.val() as UserProfileData;
+      return { uid, ...snapshot.val() } as UserProfileData;
     }
     return null;
   } catch (error) {
@@ -45,12 +62,51 @@ export async function getUserProfile(uid: string): Promise<UserProfileData | nul
   }
 }
 
-export async function updateUserProfile(uid: string, data: Partial<UserProfileData>): Promise<void> {
+export async function updateUserProfile(uid: string, data: Partial<Omit<UserProfileData, 'uid' | 'email' | 'createdAt'>>): Promise<void> {
   const userProfileRef = ref(rtdb, `users/${uid}/profile`);
   try {
-    await update(userProfileRef, data);
+    // Ensure role is not accidentally overwritten by general profile update if not provided
+    const updates = { ...data };
+    if (data.role && !['user', 'admin'].includes(data.role)) {
+        delete updates.role; // Prevent invalid role update
+    }
+    await update(userProfileRef, updates);
   } catch (error) {
     console.error("Error updating user profile in RTDB:", error);
+    throw error;
+  }
+}
+
+// Admin function to get all user profiles
+export async function getAllUserProfiles(): Promise<Array<UserProfileData>> {
+  const usersRef = ref(rtdb, 'users');
+  try {
+    const snapshot = await get(usersRef);
+    const profiles: UserProfileData[] = [];
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        const profileData = childSnapshot.child('profile').val();
+        if (profileData) {
+          profiles.push({ uid: childSnapshot.key!, ...profileData } as UserProfileData);
+        }
+      });
+    }
+    return profiles;
+  } catch (error) {
+    console.error("Error fetching all user profiles:", error);
+    throw error;
+  }
+}
+
+// Admin function to delete a user's RTDB data
+export async function deleteUserRtdbData(uid: string): Promise<void> {
+  const userRef = ref(rtdb, `users/${uid}`);
+  try {
+    await remove(userRef);
+    // IMPORTANT: This only removes RTDB data. Deleting the Firebase Auth user
+    // requires the Admin SDK and should be done via a Cloud Function.
+  } catch (error) {
+    console.error("Error deleting user RTDB data:", error);
     throw error;
   }
 }
