@@ -156,14 +156,15 @@ export default function InicioPage() {
             <div className="relative inline-block mb-6">
               <div className="absolute inset-0 -z-10 flex items-center justify-center">
                 <Image
-                  src="/img/shiva.jpg"
+                  src="/gifs/mystic_aura.gif"
                   alt={t('landingImageAlt')}
-                  data-ai-hint="shiva mystical"
+                  data-ai-hint="mystical aura animation"
                   width={120}
                   height={120}
-                  className="rounded-full object-cover opacity-30 blur-sm animate-subtle-bob"
+                  className="rounded-full object-cover opacity-80 blur-sm animate-subtle-bob"
                   style={{ objectFit: 'cover' }}
                   priority
+                  unoptimized={true}
                 />
               </div>
               <Sparkles className="h-20 w-20 text-primary mx-auto animate-subtle-pulse relative z-10" />
