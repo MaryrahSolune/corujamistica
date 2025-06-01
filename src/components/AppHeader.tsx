@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -223,7 +224,8 @@ export default function AppHeader() {
                   <Link
                     href="/login"
                     className={cn(
-                      buttonVariants({ variant: 'default' }), // Changed from 'ghost' to 'default'
+                      buttonVariants({ variant: 'default' }),
+                      'relative z-[1]', // Ensure button is above its wrapper's pseudo-elements
                       'px-2 py-1 sm:px-3 sm:py-2 h-9 sm:h-10 text-xs sm:text-sm'
                     )}
                   >
