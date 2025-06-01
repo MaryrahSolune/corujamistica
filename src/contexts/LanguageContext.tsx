@@ -134,6 +134,7 @@ const translations = {
     dailyGiftCooldownError: "You've already claimed your daily gift. Next gift available in {time}.",
     dailyGiftGenericError: "Could not claim daily gift. Please try again.",
     giftIconLabel: "Gift Icon",
+    viewReadingButton: "View Reading",
     // Credits Page
     purchaseCreditsTitle: "Purchase Credits",
     purchaseCreditsDescription: "Unlock deeper insights with more readings. Choose a credit package that suits your journey.",
@@ -176,7 +177,7 @@ const translations = {
     errorGeneratingInterpretationDescription: "Failed to generate interpretation. Please try again.",
     errorOccurredCardTitle: "An Error Occurred",
     yourMysticalInterpretationTitle: "Your Mystical Interpretation",
-    yourVisualBlessingTitle: "Sua Bênção Visual",
+    yourVisualBlessingTitle: "Your Visual Blessing",
     summaryImageAlt: "Visual summary of your reading's guidance and Orixá blessings.",
     cardSpreadPreviewAlt: "Card spread preview",
     creditsAvailable: "({count} credits available)",
@@ -243,6 +244,18 @@ const translations = {
     manageUserLabel: "Manage User",
     creditsCouldNotBeFetched: "Credits could not be fetched",
     fetchingUsers: "Fetching users...",
+    // Reading View Page
+    tarotReadingDetailsTitle: "Tarot Reading Details",
+    dreamInterpretationDetailsTitle: "Dream Interpretation Details",
+    readingPerformedOn: "Reading performed on: {date}",
+    cardSpreadImageTitle: "Card Spread Image",
+    interpretationTitle: "Interpretation",
+    readingNotFoundError: "The requested reading was not found.",
+    errorFetchingReading: "An error occurred while fetching your reading.",
+    mustBeLoggedInToViewReading: "You must be logged in to view this reading.",
+    backToDashboardButton: "Back to Dashboard",
+    timestampProcessing: "Processing...",
+    readingNotFound: "Reading not found.",
   },
   'pt-BR': {
     // Header & General
@@ -370,6 +383,7 @@ const translations = {
     dailyGiftCooldownError: "Você já resgatou seu presente diário. Próximo presente disponível em {time}.",
     dailyGiftGenericError: "Não foi possível resgatar o presente diário. Por favor, tente novamente.",
     giftIconLabel: "Ícone de Presente",
+    viewReadingButton: "Ver Leitura",
     // Credits Page
     purchaseCreditsTitle: "Comprar Créditos",
     purchaseCreditsDescription: "Desbloqueie insights mais profundos com mais leituras. Escolha o pacote de créditos que combina com sua jornada.",
@@ -479,6 +493,18 @@ const translations = {
     manageUserLabel: "Gerenciar Usuário",
     creditsCouldNotBeFetched: "Não foi possível buscar os créditos",
     fetchingUsers: "Buscando usuários...",
+    // Reading View Page
+    tarotReadingDetailsTitle: "Detalhes da Leitura de Tarot",
+    dreamInterpretationDetailsTitle: "Detalhes da Interpretação de Sonho",
+    readingPerformedOn: "Leitura realizada em: {date}",
+    cardSpreadImageTitle: "Imagem da Tiragem",
+    interpretationTitle: "Interpretação",
+    readingNotFoundError: "A leitura solicitada não foi encontrada.",
+    errorFetchingReading: "Ocorreu um erro ao buscar sua leitura.",
+    mustBeLoggedInToViewReading: "Você precisa estar logado para visualizar esta leitura.",
+    backToDashboardButton: "Voltar ao Painel",
+    timestampProcessing: "Processando...",
+    readingNotFound: "Leitura não encontrada.",
   },
 };
 
@@ -504,7 +530,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     if (storedLocale && (storedLocale === 'en' || storedLocale === 'pt-BR')) {
       initialLocale = storedLocale;
     } else {
-      if (typeof navigator !== "undefined") { // Check if navigator is defined
+      if (typeof navigator !== "undefined") { 
         const browserLang = navigator.language.toLowerCase();
         if (browserLang.startsWith('pt')) {
           initialLocale = 'pt-BR';
@@ -514,7 +540,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       }
     }
     setLocaleState(initialLocale);
-    if (typeof document !== "undefined") { // Check if document is defined
+    if (typeof document !== "undefined") { 
         document.documentElement.lang = initialLocale;
     }
   }, []);
@@ -529,18 +555,22 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const t = useCallback(
     (key: TranslationKey, params?: Record<string, string | number>): string => {
-      const effectiveLocale = isMounted ? locale : 'pt-BR'; // Default to 'pt-BR' if not mounted to avoid undefined keys during SSR/initial load
+      const effectiveLocale = isMounted ? locale : 'pt-BR'; 
       let translationSet = translations[effectiveLocale];
-      if (!translationSet) { // Fallback to 'en' if effectiveLocale is somehow invalid (should not happen with current logic)
+      if (!translationSet) { 
         translationSet = translations.en;
       }
       
-      let translation = translationSet[key] || translations.en[key]; // Fallback to English if key missing in current locale
+      let translation = translationSet[key] || translations.en[key]; 
 
-      if (!translation) { // If still no translation (key missing in English too), return the key itself
-        console.warn(`Translation missing for key: "${key}" in locale: "${effectiveLocale}" and fallback "en"`);
+      if (!translation && key) { 
+        console.warn(`Translation missing for key: "${String(key)}" in locale: "${effectiveLocale}" and fallback "en"`);
         return String(key);
       }
+      if (!translation) { // Ultimate fallback for truly missing key.
+         return `Missing translation for: ${String(key)}`;
+      }
+
 
       if (params) {
         Object.entries(params).forEach(([paramKey, value]) => {

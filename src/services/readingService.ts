@@ -41,9 +41,6 @@ export async function saveReading(uid: string, readingData: Omit<ReadingData, 'i
 
 export async function getUserReadings(uid: string, limit: number = 5): Promise<Array<ReadingData & { id: string }>> {
   const readingsRef = ref(rtdb, `users/${uid}/readings`);
-  // Order by timestamp and get the last 'limit' readings
-  // Note: RTDB requires an index on 'interpretationTimestamp' for this query to work efficiently.
-  // You'll need to add this to your RTDB rules: ".indexOn": ["interpretationTimestamp"] for the 'readings' node.
   const recentReadingsQuery = query(readingsRef, orderByChild('interpretationTimestamp'), limitToLast(limit));
   
   try {
@@ -58,6 +55,20 @@ export async function getUserReadings(uid: string, limit: number = 5): Promise<A
     return [];
   } catch (error) {
     console.error("Error fetching user readings from RTDB:", error);
+    throw error;
+  }
+}
+
+export async function getReadingById(uid: string, readingId: string): Promise<(ReadingData & { id: string }) | null> {
+  const readingRef = ref(rtdb, `users/${uid}/readings/${readingId}`);
+  try {
+    const snapshot = await get(readingRef);
+    if (snapshot.exists()) {
+      return { id: snapshot.key!, ...snapshot.val() } as ReadingData & { id: string };
+    }
+    return null;
+  } catch (error) {
+    console.error("Error fetching reading by ID from RTDB:", error);
     throw error;
   }
 }

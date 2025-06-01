@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2 } from 'lucide-react';
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye } from 'lucide-react'; // Added Eye
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -70,17 +70,15 @@ export default function DashboardPage() {
 
   useEffect(() => {
     updateDailyGiftStatus();
-    // Set up an interval to update the countdown timer
     const intervalId = setInterval(() => {
       if (dailyGiftStatus.cooldownEndTime && Date.now() < dailyGiftStatus.cooldownEndTime) {
         updateDailyGiftStatus();
       } else if (dailyGiftStatus.cooldownEndTime && Date.now() >= dailyGiftStatus.cooldownEndTime) {
-        // Cooldown finished, make it claimable
         setDailyGiftStatus({ claimable: true, timeRemaining: null, cooldownEndTime: null });
       }
-    }, 1000); // Update every second
+    }, 1000); 
 
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+    return () => clearInterval(intervalId); 
   }, [userCredits, updateDailyGiftStatus, dailyGiftStatus.cooldownEndTime]);
 
 
@@ -91,7 +89,7 @@ export default function DashboardPage() {
       const result = await claimDailyGift(currentUser.uid);
       if (result.success) {
         toast({ title: t('dailyGiftSuccessToastTitle'), description: t('dailyGiftSuccessToastDescription', { count: String(DAILY_GIFT_AMOUNT) }) });
-        refreshCredits(); // This will trigger userCredits update and then updateDailyGiftStatus
+        refreshCredits(); 
       } else {
         toast({ 
           title: t('dailyGiftErrorToastTitle'), 
@@ -100,7 +98,6 @@ export default function DashboardPage() {
                        t('dailyGiftGenericError'), 
           variant: 'destructive' 
         });
-        // If claim failed due to cooldown, ensure status is updated
         if (result.message === "Daily gift is still on cooldown." && result.cooldownEndTime) {
             const now = Date.now();
             const duration = intervalToDuration({ start: now, end: result.cooldownEndTime });
@@ -128,7 +125,6 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {/* New Reading Card */}
         <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -146,7 +142,6 @@ export default function DashboardPage() {
           </Card>
         </div>
         
-        {/* Credits Card */}
         <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -169,7 +164,6 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        {/* Daily Gift Card - NEW */}
         <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -209,37 +203,51 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Recent Readings Section */}
       <div>
         <h2 className="text-2xl font-bold font-serif mb-4">{t('recentReadingsTitle')}</h2>
         <div className="rounded-lg animated-aurora-background">
           <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
             <CardContent className="pt-6">
               {loadingReadings ? (
-                <div className="space-y-4 py-8">
+                <div className="space-y-6 py-8">
                   {[...Array(2)].map((_, i) => (
-                    <div key={i} className="border-b border-border/50 pb-4 last:border-b-0 last:pb-0">
-                      <Skeleton className="h-5 w-3/5 mb-1" />
-                      <Skeleton className="h-4 w-1/4" />
+                    <div key={i} className="border-b border-border/50 pb-4 last:border-b-0 last:pb-0 animate-pulse">
+                        <div className="flex items-center justify-between">
+                            <Skeleton className="h-5 w-3/5 mb-1" />
+                            <Skeleton className="h-4 w-1/6" />
+                        </div>
+                        <Skeleton className="h-4 w-1/4 mt-1" />
+                        <Skeleton className="h-8 w-24 mt-3 ml-auto" />
                     </div>
                   ))}
                 </div>
               ) : recentReadings.length > 0 ? (
-                <ul className="space-y-4">
+                <ul className="space-y-6">
                   {recentReadings.map(reading => (
                     <li key={reading.id} className="border-b border-border/50 pb-4 last:border-b-0 last:pb-0">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-semibold text-primary flex items-center">
-                          <BookMarked className="h-5 w-5 mr-2" />
-                          {reading.type === 'tarot' ? (reading.query.substring(0, 50) + (reading.query.length > 50 ? '...' : '')) : (reading.dreamDescription.substring(0,50) + (reading.dreamDescription.length > 50 ? '...' : ''))}
-                        </h3>
-                        <span className="text-xs text-muted-foreground">
-                          {typeof reading.interpretationTimestamp === 'number' ? formatDistanceToNow(new Date(reading.interpretationTimestamp), { addSuffix: true, locale: getDateFnsLocale() }) : 'Recent'}
-                        </span>
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                        <div className="flex-grow mb-2 sm:mb-0">
+                            <h3 className="text-lg font-semibold text-primary flex items-center">
+                            <BookMarked className="h-5 w-5 mr-2 flex-shrink-0" />
+                            <span className="truncate">
+                                {reading.type === 'tarot' ? (reading.query.substring(0, 40) + (reading.query.length > 40 ? '...' : '')) : (reading.dreamDescription.substring(0,40) + (reading.dreamDescription.length > 40 ? '...' : ''))}
+                            </span>
+                            </h3>
+                            <p className="text-sm text-muted-foreground mt-1 ml-7">
+                            {reading.type === 'tarot' ? t('tarotReadingType') : t('dreamInterpretationType')}
+                            </p>
+                        </div>
+                        <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 w-full sm:w-auto">
+                            <span className="text-xs text-muted-foreground whitespace-nowrap self-end sm:self-center">
+                                {typeof reading.interpretationTimestamp === 'number' ? formatDistanceToNow(new Date(reading.interpretationTimestamp), { addSuffix: true, locale: getDateFnsLocale() }) : 'Recent'}
+                            </span>
+                            <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
+                                <Link href={`/reading/${reading.id}`}>
+                                    <Eye className="mr-2 h-4 w-4" /> {t('viewReadingButton')}
+                                </Link>
+                            </Button>
+                        </div>
                       </div>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {reading.type === 'tarot' ? t('tarotReadingType') : t('dreamInterpretationType')}
-                      </p>
                     </li>
                   ))}
                 </ul>
@@ -260,7 +268,6 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Discover Your Path Image Section */}
        <div className="mt-12 text-center">
           <h2 className="text-2xl font-bold font-serif mb-4">{t('discoverYourPathTitle')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
