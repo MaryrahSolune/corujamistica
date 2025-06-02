@@ -8,7 +8,7 @@ import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Pal
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { SunIcon, MoonIcon } from '@/components/MysticIcons';
+// import { SunIcon, MoonIcon } from '@/components/MysticIcons'; // Removed
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -150,8 +150,8 @@ export default function InicioPage() {
         {/* Hero Section */}
         <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden">
            <div className="absolute inset-0 -z-10 animated-aurora-background opacity-70"></div>
-           <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} />
-           <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/>
+           {/* <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} /> */}
+           {/* <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/> */}
           <div className="container mx-auto px-4 relative z-10">
             <div className="relative inline-block mb-6">
               <div className="absolute inset-0 -z-10 flex items-center justify-center">
@@ -357,3 +357,5 @@ export default function InicioPage() {
     </div>
   );
 }
+
+    
