@@ -222,7 +222,7 @@ export default function AppHeader() {
                 <div className="login-button-aura-wrapper">
                   <Button
                     asChild
-                    variant="default"
+                    variant="default" // Using default variant for aura consistency
                     className="login-btn-custom relative z-[1]" 
                   >
                     <Link href="/login">
@@ -230,14 +230,17 @@ export default function AppHeader() {
                     </Link>
                   </Button>
                 </div>
-                <Button
-                  asChild
-                  variant="default"
-                >
-                  <Link href="/signup">
-                    <UserPlus className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('signUp')}</span>
-                  </Link>
-                </Button>
+                <div className="login-button-aura-wrapper">
+                  <Button
+                    asChild
+                    variant="default" // Using default variant for aura consistency
+                    className="login-btn-custom relative z-[1]"
+                  >
+                    <Link href="/signup">
+                      <UserPlus className="mr-0 sm:mr-2 h-4 w-4" /> <span className="hidden sm:inline">{t('signUp')}</span>
+                    </Link>
+                  </Button>
+                </div>
             </div>
           )}
         </div>
