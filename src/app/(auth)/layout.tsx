@@ -27,22 +27,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       
       {/* Add Tailwind animation classes if not already present */}
       <style jsx global>{`
-        /* animate-pulse_slow and related styles are no longer needed here if elements are removed */
-        /* Keeping keyframes in case other elements use them, or they are added back */
-        .animate-pulse_slow {
-          animation: pulse_slow 6s infinite ease-in-out;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-        @keyframes pulse_slow {
-          0%, 100% { opacity: 0.1; transform: scale(1); }
-          50% { opacity: 0.25; transform: scale(1.05); }
-        }
+        /* Keyframes for animations like subtle-pulse are in globals.css or Tailwind config */
+        /* No local keyframes needed here if they are globally defined and used via Tailwind classes */
       `}</style>
     </div>
   );
 }
+
