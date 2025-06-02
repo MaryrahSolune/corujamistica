@@ -221,7 +221,7 @@ export default function AppHeader() {
                 <div className="login-button-aura-wrapper">
                   <Button
                     asChild
-                    variant="default" 
+                    variant="ghost" 
                     className="login-btn-custom relative z-[1]" 
                   >
                     <Link href="/login">
@@ -232,7 +232,7 @@ export default function AppHeader() {
                 <div className="login-button-aura-wrapper">
                   <Button
                     asChild
-                    variant="default" 
+                    variant="ghost" 
                     className="login-btn-custom relative z-[1]"
                   >
                     <Link href="/signup">
