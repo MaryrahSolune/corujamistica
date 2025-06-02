@@ -133,12 +133,12 @@
     content: "";
     @apply absolute top-1/2 left-1/2 w-[150%] pt-[150%] -z-10 animate-spin-gradient;
     background: conic-gradient(
-      hsl(var(--accent) / 0.8),         /* Brighter Gold/Yellow */
-      hsl(var(--destructive) / 0.8),   /* Brighter Red */
-      hsl(var(--accent) / 0.7),
-      hsl(var(--destructive) / 0.7),
-      hsl(var(--primary) / 0.5),      /* Primary - Deep Purple (added for variety) */
-      transparent 65% /* Adjusted transparency point for more focused glow */
+      hsl(var(--primary) / 0.6),      /* Primary - Deep Purple */
+      hsl(var(--secondary) / 0.7),    /* Secondary - Lighter Purple */
+      hsl(var(--accent) / 0.8),         /* Gold/Yellow */
+      hsl(var(--primary) / 0.5),
+      hsl(var(--secondary) / 0.6),
+      transparent 70% /* Adjusted transparency point */
     );
     border-radius: 50%;
     filter: blur(25px); /* Adjust blur for desired neon intensity behind card */
@@ -154,11 +154,11 @@
     width: calc(100% + 16px); /* Aura slightly larger than button */
     height: calc(100% + 16px);
     background: conic-gradient(
-      hsl(var(--destructive) / 0.6) 0deg,   /* Red */
-      hsl(var(--accent) / 0.7) 90deg,       /* Yellow/Gold */
-      hsl(var(--destructive) / 0.6) 180deg,  /* Red */
-      hsl(var(--accent) / 0.7) 270deg,      /* Yellow/Gold */
-      hsl(var(--destructive) / 0.6) 360deg   /* Red */
+      hsl(var(--primary) / 0.7) 0deg,    /* Primary color */
+      hsl(var(--accent) / 0.8) 90deg,    /* Accent color */
+      hsl(var(--primary) / 0.6) 180deg,   /* Primary color slightly different opacity */
+      hsl(var(--accent) / 0.7) 270deg,   /* Accent color slightly different opacity */
+      hsl(var(--primary) / 0.7) 360deg   /* Primary color to close the loop */
     );
     border-radius: calc(var(--radius) + 8px); /* Slightly more rounded than button */
     filter: blur(12px); /* Soft glow */
