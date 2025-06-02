@@ -28,7 +28,7 @@ export default function WelcomeSplashPage() {
         <div className="absolute top-1/2 left-1/2 w-1/4 h-1/4 bg-secondary/40 rounded-full filter blur-3xl animate-pulse_slow animation-delay-4000 transform -translate-x-1/2 -translate-y-1/2"></div>
       </div>
       
-      <div className="z-10">
+      <div className="z-10 text-center">
         <Image
           src="/img/gato.gif" 
           alt={t('mysticInsights') + " - Loading"} 
@@ -38,7 +38,7 @@ export default function WelcomeSplashPage() {
           unoptimized={true} 
           priority 
         />
-        {/* <p className="mt-4 text-lg text-primary animate-pulse">{t('loadingMysticalSpace')}</p> */}
+        <p className="mt-4 text-lg text-primary animate-pulse">{t('loadingMysticalSpace')}</p>
       </div>
       
       <style jsx global>{`
