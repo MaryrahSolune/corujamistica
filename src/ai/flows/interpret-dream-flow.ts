@@ -25,7 +25,7 @@ const DreamInterpretationWithPlaceholdersSchema = z.object({
   interpretationWithPlaceholders: z
     .string()
     .describe(
-      "The dream interpretation text, with special placeholders like [GENERATE_IMAGE_HERE: \"A prompt for an image based on the preceding text.\"] where images should be inserted. Include 3-5 such placeholders."
+      "The dream interpretation text, with special placeholders like [GENERATE_IMAGE_HERE: \"A prompt for an image based on the preceding text.\"] where images should be inserted. Include 1-2 such placeholders."
     ),
 });
 
@@ -55,8 +55,8 @@ Com a iluminação que lhe foi outorgada, analise cuidadosamente os símbolos, o
 Lembre-se de sua humildade perante o Altíssimo, reconhecendo que a verdadeira interpretação vem Dele.
 
 Apresente a interpretação em parágrafos. Após alguns parágrafos, se sentir que uma imagem pode enriquecer a narrativa, insira um placeholder especial no seguinte formato:
-[GENERATE_IMAGE_HERE: "Um prompt conciso e vívido para uma imagem que ilustre o parágrafo ou conceito anterior. O prompt para a imagem deve visar a criação de uma imagem extremamente realista e nítida, com perfeição nos detalhes, utilizando adjetivos descritivos e focando em elementos visuais claros e bem definidos. Busque um estilo visual que remeta à arte sacra ou renascentista, com iluminação dramática, se apropriado ao contexto do sonho."]
-Use este placeholder de 3 a 5 vezes durante toda a interpretação. O prompt dentro do placeholder deve ser claro para um modelo de geração de imagem.
+[GENERATE_IMAGE_HERE: "Um prompt conciso e vívido para uma imagem que ilustre o parágrafo ou conceito anterior."]
+Use este placeholder de 1 a 2 vezes no máximo durante toda a interpretação. O prompt dentro do placeholder deve ser claro para um modelo de geração de imagem.
 
 Considere os seguintes aspectos ao formular sua interpretação:
 - **Símbolos Principais:** Quais são os objetos, pessoas, animais ou lugares mais marcantes no sonho? Qual o seu significado tradicional ou simbólico, e como se aplicam ao contexto do sonhador?
@@ -130,7 +130,7 @@ const interpretDreamFlow = ai.defineFlow(
           processedSegments.push({
             type: 'image',
             dataUri: media.url,
-            alt: `Ilustração do sonho (detalhada e realista): ${imageGenPrompt.substring(0,50)}...` 
+            alt: `Ilustração do sonho: ${imageGenPrompt.substring(0,50)}...` 
           });
         }
       } catch (e) {
