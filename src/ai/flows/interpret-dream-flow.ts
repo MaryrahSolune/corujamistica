@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview Flow for interpreting dreams in the persona of the Prophet,
@@ -158,4 +157,3 @@ const interpretDreamFlow = ai.defineFlow(
     return processedSegments.filter(segment => segment.type === 'image' || (segment.type === 'text' && segment.content.length > 0));
   }
 );
-
