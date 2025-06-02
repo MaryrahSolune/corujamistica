@@ -134,6 +134,7 @@ export default function CreditsPage() {
                 <Button 
                   onClick={() => handlePurchase(pkg.id, pkg.priceUSD === 0, pkg.credits)} 
                   className="w-full text-lg py-3"
+                  variant={pkg.popular ? 'secondary' : 'default'}
                   disabled={
                     (pkg.priceUSD === 0 && (claimingFreeCredit || !!userCredits?.freeCreditClaimed)) ||
                     (pkg.priceUSD !== 0 && (purchasingPackageId !== null || claimingFreeCredit)) ||
