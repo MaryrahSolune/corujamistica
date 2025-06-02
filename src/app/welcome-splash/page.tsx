@@ -22,11 +22,7 @@ export default function WelcomeSplashPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4 relative overflow-hidden">
-      <div className="absolute inset-0 z-0 opacity-10">
-        <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-primary/50 rounded-full filter blur-3xl animate-pulse_slow"></div>
-        <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-accent/50 rounded-full filter blur-3xl animate-pulse_slow animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 w-1/4 h-1/4 bg-secondary/40 rounded-full filter blur-3xl animate-pulse_slow animation-delay-4000 transform -translate-x-1/2 -translate-y-1/2"></div>
-      </div>
+      {/* Central background elements removed */}
       
       <div className="z-10 text-center">
         <Image
@@ -42,6 +38,8 @@ export default function WelcomeSplashPage() {
       </div>
       
       <style jsx global>{`
+        /* animate-pulse_slow and related styles are no longer needed here if elements are removed */
+        /* Keeping keyframes in case other elements use them, or they are added back */
         .animate-pulse_slow {
           animation: pulse_slow 6s infinite ease-in-out;
         }
@@ -59,4 +57,3 @@ export default function WelcomeSplashPage() {
     </div>
   );
 }
-
