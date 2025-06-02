@@ -127,7 +127,6 @@ export default function AppHeader() {
   const isAdmin = userProfile?.role === 'admin';
   const currentNavLinks = isAdmin ? navLinksAdmin : navLinksRegularUser;
   
-  // Always link logo to homepage
   const logoLink = "/"; 
 
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
@@ -139,7 +138,7 @@ export default function AppHeader() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <Link href={logoLink} className="mr-6 flex items-center space-x-2">
-          <Sparkles className="h-6 w-6 text-primary" />
+          <Sparkles className="h-6 w-6 text-primary animate-subtle-pulse" />
           <span className="font-bold font-serif text-xl sm:inline-block">{t('mysticInsights')}</span>
         </Link>
 
@@ -222,7 +221,7 @@ export default function AppHeader() {
                 <div className="login-button-aura-wrapper">
                   <Button
                     asChild
-                    variant="default" // Using default variant for aura consistency
+                    variant="default" 
                     className="login-btn-custom relative z-[1]" 
                   >
                     <Link href="/login">
@@ -233,7 +232,7 @@ export default function AppHeader() {
                 <div className="login-button-aura-wrapper">
                   <Button
                     asChild
-                    variant="default" // Using default variant for aura consistency
+                    variant="default" 
                     className="login-btn-custom relative z-[1]"
                   >
                     <Link href="/signup">
