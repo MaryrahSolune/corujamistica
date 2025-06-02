@@ -252,12 +252,12 @@ export default function NewReadingPage() {
         </div>
       )}
 
-      {/* Added GIF at the end of the page */}
+      {/* GIF at the end of the page */}
       <div className="mt-12 flex justify-center">
         <Image
-          src="/img/h4m.gif"
-          alt="Animação Mística Decorativa"
-          data-ai-hint="mystical animation abstract"
+          src="/img/coruja.gif"
+          alt="Animação Mística Decorativa de Coruja"
+          data-ai-hint="mystical animation owl"
           width={300}
           height={200}
           unoptimized={true}
