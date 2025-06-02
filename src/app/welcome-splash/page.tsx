@@ -21,7 +21,7 @@ export default function WelcomeSplashPage() {
   }, [router]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4 relative overflow-hidden">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4 relative overflow-hidden animated-aurora-background">
       {/* Central background elements removed */}
       
       <div className="z-10 text-center">
