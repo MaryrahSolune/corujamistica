@@ -96,27 +96,27 @@ export default function DreamInterpretationPage() {
       />
       <div className="container mx-auto p-4 sm:p-6 lg:p-8 relative z-0">
         <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-8">
-          <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
+          <Card className="relative z-10 bg-black/30 dark:bg-black/50 backdrop-blur-md shadow-xl">
             <CardHeader>
-              <CardTitle className="text-3xl font-serif flex items-center">
+              <CardTitle className="text-3xl font-serif flex items-center text-primary-foreground dark:text-primary-foreground">
                 <MessageCircleQuestion className="h-8 w-8 mr-3 text-primary" />
                 {t('dreamInterpretationTitle')}
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-muted-foreground dark:text-slate-300">
                 {t('dreamInterpretationDescription')} {userCredits && t('creditsAvailable', {count: userCredits.balance})}
               </CardDescription>
             </CardHeader>
             <form onSubmit={handleSubmit}>
               <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="dream-description" className="text-lg">{t('yourDreamLabel')}</Label>
+                  <Label htmlFor="dream-description" className="text-lg text-primary-foreground dark:text-primary-foreground">{t('yourDreamLabel')}</Label>
                   <Textarea
                     id="dream-description"
                     value={dreamDescription}
                     onChange={(e) => setDreamDescription(e.target.value)}
                     placeholder={t('dreamPlaceholder')}
                     rows={6}
-                    className="resize-none"
+                    className="resize-none bg-background/80 dark:bg-background/70"
                     disabled={isLoading}
                   />
                 </div>
@@ -151,7 +151,7 @@ export default function DreamInterpretationPage() {
 
         {error && (
           <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
-            <Card className="relative z-10 bg-destructive/80 dark:bg-destructive/70 backdrop-blur-sm shadow-lg border-destructive">
+            <Card className="relative z-10 bg-destructive/90 dark:bg-destructive/85 backdrop-blur-md shadow-lg border-destructive">
               <CardHeader>
                 <CardTitle className="text-destructive-foreground font-serif">{t('errorOccurredCardTitle')}</CardTitle>
               </CardHeader>
@@ -164,9 +164,9 @@ export default function DreamInterpretationPage() {
 
         {storySegments.length > 0 && !isLoading && (
           <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
-            <Card className="shadow-2xl bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10">
+            <Card className="shadow-2xl bg-black/30 dark:bg-black/50 backdrop-blur-md relative z-10">
               <CardHeader>
-                <CardTitle className="text-2xl font-serif flex items-center">
+                <CardTitle className="text-2xl font-serif flex items-center text-primary-foreground dark:text-primary-foreground">
                   <BookOpenText className="h-7 w-7 mr-3 text-accent" />
                   {t('yourPropheticInterpretationTitle')}
                 </CardTitle>
@@ -175,7 +175,7 @@ export default function DreamInterpretationPage() {
                 {storySegments.map((segment, index) => (
                   <div key={index}>
                     {segment.type === 'text' && segment.content && (
-                      <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                      <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-gray-200 dark:text-gray-100 leading-relaxed text-justify">
                         {segment.content}
                       </p>
                     )}
@@ -201,3 +201,4 @@ export default function DreamInterpretationPage() {
     </div>
   );
 }
+
