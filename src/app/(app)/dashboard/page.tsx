@@ -316,7 +316,7 @@ export default function DashboardPage() {
           </p>
           <div className="animated-aurora-background rounded-xl inline-block">
             <Image 
-              src="/img/shiva.gif" 
+              src="/img/cartas.gif" 
               alt={t('discoverYourPathTitle')}
               data-ai-hint="shiva animation meditation" 
               width={800} 

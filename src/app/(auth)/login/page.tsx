@@ -107,10 +107,16 @@ export default function LoginPage() {
             <Input id="password" type="password" {...register('password')} placeholder="••••••••" />
             {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
           </div>
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-            {t('loginButton')}
-          </Button>
+          <div className="login-button-aura-wrapper">
+            <Button 
+              type="submit" 
+              className="w-full login-btn-custom relative z-[1]" 
+              disabled={loading}
+            >
+              {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+              {t('loginButton')}
+            </Button>
+          </div>
         </form>
       </CardContent>
       <CardFooter className="flex flex-col items-center space-y-2">

@@ -105,6 +105,10 @@ export default function AppHeader() {
   const { currentUser, userProfile, logout } = useAuth();
   const { t } = useLanguage();
   const pathname = usePathname();
+
+  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
+  const isLandingPage = pathname === '/' || pathname === '/inicio';
+
   const [isClient, setIsClient] = React.useState(false);
 
   React.useEffect(() => {
@@ -126,11 +130,8 @@ export default function AppHeader() {
 
   const isAdmin = userProfile?.role === 'admin';
   const currentNavLinks = isAdmin ? navLinksAdmin : navLinksRegularUser;
-  
   const logoLink = isLandingPage || isAuthPage ? "/inicio" : (isAdmin ? "/admin" : "/dashboard");
-  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
-  const isLandingPage = pathname === '/' || pathname === '/inicio'; 
-
+ 
   const showAuthLinks = !currentUser && (isLandingPage || isAuthPage);
 
   return (
