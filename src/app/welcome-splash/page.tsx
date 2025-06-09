@@ -26,9 +26,9 @@ export default function WelcomeSplashPage() {
       
       <div className="z-10 text-center">
         <Image
-          src="/img/gato%20copy.gif" 
+          src="/img/gato_copy.gif" 
           alt={t('mysticInsights') + " - Loading"} 
-          data-ai-hint="mystical loading animation cat" 
+          data-ai-hint="mystical loading cat animation" 
           width={400} 
           height={300} 
           unoptimized={true} 
