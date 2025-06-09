@@ -255,7 +255,7 @@ export default function NewReadingPage() {
       {/* GIF at the end of the page */}
       <div className="mt-12 flex justify-center">
         <Image
-          src="/img/fogueira.gif"
+          src="/img/coruja.gif"
           alt="Animação Mística Decorativa de Fogueira"
           data-ai-hint="mystical animation bonfire"
           width={300}

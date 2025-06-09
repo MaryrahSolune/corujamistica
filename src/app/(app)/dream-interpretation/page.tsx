@@ -129,7 +129,7 @@ export default function DreamInterpretationPage() {
                     isLoading || 
                     !dreamDescription.trim() || 
                     dreamDescription.trim().length < 10 || 
-                    (userCredits && userCredits.balance < 1)
+                    (userCredits && userCredits.balance < 1) || !!error // Use !!error to ensure it's a boolean
                   }
                 >
                   {isLoading ? (
@@ -198,6 +198,7 @@ export default function DreamInterpretationPage() {
           </div>
         )}
       </div>
+      <img src="/img/olho.gif" alt="Olho místico" className="mt-8 mx-auto block max-w-full h-auto" />
     </div>
   );
 }

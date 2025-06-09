@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -8,7 +7,6 @@ import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Pal
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-// import { SunIcon, MoonIcon } from '@/components/MysticIcons'; // Removed
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -147,27 +145,22 @@ export default function InicioPage() {
       </header>
 
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden">
-           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-70"></div>
-           {/* <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} /> */}
-           {/* <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/> */}
+        {/* Hero Section Corrigida */}
+        <section className="py-20 sm:py-28 text-center relative overflow-hidden">
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="/img/mulher fumaça.gif"
+              alt={t('landingImageAlt')}
+              data-ai-hint="woman with smoke animation"
+              fill
+              style={{ objectFit: 'cover' }}
+              priority
+              unoptimized={true}
+            />
+          </div>
           <div className="container mx-auto px-4 relative z-10">
-            <div className="relative inline-block mb-6">
-              <div className="absolute inset-0 -z-10 flex items-center justify-center">
-                <Image
-                  src="/gifs/mystic_aura.gif"
-                  alt={t('landingImageAlt')}
-                  data-ai-hint="mystical aura animation"
-                  width={120}
-                  height={120}
-                  className="rounded-full object-cover opacity-80 blur-sm animate-subtle-bob"
-                  style={{ objectFit: 'cover' }}
-                  priority
-                  unoptimized={true}
-                />
-              </div>
-              <Sparkles className="h-20 w-20 text-primary mx-auto animate-subtle-pulse relative z-10" />
+            <div className="mb-8">
+              <Sparkles className="h-20 w-20 text-primary mx-auto animate-subtle-pulse" />
             </div>
             <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
               {t('landingTitle')}
@@ -357,5 +350,3 @@ export default function InicioPage() {
     </div>
   );
 }
-
-    
