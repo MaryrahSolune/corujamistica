@@ -2,7 +2,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import Link from 'next/link'; // Keep this import
 import Image from 'next/image';
 import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film } from 'lucide-react';
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
@@ -73,12 +73,6 @@ export default function HomePage() {
       nameKey: "testimonial2Name",
       roleKey: "testimonial2Role",
     },
-  ];
-
-  const gifPlaceholders = [
-    { src: "/gifs/mystic_aura.gif", hint: "mystical animation space", altKey: "gifPlaceholderAlt" },
-    { src: "/gifs/sacred_symbols_animated.gif", hint: "spiritual symbol sequence", altKey: "gifPlaceholderAlt" },
-    { src: "/gifs/cosmic_energy.gif", hint: "energy flow visualization", altKey: "gifPlaceholderAlt" },
   ];
 
   if (!isClient) {
@@ -292,37 +286,11 @@ export default function HomePage() {
         <CustomSeparator />
 
         {/* Mystical Animated Gallery Section */}
+        {/* Removed the entire Mystical Animated Gallery section as requested */}
         <section className="py-16 sm:py-24 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-12 animate-fade-in" style={{animationDelay: '0.1s'}}>
-              <Film className="h-12 w-12 text-primary mx-auto mb-3" />
-              <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-2">{t('mysticalGalleryTitle')}</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('mysticalGallerySubtitle')}</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {gifPlaceholders.map((gif, index) => (
-                <div
-                  key={index}
-                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-secondary/30"
-                  style={{animationDuration: '0.5s', animationDelay: `${0.2 + index * 0.15}s`}}
-                >
-                  <div className="aspect-w-4 aspect-h-3 relative z-10 bg-black/30 backdrop-blur-sm">
-                    <Image
-                      src={gif.src}
-                      alt={t(gif.altKey as any)}
-                      fill
-                      style={{ objectFit: 'contain' }}
-                      className="rounded-lg"
-                      data-ai-hint={gif.hint}
-                      unoptimized={true} // Important for GIFs
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-             <p className="text-center text-muted-foreground mt-8 text-sm animate-fade-in" style={{animationDelay: '0.5s'}}>
-              (Em breve: mais animações e símbolos sagrados para sua inspiração!)
-            </p>
+             {/* Added the Torus GIF here */}
+             <img src="/img/torus.gif" alt="Torus" className="mx-auto max-w-full h-auto rounded-xl shadow-lg" />
           </div>
         </section>
 

@@ -163,6 +163,11 @@ export default function CreditsPage() {
           <Image src="https://placehold.co/60x40.png" data-ai-hint="paypal logo" alt="PayPal" width={60} height={40} className="opacity-70" />
         </div>
       </div>
+
+      {/* Adicionando o GIF do gato */}
+      <div className="mt-16 text-center">
+        <img src="/img/gato copy.gif" alt="Mystic Cat" className="mx-auto" />
+      </div>
     </div>
   );
 }
