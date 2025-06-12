@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import * as z from 'zod'; // Keep existing import
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -18,6 +18,8 @@ import { Loader2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
+import { signInWithPopup } from 'firebase/auth'; // Import signInWithPopup
+import { googleProvider } from '@/lib/firebase'; // Import googleProvider
 
 
 const loginSchema = z.object({
@@ -31,6 +33,7 @@ export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [loadingGoogle, setLoadingGoogle] = useState(false); // Loading state for Google login
   const { t } = useLanguage();
   const [isClient, setIsClient] = useState(false);
 
@@ -61,6 +64,24 @@ export default function LoginPage() {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setLoadingGoogle(true);
+    try {
+      await signInWithPopup(auth, googleProvider);
+      toast({ title: t('loginSuccessTitle'), description: t('loginSuccessDescription') });
+      router.push('/dashboard'); // Redirect directly to dashboard
+    } catch (error: any) {
+      console.error('Google login error:', error);
+      toast({
+        title: t('loginFailedTitle'),
+        description: error.message || t('genericErrorDescription'), // Use a generic error message if none provided
+        variant: 'destructive',
+      });
+    } finally {
+      setLoadingGoogle(false);
     }
   };
 
@@ -118,6 +139,20 @@ export default function LoginPage() {
             </Button>
           </div>
         </form>
+
+        {/* OU Separator */}
+        <div className="flex items-center my-4">
+          <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+          <span className="flex-shrink mx-4 text-gray-500 dark:text-gray-400">{t('orSeparator')}</span>
+          <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+        </div>
+
+        {/* Google Login Button */}
+        {/* You might want to add a Google icon here */}
+        <Button onClick={handleGoogleLogin} className="w-full relative z-[1]" disabled={loading || loadingGoogle}>
+           {loadingGoogle ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+          Entrar com Google {/* Consider translating this text */}
+        </Button>
       </CardContent>
       <CardFooter className="flex flex-col items-center space-y-2">
         <p className="text-sm text-muted-foreground">
@@ -132,4 +167,11 @@ export default function LoginPage() {
       </CardFooter>
     </Card>
   );
+}
+
+// Adicionando o GIF da cobra abaixo da caixa de login
+// Note: Use Next.js Image component for optimized images,
+// but for a simple GIF display, a standard <img> tag is sufficient.
+export function CobraGif() {
+  return <img src="/img/cobra copy.gif" alt="Mystic Cobra GIF" className="mx-auto mt-8" />;
 }

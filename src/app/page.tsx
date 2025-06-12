@@ -67,12 +67,14 @@ export default function HomePage() {
       quoteKey: "testimonial1Quote",
       nameKey: "testimonial1Name",
       roleKey: "testimonial1Role",
+      imageSrc: '/img/rosto-mulher.jpg',
     },
     {
       quoteKey: "testimonial2Quote",
       nameKey: "testimonial2Name",
       roleKey: "testimonial2Role",
-    },
+      imageSrc: '/img/rosto-homem.jpg',
+    }
   ];
 
   if (!isClient) {
@@ -212,27 +214,27 @@ export default function HomePage() {
 
         {/* Discover the Magic Section (Benefits) */}
         <section className="py-16 sm:py-24 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in" style={{animationDelay: '0.1s'}}>{t('discoverMagicTitle')}</h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>{t('discoverMagicSubtitle')}</p>
+          <div className="container mx-auto px-4">\
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in text-primary-foreground" style={{animationDelay: '0.1s'}}>{t('discoverMagicTitle')}</h2>
+            <p className="text-lg text-primary-foreground/90 text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>{t('discoverMagicSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {benefits.map((benefit, index) => (
-                 <div
+                <div
                   key={index}
                   className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-accent/30"
                   style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
                 >
                   <Card className="h-full text-center shadow-xl relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
                     <CardHeader className="items-center pb-4">
-                       <div className="p-4 bg-accent/10 rounded-full mb-4 w-fit">
-                        {benefit.icon}
-                      </div>
-                      <CardTitle className="text-2xl font-serif">{t(benefit.titleKey as any)}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">{t(benefit.descriptionKey as any)}</p>
-                    </CardContent>
-                  </Card>
+                      <div className="p-4 bg-accent/20 rounded-full mb-4 w-fit">\
+                        {benefit.icon}\
+                      </div>\
+                      <CardTitle className="text-2xl font-serif text-foreground">{t(benefit.titleKey as any)}</CardTitle>\
+                    </CardHeader>\
+                    <CardContent>\
+                      <p className="text-muted-foreground text-foreground/80">{t(benefit.descriptionKey as any)}</p>\
+                    </CardContent>\
+                  </Card>\
                 </div>
               ))}
             </div>
@@ -266,7 +268,7 @@ export default function HomePage() {
                   <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6 min-h-[200px] flex flex-col justify-center group">
                     <CardContent className="text-center">
                        <Avatar className="w-20 h-20 mx-auto mb-4 border-2 border-primary shadow-lg transition-transform duration-300 group-hover:scale-110">
-                        <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="person portrait" alt={t(testimonial.nameKey as any)} />
+                        <AvatarImage src={testimonial.imageSrc} data-ai-hint="person portrait" alt={t(testimonial.nameKey as any)} />
                         <AvatarFallback className="bg-primary/20 text-primary font-semibold">
                           {t(testimonial.nameKey as any).split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase()}
                         </AvatarFallback>
@@ -316,6 +318,17 @@ export default function HomePage() {
         </section>
       </main>
 
+      <section className="py-16 text-center">
+        {/* Added the Cobra GIF here */}
+        <Image
+          src="/img/cobra copy.gif"
+          alt="Mystic Cobra GIF"
+          width={300}
+          height={300}
+          className="mx-auto mt-16" // Add mx-auto for centering, and mt-16 for top margin
+ unoptimized={true} // Required for GIFs
+        />
+      </section>
       <footer className="py-8 text-center border-t border-border/20 bg-background/80 relative overflow-hidden">
         <div className="absolute inset-0 -z-10 animated-aurora-background opacity-40"></div>
         <p className="text-muted-foreground relative z-10">

@@ -1,7 +1,7 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
-import { getAuth, type Auth } from 'firebase/auth';
+import { getAuth, type Auth, GoogleAuthProvider } from 'firebase/auth';
 // import { getFirestore, type Firestore } from 'firebase/firestore'; // Descomente se você precisar do Firestore
 import { getDatabase, type Database } from 'firebase/database'; // Adicionado para Realtime Database
 
@@ -29,4 +29,5 @@ const auth: Auth = getAuth(app);
 // const firestoreDb: Firestore = getFirestore(app); // Descomente se você precisar do Firestore
 const rtdb: Database = getDatabase(app); // Inicializa o Realtime Database
 
-export { app, auth, rtdb /*, firestoreDb */ };
+const googleProvider = new GoogleAuthProvider();
+export { app, auth, rtdb, googleProvider /*, firestoreDb */ };

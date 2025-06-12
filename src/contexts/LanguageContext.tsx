@@ -697,10 +697,10 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     securePaymentsDescription: "Suas transações são protegidas com os mais altos padrões de segurança. Aceitamos os principais cartões de crédito e PayPal.",
     purchaseInitiatedToast: "Compra do pacote ID {packageId} iniciada (Simulação).",
     freeCreditClaimedToast: "{count} crédito(s) grátis resgatados com sucesso!",
-    freeCreditAlreadyClaimedToast: "Você já resgatou seu crédito de teste gratuito.",
+    freeCreditAlreadyClaimedToast: "Você já resgatou seus créditos de teste gratuitos deste mês.",
     freeCreditClaimFailedToast: "Falha ao resgatar crédito gratuito. Tente novamente mais tarde.",
     freeCreditAlreadyClaimedButton: "Já Resgatado",
-    satisfiedClientsLabel: "Clientes satisfeitos",
+    satisfiedClientsLabel: "Clientes Satisfeitos",
   }
 };
 

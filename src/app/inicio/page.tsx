@@ -62,7 +62,7 @@ export default function InicioPage() {
 
   const testimonials = [
     {
-      quoteKey: "testimonial1Quote",
+      quoteKey: "testimonial1Quote", // This line was not causing the issue
       nameKey: "testimonial1Name",
       roleKey: "testimonial1Role",
     },
@@ -198,7 +198,7 @@ export default function InicioPage() {
                       <CardTitle className="text-2xl font-serif">{t(step.titleKey as any)}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">{t(step.descriptionKey as any)}</p>
+                      <p className="text-muted-foreground whitespace-pre-wrap">{t(step.descriptionKey as any)}</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -229,7 +229,7 @@ export default function InicioPage() {
                       <CardTitle className="text-2xl font-serif">{t(benefit.titleKey as any)}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">{t(benefit.descriptionKey as any)}</p>
+                      <p className="text-muted-foreground whitespace-pre-wrap">{t(benefit.descriptionKey as any)}</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -261,7 +261,7 @@ export default function InicioPage() {
                   key={index}
                   className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-accent/30"
                   style={{animationDuration: '0.5s', animationDelay: `${0.4 + index * 0.2}s`}}
-                >
+>
                   <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6 min-h-[200px] flex flex-col justify-center group">
                     <CardContent className="text-center">
                        <Avatar className="w-20 h-20 mx-auto mb-4 border-2 border-primary shadow-lg transition-transform duration-300 group-hover:scale-110">
