@@ -189,17 +189,17 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Nossa Missão Section */}
+        {/* Nossos Oráculos Section */}
         <section className="py-16 sm:py-24 bg-background relative overflow-hidden">
           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-50"></div>
           <div className="container mx-auto px-4 relative z-10 text-center">
             <Sparkles className="h-12 w-12 text-primary mx-auto mb-6 animate-subtle-pulse" />
-            <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('ourMissionTitle')}</h2>
- <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">Guiando sua jornada interior através da sabedoria ancestral e da intuição.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('ourOraclesTitle')}</h2>
+            <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">{t('ourOraclesSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <Brain className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
- <h3 className="text-xl font-semibold mb-3">Seu TARÔ</h3>
+                <h3 className="text-xl font-semibold mb-3">Seu TARÔ</h3>
                 <p className="text-lg text-foreground/80">Carregue sua tiragem de Tarô para obter a Interpretação Mística.</p>
               </div>
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">

@@ -234,8 +234,8 @@ export type TranslationKey =
   | 'freeCreditClaimedToast' // Params: { count: string }
   | 'freeCreditAlreadyClaimedToast'
   | 'freeCreditClaimFailedToast'
-  | 'ourMissionTitle'
-  | 'ourMissionSubtitle'
+  | 'ourOraclesTitle'
+  | 'ourOraclesSubtitle'
   | 'missionIntuitionTitle'
   | 'missionIntuitionDescription'
   | 'missionPrecisionTitle'
@@ -478,13 +478,13 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     freeCreditClaimedToast: "{count} free credit(s) claimed successfully!",
     freeCreditAlreadyClaimedToast: "You have already claimed your free trial credit.",
     freeCreditClaimFailedToast: "Failed to claim free credit. Please try again later.",
-    ourMissionTitle: "Our Mission",
-    ourMissionSubtitle: "Guiding your inner journey through ancient wisdom and intuitive technology.",
+    ourOraclesTitle: "Our Oracles: Tarot & Dreams",
+    ourOraclesSubtitle: "Explore the meaning of the cards and the messages from your subconscious.",
     missionIntuitionTitle: "Amplified Intuition",
     missionIntuitionDescription: "Unlock deep insights and enhance your spiritual connection.",
     missionPrecisionTitle: "Prophetic Precision",
     missionPrecisionDescription: "Receive clear and direct interpretations for your most important questions.",
-    NossaMissao: "Soul Connection", // Already correct
+    missionConnectionTitle: "Soul Connection", // Already correct
     freeCreditAlreadyClaimedButton: "Already Claimed",
     satisfiedClientsLabel: "Satisfied clients",
   },
@@ -713,13 +713,13 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     freeCreditClaimedToast: "{count} crédito(s) grátis resgatados com sucesso!",
     freeCreditAlreadyClaimedToast: "Você já resgatou seus créditos de teste gratuitos deste mês.",
     freeCreditClaimFailedToast: "Falha ao resgatar crédito gratuito. Tente novamente mais tarde.",
-    ourMissionTitle: 'Nossa Missão',
-    ourMissionSubtitle: 'Guiando sua jornada interior através da sabedoria ancestral e da tecnologia intuitiva.',
+    ourOraclesTitle: "Nossos Oráculos: Tarô e Sonhos",
+    ourOraclesSubtitle: "Explore o significado das cartas e as mensagens do seu subconsciente.",
     missionIntuitionTitle: 'Seu Tarôt',
     missionIntuitionDescription: 'Carregue sua tiragem de tarô para obter a interpretação mística.',
     missionPrecisionTitle: 'Interpretação de Sonhos',
     missionPrecisionDescription: 'descreva seu sonho detalhado para obter interpretação profética',
-    missionConnectionDescription: 'Fortaleça seu vínculo espiritual e descubra a sabedoria interior para uma jornada de autoconhecimento e crescimento.',
+    missionConnectionTitle: 'Conexão da Alma', // Corrigido
     freeCreditAlreadyClaimedButton: "Já Resgatado",
     satisfiedClientsLabel: "Clientes Satisfeitos",
   }
