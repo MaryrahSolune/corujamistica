@@ -173,5 +173,5 @@ export default function LoginPage() {
 // Note: Use Next.js Image component for optimized images,
 // but for a simple GIF display, a standard <img> tag is sufficient.
 export function CobraGif() {
-  return <img src="/img/cobra copy.gif" alt="Mystic Cobra GIF" className="mx-auto mt-8" />;
+  return <img src="/img/mulher fumaça.gif" alt="Mystic Smoke Woman GIF" className="mx-auto mt-8" />;
 }

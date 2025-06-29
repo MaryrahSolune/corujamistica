@@ -234,6 +234,13 @@ export type TranslationKey =
   | 'freeCreditClaimedToast' // Params: { count: string }
   | 'freeCreditAlreadyClaimedToast'
   | 'freeCreditClaimFailedToast'
+  | 'ourMissionTitle'
+  | 'ourMissionSubtitle'
+  | 'missionIntuitionTitle'
+  | 'missionIntuitionDescription'
+  | 'missionPrecisionTitle'
+  | 'missionPrecisionDescription'
+  | 'missionConnectionTitle'
   | 'freeCreditAlreadyClaimedButton'
   | 'satisfiedClientsLabel'
   ;
@@ -361,7 +368,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     interpretationReadyTitle: 'Interpretation Ready!',
     interpretationReadyDescription: 'Your card reading interpretation has been generated.',
     newCardReadingTitle: 'New Card Reading',
-    newCardReadingDescription: 'Upload your card spread, ask your question, and receive a mystical interpretation. This costs 1 credit.',
+    newCardReadingDescription: 'Upload your card spread, ask your question, and receive a mystical interpretation. This costs 1 credit.', // Added back
     uploadCardSpreadImageLabel: 'Upload Card Spread Image',
     cardSpreadPreviewAlt: 'Card spread preview',
     yourQuestionLabel: 'Your Question',
@@ -385,7 +392,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     readingNotFound: "Reading not found.",
     timestampProcessing: "Processing timestamp...",
     landingTitle: "Unveil Your Destiny",
-    landingSubtitle: "AI-powered Tarot, Cigano Cards, and Dream Interpretations. Your journey to self-discovery starts here.",
+    landingSubtitle: "Uncover the meaning of your tarot cards and the interpretation of your dreams. Your journey of self-discovery, guided by Tarot and Cigano Cards, begins here.",
     landingButton: "Begin Your Journey",
     howItWorksTitle: "How It Works",
     howItWorksSubtitle: "Simple steps to your personalized mystical insights.",
@@ -471,6 +478,13 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     freeCreditClaimedToast: "{count} free credit(s) claimed successfully!",
     freeCreditAlreadyClaimedToast: "You have already claimed your free trial credit.",
     freeCreditClaimFailedToast: "Failed to claim free credit. Please try again later.",
+    ourMissionTitle: "Our Mission",
+    ourMissionSubtitle: "Guiding your inner journey through ancient wisdom and intuitive technology.",
+    missionIntuitionTitle: "Amplified Intuition",
+    missionIntuitionDescription: "Unlock deep insights and enhance your spiritual connection.",
+    missionPrecisionTitle: "Prophetic Precision",
+    missionPrecisionDescription: "Receive clear and direct interpretations for your most important questions.",
+    NossaMissao: "Soul Connection", // Already correct
     freeCreditAlreadyClaimedButton: "Already Claimed",
     satisfiedClientsLabel: "Satisfied clients",
   },
@@ -589,7 +603,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     interpretationReadyTitle: 'Interpretação Pronta!',
     interpretationReadyDescription: 'Sua interpretação da leitura de cartas foi gerada.',
     newCardReadingTitle: 'Nova Leitura de Cartas',
-    newCardReadingDescription: 'Envie sua tiragem, faça sua pergunta e receba uma interpretação mística. Custo: 1 crédito.',
+    newCardReadingDescription: 'Envie sua tiragem, faça sua pergunta e receba uma interpretação mística. Custo: 1 crédito.', // Added back
     uploadCardSpreadImageLabel: 'Enviar Imagem da Tiragem',
     cardSpreadPreviewAlt: 'Prévia da tiragem de cartas',
     yourQuestionLabel: 'Sua Pergunta',
@@ -613,7 +627,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     readingNotFound: "Leitura não encontrada.",
     timestampProcessing: "Processando data...",
     landingTitle: "Desvende Seu Destino",
-    landingSubtitle: "Interpretações de Tarot, Baralho Cigano e Sonhos por IA. Sua jornada para o autoconhecimento começa aqui.",
+    landingSubtitle: "Desvende o significado das suas cartas de tarô e a interpretação dos seus sonhos. Sua jornada de autoconhecimento, guiada por Tarot e Baralho Cigano, começa aqui.",
     landingButton: "Comece Sua Jornada",
     howItWorksTitle: "Como Funciona",
     howItWorksSubtitle: "Passos simples para seus insights místicos personalizados.",
@@ -699,6 +713,13 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     freeCreditClaimedToast: "{count} crédito(s) grátis resgatados com sucesso!",
     freeCreditAlreadyClaimedToast: "Você já resgatou seus créditos de teste gratuitos deste mês.",
     freeCreditClaimFailedToast: "Falha ao resgatar crédito gratuito. Tente novamente mais tarde.",
+    ourMissionTitle: 'Nossa Missão',
+    ourMissionSubtitle: 'Guiando sua jornada interior através da sabedoria ancestral e da tecnologia intuitiva.',
+    missionIntuitionTitle: 'Seu Tarôt',
+    missionIntuitionDescription: 'Carregue sua tiragem de tarô para obter a interpretação mística.',
+    missionPrecisionTitle: 'Interpretação de Sonhos',
+    missionPrecisionDescription: 'descreva seu sonho detalhado para obter interpretação profética',
+    missionConnectionDescription: 'Fortaleça seu vínculo espiritual e descubra a sabedoria interior para uma jornada de autoconhecimento e crescimento.',
     freeCreditAlreadyClaimedButton: "Já Resgatado",
     satisfiedClientsLabel: "Clientes Satisfeitos",
   }
@@ -787,5 +808,3 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
-    
-    

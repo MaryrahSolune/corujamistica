@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film } from 'lucide-react';
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 // import { SunIcon, MoonIcon } from '@/components/MysticIcons'; // Removed
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from 'react';
@@ -44,6 +44,26 @@ export default function HomePage() {
     },
   ];
 
+  const howItWorksDreamSteps = [
+    {
+      icon: <Film className="h-10 w-10 text-primary" />,
+      title: "Sabedoria por IA",
+      description: "Utilizando IA avançada treinada por místicos experientes para fornecer interpretações profundas.",
+    },
+    {
+      icon: <Brain className="h-10 w-10 text-primary" />,
+      title: "Verdadeiramente Pessoal",
+      description: "Interpretações adaptadas à sua imagem de cartas e pergunta específica.",
+    },
+    {
+      icon: <Sparkles className="h-10 w-10 text-primary" />,
+      title: "Orientação Espiritual",
+      description: "Obtenha clareza e direção para o caminho da sua vida, relacionamentos e decisões.",
+    },
+  ];
+
+
+
   const benefits = [
     {
       icon: <Sparkles className="h-10 w-10 text-accent" />,
@@ -76,8 +96,7 @@ export default function HomePage() {
       imageSrc: '/img/rosto-homem.jpg',
     }
   ];
-
-  if (!isClient) {
+ if (!isClient) {
     return (
       <div className="flex min-h-screen flex-col bg-background">
         <header className="py-6 sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -143,28 +162,17 @@ export default function HomePage() {
       </header>
 
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden">
-           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-70"></div>
+        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden" style={{
+ backgroundImage: 'url(\'/img/4Q46.gif\')',
+ backgroundSize: '40% auto', // Keep the size
+ backgroundPosition: 'center', // Keep the position
+ backgroundRepeat: 'no-repeat', // Add no-repeat
+
+ }}>
+           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-90"></div>
            {/* <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} /> */}
            {/* <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/> */}
           <div className="container mx-auto px-4 relative z-10">
-            <div className="relative inline-block mb-6">
-              <div className="absolute inset-0 -z-10 flex items-center justify-center">
-                <Image
-                  src="/gifs/mystic_aura.gif"
-                  alt={t('landingImageAlt')}
-                  data-ai-hint="mystical aura animation"
-                  width={120}
-                  height={120}
-                  className="rounded-full object-cover opacity-80 blur-sm animate-subtle-bob"
-                  style={{ objectFit: 'cover' }}
-                  priority
-                  unoptimized={true}
-                />
-              </div>
-              <Sparkles className="h-20 w-20 text-primary mx-auto animate-subtle-pulse relative z-10" />
-            </div>
             <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
               {t('landingTitle')}
             </h1>
@@ -181,65 +189,48 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Nossa Missão Section */}
+        <section className="py-16 sm:py-24 bg-background relative overflow-hidden">
+          <div className="absolute inset-0 -z-10 animated-aurora-background opacity-50"></div>
+          <div className="container mx-auto px-4 relative z-10 text-center">
+            <Sparkles className="h-12 w-12 text-primary mx-auto mb-6 animate-subtle-pulse" />
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('ourMissionTitle')}</h2>
+ <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">Guiando sua jornada interior através da sabedoria ancestral e da intuição.</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
+                <Brain className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
+ <h3 className="text-xl font-semibold mb-3">Seu TARÔ</h3>
+                <p className="text-lg text-foreground/80">Carregue sua tiragem de Tarô para obter a Interpretação Mística.</p>
+              </div>
+              <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
+                <Star className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
+                <h3 className="text-xl font-semibold mb-3">Interpretação de SONHOS</h3>
+                <p className="text-lg text-foreground/80">Descreva seu sonho detalhado para obter Interpretação Profética</p>
+              </div>
+              <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
+                <Users className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
+                <h3 className="text-xl font-semibold mb-3">Símbolos Sagrados</h3>
+                <p className="text-lg text-foreground/80">Aprenda sobre DIARIAMENTE</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Adicionando as chaves de tradução para a nova seção de missão */}
+        {/* Estas chaves precisarão ser adicionadas no src/contexts/LanguageContext.tsx */}
+        {/*
+           ourMissionTitle: "Nossa Missão",
+           ourMissionSubtitle: "Conectando você à sua alma através da sabedoria ancestral e da tecnologia moderna.",
+           missionIntuitionTitle: "Intuição Ampliada",
+           missionIntuitionDescription: "Nossa IA ajuda a decifrar símbolos sutis, ampliando sua própria intuição.",
+           missionPrecisionTitle: "Precisão Incisiva",
+           missionPrecisionDescription: "Obtenha interpretações claras e diretas para as suas questões mais profundas.",
+           missionConnectionTitle: "Conexão Profunda",
+           missionConnectionDescription: "Facilitamos a ponte entre o mundo material e o espiritual para o seu crescimento.",
+        */}
+
         {/* How It Works Section */}
-        <section className="py-16 sm:py-24 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in" style={{animationDelay: '0.1s'}}>{t('howItWorksTitle')}</h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>{t('howItWorksSubtitle')}</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {howItWorksSteps.map((step, index) => (
-                <div
-                  key={index}
-                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30"
-                  style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
-                >
-                  <Card className="h-full text-center shadow-xl relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
-                    <CardHeader className="items-center pb-4">
-                      <div className="p-4 bg-primary/10 rounded-full mb-4 w-fit">
-                        {step.icon}
-                      </div>
-                      <CardTitle className="text-2xl font-serif">{t(step.titleKey as any)}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">{t(step.descriptionKey as any)}</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <CustomSeparator />
-
-        {/* Discover the Magic Section (Benefits) */}
-        <section className="py-16 sm:py-24 bg-background">
-          <div className="container mx-auto px-4">\
-            <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in text-primary-foreground" style={{animationDelay: '0.1s'}}>{t('discoverMagicTitle')}</h2>
-            <p className="text-lg text-primary-foreground/90 text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.2s'}}>{t('discoverMagicSubtitle')}</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {benefits.map((benefit, index) => (
-                <div
-                  key={index}
-                  className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-accent/30"
-                  style={{animationDuration: '0.5s', animationDelay: `${0.3 + index * 0.2}s`}}
-                >
-                  <Card className="h-full text-center shadow-xl relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6">
-                    <CardHeader className="items-center pb-4">
-                      <div className="p-4 bg-accent/20 rounded-full mb-4 w-fit">\
-                        {benefit.icon}\
-                      </div>\
-                      <CardTitle className="text-2xl font-serif text-foreground">{t(benefit.titleKey as any)}</CardTitle>\
-                    </CardHeader>\
-                    <CardContent>\
-                      <p className="text-muted-foreground text-foreground/80">{t(benefit.descriptionKey as any)}</p>\
-                    </CardContent>\
-                  </Card>\
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        
 
         <CustomSeparator />
 
@@ -287,16 +278,27 @@ export default function HomePage() {
 
         <CustomSeparator />
 
-        {/* Mystical Animated Gallery Section */}
-        {/* Removed the entire Mystical Animated Gallery section as requested */}
-        <section className="py-16 sm:py-24 bg-background">
-          <div className="container mx-auto px-4">
-             {/* Added the Torus GIF here */}
-             <img src="/img/torus.gif" alt="Torus" className="mx-auto max-w-full h-auto rounded-xl shadow-lg" />
-          </div>
+      {/* Ad Spaces - Placeholders */}
+      <div className="container mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md">Ad Space 1</div>
+        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md">Ad Space 2</div>
+        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md">Ad Space 3</div>
+        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md">Ad Space 4</div>
+      </div>
+      {/* End Ad Spaces */}
+
+
+      {/* Added the Woman Smoke GIF at the end */}
+      <section className="py-16 text-center">
+        <img
+          src="/img/shiva copy.gif"
+          alt="Mystic Smoke Woman GIF"
+          className="mx-auto mt-8"
+        />
         </section>
 
-        <CustomSeparator />
+        {/* Moved CustomSeparator below the GIF section */}
+        <CustomSeparator /> 
 
         {/* Final CTA Section */}
         <section className="py-20 sm:py-28 text-center bg-primary/10 relative overflow-hidden">
@@ -317,18 +319,6 @@ export default function HomePage() {
           </div>
         </section>
       </main>
-
-      <section className="py-16 text-center">
-        {/* Added the Cobra GIF here */}
-        <Image
-          src="/img/cobra copy.gif"
-          alt="Mystic Cobra GIF"
-          width={300}
-          height={300}
-          className="mx-auto mt-16" // Add mx-auto for centering, and mt-16 for top margin
- unoptimized={true} // Required for GIFs
-        />
-      </section>
       <footer className="py-8 text-center border-t border-border/20 bg-background/80 relative overflow-hidden">
         <div className="absolute inset-0 -z-10 animated-aurora-background opacity-40"></div>
         <p className="text-muted-foreground relative z-10">
@@ -338,5 +328,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    

@@ -139,7 +139,7 @@ export default function AppHeader() {
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <Link href={logoLink} className="mr-6 flex items-center space-x-2">
           <Sparkles className="h-6 w-6 text-primary animate-subtle-pulse" />
-          <span className="font-bold font-serif text-xl sm:inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">{t('mysticInsights')}</span>
+          <span className="font-bold font-serif text-xl sm:inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">{t('mysticOwl')}</span>
         </Link>
 
         {!isAuthPage && !isLandingPage && currentUser && (

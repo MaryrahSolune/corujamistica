@@ -13,8 +13,30 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: 'Mystic Insights - A Taróloga', // Adjusted title
-  description: 'Interpretações de Tarot e Baralho Cigano com IA. Desvende seu caminho.', // Adjusted description
+  title: {
+    default: 'Mystic Insights | Interpretação de Tarô, Cartas e Sonhos',
+    template: '%s | Mystic Insights',
+  },
+  description: 'Desvende o significado das suas cartas de tarô e dos seus sonhos. Obtenha interpretação de leituras de Tarot, Baralho Cigano e mais, com a ajuda de inteligência artificial.',
+  keywords: ['tarot', 'tarô', 'interpretação de tarot', 'significado dos sonhos', 'leitura de cartas', 'baralho cigano', 'cartomancia', 'oráculo', 'sonhos', 'cartas', 'significado', 'interpretação'],
+  openGraph: {
+    title: 'Mystic Insights | Interpretação de Tarô, Cartas e Sonhos',
+    description: 'Desvende o significado das suas cartas de tarô e dos seus sonhos.',
+    siteName: 'Mystic Insights',
+    locale: 'pt_BR',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
 };
 
 export default function RootLayout({

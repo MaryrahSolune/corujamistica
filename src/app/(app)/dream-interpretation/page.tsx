@@ -1,6 +1,7 @@
 
 'use client';
 
+
 import { useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -103,7 +104,7 @@ export default function DreamInterpretationPage() {
                 {t('dreamInterpretationTitle')}
               </CardTitle>
               <CardDescription className="text-muted-foreground dark:text-slate-300">
-                {t('dreamInterpretationDescription')} {userCredits && t('creditsAvailable', {count: userCredits.balance})}
+                {t('dreamInterpretationDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
               </CardDescription>
             </CardHeader>
             <form onSubmit={handleSubmit}>
@@ -123,10 +124,10 @@ export default function DreamInterpretationPage() {
               </CardContent>
               <CardFooter>
                 <Button 
-                  type="submit" 
-                  className="w-full text-lg py-6" 
+                  type="submit"
+                  className="w-full text-lg py-6"
                   disabled={
-                    isLoading || 
+                    isLoading ||
                     !dreamDescription.trim() || 
                     dreamDescription.trim().length < 10 || 
                     (userCredits && userCredits.balance < 1) || !!error // Use !!error to ensure it's a boolean
