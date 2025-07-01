@@ -243,6 +243,7 @@ export type TranslationKey =
   | 'missionConnectionTitle'
   | 'freeCreditAlreadyClaimedButton'
   | 'satisfiedClientsLabel'
+  | 'orSeparator'
   ;
 
 interface LanguageContextType {
@@ -254,7 +255,7 @@ interface LanguageContextType {
 // 2. Translations
 const translationsData: Record<Locale, Record<TranslationKey, string>> = {
   'en': {
-    mysticInsights: 'Mystic Insights',
+    mysticInsights: 'Mystic Owl',
     authLayoutSubtitle: 'Unveil the secrets of your path with AI-powered Tarot and Dream interpretations.',
     loadingMysticalSpace: 'Loading your mystical space...',
     language: 'Language',
@@ -265,7 +266,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dreamInterpretation: 'Interpret Dream',
     credits: 'Credits',
     logout: 'Logout',
-    footerText: '© {year} Mystic Insights. All rights reserved.',
+    footerText: '© {year} Mystic Owl. All rights reserved.',
     adminPanel: 'Admin Panel',
     login: 'Login',
     signUp: 'Sign Up',
@@ -277,11 +278,11 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dontHaveAccount: "Don't have an account?",
     signUpLink: 'Sign up here',
     loginSuccessTitle: 'Login Successful',
-    loginSuccessDescription: 'Welcome back to Mystic Insights!',
+    loginSuccessDescription: 'Welcome back to Mystic Owl!',
     loginFailedTitle: 'Login Failed',
     genericErrorDescription: 'An unexpected error occurred. Please try again.',
     createAccountTitle: 'Create Your Account',
-    createAccountDescription: 'Join Mystic Insights and start your journey of discovery.',
+    createAccountDescription: 'Join Mystic Owl and start your journey of discovery.',
     fullNameLabel: 'Full Name',
     yourNamePlaceholder: 'Your Name',
     signUpButton: 'Sign Up',
@@ -411,7 +412,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     benefitGuidanceTitle: "Spiritual Guidance",
     benefitGuidanceDescription: "Gain clarity and direction for your life's path, relationships, and decisions.",
     testimonialsTitle: "Words from Our Seekers",
-    testimonialsSubtitle: "Hear what others have discovered on their journey with Mystic Insights.",
+    testimonialsSubtitle: "Hear what others have discovered on their journey with Mystic Owl.",
     testimonial1Quote: "The AI's interpretation was incredibly accurate and insightful. It felt like talking to a real fortune teller!",
     testimonial1Name: "Juliana S.",
     testimonial1Role: "Spiritual Seeker",
@@ -487,9 +488,10 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     missionConnectionTitle: "Soul Connection", // Already correct
     freeCreditAlreadyClaimedButton: "Already Claimed",
     satisfiedClientsLabel: "Satisfied clients",
+    orSeparator: "OR",
   },
   'pt-BR': {
-    mysticInsights: 'Oráculo Místico',
+    mysticInsights: 'Coruja Mística',
     authLayoutSubtitle: 'Desvende os segredos do seu caminho com interpretações de Tarot e Sonhos por IA.',
     loadingMysticalSpace: 'Carregando seu espaço místico...',
     language: 'Idioma',
@@ -500,7 +502,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dreamInterpretation: 'Interpretar Sonho',
     credits: 'Créditos',
     logout: 'Sair',
-    footerText: '© {year} Oráculo Místico. Todos os direitos reservados.',
+    footerText: '© {year} Coruja Mística. Todos os direitos reservados.',
     adminPanel: 'Painel Admin',
     login: 'Entrar',
     signUp: 'Cadastrar',
@@ -512,11 +514,11 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dontHaveAccount: 'Não tem uma conta?',
     signUpLink: 'Cadastre-se aqui',
     loginSuccessTitle: 'Login Bem-sucedido',
-    loginSuccessDescription: 'Bem-vindo(a) de volta ao Oráculo Místico!',
+    loginSuccessDescription: 'Bem-vindo(a) de volta ao Coruja Mística!',
     loginFailedTitle: 'Falha no Login',
     genericErrorDescription: 'Ocorreu um erro inesperado. Por favor, tente novamente.',
     createAccountTitle: 'Crie Sua Conta',
-    createAccountDescription: 'Junte-se ao Oráculo Místico e comece sua jornada de descobertas.',
+    createAccountDescription: 'Junte-se ao Coruja Mística e comece sua jornada de descobertas.',
     fullNameLabel: 'Nome Completo',
     yourNamePlaceholder: 'Seu Nome',
     signUpButton: 'Cadastrar',
@@ -646,7 +648,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     benefitGuidanceTitle: "Orientação Espiritual",
     benefitGuidanceDescription: "Ganhe clareza e direção para seu caminho de vida, relacionamentos e decisões.",
     testimonialsTitle: "Palavras de Nossos Consulentes",
-    testimonialsSubtitle: "Veja o que outros descobriram em sua jornada com o Oráculo Místico.",
+    testimonialsSubtitle: "Veja o que outros descobriram em sua jornada com o Coruja Mística.",
     testimonial1Quote: "A interpretação da IA foi incrivelmente precisa e perspicaz. Parecia que eu estava falando com uma cartomante de verdade!",
     testimonial1Name: "Juliana S.",
     testimonial1Role: "Buscadora Espiritual",
@@ -722,6 +724,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     missionConnectionTitle: 'Conexão da Alma', // Corrigido
     freeCreditAlreadyClaimedButton: "Já Resgatado",
     satisfiedClientsLabel: "Clientes Satisfeitos",
+    orSeparator: "OU",
   }
 };
 
