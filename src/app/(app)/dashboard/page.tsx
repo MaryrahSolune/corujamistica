@@ -5,23 +5,24 @@ import { useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut } from 'lucide-react';
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getUserReadings, type ReadingData } from '@/services/readingService';
-import { claimDailyGift } from '@/services/creditService';
+import { claimDailyReward } from '@/services/creditService';
+import { getRewardCycle, type DailyReward } from '@/services/rewardService';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatDistanceToNow, formatDuration, intervalToDuration } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const GIFT_COOLDOWN_MILLISECONDS = 24 * 60 * 60 * 1000;
-const DAILY_GIFT_AMOUNT = 1;
 
 export default function DashboardPage() {
-  const { currentUser, userCredits, refreshCredits, logout } = useAuth();
+  const { currentUser, userProfile, userCredits, refreshCredits, logout, refreshUserProfile } = useAuth();
   const { t, locale } = useLanguage();
   const { toast } = useToast();
   const router = useRouter();
@@ -29,23 +30,26 @@ export default function DashboardPage() {
   const [recentReadings, setRecentReadings] = useState<(ReadingData & { id: string })[]>([]);
   const [loadingReadings, setLoadingReadings] = useState(true);
 
-  const [dailyGiftStatus, setDailyGiftStatus] = useState<{
+  const [rewardCycle, setRewardCycle] = useState<DailyReward[]>([]);
+  const [loadingRewards, setLoadingRewards] = useState(true);
+  
+  const [dailyRewardStatus, setDailyRewardStatus] = useState<{
     claimable: boolean;
     timeRemaining: string | null;
     cooldownEndTime: number | null;
   }>({ claimable: false, timeRemaining: null, cooldownEndTime: null });
-  const [isClaimingGift, setIsClaimingGift] = useState(false);
+  const [isClaimingReward, setIsClaimingReward] = useState(false);
 
   const displayName = currentUser?.displayName || currentUser?.email?.split('@')[0] || t('defaultSeekerName');
   const getDateFnsLocale = () => (locale === 'pt-BR' ? ptBR : enUS);
 
-  const updateDailyGiftStatus = useCallback(() => {
-    if (userCredits) {
-      const lastClaimTimestamp = userCredits.lastDailyGiftClaimTimestamp ? Number(userCredits.lastDailyGiftClaimTimestamp) : 0;
+  const updateDailyRewardStatus = useCallback(() => {
+    if (userProfile) {
+      const lastClaimTimestamp = userProfile.lastClaimTimestamp || 0;
       const now = Date.now();
       
       if (!lastClaimTimestamp || (now - lastClaimTimestamp >= GIFT_COOLDOWN_MILLISECONDS)) {
-        setDailyGiftStatus({ claimable: true, timeRemaining: null, cooldownEndTime: null });
+        setDailyRewardStatus({ claimable: true, timeRemaining: null, cooldownEndTime: null });
       } else {
         const endTime = lastClaimTimestamp + GIFT_COOLDOWN_MILLISECONDS;
         const duration = intervalToDuration({ start: now, end: endTime });
@@ -53,65 +57,66 @@ export default function DashboardPage() {
           locale: getDateFnsLocale(),
           format: ['hours', 'minutes', 'seconds'] 
         });
-        setDailyGiftStatus({ claimable: false, timeRemaining: formattedTime, cooldownEndTime: endTime });
+        setDailyRewardStatus({ claimable: false, timeRemaining: formattedTime, cooldownEndTime: endTime });
       }
     }
-  }, [userCredits, locale]); // Added locale to dependencies
+  }, [userProfile, locale]);
 
   useEffect(() => {
     if (currentUser?.uid) {
       setLoadingReadings(true);
-      getUserReadings(currentUser.uid, 3) // Fetch 3 most recent readings
+      getUserReadings(currentUser.uid, 3)
         .then(readings => setRecentReadings(readings))
         .catch(error => console.error("Error fetching recent readings:", error))
         .finally(() => setLoadingReadings(false));
+      
+      setLoadingRewards(true);
+      getRewardCycle()
+        .then(cycle => setRewardCycle(cycle))
+        .catch(error => console.error("Error fetching reward cycle:", error))
+        .finally(() => setLoadingRewards(false));
     } else {
       setLoadingReadings(false);
+      setLoadingRewards(false);
     }
   }, [currentUser?.uid]);
 
   useEffect(() => {
-    updateDailyGiftStatus();
+    updateDailyRewardStatus();
     const intervalId = setInterval(() => {
-      if (dailyGiftStatus.cooldownEndTime && Date.now() < dailyGiftStatus.cooldownEndTime) {
-        updateDailyGiftStatus();
-      } else if (dailyGiftStatus.cooldownEndTime && Date.now() >= dailyGiftStatus.cooldownEndTime) {
-        setDailyGiftStatus({ claimable: true, timeRemaining: null, cooldownEndTime: null });
+      if (dailyRewardStatus.cooldownEndTime && Date.now() < dailyRewardStatus.cooldownEndTime) {
+        updateDailyRewardStatus();
+      } else if (dailyRewardStatus.cooldownEndTime && Date.now() >= dailyRewardStatus.cooldownEndTime) {
+        setDailyRewardStatus({ claimable: true, timeRemaining: null, cooldownEndTime: null });
       }
     }, 1000); 
 
     return () => clearInterval(intervalId); 
-  }, [userCredits, updateDailyGiftStatus, dailyGiftStatus.cooldownEndTime]);
+  }, [userProfile, updateDailyRewardStatus, dailyRewardStatus.cooldownEndTime]);
 
 
-  const handleClaimDailyGift = async () => {
-    if (!currentUser?.uid || !dailyGiftStatus.claimable) return;
-    setIsClaimingGift(true);
+  const handleClaimDailyReward = async () => {
+    if (!currentUser?.uid || !dailyRewardStatus.claimable) return;
+    setIsClaimingReward(true);
     try {
-      const result = await claimDailyGift(currentUser.uid);
-      if (result.success) {
-        toast({ title: t('dailyGiftSuccessToastTitle'), description: t('dailyGiftSuccessToastDescription', { count: String(DAILY_GIFT_AMOUNT) }) });
+      const result = await claimDailyReward(currentUser.uid);
+      if (result.success && result.reward) {
+        const rewardText = `${result.reward.value} ${t(result.reward.type)}`;
+        toast({ title: t('rewardClaimedSuccessTitle'), description: t('rewardClaimedSuccessDescription', { reward: rewardText }) });
         refreshCredits(); 
+        refreshUserProfile();
       } else {
         toast({ 
-          title: t('dailyGiftErrorToastTitle'), 
-          description: result.message === "Daily gift is still on cooldown." && result.cooldownEndTime ? 
-                       t('dailyGiftCooldownError', { time: formatDuration(intervalToDuration({ start: Date.now(), end: result.cooldownEndTime }), { locale: getDateFnsLocale(), format: ['hours', 'minutes']}) }) :
-                       t('dailyGiftGenericError'), 
+          title: t('rewardClaimErrorTitle'), 
+          description: result.cooldownEndTime ? t('rewardClaimErrorCooldown') : t('rewardClaimErrorGeneric'), 
           variant: 'destructive' 
         });
-        if (result.message === "Daily gift is still on cooldown." && result.cooldownEndTime) {
-            const now = Date.now();
-            const duration = intervalToDuration({ start: now, end: result.cooldownEndTime });
-            const formattedTime = formatDuration(duration, { locale: getDateFnsLocale(), format: ['hours', 'minutes', 'seconds'] });
-            setDailyGiftStatus({ claimable: false, timeRemaining: formattedTime, cooldownEndTime: result.cooldownEndTime });
-        }
       }
     } catch (error) {
-      toast({ title: t('dailyGiftErrorToastTitle'), description: t('dailyGiftGenericError'), variant: 'destructive' });
-      console.error("Error claiming daily gift:", error);
+      toast({ title: t('rewardClaimErrorTitle'), description: t('rewardClaimErrorGeneric'), variant: 'destructive' });
+      console.error("Error claiming daily reward:", error);
     } finally {
-      setIsClaimingGift(false);
+      setIsClaimingReward(false);
     }
   };
 
@@ -135,6 +140,9 @@ export default function DashboardPage() {
     return 'Leitura';
   }
 
+  const currentStreak = userProfile?.dailyRewardStreak || 0;
+  const nextClaimDayIndex = currentStreak % 30;
+
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       <div className="mb-8">
@@ -146,99 +154,119 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-        <div className="rounded-lg animated-aurora-background">
-          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-serif">{t('newReadingCardTitle')}</CardTitle>
-              <PlusCircle className="h-6 w-6 text-primary" />
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="text-muted-foreground mb-4">{t('newReadingCardDescription')}</p>
-            </CardContent>
-            <CardFooter>
-              <Button asChild className="w-full">
-                <Link href="/new-reading"><span>{t('startNewReadingButton')}</span></Link>
-              </Button>
-            </CardFooter>
-          </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        {/* Left Column for Actions */}
+        <div className="lg:col-span-1 space-y-6">
+            <div className="rounded-lg animated-aurora-background">
+              <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-xl font-serif">{t('newReadingCardTitle')}</CardTitle>
+                  <PlusCircle className="h-6 w-6 text-primary" />
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-muted-foreground mb-4">{t('newReadingCardDescription')}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild className="w-full">
+                    <Link href="/new-reading"><span>{t('startNewReadingButton')}</span></Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+
+            <div className="rounded-lg animated-aurora-background">
+              <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-xl font-serif">{t('dreamInterpretation')}</CardTitle>
+                  <BrainCircuit className="h-6 w-6 text-primary" />
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-muted-foreground mb-4">{t('dreamInterpretationCardDescription')}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild className="w-full">
+                    <Link href="/dream-interpretation"><span>{t('interpretDreamButton')}</span></Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
         </div>
 
-        <div className="rounded-lg animated-aurora-background">
-          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-serif">{t('dreamInterpretation')}</CardTitle>
-              <BrainCircuit className="h-6 w-6 text-primary" />
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="text-muted-foreground mb-4">{t('dreamInterpretationCardDescription')}</p>
-            </CardContent>
-            <CardFooter>
-              <Button asChild className="w-full">
-                <Link href="/dream-interpretation"><span>{t('interpretDreamButton')}</span></Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
-        
-        <div className="rounded-lg animated-aurora-background">
-          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-serif">{t('yourCreditsCardTitle')}</CardTitle>
-              <CreditCard className="h-6 w-6 text-accent" />
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <div className="text-4xl font-bold text-primary">
-                {userCredits !== null ? userCredits.balance : <Skeleton className="h-10 w-16 inline-block" />}
-              </div>
-              <p className="text-xs text-muted-foreground mb-4">
-                {t('creditsRemaining')}
-              </p>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" asChild className="w-full">
-                <Link href="/credits"><span>{t('purchaseMoreCreditsButton')}</span></Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
+        {/* Right Column for Credits and Rewards */}
+        <div className="lg:col-span-2 space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="rounded-lg animated-aurora-background">
+                <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-xl font-serif">{t('yourCreditsCardTitle')}</CardTitle>
+                    <CreditCard className="h-6 w-6 text-accent" />
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                    <div className="text-4xl font-bold text-primary">
+                        {userCredits !== null ? userCredits.balance : <Skeleton className="h-10 w-16 inline-block" />}
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-4">
+                        {t('creditsRemaining')}
+                    </p>
+                    </CardContent>
+                    <CardFooter>
+                    <Button variant="outline" asChild className="w-full">
+                        <Link href="/credits"><span>{t('purchaseMoreCreditsButton')}</span></Link>
+                    </Button>
+                    </CardFooter>
+                </Card>
+                </div>
+            </div>
+            
+            {/* Reward Calendar */}
+            <div className="rounded-lg animated-aurora-background">
+                <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
+                    <CardHeader>
+                        <CardTitle className="text-xl font-serif flex items-center"><Gift className="mr-2 h-6 w-6 text-primary"/>{t('dailyRewardsTitle')}</CardTitle>
+                        <CardDescription>{t('dailyRewardsSubtitle')}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        {loadingRewards || !userProfile ? (
+                            <div className="grid grid-cols-5 gap-2">
+                                {Array.from({length: 5}).map((_, i) => <Skeleton key={i} className="h-20 w-full rounded-md" />)}
+                            </div>
+                        ) : (
+                            <div className="space-y-4">
+                                <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 gap-2">
+                                {rewardCycle.slice(0, 14).map((reward, index) => {
+                                    const isClaimed = index < currentStreak;
+                                    const isClaimable = index === currentStreak && dailyRewardStatus.claimable;
+                                    const isLocked = index > currentStreak;
+                                    return (
+                                        <div key={reward.day} className={cn("relative p-2 border rounded-md flex flex-col items-center justify-center aspect-square transition-all",
+                                            isClaimed && "bg-primary/20 border-primary/30",
+                                            isClaimable && "border-primary border-2 shadow-lg shadow-primary/50 animate-subtle-pulse",
+                                            isLocked && "bg-muted/50 border-border/50 opacity-60"
+                                        )}>
+                                            <p className="text-xs font-bold text-center absolute top-1 right-1">{reward.day}</p>
+                                            <div className="flex-grow flex items-center justify-center">
+                                                <Image src={reward.imageUrl} alt={reward.title} width={32} height={32} data-ai-hint="reward icon" />
+                                            </div>
+                                            {isClaimed && <CheckCircle2 className="absolute bottom-1 right-1 h-4 w-4 text-green-500"/>}
+                                            {isLocked && <Lock className="absolute bottom-1 right-1 h-3 w-3 text-muted-foreground"/>}
+                                        </div>
+                                    )
+                                })}
+                                </div>
+                                <Button className="w-full" onClick={handleClaimDailyReward} disabled={!dailyRewardStatus.claimable || isClaimingReward}>
+                                    {isClaimingReward && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+                                    {dailyRewardStatus.claimable ? (
+                                        `${t('claimRewardButton')} - ${t('dayLabel', {day: currentStreak + 1})}`
+                                    ) : (
+                                        `${t('comeBackIn', {time: dailyRewardStatus.timeRemaining || '...'})}`
+                                    )}
+                                </Button>
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
+            </div>
 
-        <div className="rounded-lg animated-aurora-background md:col-span-2 lg:col-span-1">
-          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-serif">{t('dailyGiftTitle')}</CardTitle>
-              <Gift className="h-6 w-6 text-green-500" />
-            </CardHeader>
-            <CardContent className="flex-grow text-center">
-              {userCredits === null ? (
-                <Skeleton className="h-8 w-3/4 mx-auto my-4" />
-              ) : dailyGiftStatus.claimable ? (
-                <p className="text-muted-foreground my-4">{t('claimYourDailyGift', { count: String(DAILY_GIFT_AMOUNT) })}</p>
-              ) : dailyGiftStatus.timeRemaining ? (
-                <>
-                  <p className="text-muted-foreground mt-2 mb-1">{t('dailyGiftClaimed')}</p>
-                  <p className="text-sm text-primary font-semibold">{t('nextGiftIn')} {dailyGiftStatus.timeRemaining}</p>
-                </>
-              ) : (
-                 <p className="text-muted-foreground my-4">{t('dailyGiftClaimed')} {t('comeBackTomorrow')}</p>
-              )}
-            </CardContent>
-            <CardFooter>
-              <Button 
-                onClick={handleClaimDailyGift} 
-                className="w-full"
-                disabled={!dailyGiftStatus.claimable || isClaimingGift || userCredits === null}
-              >
-                {isClaimingGift ? (
-                  <span className="inline-flex items-center justify-center">
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('claimingButton')}
-                  </span>
-                ) : (
-                  <span>{t('claimNowButton')}</span>
-                )}
-              </Button>
-            </CardFooter>
-          </Card>
         </div>
       </div>
 
@@ -282,7 +310,7 @@ export default function DashboardPage() {
                             </span>
                             <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
                                 <Link href={`/reading/${reading.id}`}>
-                                    <span>
+                                    <span className="inline-flex items-center">
                                         <Eye className="mr-2 h-4 w-4" /> {t('viewReadingButton')}
                                     </span>
                                 </Link>

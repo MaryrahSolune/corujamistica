@@ -6,44 +6,20 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAllUserProfiles, deleteUserRtdbData, type UserProfileData } from '@/services/userService';
 import { adminAddCredits, getUserCredits, type UserCreditsData } from '@/services/creditService';
+import { getRewardCycle, setRewardForDay, type DailyReward } from '@/services/rewardService';
 import { getPromptContent, updatePromptContent, type PromptName } from '@/services/promptManagementService';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from '@/components/ui/dialog';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, ShieldCheck, UserPlus, Trash2, Coins, Edit, MessageSquareQuote } from 'lucide-react';
+import { Loader2, ShieldCheck, UserPlus, Trash2, Coins, Edit, MessageSquareQuote, Gift } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image';
 
 interface UserWithCredits extends UserProfileData {
   credits?: UserCreditsData | null;
@@ -65,6 +41,11 @@ export default function AdminDashboardPage() {
   const [isLoadingPrompts, setIsLoadingPrompts] = useState(true);
   const [isSavingCardPrompt, setIsSavingCardPrompt] = useState(false);
   const [isSavingDreamPrompt, setIsSavingDreamPrompt] = useState(false);
+  
+  const [rewardCycle, setRewardCycle] = useState<DailyReward[]>([]);
+  const [isLoadingRewards, setIsLoadingRewards] = useState(true);
+  const [editingReward, setEditingReward] = useState<DailyReward | null>(null);
+  const [isSavingReward, setIsSavingReward] = useState(false);
 
   const fetchUsersAndCredits = async () => {
     setIsLoadingUsers(true);
@@ -101,10 +82,24 @@ export default function AdminDashboardPage() {
     }
   };
 
+  const fetchRewardCycle = async () => {
+    setIsLoadingRewards(true);
+    try {
+      const cycle = await getRewardCycle();
+      setRewardCycle(cycle);
+    } catch (error) {
+      console.error("Error fetching reward cycle:", error);
+      toast({ title: t('errorGenericTitle'), description: String(error) || t('genericErrorDescription'), variant: 'destructive' });
+    } finally {
+      setIsLoadingRewards(false);
+    }
+  };
+
   useEffect(() => {
     if (adminProfile?.role === 'admin') {
       fetchUsersAndCredits();
       fetchAllPrompts();
+      fetchRewardCycle();
     }
   }, [adminProfile]);
 
@@ -161,6 +156,27 @@ export default function AdminDashboardPage() {
       if (promptName === 'interpretDream') setIsSavingDreamPrompt(false);
     }
   };
+
+  const handleSaveReward = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingReward) return;
+    setIsSavingReward(true);
+    try {
+      const { day, ...rewardData } = editingReward;
+      const result = await setRewardForDay(day, rewardData);
+       if (result.success) {
+        toast({ title: t('mysticInsights'), description: t('rewardUpdateSuccess') });
+        fetchRewardCycle(); // Refresh the list
+        setEditingReward(null); // Close the dialog
+      } else {
+        toast({ title: t('errorGenericTitle'), description: result.message || t('rewardUpdateError'), variant: 'destructive' });
+      }
+    } catch (error: any) {
+       toast({ title: t('errorGenericTitle'), description: error.message || t('rewardUpdateError'), variant: 'destructive' });
+    } finally {
+      setIsSavingReward(false);
+    }
+  };
   
   if (adminProfile?.role !== 'admin') {
     return ( 
@@ -171,8 +187,8 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      <Card className="mb-8 shadow-xl animated-aurora-background">
+    <div className="container mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+      <Card className="shadow-xl animated-aurora-background">
         <div className="relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-3xl font-serif flex items-center">
@@ -185,7 +201,7 @@ export default function AdminDashboardPage() {
       </Card>
 
       {/* User Management Section */}
-      <Card className="mb-8 shadow-xl animated-aurora-background">
+      <Card className="shadow-xl animated-aurora-background">
         <div className="relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-2xl font-serif">{t('usersTableTitle')}</CardTitle>
@@ -306,6 +322,90 @@ export default function AdminDashboardPage() {
         </div>
       </Card>
 
+      {/* Daily Rewards Management Section */}
+      <Card className="shadow-xl animated-aurora-background">
+        <div className="relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
+          <CardHeader>
+            <CardTitle className="text-2xl font-serif flex items-center">
+              <Gift className="h-7 w-7 mr-3 text-primary" />
+              {t('manageDailyRewardsTitle')}
+            </CardTitle>
+            <CardDescription>{t('manageDailyRewardsDescription')}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {isLoadingRewards ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {Array.from({ length: 30 }).map((_, i) => <Skeleton key={i} className="h-32 rounded-lg" />)}
+              </div>
+            ) : (
+               <Dialog onOpenChange={(open) => !open && setEditingReward(null)}>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                  {rewardCycle.map((reward) => (
+                    <DialogTrigger key={reward.day} asChild>
+                      <Card 
+                        onClick={() => setEditingReward(reward)}
+                        className="cursor-pointer hover:border-primary transition-colors flex flex-col items-center justify-center p-2 text-center"
+                      >
+                        <CardHeader className="p-1">
+                          <CardDescription>{t('dayLabel', {day: reward.day})}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="p-1 flex-grow flex flex-col items-center justify-center">
+                           <Image 
+                              src={reward.imageUrl || 'https://placehold.co/100x100.png'} 
+                              alt={reward.title} 
+                              width={40} height={40} 
+                              className="rounded-md mb-2 object-cover"
+                              data-ai-hint="reward icon"
+                           />
+                          <p className="text-sm font-semibold">{reward.title}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {reward.value} {t(reward.type)}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </DialogTrigger>
+                  ))}
+                </div>
+                {editingReward && (
+                  <DialogContent>
+                    <form onSubmit={handleSaveReward}>
+                      <DialogHeader>
+                        <DialogTitle>{t('editRewardForDay', { day: editingReward.day })}</DialogTitle>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="space-y-1">
+                          <Label htmlFor="reward-title">{t('rewardTitleLabel')}</Label>
+                          <Input id="reward-title" value={editingReward.title} onChange={(e) => setEditingReward({...editingReward, title: e.target.value})} placeholder={t('rewardTitlePlaceholder')}/>
+                        </div>
+                         <div className="space-y-1">
+                          <Label htmlFor="reward-image">{t('rewardImageUrlLabel')}</Label>
+                          <Input id="reward-image" value={editingReward.imageUrl} onChange={(e) => setEditingReward({...editingReward, imageUrl: e.target.value})} placeholder={t('rewardImageUrlPlaceholder')}/>
+                        </div>
+                        <div className="space-y-1">
+                          <Label htmlFor="reward-type">{t('rewardTypeLabel')}</Label>
+                          <Input id="reward-type" value={t(editingReward.type)} disabled />
+                        </div>
+                        <div className="space-y-1">
+                          <Label htmlFor="reward-value">{t('rewardValueLabel')}</Label>
+                          <Input id="reward-value" type="number" value={editingReward.value} onChange={(e) => setEditingReward({...editingReward, value: parseInt(e.target.value, 10) || 0})} placeholder={t('rewardValuePlaceholder')}/>
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <DialogClose asChild><Button variant="outline" type="button">{t('cancelButton')}</Button></DialogClose>
+                        <Button type="submit" disabled={isSavingReward}>
+                          {isSavingReward ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                          {isSavingReward ? t('savingButton') : t('saveRewardButton')}
+                        </Button>
+                      </DialogFooter>
+                    </form>
+                  </DialogContent>
+                )}
+               </Dialog>
+            )}
+          </CardContent>
+        </div>
+      </Card>
+
       {/* AI Prompt Management Section */}
       <Card className="shadow-xl animated-aurora-background">
         <div className="relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
@@ -328,41 +428,18 @@ export default function AdminDashboardPage() {
               </div>
             ) : (
               <>
-                {/* Card Reading Prompt Editor */}
                 <div>
                   <Label htmlFor="card-reading-prompt" className="text-lg font-semibold">{t('cardReadingPromptLabel')}</Label>
-                  <Textarea
-                    id="card-reading-prompt"
-                    value={cardReadingPrompt}
-                    onChange={(e) => setCardReadingPrompt(e.target.value)}
-                    rows={15}
-                    className="mt-2 mb-3 font-mono text-xs"
-                    disabled={isSavingCardPrompt}
-                  />
-                  <Button
-                    onClick={() => handleSavePrompt('analyzeCardReading', cardReadingPrompt)}
-                    disabled={isSavingCardPrompt}
-                  >
+                  <Textarea id="card-reading-prompt" value={cardReadingPrompt} onChange={(e) => setCardReadingPrompt(e.target.value)} rows={15} className="mt-2 mb-3 font-mono text-xs" disabled={isSavingCardPrompt} />
+                  <Button onClick={() => handleSavePrompt('analyzeCardReading', cardReadingPrompt)} disabled={isSavingCardPrompt}>
                     {isSavingCardPrompt && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t('savePromptButton')}
                   </Button>
                 </div>
-
-                {/* Dream Interpretation Prompt Editor */}
                 <div>
                   <Label htmlFor="dream-interpretation-prompt" className="text-lg font-semibold">{t('dreamInterpretationPromptLabel')}</Label>
-                  <Textarea
-                    id="dream-interpretation-prompt"
-                    value={dreamInterpretationPrompt}
-                    onChange={(e) => setDreamInterpretationPrompt(e.target.value)}
-                    rows={15}
-                    className="mt-2 mb-3 font-mono text-xs"
-                    disabled={isSavingDreamPrompt}
-                  />
-                  <Button
-                    onClick={() => handleSavePrompt('interpretDream', dreamInterpretationPrompt)}
-                    disabled={isSavingDreamPrompt}
-                  >
+                  <Textarea id="dream-interpretation-prompt" value={dreamInterpretationPrompt} onChange={(e) => setDreamInterpretationPrompt(e.target.value)} rows={15} className="mt-2 mb-3 font-mono text-xs" disabled={isSavingDreamPrompt} />
+                  <Button onClick={() => handleSavePrompt('interpretDream', dreamInterpretationPrompt)} disabled={isSavingDreamPrompt}>
                     {isSavingDreamPrompt && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t('savePromptButton')}
                   </Button>
@@ -375,5 +452,3 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
-
-    

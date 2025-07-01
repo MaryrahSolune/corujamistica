@@ -4,41 +4,46 @@ import { ref, set, get, serverTimestamp, update, remove } from 'firebase/databas
 import type { User } from 'firebase/auth';
 
 export interface UserProfileData {
-  uid: string; // Added uid for convenience when listing all users
+  uid: string;
   displayName: string | null;
   email: string | null;
   createdAt: number | object;
   photoURL?: string | null;
-  role: 'user' | 'admin'; // Added role
+  role: 'user' | 'admin';
+  dailyRewardStreak: number; // User's current position in the 30-day cycle
+  lastClaimTimestamp: number | null; // Timestamp of the last claim, for the 24h cooldown
 }
 
 export async function createUserProfile(user: User): Promise<void> {
   const userProfileRef = ref(rtdb, `users/${user.uid}/profile`);
-  // Check if profile already exists to prevent overwriting role by signup
   const snapshot = await get(userProfileRef);
   if (snapshot.exists()) {
-    // Profile exists, perhaps update specific fields if needed, but don't overwrite role
+    // Profile exists, update specific fields but preserve role and reward progress
     const existingProfile = snapshot.val() as UserProfileData;
     const updates: Partial<UserProfileData> = {
         displayName: user.displayName || existingProfile.displayName,
         email: user.email || existingProfile.email,
         photoURL: user.photoURL || existingProfile.photoURL,
     };
-    // Ensure uid is part of the update if it's missing, or use existing
-    if (!updates.uid && existingProfile.uid) updates.uid = existingProfile.uid;
-    else if (!updates.uid) updates.uid = user.uid;
-
-
+    if (existingProfile.dailyRewardStreak === undefined) {
+      updates.dailyRewardStreak = 0;
+    }
+    if (existingProfile.lastClaimTimestamp === undefined) {
+      updates.lastClaimTimestamp = null;
+    }
     await update(userProfileRef, updates);
     return;
   }
 
+  // Create new profile
   const profileData: UserProfileData = {
     uid: user.uid,
     displayName: user.displayName,
     email: user.email,
     createdAt: serverTimestamp(),
-    role: 'user', // Default role for new signups
+    role: 'user',
+    dailyRewardStreak: 0,
+    lastClaimTimestamp: null,
   };
   if (user.photoURL) {
     profileData.photoURL = user.photoURL;
@@ -56,7 +61,6 @@ export async function getUserProfile(uid: string): Promise<UserProfileData | nul
   try {
     const snapshot = await get(userProfileRef);
     if (snapshot.exists()) {
-      // Ensure the returned profile includes the uid, as it's used in the admin panel
       return { uid, ...snapshot.val() } as UserProfileData;
     }
     return null;
@@ -69,10 +73,9 @@ export async function getUserProfile(uid: string): Promise<UserProfileData | nul
 export async function updateUserProfile(uid: string, data: Partial<Omit<UserProfileData, 'uid' | 'email' | 'createdAt'>>): Promise<void> {
   const userProfileRef = ref(rtdb, `users/${uid}/profile`);
   try {
-    // Ensure role is not accidentally overwritten by general profile update if not provided
     const updates = { ...data };
     if (data.role && !['user', 'admin'].includes(data.role)) {
-        delete updates.role; // Prevent invalid role update
+        delete updates.role;
     }
     await update(userProfileRef, updates);
   } catch (error) {
@@ -91,7 +94,6 @@ export async function getAllUserProfiles(): Promise<Array<UserProfileData>> {
       snapshot.forEach((childSnapshot) => {
         const profileData = childSnapshot.child('profile').val();
         if (profileData) {
-          // Ensure uid is consistently part of the profile object
           profiles.push({ uid: childSnapshot.key!, ...profileData } as UserProfileData);
         }
       });
@@ -108,8 +110,6 @@ export async function deleteUserRtdbData(uid: string): Promise<void> {
   const userRef = ref(rtdb, `users/${uid}`);
   try {
     await remove(userRef);
-    // IMPORTANT: This only removes RTDB data. Deleting the Firebase Auth user
-    // requires the Admin SDK and should be done via a Cloud Function.
   } catch (error) {
     console.error("Error deleting user RTDB data:", error);
     throw error;

@@ -244,6 +244,38 @@ export type TranslationKey =
   | 'freeCreditAlreadyClaimedButton'
   | 'satisfiedClientsLabel'
   | 'orSeparator'
+  // Daily Reward Calendar Keys
+  | 'dailyRewardsTitle'
+  | 'dailyRewardsSubtitle'
+  | 'dayLabel' // Params: {day: number}
+  | 'claimedStatus'
+  | 'claimStatus'
+  | 'lockedStatus'
+  | 'rewardTrack'
+  | 'comeBackIn' // Params: {time: string}
+  | 'rewardOf' // Params: {day: number}
+  | 'claimRewardButton'
+  | 'rewardClaimedSuccessTitle'
+  | 'rewardClaimedSuccessDescription' // Params: {reward: string}
+  | 'rewardClaimErrorTitle'
+  | 'rewardClaimErrorCooldown'
+  | 'rewardClaimErrorGeneric'
+  | 'manageDailyRewardsTitle'
+  | 'manageDailyRewardsDescription'
+  | 'editRewardForDay' // Params: {day: number}
+  | 'rewardTitleLabel'
+  | 'rewardTitlePlaceholder'
+  | 'rewardTypeLabel'
+  | 'rewardTypeCredits'
+  | 'rewardValueLabel'
+  | 'rewardValuePlaceholder'
+  | 'rewardImageUrlLabel'
+  | 'rewardImageUrlPlaceholder'
+  | 'saveRewardButton'
+  | 'savingButton'
+  | 'rewardUpdateSuccess'
+  | 'rewardUpdateError'
+  | 'loadingRewards'
   ;
 
 interface LanguageContextType {
@@ -255,7 +287,7 @@ interface LanguageContextType {
 // 2. Translations
 const translationsData: Record<Locale, Record<TranslationKey, string>> = {
   'en': {
-    mysticInsights: 'Mystic Owl',
+    mysticInsights: 'Coruja Mística',
     authLayoutSubtitle: 'Unveil the secrets of your path with AI-powered Tarot and Dream interpretations.',
     loadingMysticalSpace: 'Loading your mystical space...',
     language: 'Language',
@@ -266,7 +298,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dreamInterpretation: 'Interpret Dream',
     credits: 'Credits',
     logout: 'Logout',
-    footerText: '© {year} Mystic Owl. All rights reserved.',
+    footerText: '© {year} Coruja Mística. All rights reserved.',
     adminPanel: 'Admin Panel',
     login: 'Login',
     signUp: 'Sign Up',
@@ -278,11 +310,11 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dontHaveAccount: "Don't have an account?",
     signUpLink: 'Sign up here',
     loginSuccessTitle: 'Login Successful',
-    loginSuccessDescription: 'Welcome back to Mystic Owl!',
+    loginSuccessDescription: 'Welcome back to Coruja Mística!',
     loginFailedTitle: 'Login Failed',
     genericErrorDescription: 'An unexpected error occurred. Please try again.',
     createAccountTitle: 'Create Your Account',
-    createAccountDescription: 'Join Mystic Owl and start your journey of discovery.',
+    createAccountDescription: 'Join Coruja Mística and start your journey of discovery.',
     fullNameLabel: 'Full Name',
     yourNamePlaceholder: 'Your Name',
     signUpButton: 'Sign Up',
@@ -412,7 +444,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     benefitGuidanceTitle: "Spiritual Guidance",
     benefitGuidanceDescription: "Gain clarity and direction for your life's path, relationships, and decisions.",
     testimonialsTitle: "Words from Our Seekers",
-    testimonialsSubtitle: "Hear what others have discovered on their journey with Mystic Owl.",
+    testimonialsSubtitle: "Hear what others have discovered on their journey with Coruja Mística.",
     testimonial1Quote: "The AI's interpretation was incredibly accurate and insightful. It felt like talking to a real fortune teller!",
     testimonial1Name: "Juliana S.",
     testimonial1Role: "Spiritual Seeker",
@@ -485,10 +517,42 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     missionIntuitionDescription: "Unlock deep insights and enhance your spiritual connection.",
     missionPrecisionTitle: "Prophetic Precision",
     missionPrecisionDescription: "Receive clear and direct interpretations for your most important questions.",
-    missionConnectionTitle: "Soul Connection", // Already correct
+    missionConnectionTitle: 'Coruja Mística', // Corrected
     freeCreditAlreadyClaimedButton: "Already Claimed",
     satisfiedClientsLabel: "Satisfied clients",
     orSeparator: "OR",
+    // New Daily Reward Keys
+    dailyRewardsTitle: "Reward Calendar",
+    dailyRewardsSubtitle: "Claim your reward every day to advance on the track!",
+    dayLabel: "Day {day}",
+    claimedStatus: "Claimed",
+    claimStatus: "Claim",
+    lockedStatus: "Locked",
+    rewardTrack: "Reward Track",
+    comeBackIn: "Come back in {time}",
+    rewardOf: "Reward of Day {day}",
+    claimRewardButton: "Claim Reward",
+    rewardClaimedSuccessTitle: "Reward Claimed!",
+    rewardClaimedSuccessDescription: "You received: {reward}!",
+    rewardClaimErrorTitle: "Claim Error",
+    rewardClaimErrorCooldown: "You can claim the next reward tomorrow.",
+    rewardClaimErrorGeneric: "Could not claim the reward. Please try again.",
+    manageDailyRewardsTitle: "Manage Daily Rewards",
+    manageDailyRewardsDescription: "Configure the 30-day reward cycle for all users.",
+    editRewardForDay: "Edit Reward for Day {day}",
+    rewardTitleLabel: "Reward Title",
+    rewardTitlePlaceholder: "E.g., Blessing of the Sun",
+    rewardTypeLabel: "Reward Type",
+    rewardTypeCredits: "Credits",
+    rewardValueLabel: "Value (Amount)",
+    rewardValuePlaceholder: "E.g., 5",
+    rewardImageUrlLabel: "Image URL",
+    rewardImageUrlPlaceholder: "https://example.com/image.png",
+    saveRewardButton: "Save Reward",
+    savingButton: "Saving...",
+    rewardUpdateSuccess: "Reward updated successfully.",
+    rewardUpdateError: "Failed to update reward.",
+    loadingRewards: "Loading reward cycle...",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -514,11 +578,11 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dontHaveAccount: 'Não tem uma conta?',
     signUpLink: 'Cadastre-se aqui',
     loginSuccessTitle: 'Login Bem-sucedido',
-    loginSuccessDescription: 'Bem-vindo(a) de volta ao Coruja Mística!',
+    loginSuccessDescription: 'Bem-vindo(a) de volta à Coruja Mística!',
     loginFailedTitle: 'Falha no Login',
     genericErrorDescription: 'Ocorreu um erro inesperado. Por favor, tente novamente.',
     createAccountTitle: 'Crie Sua Conta',
-    createAccountDescription: 'Junte-se ao Coruja Mística e comece sua jornada de descobertas.',
+    createAccountDescription: 'Junte-se à Coruja Mística e comece sua jornada de descobertas.',
     fullNameLabel: 'Nome Completo',
     yourNamePlaceholder: 'Seu Nome',
     signUpButton: 'Cadastrar',
@@ -648,7 +712,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     benefitGuidanceTitle: "Orientação Espiritual",
     benefitGuidanceDescription: "Ganhe clareza e direção para seu caminho de vida, relacionamentos e decisões.",
     testimonialsTitle: "Palavras de Nossos Consulentes",
-    testimonialsSubtitle: "Veja o que outros descobriram em sua jornada com o Coruja Mística.",
+    testimonialsSubtitle: "Veja o que outros descobriram em sua jornada com a Coruja Mística.",
     testimonial1Quote: "A interpretação da IA foi incrivelmente precisa e perspicaz. Parecia que eu estava falando com uma cartomante de verdade!",
     testimonial1Name: "Juliana S.",
     testimonial1Role: "Buscadora Espiritual",
@@ -725,6 +789,38 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     freeCreditAlreadyClaimedButton: "Já Resgatado",
     satisfiedClientsLabel: "Clientes Satisfeitos",
     orSeparator: "OU",
+    // New Daily Reward Keys
+    dailyRewardsTitle: "Calendário de Recompensas",
+    dailyRewardsSubtitle: "Resgate seu prêmio todos os dias para avançar na trilha!",
+    dayLabel: "Dia {day}",
+    claimedStatus: "Resgatado",
+    claimStatus: "Resgatar",
+    lockedStatus: "Bloqueado",
+    rewardTrack: "Trilha de Recompensas",
+    comeBackIn: "Volte em {time}",
+    rewardOf: "Recompensa do Dia {day}",
+    claimRewardButton: "Resgatar Recompensa",
+    rewardClaimedSuccessTitle: "Recompensa Resgatada!",
+    rewardClaimedSuccessDescription: "Você recebeu: {reward}!",
+    rewardClaimErrorTitle: "Erro ao Resgatar",
+    rewardClaimErrorCooldown: "Você poderá resgatar a próxima recompensa amanhã.",
+    rewardClaimErrorGeneric: "Não foi possível resgatar a recompensa. Tente novamente.",
+    manageDailyRewardsTitle: "Gerenciar Recompensas Diárias",
+    manageDailyRewardsDescription: "Configure o ciclo de 30 dias de recompensas para todos os usuários.",
+    editRewardForDay: "Editar Recompensa do Dia {day}",
+    rewardTitleLabel: "Título da Recompensa",
+    rewardTitlePlaceholder: "Ex: Bênção do Sol",
+    rewardTypeLabel: "Tipo de Recompensa",
+    rewardTypeCredits: "Créditos",
+    rewardValueLabel: "Valor (Quantidade)",
+    rewardValuePlaceholder: "Ex: 5",
+    rewardImageUrlLabel: "URL da Imagem",
+    rewardImageUrlPlaceholder: "https://exemplo.com/imagem.png",
+    saveRewardButton: "Salvar Recompensa",
+    savingButton: "Salvando...",
+    rewardUpdateSuccess: "Recompensa atualizada com sucesso.",
+    rewardUpdateError: "Falha ao atualizar a recompensa.",
+    loadingRewards: "Carregando ciclo de recompensas...",
   }
 };
 
