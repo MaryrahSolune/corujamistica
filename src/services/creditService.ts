@@ -73,28 +73,34 @@ export async function claimDailyReward(uid: string): Promise<{ success: boolean;
     if (!reward) {
       return { success: false, message: `Reward for day ${nextStreakDay} is not configured.` };
     }
+    
+    // Only process credit transactions for now. Other types will be handled in the future.
+    if (reward.type === 'credits') {
+      const transactionResult = await runTransaction(creditsRef, (currentCredits: UserCreditsData | null) => {
+          if (currentCredits) {
+              currentCredits.balance = (currentCredits.balance || 0) + reward.value;
+          } else {
+            // This case should ideally not happen for an existing user
+            return { balance: reward.value, freeCreditClaimed: false };
+          }
+          return currentCredits;
+      });
 
-    // Transaction to update credits and profile atomically
-    const transactionResult = await runTransaction(creditsRef, (currentCredits: UserCreditsData) => {
-        if (currentCredits) {
-            if (reward.type === 'credits') {
-                currentCredits.balance = (currentCredits.balance || 0) + reward.value;
-            }
-            // Future reward types can be handled here
-        }
-        return currentCredits;
+      if (!transactionResult.committed) {
+          throw new Error("Failed to commit credit transaction.");
+      }
+    }
+    
+    // For other reward types (ebook, tarot_reading), we don't grant a specific item yet,
+    // but we still update the user's streak to keep them on the reward track.
+
+    // After successfully handling the reward type, update the profile streak and timestamp.
+    await update(profileRef, {
+      dailyRewardStreak: currentStreak + 1,
+      lastClaimTimestamp: serverTimestamp(),
     });
 
-    if (transactionResult.committed) {
-      // After successfully updating credits, update the profile
-      await update(profileRef, {
-        dailyRewardStreak: currentStreak + 1,
-        lastClaimTimestamp: serverTimestamp(),
-      });
-      return { success: true, message: "Reward claimed!", reward };
-    } else {
-        throw new Error("Failed to commit credit transaction.");
-    }
+    return { success: true, message: "Reward claimed!", reward };
 
   } catch (error: any) {
     console.error("Error claiming daily reward:", error);

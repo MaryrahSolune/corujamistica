@@ -267,6 +267,8 @@ export type TranslationKey =
   | 'rewardTitlePlaceholder'
   | 'rewardTypeLabel'
   | 'rewardTypeCredits'
+  | 'rewardTypeEbook'
+  | 'rewardTypeTarotReading'
   | 'rewardValueLabel'
   | 'rewardValuePlaceholder'
   | 'rewardImageUrlLabel'
@@ -544,6 +546,8 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     rewardTitlePlaceholder: "E.g., Blessing of the Sun",
     rewardTypeLabel: "Reward Type",
     rewardTypeCredits: "Credits",
+    rewardTypeEbook: "Digital Ebook",
+    rewardTypeTarotReading: "Tarot Reading",
     rewardValueLabel: "Value (Amount)",
     rewardValuePlaceholder: "E.g., 5",
     rewardImageUrlLabel: "Image URL",
@@ -812,6 +816,8 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     rewardTitlePlaceholder: "Ex: Bênção do Sol",
     rewardTypeLabel: "Tipo de Recompensa",
     rewardTypeCredits: "Créditos",
+    rewardTypeEbook: "Ebook Digital",
+    rewardTypeTarotReading: "Leitura de Tarot",
     rewardValueLabel: "Valor (Quantidade)",
     rewardValuePlaceholder: "Ex: 5",
     rewardImageUrlLabel: "URL da Imagem",

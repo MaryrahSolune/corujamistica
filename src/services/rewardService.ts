@@ -8,7 +8,7 @@ export interface DailyReward {
   day: number;
   title: string;
   imageUrl: string;
-  type: 'credits'; // Extensible for future reward types
+  type: 'credits' | 'ebook' | 'tarot_reading'; // Extensible for future reward types
   value: number;
 }
 

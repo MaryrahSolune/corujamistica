@@ -20,6 +20,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, ShieldCheck, UserPlus, Trash2, Coins, Edit, MessageSquareQuote, Gift } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface UserWithCredits extends UserProfileData {
   credits?: UserCreditsData | null;
@@ -185,6 +186,12 @@ export default function AdminDashboardPage() {
       </div>
     );
   }
+
+  const rewardTypeOptions: { value: DailyReward['type']; labelKey: 'rewardTypeCredits' | 'rewardTypeEbook' | 'rewardTypeTarotReading' }[] = [
+    { value: 'credits', labelKey: 'rewardTypeCredits' },
+    { value: 'ebook', labelKey: 'rewardTypeEbook' },
+    { value: 'tarot_reading', labelKey: 'rewardTypeTarotReading' },
+  ];
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
@@ -359,7 +366,7 @@ export default function AdminDashboardPage() {
                            />
                           <p className="text-sm font-semibold">{reward.title}</p>
                           <p className="text-xs text-muted-foreground">
-                            {reward.value} {t(reward.type)}
+                            {reward.value} {t(rewardTypeOptions.find(opt => opt.value === reward.type)?.labelKey ?? 'rewardTypeCredits')}
                           </p>
                         </CardContent>
                       </Card>
@@ -383,7 +390,21 @@ export default function AdminDashboardPage() {
                         </div>
                         <div className="space-y-1">
                           <Label htmlFor="reward-type">{t('rewardTypeLabel')}</Label>
-                          <Input id="reward-type" value={t(editingReward.type)} disabled />
+                          <Select
+                            value={editingReward.type}
+                            onValueChange={(value) => setEditingReward({ ...editingReward, type: value as DailyReward['type'] })}
+                          >
+                            <SelectTrigger id="reward-type">
+                              <SelectValue placeholder="Selecione o tipo" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {rewardTypeOptions.map(option => (
+                                <SelectItem key={option.value} value={option.value}>
+                                  {t(option.labelKey)}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </div>
                         <div className="space-y-1">
                           <Label htmlFor="reward-value">{t('rewardValueLabel')}</Label>
