@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -173,12 +172,15 @@ export default function HomePage() {
            {/* <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} /> */}
            {/* <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/> */}
           <div className="container mx-auto px-4 relative z-10">
-            <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
-              {t('landingTitle')}
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '0.4s'}}>
-              {t('landingSubtitle')}
-            </p>
+            <div className="inline-block bg-black/20 p-6 rounded-xl backdrop-blur-sm mb-10">
+                <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
+                  {t('landingTitle')}
+                </h1>
+                <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '0.4s'}}>
+                  {t('landingSubtitle')}
+                </p>
+            </div>
+
             <div className="space-x-4 animate-fade-in" style={{animationDelay: '0.6s'}}>
               <Button size="lg" asChild className="text-lg px-8 py-6">
                 <Link href="/signup">
