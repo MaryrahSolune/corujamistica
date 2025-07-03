@@ -280,9 +280,9 @@ export default function HomePage() {
             <div className="text-center mb-12 animate-fade-in relative" style={{animationDelay: '0.1s'}}>
               <Users className="h-12 w-12 text-accent mx-auto mb-3" />
                <div className="relative inline-block">
-                 <p className="text-4xl font-bold text-primary">
+                 <div className="text-4xl font-bold text-primary">
                     {userCount !== null ? `+${userCount.toLocaleString('pt-BR')}` : <Skeleton className="h-10 w-32 inline-block" />}
-                 </p>
+                 </div>
                  {showPlusOne && (
                     <div className="absolute -top-5 -right-8 text-green-400 font-bold text-3xl animate-float-up pointer-events-none">
                         +
