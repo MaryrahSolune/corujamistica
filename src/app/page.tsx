@@ -4,7 +4,7 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link'; // Keep this import
 import Image from 'next/image';
-import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Plus } from 'lucide-react';
+import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Plus, Gift } from 'lucide-react';
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -118,6 +118,39 @@ export default function HomePage() {
       imageSrc: '/img/rosto-homem.jpg',
     }
   ];
+
+  const prizes = [
+    {
+      titleKey: 'prizeCreditsTitle',
+      descriptionKey: 'prizeCreditsDescription',
+      imgSrc: 'https://placehold.co/200x300.png',
+      imgHint: 'mystical credits coin',
+      reverse: false,
+    },
+    {
+      titleKey: 'prizeEbooksTitle',
+      descriptionKey: 'prizeEbooksDescription',
+      imgSrc: 'https://placehold.co/200x300.png',
+      imgHint: 'esoteric ebook cover',
+      reverse: true,
+    },
+    {
+      titleKey: 'prizeDigitalTarotTitle',
+      descriptionKey: 'prizeDigitalTarotDescription',
+      imgSrc: 'https://placehold.co/200x300.png',
+      imgHint: 'tarot card reading',
+      reverse: false,
+    },
+    {
+      titleKey: 'prizePhysicalTarotTitle',
+      descriptionKey: 'prizePhysicalTarotDescription',
+      imgSrc: 'https://placehold.co/200x300.png',
+      imgHint: 'physical tarot deck',
+      reverse: true,
+    },
+  ];
+
+
  if (!isClient) {
     return (
       <div className="flex min-h-screen flex-col bg-background">
@@ -291,6 +324,37 @@ export default function HomePage() {
         </section>
 
         <CustomSeparator />
+        
+        {/* Daily Treasures Section */}
+        <section className="py-16 sm:py-24 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <Gift className="h-12 w-12 text-primary mx-auto mb-6 animate-subtle-pulse" />
+              <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('dailyTreasuresTitle')}</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-semibold">{t('dailyTreasuresSubtitle')}</p>
+            </div>
+            <div className="space-y-16">
+              {prizes.map((prize, index) => (
+                <div key={index} className={`flex flex-col md:flex-row items-center gap-8 ${prize.reverse ? 'md:flex-row-reverse' : ''}`}>
+                  <div className="md:w-1/3 flex justify-center">
+                    <Image
+                      src={prize.imgSrc}
+                      alt={t('prizeImageAlt', { prizeName: t(prize.titleKey as any) })}
+                      width={200}
+                      height={300}
+                      className="rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105"
+                      data-ai-hint={prize.imgHint}
+                    />
+                  </div>
+                  <div className="md:w-2/3 text-center md:text-left">
+                    <h3 className="text-2xl font-bold font-serif mb-3 text-primary">{t(prize.titleKey as any)}</h3>
+                    <p className="text-lg text-foreground/80 font-semibold">{t(prize.descriptionKey as any)}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
       {/* Ad Spaces - Placeholders */}
       <div className="container mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

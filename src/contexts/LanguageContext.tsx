@@ -278,6 +278,18 @@ export type TranslationKey =
   | 'rewardUpdateSuccess'
   | 'rewardUpdateError'
   | 'loadingRewards'
+  // New keys for prizes section
+  | 'dailyTreasuresTitle'
+  | 'dailyTreasuresSubtitle'
+  | 'prizeCreditsTitle'
+  | 'prizeCreditsDescription'
+  | 'prizeEbooksTitle'
+  | 'prizeEbooksDescription'
+  | 'prizeDigitalTarotTitle'
+  | 'prizeDigitalTarotDescription'
+  | 'prizePhysicalTarotTitle'
+  | 'prizePhysicalTarotDescription'
+  | 'prizeImageAlt'
   ;
 
 interface LanguageContextType {
@@ -557,6 +569,18 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     rewardUpdateSuccess: "Reward updated successfully.",
     rewardUpdateError: "Failed to update reward.",
     loadingRewards: "Loading reward cycle...",
+    // New keys for prizes section
+    dailyTreasuresTitle: "Discover the Daily Treasures",
+    dailyTreasuresSubtitle: "Every day, a new opportunity to win gifts that enrich your spiritual journey.",
+    prizeCreditsTitle: "Mystical Credits",
+    prizeCreditsDescription: "Accumulate credits to unlock tarot and dream interpretations whenever you need them. Your main currency for wisdom.",
+    prizeEbooksTitle: "Exclusive E-books",
+    prizeEbooksDescription: "Gain access to e-books on esotericism, tarot guides, and spiritual deepening, written by experts.",
+    prizeDigitalTarotTitle: "Digital Tarot Readings",
+    prizeDigitalTarotDescription: "Receive a complete and free tarot reading as a special gift from our oracle to illuminate your path.",
+    prizePhysicalTarotTitle: "Physical Tarots (Coming Soon)",
+    prizePhysicalTarotDescription: "Soon, you will be able to win beautifully illustrated physical tarot decks, sent directly to your home.",
+    prizeImageAlt: "Prize image: {prizeName}",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -827,6 +851,18 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     rewardUpdateSuccess: "Recompensa atualizada com sucesso.",
     rewardUpdateError: "Falha ao atualizar a recompensa.",
     loadingRewards: "Carregando ciclo de recompensas...",
+    // New keys for prizes section
+    dailyTreasuresTitle: "Descubra os Tesouros Diários",
+    dailyTreasuresSubtitle: "A cada dia, uma nova oportunidade de ganhar presentes que enriquecem sua jornada espiritual.",
+    prizeCreditsTitle: "Créditos Místicos",
+    prizeCreditsDescription: "Acumule créditos para desvendar interpretações de tarô e sonhos sempre que precisar. Sua principal moeda para a sabedoria.",
+    prizeEbooksTitle: "E-books Exclusivos",
+    prizeEbooksDescription: "Ganhe acesso a e-books sobre esoterismo, guias de tarô e aprofundamentos espirituais, escritos por especialistas.",
+    prizeDigitalTarotTitle: "Leituras de Tarô Digitais",
+    prizeDigitalTarotDescription: "Receba uma leitura de tarô completa e gratuita como um presente especial do nosso oráculo para iluminar seu caminho.",
+    prizePhysicalTarotTitle: "Tarôs Físicos (Em Breve)",
+    prizePhysicalTarotDescription: "Em breve, você poderá ganhar baralhos de tarô físicos, belamente ilustrados, para serem enviados diretamente para sua casa.",
+    prizeImageAlt: "Imagem do prêmio: {prizeName}",
   }
 };
 
