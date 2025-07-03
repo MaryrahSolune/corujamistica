@@ -125,6 +125,10 @@ export default {
          '0%, 100%': { transform: 'translateY(0)' },
          '50%': { transform: 'translateY(-8px)' },
         },
+        'float-up-and-fade': {
+          '0%': { opacity: '1', transform: 'translateY(0px) scale(1)' },
+          '100%': { opacity: '0', transform: 'translateY(-40px) scale(0.8)' },
+        },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
@@ -137,6 +141,7 @@ export default {
         'spin-gradient': 'spin-gradient 8s linear infinite',
         'subtle-glow': 'subtle-glow 3.5s ease-in-out infinite',
         'subtle-bob': 'subtle-bob 4.5s ease-in-out infinite',
+        'float-up': 'float-up-and-fade 1.5s ease-out forwards',
   		}
   	}
   },

@@ -4,14 +4,15 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link'; // Keep this import
 import Image from 'next/image';
-import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film } from 'lucide-react';
+import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Plus } from 'lucide-react';
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-// import { SunIcon, MoonIcon } from '@/components/MysticIcons'; // Removed
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { onValue, ref } from 'firebase/database';
+import { rtdb } from '@/lib/firebase';
 
 // Custom Separator Component
 const CustomSeparator = () => (
@@ -21,9 +22,30 @@ const CustomSeparator = () => (
 export default function HomePage() {
   const { t } = useLanguage();
   const [isClient, setIsClient] = useState(false);
+  const [userCount, setUserCount] = useState<number | null>(null);
+  const [showPlusOne, setShowPlusOne] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    
+    const countRef = ref(rtdb, 'metadata/userCount');
+
+    const unsubscribe = onValue(countRef, (snapshot) => {
+        const newCount = snapshot.val();
+        if (newCount) {
+            setUserCount((prevCount) => {
+                if (prevCount !== null && newCount > prevCount) {
+                    setShowPlusOne(true);
+                    setTimeout(() => setShowPlusOne(false), 1500); // Animation duration
+                }
+                return newCount;
+            });
+        } else {
+            setUserCount(150);
+        }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const howItWorksSteps = [
@@ -170,8 +192,6 @@ export default function HomePage() {
 
  }}>
            <div className="absolute inset-0 -z-10 animated-aurora-background opacity-90"></div>
-           {/* <SunIcon className="absolute top-10 left-5 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 text-accent/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '0.5s' }} /> */}
-           {/* <MoonIcon className="absolute top-12 right-5 sm:right-10 w-12 h-12 sm:w-16 sm:h-16 text-secondary/80 opacity-60 animate-subtle-glow" style={{ animationDuration: '4s', animationDelay: '1.5s' }}/> */}
           <div className="container mx-auto px-4 relative z-10">
             <div className="inline-block bg-black/40 p-6 rounded-xl backdrop-blur-sm mb-10">
                 <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
@@ -219,32 +239,23 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Adicionando as chaves de tradução para a nova seção de missão */}
-        {/* Estas chaves precisarão ser adicionadas no src/contexts/LanguageContext.tsx */}
-        {/*
-           ourMissionTitle: "Nossa Missão",
-           ourMissionSubtitle: "Conectando você à sua alma através da sabedoria ancestral e da tecnologia moderna.",
-           missionIntuitionTitle: "Intuição Ampliada",
-           missionIntuitionDescription: "Nossa IA ajuda a decifrar símbolos sutis, ampliando sua própria intuição.",
-           missionPrecisionTitle: "Precisão Incisiva",
-           missionPrecisionDescription: "Obtenha interpretações claras e diretas para as suas questões mais profundas.",
-           missionConnectionTitle: "Conexão Profunda",
-           missionConnectionDescription: "Facilitamos a ponte entre o mundo material e o espiritual para o seu crescimento.",
-        */}
-
-        {/* How It Works Section */}
-        
-
         <CustomSeparator />
 
         {/* Testimonials Section */}
         <section className="py-16 sm:py-24 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-12 animate-fade-in" style={{animationDelay: '0.1s'}}>
+            <div className="text-center mb-12 animate-fade-in relative" style={{animationDelay: '0.1s'}}>
               <Users className="h-12 w-12 text-accent mx-auto mb-3" />
-              <p className="text-4xl font-bold text-primary">
-                +20.000
-              </p>
+               <div className="relative inline-block">
+                 <p className="text-4xl font-bold text-primary">
+                    {userCount !== null ? `+${userCount.toLocaleString('pt-BR')}` : <Skeleton className="h-10 w-32 inline-block" />}
+                 </p>
+                 {showPlusOne && (
+                    <div className="absolute -top-5 -right-8 text-green-400 font-bold text-3xl animate-float-up pointer-events-none">
+                        +
+                    </div>
+                 )}
+               </div>
               <p className="text-lg text-muted-foreground mt-1 font-semibold">
                 {t('satisfiedClientsLabel')}
               </p>

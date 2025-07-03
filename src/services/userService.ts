@@ -1,6 +1,6 @@
 
 import { rtdb } from '@/lib/firebase';
-import { ref, set, get, serverTimestamp, update, remove } from 'firebase/database';
+import { ref, set, get, serverTimestamp, update, remove, runTransaction } from 'firebase/database';
 import type { User } from 'firebase/auth';
 
 export interface UserProfileData {
@@ -16,6 +16,14 @@ export interface UserProfileData {
 
 export async function createUserProfile(user: User): Promise<void> {
   const userProfileRef = ref(rtdb, `users/${user.uid}/profile`);
+  
+  // Increment total user count in a transaction
+  const userCountRef = ref(rtdb, 'metadata/userCount');
+  runTransaction(userCountRef, (currentCount) => {
+    // Initialize with 150 if it doesn't exist, then increment
+    return (currentCount || 150) + 1;
+  });
+
   const snapshot = await get(userProfileRef);
   if (snapshot.exists()) {
     // Profile exists, update specific fields but preserve role and reward progress
