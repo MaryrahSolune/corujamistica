@@ -1,3 +1,4 @@
+
 import { rtdb } from '@/lib/firebase';
 import { ref, set, get, serverTimestamp, update, remove, runTransaction } from 'firebase/database';
 import type { User } from 'firebase/auth';
@@ -19,7 +20,6 @@ export async function createUserProfile(user: User): Promise<void> {
   // Increment total user count in a transaction
   const userCountRef = ref(rtdb, 'metadata/userCount');
   runTransaction(userCountRef, (currentCount) => {
-    // Initialize with 0 if it doesn't exist, then increment for a true user count
     return (currentCount || 0) + 1;
   });
 
@@ -48,7 +48,7 @@ export async function createUserProfile(user: User): Promise<void> {
     displayName: user.displayName,
     email: user.email,
     createdAt: serverTimestamp(),
-    role: 'user',
+    role: 'user', // Default role is 'user'
     dailyRewardStreak: 0,
     lastClaimTimestamp: null,
   };
