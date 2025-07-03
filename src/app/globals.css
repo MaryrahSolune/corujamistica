@@ -192,3 +192,17 @@
     }
   }
 }
+
+/* Added for responsive hero background */
+.hero-background-section {
+    background-image: url('/img/4Q46.gif');
+    background-size: 80% auto; /* Mobile-first: larger on small screens */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+    .hero-background-section {
+        background-size: 40% auto; /* Smaller on larger screens */
+    }
+}

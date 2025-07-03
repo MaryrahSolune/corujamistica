@@ -218,16 +218,10 @@ export default function HomePage() {
       </header>
 
       <main className="flex-grow">
-        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden" style={{
- backgroundImage: 'url(\'/img/4Q46.gif\')',
- backgroundSize: '40% auto', // Keep the size
- backgroundPosition: 'center', // Keep the position
- backgroundRepeat: 'no-repeat', // Add no-repeat
-
- }}>
+        <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden hero-background-section">
            <div className="absolute inset-0 -z-10 animated-aurora-background opacity-90"></div>
           <div className="container mx-auto px-4 relative z-10">
-            <div className="inline-block bg-black/40 p-6 rounded-xl backdrop-blur-sm mb-10">
+            <div className="inline-block bg-black/40 p-4 sm:p-6 rounded-xl backdrop-blur-sm mb-10">
                 <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
                   {t('landingTitle')}
                 </h1>
@@ -257,17 +251,17 @@ export default function HomePage() {
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <Brain className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
                 <h3 className="text-xl font-bold mb-3">Seu TARÔ</h3>
-                <p className="text-lg font-bold text-foreground/80">Carregue sua tiragem de Tarô para obter a Interpretação Mística.</p>
+                <p className="text-lg font-semibold text-foreground/80">Carregue sua tiragem de Tarô para obter a Interpretação Mística.</p>
               </div>
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <Star className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
                 <h3 className="text-xl font-bold mb-3">Interpretação de SONHOS</h3>
-                <p className="text-lg font-bold text-foreground/80">Descreva seu sonho detalhado para obter Interpretação Profética</p>
+                <p className="text-lg font-semibold text-foreground/80">Descreva seu sonho detalhado para obter Interpretação Profética</p>
               </div>
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <Users className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
                 <h3 className="text-xl font-bold mb-3">Símbolos Sagrados</h3>
-                <p className="text-lg font-bold text-foreground/80">Desvende diariamente a sabedoria dos símbolos sagrados.</p>
+                <p className="text-lg font-semibold text-foreground/80">Desvende diariamente a sabedoria dos símbolos sagrados.</p>
               </div>
             </div>
           </div>
