@@ -450,13 +450,27 @@ export default function AdminDashboardPage() {
                           <CardDescription>{t('dayLabel', {day: reward.day})}</CardDescription>
                         </CardHeader>
                         <CardContent className="p-1 flex-grow flex flex-col items-center justify-center">
-                           <Image 
-                              src={reward.imageUrl || 'https://placehold.co/100x100.png'} 
-                              alt={reward.title} 
-                              width={40} height={40} 
+                          {reward.imageUrl && reward.imageUrl.includes('gifer.com/embed') ? (
+                            <div className="w-12 h-12 mb-2 overflow-hidden rounded-md flex items-center justify-center bg-black/10">
+                              <iframe
+                                src={reward.imageUrl}
+                                className="w-full h-full scale-150 border-0"
+                                scrolling="no"
+                                frameBorder="0"
+                                allowFullScreen
+                                title={`Animação para ${reward.title}`}
+                              ></iframe>
+                            </div>
+                          ) : (
+                            <Image
+                              src={reward.imageUrl || 'https://placehold.co/100x100.png'}
+                              alt={reward.title}
+                              width={40}
+                              height={40}
                               className="rounded-md mb-2 object-cover"
                               data-ai-hint="reward icon"
-                           />
+                            />
+                          )}
                           <p className="text-sm font-semibold">{reward.title}</p>
                           <p className="text-xs text-muted-foreground">
                             {reward.value} {t(rewardTypeOptions.find(opt => opt.value === reward.type)?.labelKey ?? 'rewardTypeCredits')}

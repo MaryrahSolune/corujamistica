@@ -245,7 +245,20 @@ export default function DashboardPage() {
                                         )}>
                                             <p className="text-xs font-bold text-center absolute top-1 right-1">{reward.day}</p>
                                             <div className="flex-grow flex items-center justify-center">
-                                                <Image src={reward.imageUrl} alt={reward.title} width={32} height={32} data-ai-hint="reward icon" />
+                                                {reward.imageUrl && reward.imageUrl.includes('gifer.com/embed') ? (
+                                                  <div className="w-10 h-10 overflow-hidden rounded-md flex items-center justify-center">
+                                                    <iframe
+                                                      src={reward.imageUrl}
+                                                      className="w-full h-full scale-125 border-0"
+                                                      scrolling="no"
+                                                      frameBorder="0"
+                                                      allowFullScreen
+                                                      title={`Animação para ${reward.title}`}
+                                                    ></iframe>
+                                                  </div>
+                                                ) : (
+                                                  <Image src={reward.imageUrl} alt={reward.title} width={32} height={32} data-ai-hint="reward icon" />
+                                                )}
                                             </div>
                                             {isClaimed && <CheckCircle2 className="absolute bottom-1 right-1 h-4 w-4 text-green-500"/>}
                                             {isLocked && <Lock className="absolute bottom-1 right-1 h-3 w-3 text-muted-foreground"/>}
