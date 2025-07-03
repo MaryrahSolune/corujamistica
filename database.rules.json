@@ -12,6 +12,12 @@
         ".read": "auth != null",
         ".write": "auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin'"
       }
+    },
+    "metadata": {
+      "userCount": {
+        ".read": true,
+        ".write": "newData.val() === data.val() + 1 || (data.val() === null && newData.val() === 1)"
+      }
     }
   }
 }
