@@ -113,7 +113,6 @@ export default function ViewReadingPage() {
     pageTitle = t('dreamInterpretationDetailsTitle');
     PageIcon = BrainCircuit;
   } 
-  // Caso para loveOracle removido
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 max-w-3xl">
@@ -136,14 +135,14 @@ export default function ViewReadingPage() {
               </CardDescription>
             )}
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-8">
             {reading.type === 'tarot' && (
               <>
                 <div>
                   <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yourQuestionLabel')}</h3>
-                  <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 font-medium">
+                  <blockquote className="mt-2 border-l-4 border-accent pl-4 italic text-foreground/80 whitespace-pre-wrap">
                     {reading.query}
-                  </p>
+                  </blockquote>
                 </div>
 
                 {reading.cardSpreadImageUri && (
@@ -197,9 +196,9 @@ export default function ViewReadingPage() {
               <>
                 <div>
                   <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yourDreamLabel')}</h3>
-                  <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 font-medium">
+                  <blockquote className="mt-2 border-l-4 border-accent pl-4 italic text-foreground/80 whitespace-pre-wrap">
                     {reading.dreamDescription}
-                  </p>
+                  </blockquote>
                 </div>
                 <div>
                   <h3 className="text-xl font-bold font-serif mb-4 text-accent flex items-center">
@@ -231,8 +230,6 @@ export default function ViewReadingPage() {
                 </div>
               </>
             )}
-
-            {/* Bloco de renderização para loveOracle removido */}
           </CardContent>
         </Card>
       </div>
