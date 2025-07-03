@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -212,7 +213,7 @@ export default function HomePage() {
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <Users className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
                 <h3 className="text-xl font-semibold mb-3">Símbolos Sagrados</h3>
-                <p className="text-lg text-foreground/80">Aprenda sobre DIARIAMENTE</p>
+                <p className="text-lg text-foreground/80">Desvende diariamente a sabedoria dos símbolos sagrados.</p>
               </div>
             </div>
           </div>
