@@ -111,67 +111,63 @@ export default function LoginPage() {
   }
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-2xl font-serif">{t('loginTitle')}</CardTitle>
-        <CardDescription>{t('loginDescription')}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">{t('emailLabel')}</Label>
-            <Input id="email" type="email" {...register('email')} placeholder="email@exemplo.com" />
-            {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+    <>
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle className="text-2xl font-serif">{t('loginTitle')}</CardTitle>
+          <CardDescription>{t('loginDescription')}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">{t('emailLabel')}</Label>
+              <Input id="email" type="email" {...register('email')} placeholder="email@exemplo.com" />
+              {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">{t('passwordLabel')}</Label>
+              <Input id="password" type="password" {...register('password')} placeholder="••••••••" />
+              {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+            </div>
+            <div className="login-button-aura-wrapper">
+              <Button 
+                type="submit" 
+                className="w-full login-btn-custom relative z-[1]" 
+                disabled={loading}
+              >
+                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                {t('loginButton')}
+              </Button>
+            </div>
+          </form>
+
+          {/* OU Separator */}
+          <div className="flex items-center my-4">
+            <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+            <span className="flex-shrink mx-4 text-gray-500 dark:text-gray-400">{t('orSeparator')}</span>
+            <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">{t('passwordLabel')}</Label>
-            <Input id="password" type="password" {...register('password')} placeholder="••••••••" />
-            {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
-          </div>
-          <div className="login-button-aura-wrapper">
-            <Button 
-              type="submit" 
-              className="w-full login-btn-custom relative z-[1]" 
-              disabled={loading}
+
+          {/* Google Login Button */}
+          {/* You might want to add a Google icon here */}
+          <Button onClick={handleGoogleLogin} className="w-full relative z-[1]" disabled={loading || loadingGoogle}>
+             {loadingGoogle ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+            Entrar com Google {/* Consider translating this text */}
+          </Button>
+        </CardContent>
+        <CardFooter className="flex flex-col items-center space-y-2">
+          <p className="text-sm text-muted-foreground">
+            {t('dontHaveAccount')}{' '}
+            <Link 
+              href="/signup" 
+              className={cn(buttonVariants({ variant: 'link' }), "p-0 h-auto text-sm")}
             >
-              {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-              {t('loginButton')}
-            </Button>
-          </div>
-        </form>
-
-        {/* OU Separator */}
-        <div className="flex items-center my-4">
-          <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
-          <span className="flex-shrink mx-4 text-gray-500 dark:text-gray-400">{t('orSeparator')}</span>
-          <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
-        </div>
-
-        {/* Google Login Button */}
-        {/* You might want to add a Google icon here */}
-        <Button onClick={handleGoogleLogin} className="w-full relative z-[1]" disabled={loading || loadingGoogle}>
-           {loadingGoogle ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-          Entrar com Google {/* Consider translating this text */}
-        </Button>
-      </CardContent>
-      <CardFooter className="flex flex-col items-center space-y-2">
-        <p className="text-sm text-muted-foreground">
-          {t('dontHaveAccount')}{' '}
-          <Link 
-            href="/signup" 
-            className={cn(buttonVariants({ variant: 'link' }), "p-0 h-auto text-sm")}
-          >
-            {t('signUpLink')}
-          </Link>
-        </p>
-      </CardFooter>
-    </Card>
+              {t('signUpLink')}
+            </Link>
+          </p>
+        </CardFooter>
+      </Card>
+      <img src="/img/mulher fumaça.gif" alt="Mystic Smoke Woman GIF" className="mx-auto mt-8" />
+    </>
   );
-}
-
-// Adicionando o GIF da cobra abaixo da caixa de login
-// Note: Use Next.js Image component for optimized images,
-// but for a simple GIF display, a standard <img> tag is sufficient.
-export function CobraGif() {
-  return <img src="/img/mulher fumaça.gif" alt="Mystic Smoke Woman GIF" className="mx-auto mt-8" />;
 }
