@@ -177,7 +177,7 @@ export default function HomePage() {
                 <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
                   {t('landingTitle')}
                 </h1>
-                <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '0.4s'}}>
+                <p className="text-xl md:text-2xl text-muted-foreground font-semibold max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '0.4s'}}>
                   {t('landingSubtitle')}
                 </p>
             </div>
@@ -198,22 +198,22 @@ export default function HomePage() {
           <div className="container mx-auto px-4 relative z-10 text-center">
             <Sparkles className="h-12 w-12 text-primary mx-auto mb-6 animate-subtle-pulse" />
             <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('ourOraclesTitle')}</h2>
-            <p className="text-lg font-semibold text-muted-foreground mb-12 max-w-2xl mx-auto">{t('ourOraclesSubtitle')}</p>
+            <p className="text-lg font-bold text-muted-foreground mb-12 max-w-2xl mx-auto">{t('ourOraclesSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <Brain className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
                 <h3 className="text-xl font-bold mb-3">Seu TARÔ</h3>
-                <p className="text-lg font-semibold text-foreground/80">Carregue sua tiragem de Tarô para obter a Interpretação Mística.</p>
+                <p className="text-lg font-bold text-foreground/80">Carregue sua tiragem de Tarô para obter a Interpretação Mística.</p>
               </div>
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <Star className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
                 <h3 className="text-xl font-bold mb-3">Interpretação de SONHOS</h3>
-                <p className="text-lg font-semibold text-foreground/80">Descreva seu sonho detalhado para obter Interpretação Profética</p>
+                <p className="text-lg font-bold text-foreground/80">Descreva seu sonho detalhado para obter Interpretação Profética</p>
               </div>
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <Users className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
                 <h3 className="text-xl font-bold mb-3">Símbolos Sagrados</h3>
-                <p className="text-lg font-semibold text-foreground/80">Desvende diariamente a sabedoria dos símbolos sagrados.</p>
+                <p className="text-lg font-bold text-foreground/80">Desvende diariamente a sabedoria dos símbolos sagrados.</p>
               </div>
             </div>
           </div>
@@ -245,13 +245,13 @@ export default function HomePage() {
               <p className="text-4xl font-bold text-primary">
                 +20.000
               </p>
-              <p className="text-lg text-muted-foreground mt-1">
+              <p className="text-lg text-muted-foreground mt-1 font-semibold">
                 {t('satisfiedClientsLabel')}
               </p>
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-bold font-serif text-center mb-4 animate-fade-in" style={{animationDelay: '0.2s'}}>{t('testimonialsTitle')}</h2>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.3s'}}>{t('testimonialsSubtitle')}</p>
+            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto font-semibold animate-fade-in" style={{animationDelay: '0.3s'}}>{t('testimonialsSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {testimonials.map((testimonial, index) => (
                 <div
@@ -268,9 +268,9 @@ export default function HomePage() {
                         </AvatarFallback>
                       </Avatar>
                       <Star className="h-6 w-6 text-yellow-400 mx-auto mb-3" />
-                      <p className="text-lg italic text-foreground/90 mb-4">"{t(testimonial.quoteKey as any)}"</p>
-                      <p className="font-semibold text-primary">{t(testimonial.nameKey as any)}</p>
-                      <p className="text-sm text-muted-foreground">{t(testimonial.roleKey as any)}</p>
+                      <p className="text-lg italic text-foreground/90 mb-4 font-semibold">"{t(testimonial.quoteKey as any)}"</p>
+                      <p className="font-bold text-primary">{t(testimonial.nameKey as any)}</p>
+                      <p className="text-sm text-muted-foreground font-medium">{t(testimonial.roleKey as any)}</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -283,10 +283,10 @@ export default function HomePage() {
 
       {/* Ad Spaces - Placeholders */}
       <div className="container mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md">Ad Space 1</div>
-        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md">Ad Space 2</div>
-        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md">Ad Space 3</div>
-        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md">Ad Space 4</div>
+        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md font-bold">Ad Space 1</div>
+        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md font-bold">Ad Space 2</div>
+        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md font-bold">Ad Space 3</div>
+        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md font-bold">Ad Space 4</div>
       </div>
       {/* End Ad Spaces */}
 
@@ -311,7 +311,7 @@ export default function HomePage() {
             <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 animate-fade-in" style={{animationDelay: '0.4s'}}>
               {t('finalCTATitle')}
             </h2>
-            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: '0.6s'}}>
+            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto font-semibold animate-fade-in" style={{animationDelay: '0.6s'}}>
               {t('finalCTASubtitle')}
             </p>
             <Button size="lg" asChild className="text-lg px-10 py-7 animate-fade-in" style={{animationDelay: '0.8s'}}>
@@ -324,7 +324,7 @@ export default function HomePage() {
       </main>
       <footer className="py-8 text-center border-t border-border/20 bg-background/80 relative overflow-hidden">
         <div className="absolute inset-0 -z-10 animated-aurora-background opacity-40"></div>
-        <p className="text-muted-foreground relative z-10">
+        <p className="text-muted-foreground font-semibold relative z-10">
           {t('footerText', { year: new Date().getFullYear() })}
         </p>
       </footer>

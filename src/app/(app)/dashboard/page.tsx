@@ -149,7 +149,7 @@ export default function DashboardPage() {
         <h1 className="text-3xl md:text-4xl font-bold font-serif mb-2">
           <span>{t('welcomeMessage', { name: displayName })}</span>
         </h1>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-lg text-muted-foreground font-semibold">
           {t('dashboardSubtitle')}
         </p>
       </div>
@@ -164,7 +164,7 @@ export default function DashboardPage() {
                   <PlusCircle className="h-6 w-6 text-primary" />
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  <p className="text-muted-foreground mb-4">{t('newReadingCardDescription')}</p>
+                  <p className="text-muted-foreground mb-4 font-medium">{t('newReadingCardDescription')}</p>
                 </CardContent>
                 <CardFooter>
                   <Button asChild className="w-full">
@@ -181,7 +181,7 @@ export default function DashboardPage() {
                   <BrainCircuit className="h-6 w-6 text-primary" />
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  <p className="text-muted-foreground mb-4">{t('dreamInterpretationCardDescription')}</p>
+                  <p className="text-muted-foreground mb-4 font-medium">{t('dreamInterpretationCardDescription')}</p>
                 </CardContent>
                 <CardFooter>
                   <Button asChild className="w-full">
@@ -205,7 +205,7 @@ export default function DashboardPage() {
                     <div className="text-4xl font-bold text-primary">
                         {userCredits !== null ? userCredits.balance : <Skeleton className="h-10 w-16 inline-block" />}
                     </div>
-                    <p className="text-xs text-muted-foreground mb-4">
+                    <p className="text-xs text-muted-foreground mb-4 font-medium">
                         {t('creditsRemaining')}
                     </p>
                     </CardContent>
@@ -294,13 +294,13 @@ export default function DashboardPage() {
                     <li key={reading.id} className="border-b border-border/50 pb-4 last:border-b-0 last:pb-0">
                       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
                         <div className="flex-grow mb-2 sm:mb-0">
-                            <h3 className="text-lg font-semibold text-primary flex items-center">
+                            <h3 className="text-lg font-bold text-primary flex items-center">
                             <BookMarked className="h-5 w-5 mr-2 flex-shrink-0" />
                             <span className="truncate">
                                 {getReadingTitle(reading)}
                             </span>
                             </h3>
-                            <p className="text-sm text-muted-foreground mt-1 ml-7">
+                            <p className="text-sm text-muted-foreground mt-1 ml-7 font-medium">
                               {getReadingTypeTranslation(reading.type)}
                             </p>
                         </div>
@@ -323,8 +323,8 @@ export default function DashboardPage() {
               ) : (
                 <div className="flex flex-col items-center justify-center text-center text-muted-foreground py-8">
                   <BookOpen className="h-12 w-12 mb-4" />
-                  <p className="text-lg">{t('noRecentReadings')}</p>
-                  <p>{t('noRecentReadingsPrompt_start')}{' '}
+                  <p className="text-lg font-semibold">{t('noRecentReadings')}</p>
+                  <p className="font-medium">{t('noRecentReadingsPrompt_start')}{' '}
                     <Link href="/new-reading" className="text-primary hover:underline font-semibold">
                       {t('noRecentReadingsPrompt_link')}
                     </Link>{' '}
@@ -339,7 +339,7 @@ export default function DashboardPage() {
 
        <div className="mt-12 text-center">
           <h2 className="text-2xl font-bold font-serif mb-4">{t('discoverYourPathTitle')}</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-6 font-semibold">
             {t('discoverYourPathDescription')}
           </p>
           <div className="animated-aurora-background rounded-xl inline-block">

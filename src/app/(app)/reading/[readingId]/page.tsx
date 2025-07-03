@@ -72,7 +72,7 @@ export default function ViewReadingPage() {
                     <CardTitle className="text-destructive-foreground">{t('errorOccurredCardTitle')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p className="text-destructive-foreground">{error}</p>
+                    <p className="text-destructive-foreground font-semibold">{error}</p>
                     <Button asChild variant="secondary" className="mt-6">
                     <Link href="/dashboard">
                         <ArrowLeft className="mr-2 h-4 w-4" /> {t('backToDashboardButton')}
@@ -88,7 +88,7 @@ export default function ViewReadingPage() {
   if (!reading) {
     return (
         <div className="container mx-auto p-4 sm:p-6 lg:p-8 max-w-3xl text-center">
-             <p>{t('readingNotFound')}</p>
+             <p className="font-semibold">{t('readingNotFound')}</p>
              <Button asChild variant="link" className="mt-4">
                 <Link href="/dashboard"><span>{t('backToDashboardButton')}</span></Link>
             </Button>
@@ -140,15 +140,15 @@ export default function ViewReadingPage() {
             {reading.type === 'tarot' && (
               <>
                 <div>
-                  <h3 className="text-xl font-semibold font-serif mb-2 text-accent">{t('yourQuestionLabel')}</h3>
-                  <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90">
+                  <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yourQuestionLabel')}</h3>
+                  <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 font-medium">
                     {reading.query}
                   </p>
                 </div>
 
                 {reading.cardSpreadImageUri && (
                   <div className="my-4">
-                    <h3 className="text-xl font-semibold font-serif mb-3 text-accent flex items-center">
+                    <h3 className="text-xl font-bold font-serif mb-3 text-accent flex items-center">
                         <ImageIcon className="mr-2 h-5 w-5"/> {t('cardSpreadImageTitle')}
                     </h3>
                     <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
@@ -165,17 +165,17 @@ export default function ViewReadingPage() {
                 )}
 
                 <div>
-                  <h3 className="text-xl font-semibold font-serif mb-2 text-accent flex items-center">
+                  <h3 className="text-xl font-bold font-serif mb-2 text-accent flex items-center">
                     <BookOpenText className="mr-2 h-5 w-5"/> {t('interpretationTitle')}
                   </h3>
-                  <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                  <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify font-medium">
                     {reading.interpretationText}
                   </div>
                 </div>
 
                 {reading.summaryImageUri && (
                     <div className="my-6">
-                        <h3 className="text-xl font-semibold font-serif mb-3 text-accent flex items-center">
+                        <h3 className="text-xl font-bold font-serif mb-3 text-accent flex items-center">
                             <Sparkles className="mr-2 h-5 w-5"/> {t('yourVisualBlessingTitle')}
                         </h3>
                         <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
@@ -196,20 +196,20 @@ export default function ViewReadingPage() {
             {reading.type === 'dream' && (
               <>
                 <div>
-                  <h3 className="text-xl font-semibold font-serif mb-2 text-accent">{t('yourDreamLabel')}</h3>
-                  <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90">
+                  <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yourDreamLabel')}</h3>
+                  <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 font-medium">
                     {reading.dreamDescription}
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold font-serif mb-4 text-accent flex items-center">
+                  <h3 className="text-xl font-bold font-serif mb-4 text-accent flex items-center">
                      <BookOpenText className="mr-2 h-5 w-5"/> {t('interpretationTitle')}
                   </h3>
                   <div className="space-y-4">
                     {reading.interpretationSegments.map((segment, index) => (
                       <div key={index}>
                         {segment.type === 'text' && segment.content && (
-                          <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                          <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify font-medium">
                             {segment.content}
                           </p>
                         )}
