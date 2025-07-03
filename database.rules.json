@@ -1,10 +1,47 @@
 {
   "rules": {
     "users": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin'",
       "$uid": {
-        ".read": "auth != null && auth.uid == $uid",
-        ".write": "auth != null && auth.uid == $uid",
-        ".validate": "newData.hasChildren(['profile', 'credits', 'readings'])"
+        ".read": "auth != null && (auth.uid == $uid || root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin')",
+        ".write": "(auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin' && !newData.exists()) || (auth != null && auth.uid == $uid && newData.exists())",
+        "profile": {
+          ".write": "auth != null && auth.uid == $uid",
+          ".validate": "newData.hasChildren(['uid', 'displayName', 'email', 'createdAt', 'role']) && newData.child('uid').val() === $uid && newData.child('displayName').isString() && newData.child('displayName').val().length > 0 && newData.child('displayName').val().length < 100 && newData.child('email').isString() && newData.child('email').val().contains('@') && (newData.child('createdAt').isNumber() || (newData.child('createdAt').hasChild('.sv') && newData.child('createdAt').child('.sv').val() === 'timestamp')) && newData.child('role').isString() && (newData.child('role').val() === 'user' || newData.child('role').val() === 'admin')",
+          "role": {
+            ".write": "auth != null && ((auth.uid == $uid && newData.val() === 'user' && (!data.exists() || data.child('role').val() === 'user')) || root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin')"
+          }
+        },
+        "credits": {
+          ".read": "auth != null && auth.uid == $uid",
+          "balance": {
+            ".write": "(auth != null && auth.uid == $uid && ((!data.exists() && newData.val() === 0) || (data.exists() && newData.val() < data.val() && newData.val() == data.val() - 1 ))) || (auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin')",
+            ".validate": "newData.isNumber()"
+          },
+          "freeCreditClaimed": {
+            ".write": "auth != null && auth.uid == $uid",
+            ".validate": "newData.isBoolean()"
+          },
+          "lastFreeCreditClaimTimestamp": {
+            ".write": "auth != null && auth.uid == $uid",
+            ".validate": "newData.isNumber() || (newData.hasChild('.sv') && newData.child('.sv').val() === 'timestamp')"
+          }
+        },
+        "readings": {
+          ".write": "auth != null && auth.uid == $uid",
+          ".indexOn": [
+            "interpretationTimestamp"
+          ],
+          "$readingId": {
+            ".validate": "newData.hasChildren(['type', 'interpretationTimestamp']) && (newData.child('type').val() == 'tarot' || newData.child('type').val() == 'dream') && (newData.child('interpretationTimestamp').isNumber() || (newData.child('interpretationTimestamp').hasChild('.sv') && newData.child('interpretationTimestamp').child('.sv').val() === 'timestamp'))"
+          }
+        }
+      }
+    },
+    "ipFreeCreditClaims": {
+      "$hashedIp": {
+        ".read": false,
+        ".write": false
       }
     },
     "dailyRewards": {
