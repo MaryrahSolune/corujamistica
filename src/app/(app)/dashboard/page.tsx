@@ -227,12 +227,12 @@ export default function DashboardPage() {
                     </CardHeader>
                     <CardContent>
                         {loadingRewards || !userProfile ? (
-                            <div className="grid grid-cols-5 gap-2">
-                                {Array.from({length: 5}).map((_, i) => <Skeleton key={i} className="h-20 w-full rounded-md" />)}
+                            <div className="grid grid-cols-4 md:grid-cols-7 gap-2">
+                                {Array.from({length: 14}).map((_, i) => <Skeleton key={i} className="h-20 w-full rounded-md" />)}
                             </div>
                         ) : (
                             <div className="space-y-4">
-                                <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 gap-2">
+                                <div className="grid grid-cols-4 md:grid-cols-7 gap-2">
                                 {rewardCycle.slice(0, 14).map((reward, index) => {
                                     const isClaimed = index < currentStreak;
                                     const isClaimable = index === currentStreak && dailyRewardStatus.claimable;

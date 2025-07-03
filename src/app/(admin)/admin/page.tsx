@@ -231,98 +231,191 @@ export default function AdminDashboardPage() {
             ) : users.length === 0 ? (
               <p className="text-center text-muted-foreground py-4">{t('noUsersFound')}</p>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t('userName')}</TableHead>
-                    <TableHead>{t('userEmail')}</TableHead>
-                    <TableHead className="text-center">{t('userRole')}</TableHead>
-                    <TableHead className="text-center">{t('userCredits')}</TableHead>
-                    <TableHead className="text-right">{t('userActions')}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
+              <>
+                {/* Mobile View: List of Cards */}
+                <div className="md:hidden space-y-4">
                   {users.map((user) => (
-                    <TableRow key={user.uid}>
-                      <TableCell>{user.displayName || 'N/A'}</TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell className="text-center">
+                    <Card key={user.uid} className="p-4">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p className="font-bold">{user.displayName || 'N/A'}</p>
+                          <p className="text-sm text-muted-foreground">{user.email}</p>
+                        </div>
                         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${user.role === 'admin' ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>
                           {user.role === 'admin' ? t('roleAdmin') : t('roleUser')}
                         </span>
-                      </TableCell>
-                      <TableCell className="text-center">{user.credits?.balance ?? t('creditsCouldNotBeFetched')}</TableCell>
-                      <TableCell className="text-right space-x-2">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button variant="outline" size="sm" onClick={() => setSelectedUserForCredits(user)}>
-                              <Coins className="mr-1 h-4 w-4" /> {t('addCreditsButton')}
-                            </Button>
-                          </DialogTrigger>
-                          {selectedUserForCredits?.uid === user.uid && (
-                            <DialogContent>
-                              <form onSubmit={handleAddCredits}>
-                                <DialogHeader>
-                                  <DialogTitle>{t('addCreditsModalTitle')}</DialogTitle>
-                                  <DialogDescription>
-                                    {t('manageUserLabel')}: {selectedUserForCredits.email}
-                                  </DialogDescription>
-                                </DialogHeader>
-                                <div className="grid gap-4 py-4">
-                                  <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label htmlFor="credits-amount" className="text-right col-span-1">
-                                      {t('creditsAmountLabel')}
-                                    </Label>
-                                    <Input
-                                      id="credits-amount"
-                                      type="number"
-                                      value={creditsToAdd}
-                                      onChange={(e) => setCreditsToAdd(parseInt(e.target.value, 10) || 0)}
-                                      className="col-span-3"
-                                      min="1"
-                                    />
+                      </div>
+                      <div className="mt-4 pt-4 border-t flex justify-between items-center">
+                        <p className="text-sm">Créditos: <span className="font-bold">{user.credits?.balance ?? t('creditsCouldNotBeFetched')}</span></p>
+                        <div className="flex space-x-2">
+                          {/* Add Credits Dialog Trigger for Mobile */}
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" size="icon" onClick={() => setSelectedUserForCredits(user)}>
+                                <Coins className="h-4 w-4" />
+                              </Button>
+                            </DialogTrigger>
+                             {selectedUserForCredits?.uid === user.uid && (
+                              <DialogContent>
+                                <form onSubmit={handleAddCredits}>
+                                  <DialogHeader>
+                                    <DialogTitle>{t('addCreditsModalTitle')}</DialogTitle>
+                                    <DialogDescription>
+                                      {t('manageUserLabel')}: {selectedUserForCredits.email}
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  <div className="grid gap-4 py-4">
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                      <Label htmlFor="credits-amount" className="text-right col-span-1">
+                                        {t('creditsAmountLabel')}
+                                      </Label>
+                                      <Input
+                                        id="credits-amount"
+                                        type="number"
+                                        value={creditsToAdd}
+                                        onChange={(e) => setCreditsToAdd(parseInt(e.target.value, 10) || 0)}
+                                        className="col-span-3"
+                                        min="1"
+                                      />
+                                    </div>
                                   </div>
-                                </div>
-                                <DialogFooter>
-                                  <DialogClose asChild>
-                                    <Button variant="outline" type="button">{t('cancelButton')}</Button>
-                                  </DialogClose>
-                                  <Button type="submit" disabled={isAddingCredits || creditsToAdd <=0}>
-                                    {isAddingCredits && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    {t('addCreditsSubmitButton')}
-                                  </Button>
-                                </DialogFooter>
-                              </form>
-                            </DialogContent>
-                          )}
-                        </Dialog>
-
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button variant="destructive" size="sm">
-                              <Trash2 className="mr-1 h-4 w-4" /> {t('deleteUserButton')}
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>{t('confirmDeleteUserTitle')}</AlertDialogTitle>
-                              <AlertDialogDescription>
-                                {t('confirmDeleteUserDescription', { email: user.email || 'this user' })}
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>{t('cancelButton')}</AlertDialogCancel>
-                              <AlertDialogAction onClick={() => handleDeleteUser(user.uid, user.email)}>
-                                {t('deleteUserButton')}
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </TableCell>
-                    </TableRow>
+                                  <DialogFooter>
+                                    <DialogClose asChild>
+                                      <Button variant="outline" type="button">{t('cancelButton')}</Button>
+                                    </DialogClose>
+                                    <Button type="submit" disabled={isAddingCredits || creditsToAdd <= 0}>
+                                      {isAddingCredits && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                      {t('addCreditsSubmitButton')}
+                                    </Button>
+                                  </DialogFooter>
+                                </form>
+                              </DialogContent>
+                            )}
+                          </Dialog>
+                          {/* Delete User Alert Trigger for Mobile */}
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button variant="destructive" size="icon">
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>{t('confirmDeleteUserTitle')}</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  {t('confirmDeleteUserDescription', { email: user.email || 'this user' })}
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>{t('cancelButton')}</AlertDialogCancel>
+                                <AlertDialogAction onClick={() => handleDeleteUser(user.uid, user.email)}>
+                                  {t('deleteUserButton')}
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
+                      </div>
+                    </Card>
                   ))}
-                </TableBody>
-              </Table>
+                </div>
+
+                {/* Desktop View: Table */}
+                <div className="hidden md:block">
+                    <Table>
+                    <TableHeader>
+                        <TableRow>
+                        <TableHead>{t('userName')}</TableHead>
+                        <TableHead>{t('userEmail')}</TableHead>
+                        <TableHead className="text-center">{t('userRole')}</TableHead>
+                        <TableHead className="text-center">{t('userCredits')}</TableHead>
+                        <TableHead className="text-right">{t('userActions')}</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {users.map((user) => (
+                        <TableRow key={user.uid}>
+                            <TableCell>{user.displayName || 'N/A'}</TableCell>
+                            <TableCell>{user.email}</TableCell>
+                            <TableCell className="text-center">
+                            <span className={`px-2 py-1 text-xs font-semibold rounded-full ${user.role === 'admin' ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                                {user.role === 'admin' ? t('roleAdmin') : t('roleUser')}
+                            </span>
+                            </TableCell>
+                            <TableCell className="text-center">{user.credits?.balance ?? t('creditsCouldNotBeFetched')}</TableCell>
+                            <TableCell className="text-right space-x-2">
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                <Button variant="outline" size="sm" onClick={() => setSelectedUserForCredits(user)}>
+                                    <Coins className="mr-1 h-4 w-4" /> {t('addCreditsButton')}
+                                </Button>
+                                </DialogTrigger>
+                                {selectedUserForCredits?.uid === user.uid && (
+                                <DialogContent>
+                                    <form onSubmit={handleAddCredits}>
+                                    <DialogHeader>
+                                        <DialogTitle>{t('addCreditsModalTitle')}</DialogTitle>
+                                        <DialogDescription>
+                                        {t('manageUserLabel')}: {selectedUserForCredits.email}
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <div className="grid gap-4 py-4">
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="credits-amount" className="text-right col-span-1">
+                                            {t('creditsAmountLabel')}
+                                        </Label>
+                                        <Input
+                                            id="credits-amount"
+                                            type="number"
+                                            value={creditsToAdd}
+                                            onChange={(e) => setCreditsToAdd(parseInt(e.target.value, 10) || 0)}
+                                            className="col-span-3"
+                                            min="1"
+                                        />
+                                        </div>
+                                    </div>
+                                    <DialogFooter>
+                                        <DialogClose asChild>
+                                        <Button variant="outline" type="button">{t('cancelButton')}</Button>
+                                        </DialogClose>
+                                        <Button type="submit" disabled={isAddingCredits || creditsToAdd <=0}>
+                                        {isAddingCredits && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                        {t('addCreditsSubmitButton')}
+                                        </Button>
+                                    </DialogFooter>
+                                    </form>
+                                </DialogContent>
+                                )}
+                            </Dialog>
+
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                <Button variant="destructive" size="sm">
+                                    <Trash2 className="mr-1 h-4 w-4" /> {t('deleteUserButton')}
+                                </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>{t('confirmDeleteUserTitle')}</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                    {t('confirmDeleteUserDescription', { email: user.email || 'this user' })}
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>{t('cancelButton')}</AlertDialogCancel>
+                                    <AlertDialogAction onClick={() => handleDeleteUser(user.uid, user.email)}>
+                                    {t('deleteUserButton')}
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+                            </TableCell>
+                        </TableRow>
+                        ))}
+                    </TableBody>
+                    </Table>
+                </div>
+              </>
             )}
              {isLoadingUsers && <p className="text-center text-muted-foreground py-4">{t('fetchingUsers')}</p>}
           </CardContent>
