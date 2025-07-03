@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAllUserProfiles, deleteUserRtdbData, type UserProfileData } from '@/services/userService';
@@ -179,6 +179,18 @@ export default function AdminDashboardPage() {
     }
   };
   
+  const handleImageUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!editingReward) return;
+    const value = e.target.value;
+    const iframeRegex = /<iframe[^>]+src="([^"]+)"/;
+    const match = value.match(iframeRegex);
+    if (match && match[1]) {
+      setEditingReward({ ...editingReward, imageUrl: match[1] });
+    } else {
+      setEditingReward({ ...editingReward, imageUrl: value });
+    }
+  };
+
   if (adminProfile?.role !== 'admin') {
     return ( 
       <div className="container mx-auto p-8 text-center">
@@ -493,7 +505,7 @@ export default function AdminDashboardPage() {
                         </div>
                          <div className="space-y-1">
                           <Label htmlFor="reward-image">{t('rewardImageUrlLabel')}</Label>
-                          <Input id="reward-image" value={editingReward.imageUrl} onChange={(e) => setEditingReward({...editingReward, imageUrl: e.target.value})} placeholder={t('rewardImageUrlPlaceholder')}/>
+                          <Input id="reward-image" value={editingReward.imageUrl} onChange={handleImageUrlChange} placeholder={t('rewardImageUrlPlaceholder')}/>
                         </div>
                         <div className="space-y-1">
                           <Label htmlFor="reward-type">{t('rewardTypeLabel')}</Label>
