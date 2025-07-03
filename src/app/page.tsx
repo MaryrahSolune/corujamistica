@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -31,18 +30,20 @@ export default function HomePage() {
     const countRef = ref(rtdb, 'metadata/userCount');
 
     const unsubscribe = onValue(countRef, (snapshot) => {
-        const newCount = snapshot.val();
-        if (newCount) {
-            setUserCount((prevCount) => {
-                if (prevCount !== null && newCount > prevCount) {
-                    setShowPlusOne(true);
-                    setTimeout(() => setShowPlusOne(false), 1500); // Animation duration
-                }
-                return newCount;
-            });
-        } else {
-            setUserCount(150);
+      const newCount = snapshot.val();
+      const currentCount = newCount ?? 0; // Default to 0 if null/undefined
+
+      setUserCount((prevCount) => {
+        // Only trigger animation if it's not the initial load and count has increased
+        if (prevCount !== null && currentCount > prevCount) {
+          setShowPlusOne(true);
+          setTimeout(() => setShowPlusOne(false), 1500); // Animation duration
         }
+        return currentCount;
+      });
+    }, (error) => {
+      console.error("Error fetching user count from Firebase:", error);
+      setUserCount(0); // Set a fallback value on error
     });
 
     return () => unsubscribe();
@@ -301,7 +302,6 @@ export default function HomePage() {
                 <div
                   key={index}
                   className="animated-aurora-background rounded-xl overflow-hidden animate-slide-in-up transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-accent/30"
-                  style={{animationDuration: '0.5s', animationDelay: `${0.4 + index * 0.2}s`}}
                 >
                   <Card className="shadow-lg relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md p-6 min-h-[200px] flex flex-col justify-center group">
                     <CardContent className="text-center">

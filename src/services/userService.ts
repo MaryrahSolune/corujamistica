@@ -1,4 +1,3 @@
-
 import { rtdb } from '@/lib/firebase';
 import { ref, set, get, serverTimestamp, update, remove, runTransaction } from 'firebase/database';
 import type { User } from 'firebase/auth';
@@ -20,8 +19,8 @@ export async function createUserProfile(user: User): Promise<void> {
   // Increment total user count in a transaction
   const userCountRef = ref(rtdb, 'metadata/userCount');
   runTransaction(userCountRef, (currentCount) => {
-    // Initialize with 150 if it doesn't exist, then increment
-    return (currentCount || 150) + 1;
+    // Initialize with 0 if it doesn't exist, then increment for a true user count
+    return (currentCount || 0) + 1;
   });
 
   const snapshot = await get(userProfileRef);
