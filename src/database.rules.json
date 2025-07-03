@@ -15,7 +15,7 @@
         "credits": {
           ".read": "auth != null && auth.uid == $uid",
           "balance": {
-            ".write": "(auth != null && auth.uid == $uid && ((!data.exists() && newData.val() === 0) || (data.exists() && newData.val() < data.val() && newData.val() == data.val() - 1 ))) || (auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin')",
+            ".write": "(auth != null && auth.uid == $uid) || (auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin')",
             ".validate": "newData.isNumber()"
           },
           "freeCreditClaimed": {
@@ -47,8 +47,8 @@
     "dailyRewards": {
       "cycle": {
         ".read": "auth != null",
+        ".write": "auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin'",
         "$day": {
-          ".write": "auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin'",
           ".validate": "newData.hasChildren(['title', 'imageUrl', 'type', 'value']) && newData.child('title').isString() && newData.child('imageUrl').isString() && (newData.child('type').val() === 'credits' || newData.child('type').val() === 'ebook' || newData.child('type').val() === 'tarot_reading') && newData.child('value').isNumber()"
         }
       }
