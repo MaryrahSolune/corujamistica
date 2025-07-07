@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage, type TranslationKey } from '@/contexts/LanguageContext';
 import { getUserReadings, type ReadingData } from '@/services/readingService';
 import { claimDailyReward } from '@/services/creditService';
 import { getRewardCycle, type DailyReward } from '@/services/rewardService';
@@ -34,7 +34,7 @@ const iconMap: { [key: string]: ComponentType<{ className?: string }> } = {
 
 export default function DashboardPage() {
   const { currentUser, userProfile, userCredits, refreshCredits, logout, refreshUserProfile } = useAuth();
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const { toast } = useToast();
   const router = useRouter();
 
