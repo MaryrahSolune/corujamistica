@@ -171,10 +171,10 @@ export default function ProfilePage() {
                     <button
                         type="button"
                         onClick={triggerFileInput}
-                        className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer group"
+                        className="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center text-white opacity-100 hover:bg-black/70 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all cursor-pointer group"
                         aria-label={t('changeProfilePictureLabel')}
                     >
-                        <Edit3 className="h-8 w-8 text-white transition-transform group-hover:scale-110" />
+                        <Edit3 className="h-8 w-8 transition-transform group-hover:scale-110" />
                     </button>
                 )}
             </div>
