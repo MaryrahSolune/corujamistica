@@ -26,7 +26,8 @@ interface IconAvatarProps extends ComponentProps<'div'> {
 }
 
 export const IconAvatar = ({ iconName, gradientName, className, ...props }: IconAvatarProps) => {
-  const LucideIcon = icons[iconName as keyof typeof icons] || icons['UserCircle2'];
+  const safeIconName = availableIcons.includes(iconName) ? iconName : 'UserCircle2';
+  const LucideIcon = icons[safeIconName as keyof typeof icons];
   const gradientClass = gradientMap[gradientName] || gradientMap['aurora'];
 
   return (
