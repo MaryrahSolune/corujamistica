@@ -7,8 +7,8 @@ import Link from 'next/link';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod'; // Keep existing import
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '@/lib/firebase';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,8 +19,8 @@ import { Loader2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
-import { signInWithPopup } from 'firebase/auth'; // Import signInWithPopup
-import { googleProvider } from '@/lib/firebase'; // Import googleProvider
+import { createUserProfile } from '@/services/userService';
+import { initializeUserCredits } from '@/services/creditService';
 
 
 const loginSchema = z.object({
@@ -29,6 +29,29 @@ const loginSchema = z.object({
 });
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
+
+const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" {...props}>
+    <path
+      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-.97 2.56-2.05 3.35v2.79h3.58c2.08-1.92 3.28-4.74 3.28-8.15z"
+      fill="#4285F4"
+    />
+    <path
+      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.58-2.79c-.98.66-2.23 1.06-3.7 1.06-2.83 0-5.22-1.9-6.08-4.44H2.34v2.88C4.13 20.98 7.79 23 12 23z"
+      fill="#34A853"
+    />
+    <path
+      d="M5.92 14.41c-.15-.45-.24-.92-.24-1.41s.09-.96.24-1.41V8.71H2.34c-.77 1.52-1.24 3.24-1.24 5.17s.47 3.65 1.24 5.17l3.58-2.88z"
+      fill="#FBBC05"
+    />
+    <path
+      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.79 1 4.13 3.02 2.34 5.83l3.58 2.88c.86-2.54 3.25-4.44 6.08-4.44z"
+      fill="#EA4335"
+    />
+    <path d="M0 0h24v24H0z" fill="none" />
+  </svg>
+);
+
 
 export default function LoginPage() {
   const router = useRouter();
@@ -86,7 +109,12 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     setLoadingGoogle(true);
     try {
-      await signInWithPopup(auth, googleProvider);
+      const userCredential = await signInWithPopup(auth, googleProvider);
+      
+      // On first login with Google, create user profile and initialize credits
+      await createUserProfile(userCredential.user);
+      await initializeUserCredits(userCredential.user.uid);
+      
       toast({ title: t('loginSuccessTitle'), description: t('loginSuccessDescription') });
       router.push('/dashboard'); // Redirect directly to dashboard
     } catch (error: any) {
@@ -128,7 +156,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <Card className="w-full">
+      <Card className="w-full bg-card/80 backdrop-blur-sm border-white/20">
         <CardHeader>
           <CardTitle className="text-2xl font-serif">{t('loginTitle')}</CardTitle>
           <CardDescription>{t('loginDescription')}</CardDescription>
@@ -159,16 +187,14 @@ export default function LoginPage() {
               </Label>
             </div>
 
-            <div className="login-button-aura-wrapper">
-              <Button 
-                type="submit" 
-                className="w-full login-btn-custom relative z-[1]" 
-                disabled={loading}
-              >
-                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                {t('loginButton')}
-              </Button>
-            </div>
+            <Button 
+              type="submit" 
+              className="w-full" 
+              disabled={loading}
+            >
+              {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+              {t('loginButton')}
+            </Button>
           </form>
 
           {/* OU Separator */}
@@ -178,11 +204,9 @@ export default function LoginPage() {
             <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
           </div>
 
-          {/* Google Login Button */}
-          {/* You might want to add a Google icon here */}
-          <Button onClick={handleGoogleLogin} className="w-full relative z-[1]" disabled={loading || loadingGoogle}>
-             {loadingGoogle ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-            Entrar com Google {/* Consider translating this text */}
+          <Button variant="outline" onClick={handleGoogleLogin} className="w-full" disabled={loading || loadingGoogle}>
+             {loadingGoogle ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon className="mr-2 h-4 w-4" />}
+            Entrar com Google
           </Button>
         </CardContent>
         <CardFooter className="flex flex-col items-center space-y-2">

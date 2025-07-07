@@ -10,7 +10,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const { t } = useLanguage(); // Get the t function
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4 relative overflow-hidden">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-black p-4 relative overflow-hidden">
       
       <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
         <ThemeToggle />
