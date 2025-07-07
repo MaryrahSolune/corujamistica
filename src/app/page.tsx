@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { onValue, ref } from 'firebase/database';
 import { rtdb } from '@/lib/firebase';
+import { AdSlot } from '@/components/AdSlot';
 
 // Custom Separator Component
 const CustomSeparator = () => (
@@ -350,12 +351,12 @@ export default function HomePage() {
           </div>
         </section>
 
-      {/* Ad Spaces - Placeholders */}
+      {/* Ad Spaces */}
       <div className="container mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md font-bold">Ad Space 1</div>
-        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md font-bold">Ad Space 2</div>
-        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md font-bold">Ad Space 3</div>
-        <div className="bg-gray-200 dark:bg-gray-700 h-32 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded-md font-bold">Ad Space 4</div>
+        <AdSlot id="ad-slot-1" />
+        <AdSlot id="ad-slot-2" />
+        <AdSlot id="ad-slot-3" />
+        <AdSlot id="ad-slot-4" />
       </div>
       {/* End Ad Spaces */}
 
