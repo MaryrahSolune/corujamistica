@@ -34,8 +34,6 @@
     --input: 276 30% 92%; /* Very light lavender input background */
     --ring: 45 74% 52%; /* Gold ring for focus */
 
-    --radius: 0.5rem;
-
     --chart-1: 273 37% 44%; /* Primary Deep Purple */
     --chart-2: 45 74% 52%; /* Accent Gold */
     --chart-3: 273 30% 65%; /* Secondary Lighter Purple */
@@ -185,16 +183,6 @@
     }
   }
 
-  .text-flow-gradient {
-    @apply bg-gradient-to-r from-primary via-accent to-purple-900;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    background-size: 200% auto;
-    animation: animated-text-gradient 3s linear infinite;
-  }
-
-  /* Added for responsive hero background */
   .hero-background-section {
       background-image: url('/img/4Q46.gif');
       background-size: 80% auto; /* Mobile-first: larger on small screens */
@@ -206,11 +194,5 @@
       .hero-background-section {
           background-size: 40% auto; /* Smaller on larger screens */
       }
-  }
-
-  @keyframes animated-text-gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
   }
 }
