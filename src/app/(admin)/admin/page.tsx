@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAllUserProfiles, deleteUserRtdbData, type UserProfileData } from '@/services/userService';
 import { adminAddCredits, getUserCredits, type UserCreditsData } from '@/services/creditService';
-import { getRewardCycle, setRewardForDay, type DailyReward, mysticalIconNames } from '@/services/rewardService';
+import { getRewardCycle, setRewardForDay, type DailyReward } from '@/services/rewardService';
 import { getPromptContent, updatePromptContent, type PromptName } from '@/services/promptManagementService';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -26,6 +26,17 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 interface UserWithCredits extends UserProfileData {
   credits?: UserCreditsData | null;
 }
+
+// List of 30 unique icons for the reward cycle, moved here from service.
+const mysticalIconNames = [
+  'Gem', 'Sparkles', 'Moon', 'Sun', 'Star',
+  'Crown', 'Feather', 'Key', 'Scroll', 'Eye',
+  'BrainCircuit', 'Shield', 'Pyramid', 'Infinity', 'Hexagon',
+  'Flower', 'Flame', 'Leaf', 'Cat', 'Bird',
+  'Bot', 'Cloud', 'Dna', 'Fish', 'Ghost',
+  'Grape', 'Zap', 'Pentagon', 'Rainbow', 'Heart'
+];
+
 
 export default function AdminDashboardPage() {
   const { userProfile: adminProfile } = useAuth();
