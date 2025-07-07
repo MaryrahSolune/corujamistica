@@ -234,6 +234,9 @@ export default function ProfilePage() {
                                 <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-2">
                                     {availableIcons.map(iconName => {
                                         const LucideIcon = icons[iconName as keyof typeof icons];
+                                        if (!LucideIcon) {
+                                            return null;
+                                        }
                                         return (
                                             <button
                                                 key={iconName}
