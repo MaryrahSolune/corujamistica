@@ -257,7 +257,7 @@ export default function DashboardPage() {
                                         )}>
                                             <p className="text-xs font-bold text-center absolute top-1 right-1">{reward.day}</p>
                                             <div className="flex-grow flex items-center justify-center">
-                                                <IconComponent className="h-8 w-8 text-primary" />
+                                                <IconComponent className="h-8 w-8 text-flow-gradient" />
                                             </div>
                                             {isClaimed && <CheckCircle2 className="absolute bottom-1 right-1 h-4 w-4 text-green-500"/>}
                                             {isLocked && <Lock className="absolute bottom-1 right-1 h-3 w-3 text-muted-foreground"/>}
