@@ -26,10 +26,16 @@ interface IconAvatarProps extends ComponentProps<'div'> {
 }
 
 export const IconAvatar = ({ iconName, gradientName, className, ...props }: IconAvatarProps) => {
-  // Definitive fix: This logic handles null, undefined, or any invalid string for the icon name.
-  // It checks if the iconName is a valid key in the `icons` object from lucide-react.
-  // If not, it safely defaults to 'UserCircle2', preventing the app from crashing.
-  const LucideIcon = (iconName && icons[iconName as keyof typeof icons]) || icons['UserCircle2'];
+  // Definitive Fix: This robust logic checks if the provided iconName is a valid,
+  // non-empty string that exists as a key in the lucide-react 'icons' object.
+  // If the check fails for any reason, it defaults to 'UserCircle2',
+  // making the component fail-safe and preventing the crash.
+  const safeIconName =
+    iconName && typeof iconName === 'string' && iconName in icons
+      ? (iconName as keyof typeof icons)
+      : 'UserCircle2';
+
+  const LucideIcon = icons[safeIconName];
     
   // Added a similar robust fallback for the gradient.
   const gradientClass = (gradientName && gradientMap[gradientName]) || gradientMap['aurora'];
