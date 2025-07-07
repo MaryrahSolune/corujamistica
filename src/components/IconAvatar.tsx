@@ -1,3 +1,4 @@
+
 'use client';
 
 import { icons } from 'lucide-react';
@@ -25,18 +26,14 @@ interface IconAvatarProps extends ComponentProps<'div'> {
 }
 
 export const IconAvatar = ({ iconName, gradientName, className, ...props }: IconAvatarProps) => {
-  // Definitive Fix: This robust logic checks if the provided iconName is a valid,
-  // non-empty string that is an *own property* of the lucide-react 'icons' object.
-  // If the check fails for any reason, it defaults to 'UserCircle2',
-  // making the component fail-safe and preventing the crash.
-  const safeIconName =
-    iconName && Object.prototype.hasOwnProperty.call(icons, iconName)
-      ? (iconName as keyof typeof icons)
-      : 'UserCircle2';
-
-  const LucideIcon = icons[safeIconName];
+  // Definitive Fix: This robust logic uses a standard logical OR fallback pattern.
+  // It attempts to find the icon by the given name. If the name is falsy (null, undefined, "")
+  // OR if the icon lookup results in `undefined` (because the name is invalid),
+  // it immediately falls back to a known safe default ('UserCircle2').
+  // This ensures `LucideIcon` is always a valid component, preventing the crash.
+  const LucideIcon = (iconName && icons[iconName as keyof typeof icons]) || icons['UserCircle2'];
     
-  // Added a similar robust fallback for the gradient.
+  // A similar robust fallback for the gradient.
   const gradientClass = (gradientName && gradientMap[gradientName]) || gradientMap['aurora'];
 
   return (
