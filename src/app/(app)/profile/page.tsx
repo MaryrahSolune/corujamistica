@@ -46,10 +46,13 @@ export default function ProfilePage() {
           if (profile) {
             setDisplayName(profile.displayName || user.displayName || '');
             if (profile.avatar) {
-              setSelectedIcon(profile.avatar.iconName);
-              setSelectedGradient(profile.avatar.gradient);
-              setTempIcon(profile.avatar.iconName);
-              setTempGradient(profile.avatar.gradient);
+              // Safeguard: Ensure we don't set state to null or undefined
+              const icon = profile.avatar.iconName || 'UserCircle2';
+              const gradient = profile.avatar.gradient || 'aurora';
+              setSelectedIcon(icon);
+              setSelectedGradient(gradient);
+              setTempIcon(icon);
+              setTempGradient(gradient);
             }
           } else {
             setDisplayName(user.displayName || '');
