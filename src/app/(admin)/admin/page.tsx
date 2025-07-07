@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAllUserProfiles, deleteUserRtdbData, type UserProfileData } from '@/services/userService';
 import { adminAddCredits, getUserCredits, type UserCreditsData } from '@/services/creditService';
-import { getRewardCycle, setRewardForDay, type DailyReward } from '@/services/rewardService';
+import { getRewardCycle, setRewardForDay, type DailyReward, mysticalIconNames } from '@/services/rewardService';
 import { getPromptContent, updatePromptContent, type PromptName } from '@/services/promptManagementService';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,6 +21,7 @@ import { Loader2, ShieldCheck, UserPlus, Trash2, Coins, Edit, MessageSquareQuote
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface UserWithCredits extends UserProfileData {
   credits?: UserCreditsData | null;
@@ -434,7 +435,7 @@ export default function AdminDashboardPage() {
           </CardHeader>
           <CardContent>
             {isLoadingRewards ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
                 {Array.from({ length: 30 }).map((_, i) => <Skeleton key={i} className="h-32 rounded-lg" />)}
               </div>
             ) : (
@@ -491,6 +492,26 @@ export default function AdminDashboardPage() {
                         <div className="space-y-1">
                           <Label htmlFor="reward-value">{t('rewardValueLabel')}</Label>
                           <Input id="reward-value" type="number" value={editingReward.value} onChange={(e) => setEditingReward({...editingReward, value: parseInt(e.target.value, 10) || 0})} placeholder={t('rewardValuePlaceholder')}/>
+                        </div>
+                         <div className="space-y-1">
+                          <Label htmlFor="reward-icon">{t('rewardIconLabel', { defaultValue: 'rewardIconLabel'})}</Label>
+                           <Select
+                            value={editingReward.iconName}
+                            onValueChange={(value) => setEditingReward({ ...editingReward, iconName: value })}
+                          >
+                            <SelectTrigger id="reward-icon">
+                              <SelectValue placeholder="Selecione um ícone" />
+                            </SelectTrigger>
+                            <SelectContent>
+                               <ScrollArea className="h-72">
+                                {mysticalIconNames.map(iconName => (
+                                  <SelectItem key={iconName} value={iconName}>
+                                    {iconName}
+                                  </SelectItem>
+                                ))}
+                              </ScrollArea>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
                       <DialogFooter>

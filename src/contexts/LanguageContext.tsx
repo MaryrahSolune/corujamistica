@@ -271,8 +271,7 @@ export type TranslationKey =
   | 'rewardTypeTarotReading'
   | 'rewardValueLabel'
   | 'rewardValuePlaceholder'
-  | 'rewardImageUrlLabel'
-  | 'rewardImageUrlPlaceholder'
+  | 'rewardIconLabel'
   | 'saveRewardButton'
   | 'savingButton'
   | 'rewardUpdateSuccess'
@@ -562,8 +561,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     rewardTypeTarotReading: "Tarot Reading",
     rewardValueLabel: "Value (Amount)",
     rewardValuePlaceholder: "E.g., 5",
-    rewardImageUrlLabel: "Image URL",
-    rewardImageUrlPlaceholder: "https://example.com/image.png",
+    rewardIconLabel: "Icon",
     saveRewardButton: "Save Reward",
     savingButton: "Saving...",
     rewardUpdateSuccess: "Reward updated successfully.",
@@ -844,8 +842,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     rewardTypeTarotReading: "Leitura de Tarot",
     rewardValueLabel: "Valor (Quantidade)",
     rewardValuePlaceholder: "Ex: 5",
-    rewardImageUrlLabel: "URL da Imagem",
-    rewardImageUrlPlaceholder: "https://exemplo.com/imagem.png",
+    rewardIconLabel: "Ícone",
     saveRewardButton: "Salvar Recompensa",
     savingButton: "Salvando...",
     rewardUpdateSuccess: "Recompensa atualizada com sucesso.",

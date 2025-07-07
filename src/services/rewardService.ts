@@ -15,7 +15,7 @@ export interface DailyReward {
 const REWARD_CYCLE_LENGTH = 30;
 
 // List of 30 unique icons for the reward cycle
-const mysticalIconNames = [
+export const mysticalIconNames = [
   'Gem', 'Sparkles', 'Moon', 'Sun', 'Star',
   'Crown', 'Feather', 'Key', 'Scroll', 'Eye',
   'BrainCircuit', 'Shield', 'Pyramid', 'Infinity', 'Hexagon',
