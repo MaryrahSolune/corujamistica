@@ -1,4 +1,3 @@
-
 'use client';
 
 import { icons } from 'lucide-react';
@@ -27,11 +26,11 @@ interface IconAvatarProps extends ComponentProps<'div'> {
 
 export const IconAvatar = ({ iconName, gradientName, className, ...props }: IconAvatarProps) => {
   // Definitive Fix: This robust logic checks if the provided iconName is a valid,
-  // non-empty string that exists as a key in the lucide-react 'icons' object.
+  // non-empty string that is an *own property* of the lucide-react 'icons' object.
   // If the check fails for any reason, it defaults to 'UserCircle2',
   // making the component fail-safe and preventing the crash.
   const safeIconName =
-    iconName && typeof iconName === 'string' && iconName in icons
+    iconName && Object.prototype.hasOwnProperty.call(icons, iconName)
       ? (iconName as keyof typeof icons)
       : 'UserCircle2';
 
