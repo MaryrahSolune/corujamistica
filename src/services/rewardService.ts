@@ -10,17 +10,29 @@ export interface DailyReward {
   imageUrl: string;
   type: 'credits' | 'ebook' | 'tarot_reading'; // Extensible for future reward types
   value: number;
+  iconName: string; // New field for Lucide icon name
 }
 
 const REWARD_CYCLE_LENGTH = 30;
+
+// List of 30 unique icons for the reward cycle
+const mysticalIconNames = [
+  'Gem', 'Sparkles', 'Moon', 'Sun', 'Star',
+  'Crown', 'Feather', 'Key', 'Scroll', 'Eye',
+  'BrainCircuit', 'Shield', 'Pyramid', 'Infinity', 'Hexagon',
+  'Flower', 'Flame', 'Leaf', 'Cat', 'Bird',
+  'Bot', 'Cloud', 'Dna', 'Fish', 'Ghost',
+  'Grape', 'LightningBolt', 'Pentagon', 'Rainbow', 'Heart'
+];
 
 // Helper to create a default reward if none is set
 const createDefaultReward = (day: number): DailyReward => ({
   day,
   title: `Recompensa do Dia ${day}`,
-  imageUrl: `https://placehold.co/100x100.png`,
+  imageUrl: ``, // Image URL is now secondary to the icon
   type: 'credits',
-  value: 1,
+  value: day % 5 === 0 ? 5 : 1, // Give more credits every 5 days
+  iconName: mysticalIconNames[day - 1] || 'Gift', // Fallback to Gift icon
 });
 
 /**
@@ -35,7 +47,8 @@ export async function getRewardCycle(): Promise<DailyReward[]> {
     const cycleData = snapshot.val() || {};
     for (let i = 1; i <= REWARD_CYCLE_LENGTH; i++) {
       if (cycleData[i]) {
-        rewards.push({ day: i, ...cycleData[i] });
+        // Ensure iconName is present, add default if missing from older data
+        rewards.push({ day: i, iconName: mysticalIconNames[i-1] || 'Gift', ...cycleData[i] });
       } else {
         rewards.push(createDefaultReward(i));
       }
@@ -61,7 +74,7 @@ export async function getRewardForDay(day: number): Promise<DailyReward> {
   try {
     const snapshot = await get(dayRef);
     if (snapshot.exists()) {
-      return { day, ...snapshot.val() };
+      return { day, iconName: mysticalIconNames[day - 1] || 'Gift', ...snapshot.val() };
     }
     return createDefaultReward(day);
   } catch (error) {
@@ -93,3 +106,4 @@ export async function setRewardForDay(day: number, rewardData: Omit<DailyReward,
     return { success: false, message: error.message || 'An unknown error occurred.' };
   }
 }
+```

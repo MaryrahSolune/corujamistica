@@ -1,11 +1,16 @@
 
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, type ComponentType } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
 import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock } from 'lucide-react';
+import { 
+  Gem, Sparkles, Moon, Sun, Star, Crown, Feather, Key, Scroll, 
+  BrainCircuit as BrainIcon, Shield, Pyramid, Infinity as InfinityIcon, Hexagon, Flower, Flame, Leaf, 
+  Cat, Bird, Bot, Cloud, Dna, Fish, Ghost, Grape, LightningBolt, Pentagon, Rainbow, Heart 
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -20,6 +25,12 @@ import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 const GIFT_COOLDOWN_MILLISECONDS = 24 * 60 * 60 * 1000;
+
+const iconMap: { [key: string]: ComponentType<{ className?: string }> } = {
+  Gem, Sparkles, Moon, Sun, Star, Crown, Feather, Key, Scroll, Eye, 
+  BrainCircuit: BrainIcon, Shield, Pyramid, Infinity: InfinityIcon, Hexagon, Flower, Flame, Leaf, 
+  Cat, Bird, Bot, Cloud, Dna, Fish, Ghost, Grape, LightningBolt, Pentagon, Rainbow, Heart, Gift
+};
 
 export default function DashboardPage() {
   const { currentUser, userProfile, userCredits, refreshCredits, logout, refreshUserProfile } = useAuth();
@@ -101,7 +112,7 @@ export default function DashboardPage() {
     try {
       const result = await claimDailyReward(currentUser.uid);
       if (result.success && result.reward) {
-        const rewardText = `${result.reward.value} ${t(result.reward.type)}`;
+        const rewardText = `${result.reward.value} ${t(result.reward.type as TranslationKey)}`;
         toast({ title: t('rewardClaimedSuccessTitle'), description: t('rewardClaimedSuccessDescription', { reward: rewardText }) });
         refreshCredits(); 
         refreshUserProfile();
@@ -141,7 +152,6 @@ export default function DashboardPage() {
   }
 
   const currentStreak = userProfile?.dailyRewardStreak || 0;
-  const nextClaimDayIndex = currentStreak % 30;
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -228,15 +238,17 @@ export default function DashboardPage() {
                     <CardContent>
                         {loadingRewards || !userProfile ? (
                             <div className="grid grid-cols-4 md:grid-cols-7 gap-2">
-                                {Array.from({length: 14}).map((_, i) => <Skeleton key={i} className="h-20 w-full rounded-md" />)}
+                                {Array.from({length: 30}).map((_, i) => <Skeleton key={i} className="h-20 w-full rounded-md" />)}
                             </div>
                         ) : (
                             <div className="space-y-4">
                                 <div className="grid grid-cols-4 md:grid-cols-7 gap-2">
-                                {rewardCycle.slice(0, 14).map((reward, index) => {
+                                {rewardCycle.map((reward, index) => {
                                     const isClaimed = index < currentStreak;
                                     const isClaimable = index === currentStreak && dailyRewardStatus.claimable;
                                     const isLocked = index > currentStreak;
+                                    const IconComponent = iconMap[reward.iconName] || Gift;
+
                                     return (
                                         <div key={reward.day} className={cn("relative p-2 border rounded-md flex flex-col items-center justify-center aspect-square transition-all",
                                             isClaimed && "bg-primary/20 border-primary/30",
@@ -257,7 +269,7 @@ export default function DashboardPage() {
                                                     ></iframe>
                                                   </div>
                                                 ) : (
-                                                  <Image src={reward.imageUrl} alt={reward.title} width={32} height={32} data-ai-hint="reward icon" />
+                                                  <IconComponent className="h-8 w-8 text-flow-gradient" />
                                                 )}
                                             </div>
                                             {isClaimed && <CheckCircle2 className="absolute bottom-1 right-1 h-4 w-4 text-green-500"/>}

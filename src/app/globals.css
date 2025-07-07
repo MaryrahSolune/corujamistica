@@ -156,13 +156,6 @@
     transition: opacity 0.3s ease-out, transform 0.3s ease-out;
   }
 
-  .login-button-aura-wrapper:hover::before {
-    animation-play-state: paused;
-    opacity: 0.8; /* Aura can be slightly more prominent on hover if desired */
-    transform: translate(-50%, -50%) scale(1.15); /* Aura expands more */
-  }
-
-  /* Custom hover for the Login button itself */
   .login-btn-custom:hover {
     background-image: none !important;
     background-color: hsl(var(--accent) / 0.15) !important; /* Light gold background */
@@ -191,18 +184,33 @@
       transform: translate(-50%, -50%) rotate(360deg);
     }
   }
-}
 
-/* Added for responsive hero background */
-.hero-background-section {
-    background-image: url('/img/4Q46.gif');
-    background-size: 80% auto; /* Mobile-first: larger on small screens */
-    background-position: center;
-    background-repeat: no-repeat;
-}
+  .text-flow-gradient {
+    @apply bg-gradient-to-r from-primary via-accent to-purple-900;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: animated-text-gradient 3s linear infinite;
+  }
 
-@media (min-width: 768px) { /* md breakpoint */
-    .hero-background-section {
-        background-size: 40% auto; /* Smaller on larger screens */
-    }
+  /* Added for responsive hero background */
+  .hero-background-section {
+      background-image: url('/img/4Q46.gif');
+      background-size: 80% auto; /* Mobile-first: larger on small screens */
+      background-position: center;
+      background-repeat: no-repeat;
+  }
+
+  @media (min-width: 768px) { /* md breakpoint */
+      .hero-background-section {
+          background-size: 40% auto; /* Smaller on larger screens */
+      }
+  }
+
+  @keyframes animated-text-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 }
