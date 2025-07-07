@@ -149,7 +149,8 @@ export default function AppHeader() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'transition-colors hover:text-foreground/80',
+                  'transition-colors duration-300',
+                  'hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-accent hover:via-primary-foreground hover:to-accent hover:bg-[length:200%_auto] hover:animate-text-gradient-flow',
                   pathname === link.href ? 'text-foreground font-semibold' : 'text-foreground/60'
                 )}
               >
