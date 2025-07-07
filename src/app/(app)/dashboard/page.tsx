@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState, useCallback, type ComponentType } from 'react';
@@ -52,7 +51,7 @@ export default function DashboardPage() {
   const [isClaimingReward, setIsClaimingReward] = useState(false);
 
   const displayName = currentUser?.displayName || currentUser?.email?.split('@')[0] || t('defaultSeekerName');
-  const getDateFnsLocale = () => (locale === 'pt-BR' ? ptBR : enUS);
+  const dateFnsLocale = locale === 'pt-BR' ? ptBR : enUS;
 
   const updateDailyRewardStatus = useCallback(() => {
     if (userProfile) {
@@ -65,13 +64,13 @@ export default function DashboardPage() {
         const endTime = lastClaimTimestamp + GIFT_COOLDOWN_MILLISECONDS;
         const duration = intervalToDuration({ start: now, end: endTime });
         const formattedTime = formatDuration(duration, { 
-          locale: getDateFnsLocale(),
+          locale: dateFnsLocale,
           format: ['hours', 'minutes', 'seconds'] 
         });
         setDailyRewardStatus({ claimable: false, timeRemaining: formattedTime, cooldownEndTime: endTime });
       }
     }
-  }, [userProfile, getDateFnsLocale]);
+  }, [userProfile, dateFnsLocale]);
 
   useEffect(() => {
     if (currentUser?.uid) {
@@ -257,7 +256,7 @@ export default function DashboardPage() {
                                         )}>
                                             <p className="text-xs font-bold text-center absolute top-1 right-1">{reward.day}</p>
                                             <div className="flex-grow flex items-center justify-center">
-                                                <IconComponent className="h-8 w-8 animate-icon-flow" />
+                                                <IconComponent className={cn("h-8 w-8", isLocked ? "opacity-50" : "animate-icon-flow")} />
                                             </div>
                                             {isClaimed && <CheckCircle2 className="absolute bottom-1 right-1 h-4 w-4 text-green-500"/>}
                                             {isLocked && <Lock className="absolute bottom-1 right-1 h-3 w-3 text-muted-foreground"/>}
@@ -318,7 +317,7 @@ export default function DashboardPage() {
                         </div>
                         <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 w-full sm:w-auto">
                             <span className="text-xs text-muted-foreground whitespace-nowrap self-end sm:self-center">
-                                {typeof reading.interpretationTimestamp === 'number' ? formatDistanceToNow(new Date(reading.interpretationTimestamp), { addSuffix: true, locale: getDateFnsLocale() }) : 'Recent'}
+                                {typeof reading.interpretationTimestamp === 'number' ? formatDistanceToNow(new Date(reading.interpretationTimestamp), { addSuffix: true, locale: dateFnsLocale }) : 'Recent'}
                             </span>
                             <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
                                 <Link href={`/reading/${reading.id}`}>
