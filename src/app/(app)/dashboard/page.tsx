@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState, useCallback, type ComponentType } from 'react';
@@ -9,7 +8,7 @@ import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2,
 import { 
   Gem, Sparkles, Moon, Sun, Star, Crown, Feather, Key, Scroll, 
   BrainCircuit as BrainIcon, Shield, Pyramid, Infinity as InfinityIcon, Hexagon, Flower, Flame, Leaf, 
-  Cat, Bird, Bot, Cloud, Dna, Fish, Ghost, Grape, LightningBolt, Pentagon, Rainbow, Heart 
+  Cat, Bird, Bot, Cloud, Dna, Fish, Ghost, Grape, Zap, Pentagon, Rainbow, Heart 
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -29,7 +28,7 @@ const GIFT_COOLDOWN_MILLISECONDS = 24 * 60 * 60 * 1000;
 const iconMap: { [key: string]: ComponentType<{ className?: string }> } = {
   Gem, Sparkles, Moon, Sun, Star, Crown, Feather, Key, Scroll, Eye, 
   BrainCircuit: BrainIcon, Shield, Pyramid, Infinity: InfinityIcon, Hexagon, Flower, Flame, Leaf, 
-  Cat, Bird, Bot, Cloud, Dna, Fish, Ghost, Grape, LightningBolt, Pentagon, Rainbow, Heart, Gift
+  Cat, Bird, Bot, Cloud, Dna, Fish, Ghost, Grape, Zap, Pentagon, Rainbow, Heart, Gift
 };
 
 export default function DashboardPage() {

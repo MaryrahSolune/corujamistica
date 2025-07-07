@@ -1,4 +1,3 @@
-
 'use server';
 
 import { rtdb } from '@/lib/firebase';
@@ -22,7 +21,7 @@ const mysticalIconNames = [
   'BrainCircuit', 'Shield', 'Pyramid', 'Infinity', 'Hexagon',
   'Flower', 'Flame', 'Leaf', 'Cat', 'Bird',
   'Bot', 'Cloud', 'Dna', 'Fish', 'Ghost',
-  'Grape', 'LightningBolt', 'Pentagon', 'Rainbow', 'Heart'
+  'Grape', 'Zap', 'Pentagon', 'Rainbow', 'Heart'
 ];
 
 // Helper to create a default reward if none is set
@@ -106,4 +105,3 @@ export async function setRewardForDay(day: number, rewardData: Omit<DailyReward,
     return { success: false, message: error.message || 'An unknown error occurred.' };
   }
 }
-```
