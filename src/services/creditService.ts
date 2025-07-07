@@ -47,6 +47,35 @@ export async function getUserCredits(uid: string): Promise<UserCreditsData | nul
   }
 }
 
+export async function claimFreeCredit(uid: string): Promise<{ success: boolean; message: string; newBalance?: number }> {
+    const creditsRef = ref(rtdb, `users/${uid}/credits`);
+    try {
+      const result = await runTransaction(creditsRef, (currentData: UserCreditsData | null) => {
+        if (currentData === null) {
+          return { balance: FREE_CREDITS_ON_CLAIM, freeCreditClaimed: true, lastFreeCreditClaimTimestamp: serverTimestamp() };
+        }
+  
+        if (currentData.freeCreditClaimed) {
+          return; // Aborts the transaction
+        }
+  
+        currentData.balance = (currentData.balance || 0) + FREE_CREDITS_ON_CLAIM;
+        currentData.freeCreditClaimed = true;
+        currentData.lastFreeCreditClaimTimestamp = serverTimestamp();
+        return currentData;
+      });
+  
+      if (result.committed && result.snapshot.exists()) {
+        return { success: true, message: "Free credit claimed successfully.", newBalance: result.snapshot.val().balance };
+      } else {
+        return { success: false, message: "Free credit already claimed or transaction failed." };
+      }
+    } catch (error: any) {
+      console.error("Error claiming free credit:", error);
+      return { success: false, message: error.message || "An error occurred while claiming free credit." };
+    }
+}
+
 export async function claimDailyReward(uid: string): Promise<{ success: boolean; message: string; reward?: DailyReward; cooldownEndTime?: number; }> {
   const profileRef = ref(rtdb, `users/${uid}/profile`);
   const creditsRef = ref(rtdb, `users/${uid}/credits`);
