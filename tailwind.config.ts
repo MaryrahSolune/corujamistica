@@ -134,6 +134,11 @@ export default {
           '33%': { color: 'hsl(var(--accent))' },
           '66%': { color: 'hsl(var(--secondary))' },
         },
+        'text-gradient-flow': {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
@@ -148,6 +153,7 @@ export default {
         'subtle-bob': 'subtle-bob 4.5s ease-in-out infinite',
         'float-up': 'float-up-and-fade 1.5s ease-out forwards',
         'icon-flow': 'icon-color-flow 4s linear infinite',
+        'text-gradient-flow': 'text-gradient-flow 4s ease infinite',
   		}
   	}
   },

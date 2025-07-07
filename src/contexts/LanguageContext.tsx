@@ -244,25 +244,24 @@ export type TranslationKey =
   | 'freeCreditAlreadyClaimedButton'
   | 'satisfiedClientsLabel'
   | 'orSeparator'
-  // Daily Reward Calendar Keys
   | 'dailyRewardsTitle'
   | 'dailyRewardsSubtitle'
-  | 'dayLabel' // Params: {day: number}
+  | 'dayLabel'
   | 'claimedStatus'
   | 'claimStatus'
   | 'lockedStatus'
   | 'rewardTrack'
-  | 'comeBackIn' // Params: {time: string}
-  | 'rewardOf' // Params: {day: number}
+  | 'comeBackIn'
+  | 'rewardOf'
   | 'claimRewardButton'
   | 'rewardClaimedSuccessTitle'
-  | 'rewardClaimedSuccessDescription' // Params: {reward: string}
+  | 'rewardClaimedSuccessDescription'
   | 'rewardClaimErrorTitle'
   | 'rewardClaimErrorCooldown'
   | 'rewardClaimErrorGeneric'
   | 'manageDailyRewardsTitle'
   | 'manageDailyRewardsDescription'
-  | 'editRewardForDay' // Params: {day: number}
+  | 'editRewardForDay'
   | 'rewardTitleLabel'
   | 'rewardTitlePlaceholder'
   | 'rewardTypeLabel'
@@ -277,7 +276,6 @@ export type TranslationKey =
   | 'rewardUpdateSuccess'
   | 'rewardUpdateError'
   | 'loadingRewards'
-  // New keys for prizes section
   | 'dailyTreasuresTitle'
   | 'dailyTreasuresSubtitle'
   | 'prizeCreditsTitle'
@@ -289,6 +287,8 @@ export type TranslationKey =
   | 'prizePhysicalTarotTitle'
   | 'prizePhysicalTarotDescription'
   | 'prizeImageAlt'
+  | 'chooseFileButton'
+  | 'noFileChosenText'
   ;
 
 interface LanguageContextType {
@@ -297,7 +297,6 @@ interface LanguageContextType {
   t: (key: TranslationKey, params?: Record<string, string | number>) => string;
 }
 
-// 2. Translations
 const translationsData: Record<Locale, Record<TranslationKey, string>> = {
   'en': {
     mysticInsights: 'Coruja Mística',
@@ -534,7 +533,6 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     freeCreditAlreadyClaimedButton: "Already Claimed",
     satisfiedClientsLabel: "Satisfied clients",
     orSeparator: "OR",
-    // New Daily Reward Keys
     dailyRewardsTitle: "Reward Calendar",
     dailyRewardsSubtitle: "Claim your reward every day to advance on the track!",
     dayLabel: "Day {day}",
@@ -567,7 +565,6 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     rewardUpdateSuccess: "Reward updated successfully.",
     rewardUpdateError: "Failed to update reward.",
     loadingRewards: "Loading reward cycle...",
-    // New keys for prizes section
     dailyTreasuresTitle: "Discover the Daily Treasures",
     dailyTreasuresSubtitle: "Every day, a new opportunity to win gifts that enrich your spiritual journey.",
     prizeCreditsTitle: "Mystical Credits",
@@ -579,6 +576,8 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     prizePhysicalTarotTitle: "Physical Tarots",
     prizePhysicalTarotDescription: "You can win beautifully illustrated physical tarot decks, sent directly to your home as a special prize.",
     prizeImageAlt: "Prize image: {prizeName}",
+    chooseFileButton: 'Choose File',
+    noFileChosenText: 'No file chosen',
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -815,7 +814,6 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     freeCreditAlreadyClaimedButton: "Já Resgatado",
     satisfiedClientsLabel: "Clientes Satisfeitos",
     orSeparator: "OU",
-    // New Daily Reward Keys
     dailyRewardsTitle: "Calendário de Recompensas",
     dailyRewardsSubtitle: "Resgate seu prêmio todos os dias para avançar na trilha!",
     dayLabel: "Dia {day}",
@@ -848,7 +846,6 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     rewardUpdateSuccess: "Recompensa atualizada com sucesso.",
     rewardUpdateError: "Falha ao atualizar a recompensa.",
     loadingRewards: "Carregando ciclo de recompensas...",
-    // New keys for prizes section
     dailyTreasuresTitle: "Descubra os Tesouros Diários",
     dailyTreasuresSubtitle: "A cada dia, uma nova oportunidade de ganhar presentes que enriquecem sua jornada espiritual.",
     prizeCreditsTitle: "Créditos Místicos",
@@ -860,13 +857,13 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     prizePhysicalTarotTitle: "Tarôs Físicos",
     prizePhysicalTarotDescription: "Você poderá ganhar baralhos de tarô físicos, belamente ilustrados, enviados diretamente para sua casa como um prêmio especial.",
     prizeImageAlt: "Imagem do prêmio: {prizeName}",
+    chooseFileButton: 'Escolher Arquivo',
+    noFileChosenText: 'Nenhum arquivo escolhido',
   }
 };
 
-// 3. Context
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// 4. Provider
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [locale, setLocaleState] = useState<Locale>('pt-BR');
   const [currentTranslations, setCurrentTranslations] = useState<Record<TranslationKey, string>>(() => translationsData['pt-BR']);
@@ -883,7 +880,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       if (browserLang === 'en' && translationsData.hasOwnProperty('en')) {
         initialLocale = 'en';
       }
-      // If browserLang is 'pt' (or 'pt-BR' fully), it will default to 'pt-BR' as set initially.
     }
     
     setLocaleState(initialLocale);
@@ -903,7 +899,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const t = useCallback((key: TranslationKey, params?: Record<string, string | number>): string => {
     if (!isInitialized && typeof window !== 'undefined') { 
-        // Fallback during SSR or before initialization, try to load directly if key exists
         const storedLocale = localStorage.getItem('locale') as Locale | null;
         const initialLoadLocale = storedLocale && translationsData[storedLocale] ? storedLocale : 'pt-BR';
         let fallbackTranslation = translationsData[initialLoadLocale]?.[key] || key;
@@ -924,13 +919,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return translation;
   }, [currentTranslations, isInitialized]);
 
-  // Avoid rendering children until context is initialized to prevent flash of untranslated content
-  // This is a common pattern, but might need adjustment based on specific app loading UX.
-  // if (!isInitialized && typeof window !== 'undefined') { // Check window to avoid issues on server
-  // return null; // Or a global loading spinner
-  // }
-
-
   return (
     <LanguageContext.Provider value={{ locale, setLocale, t }}>
       {children}
@@ -938,7 +926,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// 5. Hook
 export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext);
   if (context === undefined) {
@@ -946,3 +933,5 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
+
+    

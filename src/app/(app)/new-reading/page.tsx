@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, type ChangeEvent, type FormEvent, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,13 +10,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { generateReadingInterpretation, type GenerateReadingInterpretationInput, type GenerateReadingInterpretationOutput } from '@/ai/flows/generate-reading-interpretation';
 import Image from 'next/image';
-import { Loader2, UploadCloud, Wand2, VenetianMask, Sparkles } from 'lucide-react'; // Added Sparkles
+import { Loader2, UploadCloud, Wand2, VenetianMask, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { deductCredit } from '@/services/creditService';
 import { saveReading, type TarotReadingData } from '@/services/readingService';
+import { cn } from '@/lib/utils';
 
-// Explicitly type the result from the AI flow if it might include optional fields not in the base type
 interface ExtendedGenerateReadingOutput extends GenerateReadingInterpretationOutput {
   summaryImageUri?: string;
 }
@@ -24,6 +24,7 @@ interface ExtendedGenerateReadingOutput extends GenerateReadingInterpretationOut
 export default function NewReadingPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageDataUri, setImageDataUri] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('');
   const [interpretationResult, setInterpretationResult] = useState<ExtendedGenerateReadingOutput | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -82,7 +83,6 @@ export default function NewReadingPage() {
         if (imageDataUri) {
           readingToSave.cardSpreadImageUri = imageDataUri;
         }
-        // Only add summaryImageUri if it exists and is a non-empty string
         if (result.summaryImageUri && typeof result.summaryImageUri === 'string' && result.summaryImageUri.trim() !== '') {
           readingToSave.summaryImageUri = result.summaryImageUri;
         }
@@ -112,6 +112,7 @@ export default function NewReadingPage() {
         });
         return;
       }
+      setFileName(file.name);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
@@ -120,6 +121,10 @@ export default function NewReadingPage() {
       reader.readAsDataURL(file);
       setInterpretationResult(null); 
       setError(null);
+    } else {
+      setFileName(null);
+      setImagePreview(null);
+      setImageDataUri(null);
     }
   };
 
@@ -129,8 +134,10 @@ export default function NewReadingPage() {
         <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
           <CardHeader>
             <CardTitle className="text-3xl font-serif flex items-center">
-              <Wand2 className="h-8 w-8 mr-3 text-primary" />
-              {t('newCardReadingTitle')}
+              <Wand2 className="h-8 w-8 mr-3 text-primary animate-icon-flow" />
+              <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent bg-[length:200%_auto] animate-text-gradient-flow">
+                {t('newCardReadingTitle')}
+              </span>
             </CardTitle>
             <CardDescription>
               {t('newCardReadingDescription')} {userCredits && t('creditsAvailable', {count: userCredits.balance})}
@@ -139,15 +146,31 @@ export default function NewReadingPage() {
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="card-image" className="text-lg">{t('uploadCardSpreadImageLabel')}</Label>
-                <Input
-                  id="card-image"
-                  type="file"
-                  accept="image/png, image/jpeg, image/webp"
-                  onChange={handleImageChange}
-                  className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
-                  disabled={isLoading}
-                />
+                <Label className="text-lg">{t('uploadCardSpreadImageLabel')}</Label>
+                <div className="flex items-center gap-4">
+                    <Input
+                      id="card-image"
+                      type="file"
+                      accept="image/png, image/jpeg, image/webp"
+                      onChange={handleImageChange}
+                      className="hidden"
+                      disabled={isLoading}
+                    />
+                    <Label
+                      htmlFor="card-image"
+                      className={cn(
+                          buttonVariants({ variant: 'outline' }),
+                          'cursor-pointer',
+                          isLoading && 'cursor-not-allowed opacity-50'
+                      )}
+                    >
+                      <UploadCloud className="mr-2 h-4 w-4" />
+                      {t('chooseFileButton')}
+                    </Label>
+                    <span className="text-sm text-muted-foreground truncate">
+                      {fileName || t('noFileChosenText')}
+                    </span>
+                </div>
                 {imagePreview && (
                   <div className="mt-4 border rounded-lg p-2 bg-muted/50 flex justify-center">
                     <Image
@@ -252,7 +275,6 @@ export default function NewReadingPage() {
         </div>
       )}
 
-      {/* GIF at the end of the page */}
       <div className="mt-12 flex justify-center">
         <Image
           src="/img/coruja.gif"
