@@ -97,101 +97,105 @@ export default function CreditsPage() {
   };
 
   return (
-    <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="text-center mb-12">
-        <CreditCard className="h-16 w-16 text-primary mx-auto mb-4" />
-        <h1 className="text-4xl font-bold font-serif mb-2">{t('purchaseCreditsTitle')}</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          {t('purchaseCreditsDescription')}
-        </p>
-      </div>
+    <div className="bg-black">
+      <div className="container mx-auto p-4 sm:p-6 lg:p-8">
+        <div className="text-center mb-12">
+          <CreditCard className="h-16 w-16 text-primary mx-auto mb-4" />
+          <h1 className="text-4xl font-bold font-serif mb-2 text-white">{t('purchaseCreditsTitle')}</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            {t('purchaseCreditsDescription')}
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {creditPackages.map((pkg) => (
-          <div key={pkg.id} className={`animated-aurora-background rounded-lg ${pkg.popular ? 'p-0.5' : ''}`}>
-            <Card className={`shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full ${pkg.popular ? 'border-transparent ring-2 ring-primary/70' : ''}`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {creditPackages.map((pkg) => (
+            <div key={pkg.id} className="relative">
+              <div className={`animated-aurora-background rounded-lg ${pkg.popular ? 'p-0.5' : ''}`}>
+                <Card className={`shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full ${pkg.popular ? 'border-transparent ring-2 ring-primary/70' : ''}`}>
+                  <CardHeader className="text-center">
+                    <div className="mx-auto mb-3 p-3 bg-accent/10 rounded-full w-fit">
+                      {pkg.icon}
+                    </div>
+                    <CardTitle className="text-2xl font-serif">{pkg.name}</CardTitle>
+                    <CardDescription>{pkg.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <div className="text-center mb-4">
+                      <span className="text-5xl font-bold text-primary">{pkg.credits}</span>
+                      <span className="text-muted-foreground"> {t('creditsUnit')}</span>
+                    </div>
+                    <p className={`text-center text-3xl font-semibold ${pkg.priceUSD === 0 ? 'text-green-600 dark:text-green-500' : ''}`}>
+                      {getDisplayPrice(pkg.priceUSD)}
+                    </p>
+                  </CardContent>
+                  <CardFooter className="mt-auto">
+                    <Button
+                      onClick={() => handlePurchase(pkg.id, pkg.priceUSD === 0, pkg.credits)}
+                      className="w-full text-lg py-3"
+                      variant={'default'}
+                      disabled={
+                        redirecting || // Disable while redirecting
+                        (pkg.priceUSD === 0 && (claimingFreeCredit || !!userCredits?.freeCreditClaimed)) ||
+                        (pkg.priceUSD !== 0 && claimingFreeCredit)
+                      }
+                    >
+                      {pkg.priceUSD === 0 && claimingFreeCredit && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+                      {(pkg.priceUSD !== 0 && redirecting) && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+
+                      {pkg.priceUSD === 0 ? (userCredits?.freeCreditClaimed ? t('freeCreditAlreadyClaimedButton') : t('getItNowButton')) : t('purchaseNowButton')}
+                    </Button>
+                  </CardFooter>
+                  {pkg.id === 1 && ( // Add this condition to only show the Pix button for Pacote do Buscador (id: 1)
+                    <CardFooter className="mt-2">
+                      <Button
+                        onClick={() => { /* Add Pix payment logic here */ }}
+                        className="w-full text-lg py-3 animated-aurora-background" // Added animated-aurora-background class
+                        variant={'outline'} // Use outline variant for secondary action
+                        disabled={claimingFreeCredit || redirecting} // Disable when loading or redirecting
+                      >
+                        Pagar com Pix
+                      </Button>
+                    </CardFooter>
+                  )}
+                  {(pkg.id === 2 || pkg.id === 3) && ( // Add this condition to show the Pix button for Combo do Oráculo (id: 2) and Tesouro do Místico (id: 3)
+                    <CardFooter className="mt-2">
+                      <Button
+                        onClick={() => { /* Add Pix payment logic here */ }}
+                        className="w-full text-lg py-3 animated-aurora-background" // Apply same styling as other buttons
+                        variant={'outline'} // Use outline variant
+                        disabled={claimingFreeCredit || redirecting} // Disable when loading or redirecting
+                      >
+                        Pagar com Pix
+
+                      </Button>
+                    </CardFooter>
+                  )}
+                </Card>
+              </div>
               {pkg.popular && (
-                <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground text-xs font-semibold px-2 py-1 rounded-full shadow-lg z-20">
+                <div className="absolute -top-4 -right-4 bg-primary text-primary-foreground text-sm font-bold px-4 py-2 rounded-full shadow-lg z-20 transform rotate-12">
                   {t('popularBadge')}
                 </div>
               )}
-              <CardHeader className="text-center">
-                <div className="mx-auto mb-3 p-3 bg-accent/10 rounded-full w-fit">
-                   {pkg.icon}
-                </div>
-                <CardTitle className="text-2xl font-serif">{pkg.name}</CardTitle>
-                <CardDescription>{pkg.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <div className="text-center mb-4">
-                  <span className="text-5xl font-bold text-primary">{pkg.credits}</span>
-                  <span className="text-muted-foreground"> {t('creditsUnit')}</span>
-                </div>
-                <p className={`text-center text-3xl font-semibold ${pkg.priceUSD === 0 ? 'text-green-600 dark:text-green-500' : ''}`}>
-                  {getDisplayPrice(pkg.priceUSD)}
-                </p>
-              </CardContent>
-              <CardFooter className="mt-auto">
-                <Button
-                  onClick={() => handlePurchase(pkg.id, pkg.priceUSD === 0, pkg.credits)}
-                  className="w-full text-lg py-3"
-                  variant={'default'}
-                  disabled={
-                    redirecting || // Disable while redirecting
-                    (pkg.priceUSD === 0 && (claimingFreeCredit || !!userCredits?.freeCreditClaimed)) ||
-                    (pkg.priceUSD !== 0 && claimingFreeCredit)
-                  }
-                >
-                  {pkg.priceUSD === 0 && claimingFreeCredit && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
-                   {(pkg.priceUSD !== 0 && redirecting) && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
-
-                  {pkg.priceUSD === 0 ? (userCredits?.freeCreditClaimed ? t('freeCreditAlreadyClaimedButton') : t('getItNowButton')) : t('purchaseNowButton')}
-                </Button>
-              </CardFooter>
-              {pkg.id === 1 && ( // Add this condition to only show the Pix button for Pacote do Buscador (id: 1)
-                <CardFooter className="mt-2">
-                  <Button
-                    onClick={() => { /* Add Pix payment logic here */ }}
-                    className="w-full text-lg py-3 animated-aurora-background" // Added animated-aurora-background class
-                    variant={'outline'} // Use outline variant for secondary action
-                    disabled={claimingFreeCredit || redirecting} // Disable when loading or redirecting
-                  >
-                    Pagar com Pix
-                  </Button>
-                </CardFooter>
-              )}
-              {(pkg.id === 2 || pkg.id === 3) && ( // Add this condition to show the Pix button for Combo do Oráculo (id: 2) and Tesouro do Místico (id: 3)
-                <CardFooter className="mt-2">
-                  <Button
-                    onClick={() => { /* Add Pix payment logic here */ }}
-                    className="w-full text-lg py-3 animated-aurora-background" // Apply same styling as other buttons
-                    variant={'outline'} // Use outline variant
-                    disabled={claimingFreeCredit || redirecting} // Disable when loading or redirecting
-                  >
-                    Pagar com Pix
-
-                  </Button>
-                </CardFooter>
-              )}
-            </Card>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-16 text-center">
-        <ShieldCheck className="h-12 w-12 text-green-600 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold font-serif mb-2">{t('securePaymentsTitle')}</h2>
-        <p className="text-muted-foreground max-w-md mx-auto">
-          Suas transações são protegidas com os mais altos padrões de segurança. Aceitamos pagamentos via Mercado Pago (Pix) e Stripe (Cartões).
-        </p>
-        <div className="flex justify-center space-x-4 mt-4">
-          <Image src="/img/download (3).png" alt="Mercado Pago (Pix)" width={100} height={40} className="opacity-90" data-ai-hint="mercado pago pix logo" />
-          <Image src="/img/download (4).png" alt="Stripe (Cartões)" width={100} height={40} className="opacity-90" data-ai-hint="stripe cards logo" />
+            </div>
+          ))}
         </div>
-        <Image src="/img/download.jpeg" alt="Payment Security Logos" width={300} height={100} className="mx-auto mt-4" data-ai-hint="payment security logos" />
-      </div>
-      <div className="mt-16 text-center">
-        <img src="/img/gato copy.gif" alt="Mystic Cat" className="mx-auto" />
+
+        <div className="mt-16 text-center">
+          <ShieldCheck className="h-12 w-12 text-green-600 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold font-serif mb-2 text-white">{t('securePaymentsTitle')}</h2>
+          <p className="text-muted-foreground max-w-md mx-auto">
+            Suas transações são protegidas com os mais altos padrões de segurança. Aceitamos pagamentos via Mercado Pago (Pix) e Stripe (Cartões).
+          </p>
+          <div className="flex justify-center space-x-4 mt-4">
+            <Image src="/img/download (3).png" alt="Mercado Pago (Pix)" width={100} height={40} className="opacity-90" data-ai-hint="mercado pago pix logo" />
+            <Image src="/img/download (4).png" alt="Stripe (Cartões)" width={100} height={40} className="opacity-90" data-ai-hint="stripe cards logo" />
+          </div>
+          <Image src="/img/download.jpeg" alt="Payment Security Logos" width={300} height={100} className="mx-auto mt-4" data-ai-hint="payment security logos" />
+        </div>
+        <div className="mt-16 text-center">
+          <img src="/img/gato copy.gif" alt="Mystic Cat" className="mx-auto" />
+        </div>
       </div>
     </div>
   );
