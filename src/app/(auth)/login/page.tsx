@@ -12,6 +12,7 @@ import { auth } from '@/lib/firebase';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
@@ -34,25 +35,40 @@ export default function LoginPage() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false); // Loading state for Google login
+  const [rememberMe, setRememberMe] = useState(false);
   const { t } = useLanguage();
   const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
   });
+
+  useEffect(() => {
+    setIsClient(true);
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    if (rememberedEmail) {
+      setValue('email', rememberedEmail);
+      setRememberMe(true);
+    }
+  }, [setValue]);
+
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
+
+      if (rememberMe) {
+        localStorage.setItem('rememberedEmail', data.email);
+      } else {
+        localStorage.removeItem('rememberedEmail');
+      }
+
       toast({ title: t('loginSuccessTitle'), description: t('loginSuccessDescription') });
       router.push('/dashboard'); // Redirect directly to dashboard
     } catch (error: any) {
@@ -129,6 +145,20 @@ export default function LoginPage() {
               <Input id="password" type="password" {...register('password')} placeholder="••••••••" />
               {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
             </div>
+            
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="remember-me"
+                checked={rememberMe}
+                onCheckedChange={(checkedState) => {
+                  setRememberMe(checkedState === true);
+                }}
+              />
+              <Label htmlFor="remember-me">
+                {t('rememberMeLabel')}
+              </Label>
+            </div>
+
             <div className="login-button-aura-wrapper">
               <Button 
                 type="submit" 

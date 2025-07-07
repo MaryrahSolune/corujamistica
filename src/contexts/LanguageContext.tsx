@@ -289,6 +289,7 @@ export type TranslationKey =
   | 'prizeImageAlt'
   | 'chooseFileButton'
   | 'noFileChosenText'
+  | 'rememberMeLabel'
   ;
 
 interface LanguageContextType {
@@ -578,6 +579,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     prizeImageAlt: "Prize image: {prizeName}",
     chooseFileButton: 'Choose File',
     noFileChosenText: 'No file chosen',
+    rememberMeLabel: 'Remember me',
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -859,6 +861,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     prizeImageAlt: "Imagem do prêmio: {prizeName}",
     chooseFileButton: 'Escolher Arquivo',
     noFileChosenText: 'Nenhum arquivo escolhido',
+    rememberMeLabel: 'Lembrar-me',
   }
 };
 
