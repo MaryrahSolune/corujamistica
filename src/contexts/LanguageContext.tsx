@@ -136,6 +136,7 @@ export type TranslationKey =
   | 'summaryImageAlt'
   | 'imageTooLargeTitle'
   | 'imageTooLargeDescription'
+  | 'changeProfilePictureLabel'
   | 'tarotReadingDetailsTitle'
   | 'dreamInterpretationDetailsTitle'
   | 'readingPerformedOn' // Params: { date: string }
@@ -425,7 +426,8 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     yourVisualBlessingTitle: 'Your Visual Blessing',
     summaryImageAlt: 'AI generated summary image for your reading',
     imageTooLargeTitle: "Image Too Large",
-    imageTooLargeDescription: "Please upload an image smaller than 4MB.",
+    imageTooLargeDescription: "Please upload an image smaller than 2MB.",
+    changeProfilePictureLabel: 'Change profile picture',
     tarotReadingDetailsTitle: "Tarot Reading Details",
     dreamInterpretationDetailsTitle: "Dream Interpretation Details",
     readingPerformedOn: "Reading performed on: {date}",
@@ -707,7 +709,8 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     yourVisualBlessingTitle: 'Sua Bênção Visual',
     summaryImageAlt: 'Imagem resumo gerada por IA para sua leitura',
     imageTooLargeTitle: "Imagem Muito Grande",
-    imageTooLargeDescription: "Por favor, envie uma imagem menor que 4MB.",
+    imageTooLargeDescription: "Por favor, envie uma imagem menor que 2MB.",
+    changeProfilePictureLabel: 'Alterar foto de perfil',
     tarotReadingDetailsTitle: "Detalhes da Leitura de Tarot",
     dreamInterpretationDetailsTitle: "Detalhes da Interpretação de Sonho",
     readingPerformedOn: "Leitura realizada em: {date}",
