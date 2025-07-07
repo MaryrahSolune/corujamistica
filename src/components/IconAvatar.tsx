@@ -14,7 +14,7 @@ export const gradientMap: Record<string, string> = {
   nightsky: 'from-indigo-400 via-purple-500 to-pink-400',
 };
 
-// A simplified, verified list of icons to prevent runtime errors.
+// This list is for displaying options to the user, not for validation.
 export const availableIcons = [
   'UserCircle2', 'Gem', 'Sparkles', 'Moon', 'Sun', 'Star', 'Crown', 'Feather', 'Key', 'Scroll', 'Eye', 'BrainCircuit', 'Shield', 'Pyramid', 'Infinity', 'Hexagon', 'Flower', 'Flame', 'Leaf', 'Cat', 'Bird', 'Bot', 'Cloud', 'Dna', 'Fish', 'Ghost', 'Grape', 'Zap', 'Pentagon', 'Rainbow', 'Heart', 'Swords', 'ShieldCheck', 'Skull', 'YinYang', 'Waves', 'Mountain', 'Tornado', 'TreePalm', 'Aperture', 'Atom', 'Anchor', 'Axe', 'Scale', 'Castle', 'Church', 'Clover', 'Coffee', 'Diamond', 'Dice5', 'Droplet', 'Fingerprint', 'Fox', 'Gamepad2', 'Guitar', 'Hammer', 'Headphones', 'Hourglass', 'Lamp', 'Laptop', 'Lighthouse', 'Lock', 'Magnet', 'Map', 'Mouse', 'Music', 'Paintbrush', 'Palette', 'PawPrint', 'Pizza', 'Plane', 'Puzzle', 'Quote', 'Rocket', 'Sailboat', 'Scissors', 'Shell', 'Ship', 'Snail', 'Snowflake', 'Spade', 'Speaker', 'Telescope', 'Tent', 'Ticket', 'TrainTrack', 'Umbrella', 'Wallet', 'Watch', 'Wind', 'Wine', 'Wrench'
 ];
@@ -26,8 +26,9 @@ interface IconAvatarProps extends ComponentProps<'div'> {
 }
 
 export const IconAvatar = ({ iconName, gradientName, className, ...props }: IconAvatarProps) => {
-  const safeIconName = availableIcons.includes(iconName) ? iconName : 'UserCircle2';
-  const LucideIcon = icons[safeIconName as keyof typeof icons];
+  // Robust check: Directly see if the icon exists in the lucide-react library.
+  // If it doesn't (returns undefined), fall back to a guaranteed safe default icon.
+  const LucideIcon = icons[iconName as keyof typeof icons] || icons['UserCircle2'];
   const gradientClass = gradientMap[gradientName] || gradientMap['aurora'];
 
   return (
