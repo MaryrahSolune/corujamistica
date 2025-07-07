@@ -178,18 +178,6 @@ export default function AdminDashboardPage() {
       setIsSavingReward(false);
     }
   };
-  
-  const handleImageUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!editingReward) return;
-    const value = e.target.value;
-    const iframeRegex = /<iframe[^>]+src="([^"]+)"/;
-    const match = value.match(iframeRegex);
-    if (match && match[1]) {
-      setEditingReward({ ...editingReward, imageUrl: match[1] });
-    } else {
-      setEditingReward({ ...editingReward, imageUrl: value });
-    }
-  };
 
   if (adminProfile?.role !== 'admin') {
     return ( 
@@ -451,7 +439,7 @@ export default function AdminDashboardPage() {
               </div>
             ) : (
                <Dialog onOpenChange={(open) => !open && setEditingReward(null)}>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
                   {rewardCycle.map((reward) => (
                     <DialogTrigger key={reward.day} asChild>
                       <Card 
@@ -462,27 +450,6 @@ export default function AdminDashboardPage() {
                           <CardDescription>{t('dayLabel', {day: reward.day})}</CardDescription>
                         </CardHeader>
                         <CardContent className="p-1 flex-grow flex flex-col items-center justify-center">
-                          {reward.imageUrl && reward.imageUrl.includes('gifer.com/embed') ? (
-                            <div className="w-12 h-12 mb-2 overflow-hidden rounded-md flex items-center justify-center bg-black/10">
-                              <iframe
-                                src={reward.imageUrl}
-                                className="w-full h-full scale-150 border-0"
-                                scrolling="no"
-                                frameBorder="0"
-                                allowFullScreen
-                                title={`Animação para ${reward.title}`}
-                              ></iframe>
-                            </div>
-                          ) : (
-                            <Image
-                              src={reward.imageUrl || 'https://placehold.co/100x100.png'}
-                              alt={reward.title}
-                              width={40}
-                              height={40}
-                              className="rounded-md mb-2 object-cover"
-                              data-ai-hint="reward icon"
-                            />
-                          )}
                           <p className="text-sm font-semibold">{reward.title}</p>
                           <p className="text-xs text-muted-foreground">
                             {reward.value} {t(rewardTypeOptions.find(opt => opt.value === reward.type)?.labelKey ?? 'rewardTypeCredits')}
@@ -502,10 +469,6 @@ export default function AdminDashboardPage() {
                         <div className="space-y-1">
                           <Label htmlFor="reward-title">{t('rewardTitleLabel')}</Label>
                           <Input id="reward-title" value={editingReward.title} onChange={(e) => setEditingReward({...editingReward, title: e.target.value})} placeholder={t('rewardTitlePlaceholder')}/>
-                        </div>
-                         <div className="space-y-1">
-                          <Label htmlFor="reward-image">{t('rewardImageUrlLabel')}</Label>
-                          <Input id="reward-image" value={editingReward.imageUrl} onChange={handleImageUrlChange} placeholder={t('rewardImageUrlPlaceholder')}/>
                         </div>
                         <div className="space-y-1">
                           <Label htmlFor="reward-type">{t('rewardTypeLabel')}</Label>

@@ -1,3 +1,4 @@
+
 'use server';
 
 import { rtdb } from '@/lib/firebase';
@@ -6,7 +7,6 @@ import { ref, set, get, child } from 'firebase/database';
 export interface DailyReward {
   day: number;
   title: string;
-  imageUrl: string;
   type: 'credits' | 'ebook' | 'tarot_reading'; // Extensible for future reward types
   value: number;
   iconName: string; // New field for Lucide icon name
@@ -28,7 +28,6 @@ const mysticalIconNames = [
 const createDefaultReward = (day: number): DailyReward => ({
   day,
   title: `Recompensa do Dia ${day}`,
-  imageUrl: ``, // Image URL is now secondary to the icon
   type: 'credits',
   value: day % 5 === 0 ? 5 : 1, // Give more credits every 5 days
   iconName: mysticalIconNames[day - 1] || 'Gift', // Fallback to Gift icon
@@ -46,8 +45,14 @@ export async function getRewardCycle(): Promise<DailyReward[]> {
     const cycleData = snapshot.val() || {};
     for (let i = 1; i <= REWARD_CYCLE_LENGTH; i++) {
       if (cycleData[i]) {
-        // Ensure iconName is present, add default if missing from older data
-        rewards.push({ day: i, iconName: mysticalIconNames[i-1] || 'Gift', ...cycleData[i] });
+        const reward = cycleData[i];
+        rewards.push({
+            day: i,
+            title: reward.title,
+            type: reward.type,
+            value: reward.value,
+            iconName: reward.iconName || mysticalIconNames[i - 1] || 'Gift',
+        });
       } else {
         rewards.push(createDefaultReward(i));
       }
@@ -73,7 +78,14 @@ export async function getRewardForDay(day: number): Promise<DailyReward> {
   try {
     const snapshot = await get(dayRef);
     if (snapshot.exists()) {
-      return { day, iconName: mysticalIconNames[day - 1] || 'Gift', ...snapshot.val() };
+      const reward = snapshot.val();
+      return {
+        day: day,
+        title: reward.title,
+        type: reward.type,
+        value: reward.value,
+        iconName: reward.iconName || mysticalIconNames[day - 1] || 'Gift',
+      };
     }
     return createDefaultReward(day);
   } catch (error) {
