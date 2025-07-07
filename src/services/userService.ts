@@ -9,6 +9,10 @@ export interface UserProfileData {
   email: string | null;
   createdAt: number | object;
   photoURL?: string | null;
+  avatar?: {
+    iconName: string;
+    gradient: string;
+  } | null;
   role: 'user' | 'admin';
   dailyRewardStreak: number; // User's current position in the 30-day cycle
   lastClaimTimestamp: number | null; // Timestamp of the last claim, for the 24h cooldown
@@ -51,6 +55,7 @@ export async function createUserProfile(user: User): Promise<void> {
     role: 'user', // Default role is 'user'
     dailyRewardStreak: 0,
     lastClaimTimestamp: null,
+    avatar: null, // Initialize avatar
   };
   if (user.photoURL) {
     profileData.photoURL = user.photoURL;

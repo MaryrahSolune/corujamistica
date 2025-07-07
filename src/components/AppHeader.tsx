@@ -18,6 +18,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
 import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn } from 'lucide-react';
+import { IconAvatar } from './IconAvatar';
 
 const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
   { href: '/dashboard', labelKey: 'dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
@@ -171,8 +172,14 @@ export default function AppHeader() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src={currentUser.photoURL || userProfile?.photoURL || undefined} alt={userProfile?.displayName || currentUser.email || 'User'} />
-                    <AvatarFallback>{getInitials(userProfile?.displayName || currentUser.displayName, currentUser.email)}</AvatarFallback>
+                    {userProfile?.avatar ? (
+                       <IconAvatar iconName={userProfile.avatar.iconName} gradientName={userProfile.avatar.gradient} className="h-full w-full" />
+                    ) : (
+                      <>
+                        <AvatarImage src={currentUser.photoURL || userProfile?.photoURL || undefined} alt={userProfile?.displayName || currentUser.email || 'User'} />
+                        <AvatarFallback>{getInitials(userProfile?.displayName || currentUser.displayName, currentUser.email)}</AvatarFallback>
+                      </>
+                    )}
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>

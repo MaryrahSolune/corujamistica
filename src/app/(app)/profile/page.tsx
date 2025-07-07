@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useRef, type ChangeEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,25 +9,33 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
-import { updateProfile as updateFirebaseAuthProfile } from 'firebase/auth';
 import { updateUserProfile as updateUserProfileInRtdb, getUserProfile } from '@/services/userService';
-import { Loader2, Edit3, UserCircle2 } from 'lucide-react';
+import { Loader2, Edit3, UserCircle2, Palette, Check } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { auth } from '@/lib/firebase';
+import { IconAvatar, availableIcons, gradientMap } from '@/components/IconAvatar';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { cn } from '@/lib/utils';
+import { icons } from 'lucide-react';
 
 export default function ProfilePage() {
-  const { currentUser: authContextUser, loading: authLoading, refreshUserProfile } = useAuth();
+  const { userProfile, loading: authLoading, refreshUserProfile } = useAuth();
   const { toast } = useToast();
   const { t } = useLanguage();
   
   const [displayName, setDisplayName] = useState('');
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [imageDataUri, setImageDataUri] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedIcon, setSelectedIcon] = useState('UserCircle2');
+  const [selectedGradient, setSelectedGradient] = useState('aurora');
   
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingProfile, setIsFetchingProfile] = useState(true);
+  const [isIconSelectorOpen, setIsIconSelectorOpen] = useState(false);
+  
+  // Temporary state for the dialog
+  const [tempIcon, setTempIcon] = useState(selectedIcon);
+  const [tempGradient, setTempGradient] = useState(selectedGradient);
 
   useEffect(() => {
     const user = auth.currentUser; 
@@ -37,16 +45,21 @@ export default function ProfilePage() {
         .then(profile => {
           if (profile) {
             setDisplayName(profile.displayName || user.displayName || '');
-            setImagePreview(profile.photoURL || user.photoURL || null);
+            if (profile.avatar) {
+              setSelectedIcon(profile.avatar.iconName);
+              setSelectedGradient(profile.avatar.gradient);
+              setTempIcon(profile.avatar.iconName);
+              setTempGradient(profile.avatar.gradient);
+            }
           } else {
             setDisplayName(user.displayName || '');
-            setImagePreview(user.photoURL || null);
           }
         })
         .catch(error => {
           console.error("Failed to fetch RTDB profile:", error);
-          setDisplayName(user.displayName || '');
-          setImagePreview(user.photoURL || null);
+          if(user) {
+            setDisplayName(user.displayName || '');
+          }
           toast({ title: "Error", description: "Could not fetch profile details.", variant: "destructive" });
         })
         .finally(() => setIsFetchingProfile(false));
@@ -55,35 +68,17 @@ export default function ProfilePage() {
     }
   }, [authLoading, toast]);
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      if (file.size > 2 * 1024 * 1024) { // 2MB limit
-        toast({
-          title: t('imageTooLargeTitle'),
-          description: t('imageTooLargeDescription'),
-          variant: "destructive",
-        });
-        return;
-      }
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-        setImageDataUri(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     const user = auth.currentUser;
     if (!user) return;
 
-    const nameChanged = displayName !== (user.displayName || '');
-    const photoChanged = !!imageDataUri;
+    const nameChanged = displayName !== (userProfile?.displayName || '');
+    const iconChanged = selectedIcon !== (userProfile?.avatar?.iconName || 'UserCircle2');
+    const gradientChanged = selectedGradient !== (userProfile?.avatar?.gradient || 'aurora');
 
-    if (!nameChanged && !photoChanged) {
+    if (!nameChanged && !iconChanged && !gradientChanged) {
         setIsEditing(false);
         return;
     }
@@ -91,30 +86,21 @@ export default function ProfilePage() {
     setIsLoading(true);
 
     try {
-      const authUpdates: { displayName?: string; photoURL?: string } = {};
-      const rtdbUpdates: { displayName?: string; photoURL?: string } = {};
+      const rtdbUpdates: { displayName?: string; avatar?: { iconName: string; gradient: string } } = {};
 
       if (nameChanged) {
-        authUpdates.displayName = displayName;
         rtdbUpdates.displayName = displayName;
       }
-      if (photoChanged) {
-        authUpdates.photoURL = imageDataUri;
-        rtdbUpdates.photoURL = imageDataUri;
+      if (iconChanged || gradientChanged) {
+        rtdbUpdates.avatar = { iconName: selectedIcon, gradient: selectedGradient };
       }
 
-      if (Object.keys(authUpdates).length > 0) {
-        await updateFirebaseAuthProfile(user, authUpdates);
-      }
-      if (Object.keys(rtdbUpdates).length > 0) {
-        await updateUserProfileInRtdb(user.uid, rtdbUpdates);
-      }
+      await updateUserProfileInRtdb(user.uid, rtdbUpdates);
       
       refreshUserProfile();
       
       toast({ title: t('profileUpdatedTitle'), description: t('profileUpdatedDescription') });
       setIsEditing(false);
-      setImageDataUri(null);
     } catch (error: any) {
       console.error('Profile update error:', error);
       toast({
@@ -132,8 +118,6 @@ export default function ProfilePage() {
     if (mail) return mail.substring(0, 2).toUpperCase();
     return 'MI';
   };
-
-  const triggerFileInput = () => fileInputRef.current?.click();
 
   if (authLoading || isFetchingProfile) {
     return (
@@ -153,7 +137,12 @@ export default function ProfilePage() {
     );
   }
 
-  const hasChanges = displayName !== (userForDisplay.displayName || '') || !!imageDataUri;
+  const hasChanges = displayName !== (userProfile?.displayName || '') || 
+                     selectedIcon !== (userProfile?.avatar?.iconName || 'UserCircle2') ||
+                     selectedGradient !== (userProfile?.avatar?.gradient || 'aurora');
+  
+  const currentAvatar = userProfile?.avatar;
+  const currentPhotoUrl = userProfile?.photoURL;
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -162,21 +151,18 @@ export default function ProfilePage() {
           <CardHeader className="text-center">
             <div className="mx-auto mb-4 relative">
                 <Avatar className="h-24 w-24 border-2 border-primary shadow-md">
-                    <AvatarImage src={imagePreview || undefined} alt={displayName || 'Usuário'} />
-                    <AvatarFallback className="text-3xl bg-accent text-accent-foreground">
-                    {getInitials(displayName, userForDisplay.email)}
-                    </AvatarFallback>
+                    {isEditing ? (
+                        <IconAvatar iconName={selectedIcon} gradientName={selectedGradient} className="h-full w-full" />
+                    ) : currentAvatar ? (
+                        <IconAvatar iconName={currentAvatar.iconName} gradientName={currentAvatar.gradient} className="h-full w-full" />
+                    ) : currentPhotoUrl ? (
+                        <AvatarImage src={currentPhotoUrl} alt={displayName || 'Usuário'} />
+                    ) : (
+                        <AvatarFallback className="text-3xl bg-accent text-accent-foreground">
+                            {getInitials(displayName, userForDisplay.email)}
+                        </AvatarFallback>
+                    )}
                 </Avatar>
-                {isEditing && (
-                    <button
-                        type="button"
-                        onClick={triggerFileInput}
-                        className="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center text-white opacity-100 hover:bg-black/70 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all cursor-pointer group"
-                        aria-label={t('changeProfilePictureLabel')}
-                    >
-                        <Edit3 className="h-8 w-8 transition-transform group-hover:scale-110" />
-                    </button>
-                )}
             </div>
             <CardTitle className="text-3xl font-serif flex items-center justify-center">
                <UserCircle2 className="h-8 w-8 mr-3 text-primary" />
@@ -186,14 +172,7 @@ export default function ProfilePage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleProfileUpdate} className="space-y-6">
-              <Input
-                  id="photo-upload"
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleImageChange}
-                  accept="image/png, image/jpeg, image/webp"
-                  className="hidden"
-              />
+              
               <div className="space-y-2">
                 <Label htmlFor="displayName">{t('displayNameLabel')}</Label>
                 <Input
@@ -204,6 +183,7 @@ export default function ProfilePage() {
                   disabled={!isEditing || isLoading}
                 />
               </div>
+
               <div className="space-y-2">
                 <Label htmlFor="email">{t('emailAddressLabel')}</Label>
                 <Input
@@ -216,6 +196,77 @@ export default function ProfilePage() {
                 <p className="text-xs text-muted-foreground">{t('emailChangeNotice')}</p>
               </div>
               
+              {isEditing && (
+                <Dialog open={isIconSelectorOpen} onOpenChange={setIsIconSelectorOpen}>
+                    <DialogTrigger asChild>
+                        <Button type="button" variant="outline" className="w-full">
+                            <Palette className="mr-2 h-4 w-4" /> Alterar Ícone e Cores
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl">
+                        <DialogHeader>
+                            <DialogTitle>Personalize seu Avatar</DialogTitle>
+                            <DialogDescription>
+                                Escolha um ícone e um gradiente de cores para seu perfil.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="py-4">
+                            <Label className="mb-2 block">Gradiente</Label>
+                            <div className="flex flex-wrap gap-2">
+                                {Object.entries(gradientMap).map(([name, gradientClass]) => (
+                                    <button
+                                        key={name}
+                                        type="button"
+                                        onClick={() => setTempGradient(name)}
+                                        className={cn(
+                                            'h-10 w-10 rounded-full border-2 transition-all',
+                                            tempGradient === name ? 'border-ring ring-2 ring-ring' : 'border-transparent'
+                                        )}
+                                    >
+                                        <div className={cn('h-full w-full rounded-full bg-gradient-to-br', gradientClass)} />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="py-4">
+                            <Label className="mb-2 block">Ícone</Label>
+                            <ScrollArea className="h-64 border rounded-md p-2">
+                                <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-2">
+                                    {availableIcons.map(iconName => {
+                                        const LucideIcon = icons[iconName as keyof typeof icons];
+                                        return (
+                                            <button
+                                                key={iconName}
+                                                type="button"
+                                                onClick={() => setTempIcon(iconName)}
+                                                className={cn(
+                                                    'flex items-center justify-center p-2 rounded-md border-2 aspect-square transition-all',
+                                                    tempIcon === iconName ? 'border-primary bg-primary/10' : 'border-transparent hover:bg-muted'
+                                                )}
+                                            >
+                                                <LucideIcon className="h-6 w-6 text-foreground" />
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </ScrollArea>
+                        </div>
+                        <DialogFooter>
+                            <DialogClose asChild>
+                                <Button type="button" variant="ghost">Cancelar</Button>
+                            </DialogClose>
+                            <Button type="button" onClick={() => {
+                                setSelectedIcon(tempIcon);
+                                setSelectedGradient(tempGradient);
+                                setIsIconSelectorOpen(false);
+                            }}>
+                                <Check className="mr-2 h-4 w-4" /> Confirmar
+                            </Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+              )}
+
               {isEditing ? (
                 <div className="flex gap-4">
                   <Button type="submit" className="flex-1" disabled={isLoading || !hasChanges}>
@@ -224,9 +275,9 @@ export default function ProfilePage() {
                   </Button>
                   <Button type="button" variant="outline" onClick={() => {
                     setIsEditing(false);
-                    setDisplayName(userForDisplay.displayName || ''); 
-                    setImagePreview(userForDisplay.photoURL || null);
-                    setImageDataUri(null);
+                    setDisplayName(userProfile?.displayName || '');
+                    setSelectedIcon(userProfile?.avatar?.iconName || 'UserCircle2');
+                    setSelectedGradient(userProfile?.avatar?.gradient || 'aurora');
                   }} className="flex-1" disabled={isLoading}>
                     {t('cancelButton')}
                   </Button>
