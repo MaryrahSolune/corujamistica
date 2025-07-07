@@ -12,6 +12,8 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--secondary))] text-primary-foreground shadow-md hover:shadow-[0_0_15px_3px_hsl(var(--accent)/0.7),_0_0_8px_1px_hsl(var(--accent)/0.5)] hover:brightness-110 active:brightness-90 transform hover:scale-[1.02] active:scale-[0.98]",
+        "mystic-glow":
+          "border border-accent/40 bg-background text-accent font-semibold shadow-[0_0_12px_1px_hsl(var(--accent)/0.3)] transform hover:scale-[1.03] hover:font-bold hover:shadow-[0_0_20px_4px_hsl(var(--accent)/0.5)] active:scale-[0.98]",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-[0_0_15px_hsl(var(--destructive)/0.6)]",
         outline:
