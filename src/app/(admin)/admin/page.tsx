@@ -209,7 +209,7 @@ export default function AdminDashboardPage() {
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
       <Card className="shadow-xl animated-aurora-background">
         <div className="relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
-          <CardHeader>
+          <CardHeader className="p-8 sm:p-10">
             <CardTitle className="text-3xl font-serif flex items-center">
               <ShieldCheck className="h-8 w-8 mr-3 text-primary" />
               {t('adminDashboardTitle')}
