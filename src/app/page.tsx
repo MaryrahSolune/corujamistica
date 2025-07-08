@@ -1,12 +1,13 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Link from 'next/link'; // Keep this import
+import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Plus, Gift } from 'lucide-react';
+import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Gift } from 'lucide-react';
 import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -49,62 +50,6 @@ export default function HomePage() {
 
     return () => unsubscribe();
   }, []);
-
-  const howItWorksSteps = [
-    {
-      icon: <UploadCloud className="h-10 w-10 text-primary" />,
-      titleKey: "howItWorksUploadTitle",
-      descriptionKey: "howItWorksUploadDescription",
-    },
-    {
-      icon: <Brain className="h-10 w-10 text-primary" />,
-      titleKey: "howItWorksQueryTitle",
-      descriptionKey: "howItWorksQueryDescription",
-    },
-    {
-      icon: <Search className="h-10 w-10 text-primary" />,
-      titleKey: "howItWorksRevealTitle",
-      descriptionKey: "howItWorksRevealDescription",
-    },
-  ];
-
-  const howItWorksDreamSteps = [
-    {
-      icon: <Film className="h-10 w-10 text-primary" />,
-      title: "Sabedoria por IA",
-      description: "Utilizando IA avançada treinada por místicos experientes para fornecer interpretações profundas.",
-    },
-    {
-      icon: <Brain className="h-10 w-10 text-primary" />,
-      title: "Verdadeiramente Pessoal",
-      description: "Interpretações adaptadas à sua imagem de cartas e pergunta específica.",
-    },
-    {
-      icon: <Sparkles className="h-10 w-10 text-primary" />,
-      title: "Orientação Espiritual",
-      description: "Obtenha clareza e direção para o caminho da sua vida, relacionamentos e decisões.",
-    },
-  ];
-
-
-
-  const benefits = [
-    {
-      icon: <Sparkles className="h-10 w-10 text-accent" />,
-      titleKey: "benefitAITitle",
-      descriptionKey: "benefitAIDescription",
-    },
-    {
-      icon: <Palette className="h-10 w-10 text-accent" />,
-      titleKey: "benefitPersonalizationTitle",
-      descriptionKey: "benefitPersonalizationDescription",
-    },
-    {
-      icon: <Users className="h-10 w-10 text-accent" />,
-      titleKey: "benefitGuidanceTitle",
-      descriptionKey: "benefitGuidanceDescription",
-    },
-  ];
 
   const testimonials = [
     {

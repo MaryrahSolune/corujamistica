@@ -108,7 +108,7 @@ export default function AppHeader() {
   const pathname = usePathname();
 
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
-  const isLandingPage = pathname === '/' || pathname === '/inicio';
+  const isLandingPage = pathname === '/';
 
   const [isClient, setIsClient] = React.useState(false);
 
@@ -131,7 +131,7 @@ export default function AppHeader() {
 
   const isAdmin = userProfile?.role === 'admin';
   const currentNavLinks = isAdmin ? navLinksAdmin : navLinksRegularUser;
-  const logoLink = isLandingPage || isAuthPage ? "/inicio" : (isAdmin ? "/admin" : "/dashboard");
+  const logoLink = isLandingPage || isAuthPage ? "/" : (isAdmin ? "/admin" : "/dashboard");
  
   const showAuthLinks = !currentUser && (isLandingPage || isAuthPage);
 
