@@ -18,6 +18,7 @@ import { saveReading, type DreamInterpretationData } from '@/services/readingSer
 
 export default function DreamInterpretationPage() {
   const [dreamDescription, setDreamDescription] = useState<string>('');
+  const [dreamDictionary, setDreamDictionary] = useState<string>('');
   const [storySegments, setStorySegments] = useState<ProcessedStorySegment[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -58,7 +59,10 @@ export default function DreamInterpretationPage() {
       refreshCredits();
 
       // 2. Interpret dream
-      const input: InterpretDreamInput = { dreamDescription };
+      const input: InterpretDreamInput = { 
+        dreamDescription,
+        dreamDictionaryContent: dreamDictionary,
+      };
       const result = await interpretDream(input);
       setStorySegments(result || []);
 
@@ -118,6 +122,20 @@ export default function DreamInterpretationPage() {
                     placeholder={t('dreamPlaceholder')}
                     rows={6}
                     className="resize-none bg-background/80 dark:bg-background/70"
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="dream-dictionary" className="text-lg text-primary-foreground dark:text-primary-foreground">
+                    Dicionário de Sonhos (Opcional)
+                  </Label>
+                  <Textarea
+                    id="dream-dictionary"
+                    value={dreamDictionary}
+                    onChange={(e) => setDreamDictionary(e.target.value)}
+                    placeholder={'Cole aqui o conteúdo do seu dicionário de sonhos. Ex: "Água: Emoções, inconsciente..."'}
+                    rows={8}
+                    className="resize-none bg-background/80 dark:bg-background/70 font-mono text-xs"
                     disabled={isLoading}
                   />
                 </div>
@@ -203,4 +221,3 @@ export default function DreamInterpretationPage() {
     </div>
   );
 }
-
