@@ -358,7 +358,7 @@ GUARDANAPO - Todo branco: Paz e tranquilidade no lar. Colorido e/ou bordado, enf
 
 const contentForH = `HARPA - Ouvir uma: Viagem próxima. Estar tocando uma: Doença passageira, de fácil cura. Geralmente, harpa significa ótimas novidades nos negócios.
 HÉLICE - Ver uma hélice parada: As melhoras de vida ainda demorarão para vir, mas virão. Ver hélice girando: Bom presságio, amores correspondidos.
-HORIZONTE - Se não houver nuvens no céu, é um excelente sonho, pois revela paz e tranqüilidade. Com nuvens no céu: Sérios problemas pela frente.
+HORIZONTE - Se não houver nuvens no céu, é um excelente sonho, pois revela paz e tranquilidade. Com nuvens no céu: Sérios problemas pela frente.
 HOSPITAL - Ver um: Êxito nos negócios. Estar num: Doença, grave ou passageira, na família.
 HOTEL - Ver um: Alguma viagem pela frente, por motivo desagradável. Estar num: Viagem próxima.
 HOSPÍCIO - Ver um: Grande sorte no jogo, nos negócios, aumento de salário, promoções. Estar num: Doença mental na família ou na de amigos. Sair de um: Solução de um problema bem próxima.`;
@@ -462,7 +462,7 @@ NÚPCIAS - Se for mulher quem sonha: Casamento bem próximo, ou um pedido de cas
 NUVEM - Branca: Prosperidade, sobretudo nos negócios; um negócio muito lucrativo será realizado em breve. Escura: Perspectiva de mudança no ambiente familiar; problemas na família, discussão e desentendimentos.`;
 
 const contentForO = `ÓCULOS - Transparentes: Boas notícias, amigos fiéis prontos a ajudar no possível. Escuros: A pessoa que sonha está cega para as falsas amizades e más companhias.
-OLHOS - Escuros: Amor sincero. Castanhos: Amor correspondido. Azul: Pessoa amada muito ciumenta e insegura. Verdes: Traição, infidelidade, leviandade.
+OLHOS - Escuros: Amor sincero. Castanhos: Amor correspondido. Azul: Pessoa amada muito ciumenta e insegura. Verdes: Traição, infidelidade, levianidade.
 ONÇA - Sorte no amor, no jogo; um grande ideal, mais cedo ou mais tarde, será alcançado, para a felicidade de todos. Casamento em breve.
 ONDA - Fraca: Dificuldades financeiras pela frente, mas serão passageiras e sem importância. Forte: Graves problemas a caminho, de difícil solução.
 ORAÇÃO - Sonho muito bom, sobretudo se é a pessoa que sonha quem está orando.
@@ -556,14 +556,14 @@ SINO - Ver um sino parado: Melhoras consideráveis em alguém muito doente. Ver 
 SOL - Ótimo presságio, sobretudo se o céu estiver completamente limpo, azul puro. Significa grandes notícias na família.
 SOMBRA - Ver a sombra de alguém: Dificuldades financeiras. Ver a própria sombra: Bom sonho, amor correspondido. Estar sendo seguido por uma sombra que não é a nossa: Trabalho feito, intriga, inveja.`;
 
-const contentForT = `TALHER - Ver um: fluidos nos negócios, na casa, no trabalho, muita inveja e mau olhado de falsos amigos.
+const contentForT = `TALHER - Ver um: fluidos nos negócios, na casa, no trabalho, muita inveja e mau olhado de falsos amigos. Para maiores detalhes, vede GARFO.
 TAMANCO - Ver alguém usando tamancos: algum amigo ou parente distante envolvido com problemas de dinheiro. Usar um: falsos amigos.
 TAMBOR - Estar tocando um tambor: bom sonho, sobretudo se o som for bem forte. Ver alguém tocando um tambor: sorte nos amores e nos negócios.
 TAPETE - Geralmente, não é um sonho favorável, de bom presságio. No máximo, pode representar uma mudança de residência, tanto para melhor como para pior.
 TARTARUGA - Desilusão amorosa, mas logo surgirá um outro amor mais sincero.
 TERRA - Possivelmente, algumas complicações com a Justiça. Por outro lado, terra representa a mãe-natureza, Deus, e isso é indicativo de felicidade. Terra com letra maiúscula, planeta: os inimigos serão castigados.
 TESOURA - Sonho favorável. Ser cortado por uma tesoura: a sorte vai mudar e alguma coisa ocorrerá. Ver alguém sendo cortado com tesoura: desavenças na família.
-TIGRE - Sorte no amor, no jogo, um grande ideal, cedo ou tarde, será alcançado.
+TIGRE - Sorte no amor, no jogo, um grande ideal, cedo ou tarde, será alcançado. Para maiores detalhes, vede FERA.
 TIJOLO - Vitória sobre inimigos inescrupulosos, intrigas vencidas, calúnias desmentidas e falsos amigos totalmente desmascarados.
 TINTA - Péssimo agouro; problemas econômicos, grandes dificuldades pela frente. Tinta azul ou branca: a solução para um problema não demorará.
 TOURO - Prejuízos nos negócios; talvez chance de longa viagem, para tratar de negócios, visita de parente distante, algum aborrecimento.
