@@ -111,60 +111,82 @@ const interpretDreamFlow = ai.defineFlow(
     let lastIndex = 0;
     let match;
 
+    const imageGenerationPromises: Promise<void>[] = [];
+    const segmentsWithPlaceholders: (ProcessedStorySegment | {type: 'image_placeholder', prompt: string, index: number})[] = [];
+
+    // First pass: identify text and image placeholders
     while ((match = placeholderRegex.exec(interpretationWithPlaceholders)) !== null) {
-      // Add text segment before the placeholder
       if (match.index > lastIndex) {
-        processedSegments.push({
+        segmentsWithPlaceholders.push({
           type: 'text',
           content: interpretationWithPlaceholders.substring(lastIndex, match.index).trim(),
         });
       }
-
-      const imageGenPrompt = match[1]; // The captured group (the prompt itself)
-      
-      // Generate image
-      try {
-        const { media } = await ai.generate({
-          model: 'googleai/gemini-2.0-flash-exp',
-          prompt: imageGenPrompt,
-          config: {
-            responseModalities: ['TEXT', 'IMAGE'],
-            safetySettings: [
-              { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
-              { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
-              { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-              { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
-            ],
-          },
-        });
-        if (media?.url) {
-          processedSegments.push({
-            type: 'image',
-            dataUri: media.url,
-            alt: `Ilustração do sonho: ${imageGenPrompt.substring(0,50)}...` 
-          });
-        }
-      } catch (e) {
-        console.error('Error generating a dream image:', e);
-        // Optionally, push a placeholder or error image/text segment
-        processedSegments.push({
-          type: 'text',
-          content: `(Erro ao gerar imagem para: "${imageGenPrompt}")`
-        });
-      }
-      
+      segmentsWithPlaceholders.push({
+        type: 'image_placeholder',
+        prompt: match[1],
+        index: segmentsWithPlaceholders.length
+      });
       lastIndex = placeholderRegex.lastIndex;
     }
 
-    // Add remaining text segment after the last placeholder
     if (lastIndex < interpretationWithPlaceholders.length) {
       const remainingText = interpretationWithPlaceholders.substring(lastIndex).trim();
       if (remainingText) {
-        processedSegments.push({ type: 'text', content: remainingText });
+        segmentsWithPlaceholders.push({ type: 'text', content: remainingText });
+      }
+    }
+
+    // Generate all images in parallel
+    const imageResults: ({dataUri: string, alt: string} | null)[] = await Promise.all(
+      segmentsWithPlaceholders.filter(s => s.type === 'image_placeholder').map(async placeholder => {
+        if (placeholder.type === 'image_placeholder') {
+          try {
+            const { media } = await ai.generate({
+              model: 'googleai/gemini-2.0-flash-preview-image-generation',
+              prompt: placeholder.prompt,
+              config: {
+                responseModalities: ['TEXT', 'IMAGE'],
+                 safetySettings: [
+                  { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+                  { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
+                  { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+                  { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
+                ],
+              },
+            });
+            if (media?.url) {
+              return {
+                dataUri: media.url,
+                alt: `Ilustração do sonho: ${placeholder.prompt.substring(0,50)}...` 
+              };
+            }
+          } catch (e) {
+            console.error('Error generating a dream image:', e);
+          }
+        }
+        return null;
+      })
+    );
+
+    // Second pass: construct final segment array
+    let imageIndex = 0;
+    for (const segment of segmentsWithPlaceholders) {
+      if(segment.type === 'text') {
+        processedSegments.push(segment);
+      } else if (segment.type === 'image_placeholder') {
+        const imageResult = imageResults[imageIndex++];
+        if (imageResult) {
+          processedSegments.push({type: 'image', ...imageResult});
+        } else {
+           processedSegments.push({
+            type: 'text',
+            content: `(Erro ao gerar imagem para: "${segment.prompt}")`
+          });
+        }
       }
     }
     
-    // Filter out empty text segments that might have resulted from trimming
     return processedSegments.filter(segment => segment.type === 'image' || (segment.type === 'text' && segment.content.length > 0));
   }
 );
