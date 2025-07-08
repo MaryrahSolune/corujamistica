@@ -19,9 +19,7 @@ export interface DreamInterpretationData {
   interpretationTimestamp: number | object;
 }
 
-// LoveOracleReadingData interface removida
-
-export type ReadingData = TarotReadingData | DreamInterpretationData; // LoveOracleReadingData removido da união
+export type ReadingData = TarotReadingData | DreamInterpretationData;
 
 export async function saveReading(uid: string, readingData: Omit<ReadingData, 'interpretationTimestamp'>): Promise<string | null> {
   const readingsRef = ref(rtdb, `users/${uid}/readings`);
