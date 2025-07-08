@@ -6,7 +6,7 @@
  * - interpretDream - Extracts keywords, finds their meanings in the dictionary, then interprets the dream.
  * - InterpretDreamInput - Input type for the interpretDream function.
  * - ProcessedStorySegment - The type for individual segments (text or image) in the final output.
- * - InterpretDreamOutput - Output type for the interpretDream function (array of ProcessedStorySegment).
+ * - InterpretDreamOutput - Output type for the interpretDream function (object containing story segments and dictionary text).
  */
 
 import { ai } from '@/ai/genkit';
@@ -40,14 +40,18 @@ const DreamInterpretationWithPlaceholdersSchema = z.object({
     ),
 });
 
-// Schema for the final processed output of the flow
+// Schema for the individual processed output segments
 const ProcessedStorySegmentSchema = z.union([
   z.object({ type: z.literal('text'), content: z.string() }),
   z.object({ type: z.literal('image'), dataUri: z.string(), alt: z.string() }),
 ]);
 export type ProcessedStorySegment = z.infer<typeof ProcessedStorySegmentSchema>;
 
-const InterpretDreamOutputSchema = z.array(ProcessedStorySegmentSchema);
+// Schema for the final output of the flow, containing both interpretation parts
+const InterpretDreamOutputSchema = z.object({
+    storySegments: z.array(ProcessedStorySegmentSchema).describe("The main, narrative interpretation from the Prophet, broken into text and image segments."),
+    dictionaryInterpretation: z.string().describe("The relevant entries found in the dream dictionary based on the user's dream description. This should be displayed separately."),
+});
 export type InterpretDreamOutput = z.infer<typeof InterpretDreamOutputSchema>;
 
 
@@ -217,6 +221,9 @@ const interpretDreamFlow = ai.defineFlow(
       }
     }
     
-    return processedSegments.filter(segment => segment.type === 'image' || (segment.type === 'text' && segment.content.length > 0));
+    return {
+      storySegments: processedSegments.filter(segment => segment.type === 'image' || (segment.type === 'text' && segment.content.length > 0)),
+      dictionaryInterpretation: specificSymbolMeanings
+    };
   }
 );

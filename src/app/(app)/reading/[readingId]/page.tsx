@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -10,7 +9,7 @@ import { getReadingById, type ReadingData } from '@/services/readingService';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon } from 'lucide-react';
+import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { format, fromUnixTime } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
@@ -200,6 +199,18 @@ export default function ViewReadingPage() {
                     {reading.dreamDescription}
                   </blockquote>
                 </div>
+
+                {reading.dictionaryInterpretation && (
+                  <div>
+                    <h3 className="text-xl font-bold font-serif mb-4 text-accent flex items-center">
+                      <Library className="mr-2 h-5 w-5"/> {t('dreamDictionaryInterpretationTitle')}
+                    </h3>
+                    <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify font-medium">
+                      {reading.dictionaryInterpretation}
+                    </div>
+                  </div>
+                )}
+                
                 <div>
                   <h3 className="text-xl font-bold font-serif mb-4 text-accent flex items-center">
                      <BookOpenText className="mr-2 h-5 w-5"/> {t('interpretationTitle')}

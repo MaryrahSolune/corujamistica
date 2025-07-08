@@ -1,4 +1,3 @@
-
 'use client';
 
 import type { ReactNode } from 'react';
@@ -300,6 +299,7 @@ export type TranslationKey =
   | 'dictionaryFetchError'
   | 'dictionarySaveSuccess'
   | 'dictionarySaveError'
+  | 'dreamDictionaryInterpretationTitle'
   ;
 
 interface LanguageContextType {
@@ -600,6 +600,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dictionaryFetchError: 'Could not fetch dictionary entry.',
     dictionarySaveSuccess: 'Successfully saved dictionary for letter {letter}.',
     dictionarySaveError: 'Failed to save dictionary entry.',
+    dreamDictionaryInterpretationTitle: "Dream Dictionary Interpretation",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -892,6 +893,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dictionaryFetchError: 'Não foi possível buscar a entrada do dicionário.',
     dictionarySaveSuccess: 'Dicionário para a letra {letter} salvo com sucesso.',
     dictionarySaveError: 'Falha ao salvar a entrada do dicionário.',
+    dreamDictionaryInterpretationTitle: "Interpretação do Livro dos Sonhos",
   }
 };
 

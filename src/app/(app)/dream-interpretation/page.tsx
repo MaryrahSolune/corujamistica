@@ -7,8 +7,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { interpretDream, type InterpretDreamInput, type ProcessedStorySegment } from '@/ai/flows/interpret-dream-flow';
-import { Loader2, MessageCircleQuestion, BookOpenText, BrainCircuit } from 'lucide-react';
+import { interpretDream, type InterpretDreamOutput, type ProcessedStorySegment } from '@/ai/flows/interpret-dream-flow';
+import { Loader2, MessageCircleQuestion, BookOpenText, BrainCircuit, Library } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -17,7 +17,7 @@ import { saveReading, type DreamInterpretationData } from '@/services/readingSer
 
 export default function DreamInterpretationPage() {
   const [dreamDescription, setDreamDescription] = useState<string>('');
-  const [storySegments, setStorySegments] = useState<ProcessedStorySegment[]>([]);
+  const [interpretationResult, setInterpretationResult] = useState<InterpretDreamOutput | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
@@ -45,7 +45,7 @@ export default function DreamInterpretationPage() {
     }
 
     setIsLoading(true);
-    setStorySegments([]);
+    setInterpretationResult(null);
     setError(null);
 
     try {
@@ -56,19 +56,17 @@ export default function DreamInterpretationPage() {
       }
       refreshCredits();
 
-      // 2. Interpret dream. The dictionary is now fetched automatically by the flow.
-      const input: InterpretDreamInput = { 
-        dreamDescription,
-      };
-      const result = await interpretDream(input);
-      setStorySegments(result || []);
+      // 2. Interpret dream. The flow now returns both parts of the interpretation.
+      const result = await interpretDream({ dreamDescription });
+      setInterpretationResult(result);
 
-      // 3. Save dream interpretation
-      if (result && result.length > 0) {
+      // 3. Save dream interpretation to DB
+      if (result && (result.storySegments.length > 0 || result.dictionaryInterpretation)) {
         const dreamToSave: Omit<DreamInterpretationData, 'interpretationTimestamp'> = {
           type: 'dream',
           dreamDescription: dreamDescription,
-          interpretationSegments: result,
+          interpretationSegments: result.storySegments,
+          dictionaryInterpretation: result.dictionaryInterpretation,
         };
         await saveReading(currentUser.uid, dreamToSave);
       }
@@ -163,41 +161,63 @@ export default function DreamInterpretationPage() {
             </Card>
           </div>
         )}
+        
+        {interpretationResult && !isLoading && (
+            <div className='space-y-8'>
+                {interpretationResult.dictionaryInterpretation && (
+                     <div className="max-w-2xl mx-auto animated-aurora-background rounded-lg">
+                        <Card className="shadow-lg bg-black/30 dark:bg-black/50 backdrop-blur-md relative z-10">
+                            <CardHeader>
+                                <CardTitle className="text-2xl font-serif flex items-center text-primary-foreground dark:text-primary-foreground">
+                                    <Library className="h-7 w-7 mr-3 text-accent" />
+                                    {t('dreamDictionaryInterpretationTitle')}
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-gray-200 dark:text-gray-100 leading-relaxed text-justify">
+                                    {interpretationResult.dictionaryInterpretation}
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+                )}
 
-        {storySegments.length > 0 && !isLoading && (
-          <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
-            <Card className="shadow-2xl bg-black/30 dark:bg-black/50 backdrop-blur-md relative z-10">
-              <CardHeader>
-                <CardTitle className="text-2xl font-serif flex items-center text-primary-foreground dark:text-primary-foreground">
-                  <BookOpenText className="h-7 w-7 mr-3 text-accent" />
-                  {t('yourPropheticInterpretationTitle')}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {storySegments.map((segment, index) => (
-                  <div key={index}>
-                    {segment.type === 'text' && segment.content && (
-                      <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-gray-200 dark:text-gray-100 leading-relaxed text-justify">
-                        {segment.content}
-                      </p>
-                    )}
-                    {segment.type === 'image' && segment.dataUri && (
-                      <div className="my-4 rounded-lg overflow-hidden shadow-lg animated-aurora-background">
-                        <Image
-                          src={segment.dataUri}
-                          alt={t('dreamIllustrationAlt', { number: index + 1 })+`: ${segment.alt || 'Dream illustration'}`}
-                          width={500} 
-                          height={300}
-                          className="w-full h-auto object-contain relative z-10 bg-black/10"
-                          data-ai-hint="dream scene abstract"
-                        />
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
+                {interpretationResult.storySegments.length > 0 && (
+                     <div className="max-w-2xl mx-auto animated-aurora-background rounded-lg">
+                        <Card className="shadow-2xl bg-black/30 dark:bg-black/50 backdrop-blur-md relative z-10">
+                        <CardHeader>
+                            <CardTitle className="text-2xl font-serif flex items-center text-primary-foreground dark:text-primary-foreground">
+                            <BookOpenText className="h-7 w-7 mr-3 text-accent" />
+                            {t('yourPropheticInterpretationTitle')}
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            {interpretationResult.storySegments.map((segment, index) => (
+                            <div key={index}>
+                                {segment.type === 'text' && segment.content && (
+                                <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-gray-200 dark:text-gray-100 leading-relaxed text-justify">
+                                    {segment.content}
+                                </p>
+                                )}
+                                {segment.type === 'image' && segment.dataUri && (
+                                <div className="my-4 rounded-lg overflow-hidden shadow-lg animated-aurora-background">
+                                    <Image
+                                    src={segment.dataUri}
+                                    alt={t('dreamIllustrationAlt', { number: index + 1 })+`: ${segment.alt || 'Dream illustration'}`}
+                                    width={500} 
+                                    height={300}
+                                    className="w-full h-auto object-contain relative z-10 bg-black/10"
+                                    data-ai-hint="dream scene abstract"
+                                    />
+                                </div>
+                                )}
+                            </div>
+                            ))}
+                        </CardContent>
+                        </Card>
+                    </div>
+                )}
+            </div>
         )}
       </div>
       <img src="/img/olho.gif" alt="Olho místico" className="mt-8 mx-auto block max-w-full h-auto" />
