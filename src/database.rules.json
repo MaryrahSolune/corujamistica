@@ -55,7 +55,7 @@
       }
     },
     "dreamDictionary": {
-      ".read": "auth != null",
+      ".read": true,
       "$letter": {
         ".write": "auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin'",
         ".validate": "$letter.matches(/^[A-Z]$/) && newData.isString()"

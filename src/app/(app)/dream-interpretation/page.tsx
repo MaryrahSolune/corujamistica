@@ -88,7 +88,7 @@ export default function DreamInterpretationPage() {
       <div
         className="fixed inset-0 -z-10"
         style={{
-          backgroundImage: `url('/img/lu.gif')`,
+          backgroundImage: `url('/img/mulher fumaça.gif')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
