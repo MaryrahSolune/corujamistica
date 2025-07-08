@@ -1,9 +1,9 @@
 'use server';
 /**
- * @fileOverview Flow for interpreting dreams in the persona of the Prophet,
- * now generating illustrative images interleaved with text and using a custom dream dictionary from the database.
+ * @fileOverview Flow for interpreting dreams, now with an intelligent pre-search
+ * for symbols in a custom dream dictionary to provide more focused and cost-effective interpretations.
  *
- * - interpretDream - Interprets a dream description and generates accompanying images.
+ * - interpretDream - Extracts keywords, finds their meanings in the dictionary, then interprets the dream.
  * - InterpretDreamInput - Input type for the interpretDream function.
  * - ProcessedStorySegment - The type for individual segments (text or image) in the final output.
  * - InterpretDreamOutput - Output type for the interpretDream function (array of ProcessedStorySegment).
@@ -11,20 +11,24 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { getDreamDictionaryContent } from '@/services/dreamDictionaryService';
+import { getDictionaryEntriesForKeywords } from '@/services/dreamDictionaryService';
 
 const InterpretDreamInputSchema = z.object({
   dreamDescription: z
     .string()
     .min(10, { message: 'Dream description must be at least 10 characters long.' })
     .describe('A detailed description of the dream provided by the user.'),
-  // dreamDictionaryContent is now fetched from the database within the flow
 });
 export type InterpretDreamInput = z.infer<typeof InterpretDreamInputSchema>;
 
-// Internal schema that includes the dictionary content for the prompt
+// Schema for the keyword extraction step
+const KeywordExtractionSchema = z.object({
+  keywords: z.array(z.string()).describe('A list of 1 to 5 main symbols (nouns, objects, animals, actions) from the dream.'),
+});
+
+// Internal schema that includes the dictionary content for the main prompt
 const InternalPromptInputSchema = InterpretDreamInputSchema.extend({
-    dreamDictionaryContent: z.string().optional().describe('Optional. A custom dictionary of dream symbols and their meanings to be used as the primary source for interpretation.'),
+    specificSymbolMeanings: z.string().describe("Specific meanings for symbols found in the user's dream, extracted from our private Dream Book. This provides a primary source of truth for the interpretation."),
 });
 
 // Schema for the output of the main text-generation prompt
@@ -51,42 +55,48 @@ export async function interpretDream(input: InterpretDreamInput): Promise<Interp
   return interpretDreamFlow(input);
 }
 
+// Prompt to extract keywords from the dream description
+const extractKeywordsPrompt = ai.definePrompt({
+  name: 'extractDreamKeywordsPrompt',
+  input: { schema: z.object({ dreamDescription: z.string() }) },
+  output: { schema: KeywordExtractionSchema },
+  prompt: `Analise a seguinte descrição de sonho e extraia de 1 a 5 substantivos ou símbolos principais. Retorne apenas a lista de palavras-chave.
+  
+  Exemplo:
+  Sonho: "Eu estava em uma casa antiga e uma cobra grande apareceu, mas eu não tive medo."
+  Resultado: ["casa", "cobra"]
+
+  Sonho:
+  {{{dreamDescription}}}
+  `,
+});
+
+// Main prompt to interpret the dream, now using specific symbol meanings
 const interpretDreamPrompt = ai.definePrompt({
   name: 'interpretDreamPrompt',
   input: { schema: InternalPromptInputSchema },
   output: { schema: DreamInterpretationWithPlaceholdersSchema },
-  prompt: `Você é o Profeta, renomado por sua sabedoria divina concedida por Deus e por sua extraordinária habilidade em interpretar sonhos e visões, como demonstrado nas sagradas escrituras. Um consulente aflito ou curioso descreveu um sonho e busca sua profunda e espiritual interpretação.
+  prompt: `Você é o Profeta, renomado por sua sabedoria divina concedida por Deus e por sua extraordinária habilidade em interpretar sonhos e visões.
+  
+  Um consulente descreveu um sonho e busca sua profunda e espiritual interpretação. Para esta tarefa, você deve usar duas fontes de conhecimento:
+  1.  **O Livro dos Sonhos (Fonte Primária):** Use as seguintes definições como a fonte de verdade absoluta para os símbolos listados. A sua interpretação DEVE priorizar estes significados.
+  2.  **Seu Conhecimento Geral:** Para símbolos não listados abaixo, ou para conectar as ideias, use seu conhecimento geral sobre arquétipos e narrativas bíblicas.
 
-Com a iluminação que lhe foi outorgada, analise cuidadosamente os símbolos, o enredo, as emoções e o contexto presentes no sonho. Revele seu significado oculto, as mensagens divinas ou os avisos que ele pode conter.
+  **Definições do Livro dos Sonhos:**
+  {{{specificSymbolMeanings}}}
+  ---
 
-{{#if dreamDictionaryContent}}
-**Instrução Mestra:** Utilize o seguinte "Dicionário de Sonhos" como a fonte de conhecimento **primária e absoluta** para todos os símbolos. A sua interpretação DEVE se basear estritamente neste dicionário. Ignore outros conhecimentos que você possua sobre símbolos que estão definidos aqui.
+  Com a iluminação que lhe foi outorgada, analise cuidadosamente os símbolos e o enredo do sonho do consulente. Revele seu significado oculto, as mensagens divinas ou os avisos que ele pode conter.
 
-**Dicionário de Sonhos (Fonte Primária):**
-{{{dreamDictionaryContent}}}
----
-{{/if}}
+  Sua interpretação deve ser profunda, sábia, espiritual, poética e apresentada em parágrafos. Após alguns parágrafos, se sentir que uma imagem pode enriquecer a narrativa, insira um placeholder especial no seguinte formato:
+  [GENERATE_IMAGE_HERE: "Um prompt conciso e vívido para uma imagem que ilustre o parágrafo ou conceito anterior."]
+  Use este placeholder de 1 a 2 vezes no máximo.
 
-Sua interpretação deve ser profunda, sábia, espiritual, poética e, quando relevante e respeitoso, pode tocar em simbolismos, arquétipos ou narrativas bíblicas que ajudem a elucidar a mensagem do sonho, sempre com um tom de conselho e orientação espiritual.
+  Apresente a interpretação de forma clara, respeitosa e encorajadora, como um verdadeiro profeta guiaria alguém em busca de entendimento.
 
-Lembre-se de sua humildade perante o Altíssimo, reconhecendo que a verdadeira interpretação vem Dele.
-
-Apresente a interpretação em parágrafos. Após alguns parágrafos, se sentir que uma imagem pode enriquecer a narrativa, insira um placeholder especial no seguinte formato:
-[GENERATE_IMAGE_HERE: "Um prompt conciso e vívido para uma imagem que ilustre o parágrafo ou conceito anterior."]
-Use este placeholder de 1 a 2 vezes no máximo durante toda a interpretação. O prompt dentro do placeholder deve ser claro para um modelo de geração de imagem.
-
-Considere os seguintes aspectos ao formular sua interpretação:
-- **Símbolos Principais:** Quais são os objetos, pessoas, animais ou lugares mais marcantes no sonho? Qual o seu significado tradicional ou simbólico (baseado no dicionário fornecido, se houver), e como se aplicam ao contexto do sonhador?
-- **Narrativa do Sonho:** Qual a sequência de eventos? Houve um conflito, uma jornada, uma revelação?
-- **Emoções Sentidas:** Quais emoções o sonhador experimentou durante o sonho e ao acordar? (Alegria, medo, ansiedade, paz, etc.)
-- **Contexto do Sonhador:** Embora não tenhamos o contexto de vida do sonhador, a interpretação deve ser apresentada de forma que ele possa refletir e aplicar à sua própria situação.
-- **Mensagem ou Lição:** Qual a principal mensagem, aviso ou lição que o sonho parece transmitir?
-
-Apresente a interpretação de forma clara, respeitosa e encorajadora, como um verdadeiro profeta guiaria alguém em busca de entendimento.
-
-Sonho do Consulente:
-{{{dreamDescription}}}
-`,
+  Sonho do Consulente:
+  {{{dreamDescription}}}
+  `,
   config: {
     safetySettings: [
       { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
@@ -104,26 +114,30 @@ const interpretDreamFlow = ai.defineFlow(
     outputSchema: InterpretDreamOutputSchema,
   },
   async (input) => {
-    // 1. Fetch the dream dictionary content from the database
-    const dreamDictionaryContent = await getDreamDictionaryContent();
+    // 1. Extract keywords from the dream description
+    const { output: keywordOutput } = await extractKeywordsPrompt(input);
+    const keywords = keywordOutput?.keywords || [];
 
-    // 2. Generate the textual interpretation with image placeholders
+    // 2. Find their definitions in the database
+    const specificSymbolMeanings = await getDictionaryEntriesForKeywords(keywords);
+    
+    // 3. Generate the textual interpretation with image placeholders
     const { output: mainOutput } = await interpretDreamPrompt({
         ...input,
-        dreamDictionaryContent: dreamDictionaryContent
+        specificSymbolMeanings
     });
     if (!mainOutput?.interpretationWithPlaceholders) {
       throw new Error('Failed to generate dream interpretation text.');
     }
     const interpretationWithPlaceholders = mainOutput.interpretationWithPlaceholders;
 
+    // The rest of the logic for image generation remains the same
     const processedSegments: ProcessedStorySegment[] = [];
     const placeholderRegex = /\[GENERATE_IMAGE_HERE: \"(.*?)\"\]/g;
     
     let lastIndex = 0;
     let match;
 
-    const imageGenerationPromises: Promise<void>[] = [];
     const segmentsWithPlaceholders: (ProcessedStorySegment | {type: 'image_placeholder', prompt: string, index: number})[] = [];
 
     // First pass: identify text and image placeholders

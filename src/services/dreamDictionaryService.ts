@@ -1,36 +1,7 @@
 'use server';
 
 import { rtdb } from '@/lib/firebase';
-import { ref, set, get, child } from 'firebase/database';
-
-/**
- * Fetches the entire dream dictionary from the database, concatenates all entries
- * into a single string, formatted for the AI prompt.
- * @returns A promise that resolves to the full dictionary content as a string.
- */
-export async function getDreamDictionaryContent(): Promise<string> {
-  const dictionaryRef = ref(rtdb, 'dreamDictionary');
-  try {
-    const snapshot = await get(dictionaryRef);
-    if (!snapshot.exists()) {
-      return ''; // Return empty string if the dictionary is not yet created
-    }
-
-    const dictionaryData = snapshot.val();
-    // Sort keys alphabetically (A, B, C...) before joining
-    const sortedKeys = Object.keys(dictionaryData).sort();
-    
-    const contentString = sortedKeys
-      .map(key => `--- Letra ${key} ---\n${dictionaryData[key]}`)
-      .join('\n\n');
-      
-    return contentString;
-  } catch (error) {
-    console.error("Error fetching dream dictionary from RTDB:", error);
-    // In case of error, return an empty string to not break the interpretation flow
-    return '';
-  }
-}
+import { ref, set, get } from 'firebase/database';
 
 /**
  * Fetches the content for a single letter from the dream dictionary.
@@ -52,6 +23,58 @@ export async function getDreamDictionaryEntry(letter: string): Promise<string> {
     return '';
   }
 }
+
+/**
+ * Searches the dream dictionary for specific keywords and returns their definitions.
+ * @param keywords An array of keywords to look for.
+ * @returns A formatted string containing the definitions of found keywords.
+ */
+export async function getDictionaryEntriesForKeywords(keywords: string[]): Promise<string> {
+  if (!keywords || keywords.length === 0) {
+    return '';
+  }
+
+  // 1. Determine which letters we need to fetch from the DB
+  const uniqueLetters = [...new Set(
+    keywords
+      .map(k => k.trim().charAt(0).toUpperCase())
+      .filter(l => /^[A-Z]$/.test(l))
+  )];
+
+  if (uniqueLetters.length === 0) {
+    return '';
+  }
+
+  // 2. Fetch all required letter entries in parallel
+  const letterPromises = uniqueLetters.map(letter => getDreamDictionaryEntry(letter));
+  const letterContents = await Promise.all(letterPromises);
+  
+  const fullDictionaryText = letterContents.join('\n');
+  const foundDefinitions = new Set<string>();
+
+  const dictionaryLines = fullDictionaryText.split('\n').map(l => l.trim()).filter(Boolean);
+
+  // 3. Search for the keywords in the fetched content
+  for (const keyword of keywords) {
+      // Create a regex that looks for the keyword at the start of a line, followed by a hyphen.
+      // This is more robust than just checking if a line includes the keyword.
+      // Example: `new RegExp('^' + 'CASA' + '\\s*-\\s*(.+)', 'i')`
+      const regex = new RegExp(`^${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*-\\s*(.+)`, 'i');
+      for (const line of dictionaryLines) {
+          if (regex.test(line)) {
+              foundDefinitions.add(line);
+              // Don't break here, in case a keyword appears multiple times with different meanings (though unlikely with current structure)
+          }
+      }
+  }
+
+  if (foundDefinitions.size === 0) {
+    return "Nenhum símbolo específico foi encontrado no Livro dos Sonhos para esta análise.";
+  }
+
+  return `Considerando os símbolos do seu sonho, aqui estão os significados encontrados no Livro dos Sonhos para sua referência:\n\n${Array.from(foundDefinitions).join('\n')}`;
+}
+
 
 /**
  * Admin function to add or update the content for a specific letter in the dream dictionary.
