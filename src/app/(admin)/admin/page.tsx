@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState, type ChangeEvent, useCallback } from 'react';
@@ -43,7 +44,7 @@ ABACATE - Maduro: Esperança, dias melhores. Verde: Alguma tristeza na família,
 ABACAXI - Força e esperança no futuro. Grandes melhoras para todos. Para as jovens solteiras, um casamento à vista.
 ABELHA - Mel, açúcar: Adoçar a vida, melhorar, afastar os problemas. Logo, motivos para grandes alegrias.
 ABISMO - Possível preocupação, uma queda no amor ou nos negócios, mas com melhoras imediatas. Pensamento positivo e fé.
-ABOBORA - Fartura, boa alimentação, dinheiro entrando. Felicidade conjugal.
+ABÓBORA - Fartura, boa alimentação, dinheiro entrando. Felicidade conjugal.
 ABORDAGEM - Alguém virá trazer uma boa notícia. Um bom conselho vindo de um amigo fiel. Novas amizades e talvez um romance.
 ABOTOAR - Intriga se formando, inveja. Evitar confiar em todo mundo.
 ABRAÇO - Visita de parente distante, novas amizades, boas notícias, reconciliação com amigos, parentes ou com o ser amado.
@@ -53,7 +54,7 @@ ACENDER - Fogo, energia, esperança, vida. Um futuro melhor se descortinando, bo
 ACIDENTE - Más notícias. Alguns problemas na família e entre os cônjuges. Pensar antes de falar.
 AÇOUGUE - Sinal de boas melhoras, de grande confiança no futuro, no sucesso. Grande subida nos negócios e propostas de emprego.
 ACROBACIA - Rapidez e facilidade para resolver problemas. Melhoras financeiras consideráveis.
-AÇUCAR - Vida melhor, mais próspera e afortunada. Grandes alegrias a caminho com relação aos filhos.
+AÇÚCAR - Vida melhor, mais próspera e afortunada. Grandes alegrias a caminho com relação aos filhos.
 ADAGA - Intriga, inveja, falsidade. Cautela com os falsos amigos.
 ADEGA - Desgosto em família, problemas com os filhos. Evitar o abuso de bebidas alcoólicas.
 ADEUS - Despedida, viagem a fazer em breve, mudança de residência ou de trabalho.
@@ -138,7 +139,7 @@ BANDEIRA - Complicações financeiras, envolvendo documentos. Todo o cuidado com
 BANHO - O corpo e o espírito estão sendo descarregados, limpeza, purificação. O mesmo que água corrente que representa a descarga, a limpeza.
 BARALHO - Fechado: tristeza, infelicidade, problemas a caminho, inveja e intriga. Aberto: sorte no jogo e nos negócios. Amigo fiel e preocupado.
 BARATA - Não é muito bom sinal. Cuidado com os falsos amigos, amigos intrigantes. Cautela também com documentos, crianças e velhos.
-BARBA - Loura: felicidade e alegria a caminho. Branca: paz e muita tranqüilidade. Escura: intriga, inveja, olho grande.
+BARBA - Loura: felicidade e alegria a caminho. Branca: paz e muita tranquilidade. Escura: intriga, inveja, olho grande.
 BASTÃO - Os inimigos serão agredidos (castigados, justiçados) com ele. Proteção divina, segurança. Evitar preocupações desnecessárias.
 BAÚ - Fechado: existe um grande segredo a esconder; poupar para o futuro, evitar gastos supérfluos. Aberto: ótimo sonho, melhoras financeiras a caminho, sorte nos negócios e no jogo, felicidade para todos.
 BEBÊ - Tudo referente às crianças só pode ser bom. Significa pureza, beleza e alegria. Felicidade, novos amores, novas amizades, talvez uma gravidez benvinda.
@@ -187,6 +188,154 @@ BRUXA - Mau agouro, perspectiva de azar nos negócios, trabalho sendo feito, inv
 BÚFALO - Símbolo de força, de energia. Escuro: determinação para vencer os problemas. Branco: muito bom o sonho, felicidade e alegria.
 BUQUÊ - Flor é sempre beleza e alegria. De flores comuns: alegria no casamento e com os filhos. De rosas: muita sorte no amor, afeto correspondido.
 BURRO - Com insistência, fé e pensamento positivo, tudo pode ser conseguido. Burro puxando carroça: visita de parente distante.`;
+
+const contentForC = `CABANA - Moradia, proteção, segurança. Defesa contra a inveja e a intriga. Talvez uma reforma na casa ou mudança de residência.
+CABEÇA - Alguma doença mental na família, cuidados especiais com os cabelos, os olhos e a boca. Evitar Sol em excesso na cabeça.
+CABELO - Também alguma doença mental na família. Possível assinatura de um documento importante. Grandes alegrias com os filhos em idade escolar.
+CABOCLO - Ótimo sonho, sob todos os aspectos. Melhora de vida, proteção dos guias, trabalho desfeito, amigos invejosos se afastando.
+CABRA - Alimentação farta, em especial para as crianças pequenas. Notícias de nascimento.
+CACHIMBO - Sorte no jogo, nos negócios e no casamento. Casamento ou noivado em breve. Reconciliação de casais ou de amigos. Sorte no jogo.
+CACHORRO - Amigos fiéis e desinteressados. Um grande amigo ajudará a resolver um grande problema. Visita de um amigo há muito distante.
+CADEIRA - Maior cuidado com as pernas e os pés, evitar longas caminhadas; o descanso virá após a solução de um antigo problema.
+CADELA - Bom sonho, sobretudo se a cadela estiver com os filhotes, amamentando-os. Reviravolta na vida para melhor, um novo amor.
+CADERNO - Aberto: boas notícias a caminho, sobretudo vindas de filhos em idade escolar. Fechado: notícia ruim, vinda de longe, de outro estado ou país.
+CAFÉ - Cru: boas notícias, melhora de vida. Torrado: uma notícia não ruim, mas desagradável. Feito: trabalho sendo feito, amigo invejoso.
+CAFUNÉ - Recebendo o cafuné de alguém: um presente inesperado, ajuda de amigos ou parentes, afeto de amigos ou parentes. Fazendo cafuné em alguém: boas novidades a caminho, um novo amor, melhoras financeiras.
+CAIXA - Aberta: prejuízos de pouca monta, coisa passageira. Fechada: sorte no jogo por três dias; depois destes, azar por mais três dias.
+CAIXÃO - Aberto: rompimento de relações amorosas. Fechado: alguma morte de um conhecido ou parente afastado. Algum convite para noivado.
+CAJU - Dificuldades financeiras, sobretudo se a fruta estiver apodrecida. Refresco de caju: aborrecimentos por motivos íntimos, discussão.
+CAL - Satisfação de um desejo há muito alimentado e quase sem esperança. Seco: sucesso nos negócios. Com água: desavenças amorosas.
+CALÇAS - Derrota de inimigos que tramam às escondidas. Alguém vestindo calças: reconciliação de casais, amigos ou parentes.
+CALÇADO - Longas viagens pela frente, ou por diversão, ou para tratar de negócios. Alguém pondo um calçado: melhoras imediatas de alguma doença na família. Alguém retirando o calçado: dinheiro à vista.
+CALÇÃO - Branco: tranquilidade no lar e no trabalho. Colorido: acontecimento inesperado, coisa boa. Escuro: mau presságio, mau agouro.
+CALDEIRA - Fumegante: êxitos sociais, melhoras no trabalho, promoções. Fria: amor correspondido, novas amizades, dinheiro à vista.
+CÁLICE - Cheio: casamento próximo, noivado ou um novo amor. Vazio: rompimento de namoro ou divórcio, discussões em família.
+CAMA - Casamento à vista, com excelente lua de mel. Notícias de uma gravidez muito benvinda. Cama arrumada: será menino. Desfeita: menina.
+CAMALEÃO - Falsos amigos, que a todo momento mudam de face, de intenções. Problemas com advogado traiçoeiro e desonesto. Cuidado com documentos.
+CAMÉLIA - Muito bom presságio, pois flor é sempre um símbolo de alegria e felicidade. Casamento bem próximo. Um pedido de casamento de alguém muito apaixonado. Melhoras financeiras.
+CAMELO - Grande prosperidade nos negócios, promoções no trabalho, aumento de salário. Significa também alimentação farta e ótima saúde.
+CAMINHÃO - Andando: desgosto profundo na família. Parado: problemas financeiros e com a saúde. Com o capô aberto, com defeito: desunião de casais.
+CAMISA - Branca: triunfo sobre inimigos ou falsos amigos. Colorida: viagem longa, em especial para negócios. Escura: mau presságio.
+CAMPAINHA - Tocando: morte de conhecido ou amigo. Em silêncio: alguém muito preocupado com um problema. Com defeito: tristeza na família.
+CAMPO - Muito bom presságio. Mudança de residência em perspectiva, melhoras de alguém muito doente, sorte no jogo e nos empreendimentos.
+CAMUNDONGO - Branco: alguma boa notícia a caminho, visita de parente distante, êxito nos amores. Escuro: alguém planeja uma traição, um falso amigo logo será desmascarado, tristeza nos amores.
+CANA - Viagem inesperada, para resolver negócios pequenos ou assinar escritura. Traição de amigos, parentes ou mesmo de amantes.
+CANÁRIO - Cantando: notícias muito boas a caminho, prosperidade, perspectiva de felicidade. Em silêncio: sérias dificuldades na família.
+CANDELABRO - Aceso: melhoras para os enfermos, visita de um velho amigo. Apagado: traição de um suposto amigo, intriga, inveja.
+CANETA - Êxito nos amores, triunfo sobre os inimigos traiçoeiros. Ver alguém escrevendo: notícias de longe, velhas amizades que voltam.
+CANHOTO - Mudança de rumo de vida, normalmente para melhor. Mudança de residência. Promoção no trabalho, melhoras financeiras, sorte no jogo.
+CANIL - Felicidade bem próxima, prosperidade em todos os sentidos, sobretudo em se tratando de dinheiro. Deve-se apenas ter cautela com os animais domésticos, principalmente cães, sejam pequenos ou grandes.
+CANIVETE - Aberto: discussão e aborrecimentos, traição de um falso amigo, intriga se formando. Fechado: bom agouro, trabalho desfeito.
+CANO - Um aumento está a caminho no trabalho, melhoras financeiras, talvez até mesmo compra de uma casa ou apartamento novo.
+CÃO - Pequeno: melhoras razoáveis na vida, algum dinheiro, em especial vindo de algum jogo. Grande: alegria, felicidade, afeto correspondido.
+CAPA - Escura com fundo vermelho, muito mau presságio, pois sugere a presença de forças negativas. Cores claras: boas perspectivas de vida.
+CAPACETE - Alguém com capacete: trabalho desfeito, alguém tramando uma traição que não dará certo. Capacete escuro: morte próxima.
+CAPELA - Pequena: reviravolta na vida, casamento bem próximo, pedido de noivado oficial. Grande: para os noivos e noivas, casamento feliz e com muitos filhos. Grandes notícias a caminho.
+CAPOTE - De cor escura: azar no jogo, durante cerca de três dias. Sérias dificuldades financeiras. De cor clara: bom presságio, êxitos sociais.
+CARNAVAL - Carnaval é a festa do demônio, da orgia, da luxúria. Sonho muito negativo, capaz de trazer maus fluidos para aquele que sonha e seus íntimos.
+CARNE - Mau sonho, sobretudo se a carne for fresca, banhada em sangue. Preparada, seja qual for o prato, trabalho feito e intriga formada.
+CARTA - Notícias que virão de longe, de parente ou amigo há muito afastado. Telegrama trazendo novidade não muito agradável.
+CARVALHO - Inveja de falsos amigos, maquinações traiçoeiras de pretensos amigos. Carvalho tombado ou cortado: êxitos nos amores e no dinheiro.
+CASA - Ótimo sonho, pois significa proteção, melhoras de vida, ótimas perspectivas financeiras. Entrando numa casa: mudança para melhor residência. Saindo de uma: problemas com documentos.
+CASACA - Perda de emprego, reviravolta na vida, até mesmo mudança de estado civil. Neste último item, a mudança é sempre para melhor.
+CASAMENTO - Assistir a um: ótimo sonho, em especial para as mães com filha em idade de se casar. Estar casando: excelente para as noivas e os noivos.
+CAVALO - Escuro: bom presságio, elevação social, promoção no emprego, bons negócios. Branco: somente felicidade e alegria, para todos.
+CEGONHA - Para as futuras mães, excelente sonho, e é quase certo que nasça menina. Para as noivas, prole numerosa. Para os namorados, noivado em breve.
+CINZA - Vitória nos empreendimentos, nos planos. Indica também namoro ou noivado desfeito, mas com fácil reconciliação. Reforma na casa em breve.
+COBRA - Sonho não muito bom. Estar sendo mordido por uma: traição de amigos, trabalho sendo feito, problemas financeiros. Cobra grande: cautela com os falsos amigos. Cobra pequena: desentendimentos na família e com os parentes.
+COELHO - Noivado ou namoro desfeito, divórcio. Estar afagando um coelho: melhoras financeiras, promoção no trabalho, azar no jogo.
+CONCHA - Cheia: alguma notícia referente a dinheiro a caminho, e notícia sempre boa. Vazia: amizade desfeita devido a intrigas de terceiros.
+COPO - Cheio: novas amizades. Vazio: tristeza na família. Com água: possibilidades de grandes empreendimentos. Com bebida alcoólica: desunião.
+CORAÇÃO - Afeto correspondido, êxitos no amor, casamento à vista. Coração pulsando: alguém muito apaixonado, mas tímido.
+CORREDOR - Ver um corredor: problemas pela frente que terão de ser vencidos. Estar andando por um corredor: problemas sendo resolvidos.
+CRUZ - Nua: casamento bem próximo, um provável pedido de casamento, afeto correspondido. Com Nosso Senhor: ótimo sonho, problemas sendo resolvidos, proteção divina, amigos leais e desinteressados.`;
+
+const contentForD = `DADO - Estar jogando dados: problemas com pessoas habituadas a jogar. Estar vendo um jogo de dados: sorte no jogo, desunião na família.
+DANÇA - Estar dançando: grandes alegrias a caminho, boas notícias, tanto de perto quanto de longe. Estar vendo uma dança: melhoras financeiras, promoção.
+DEBATE - Desentendimentos na família. Ver um debate: briga com amigos. Participar de um: problema com parentes e com documentos importantes.
+DECOLAGEM - Perspectivas de longas viagens, ou por diversão ou para negócios.
+DECOTE - Usar um decote: separação conjugal. Estar vendo um: cônjuge infiel, falso.
+DEDAL - Estar usando: proteção divina, trabalho desfeito, coragem para enfrentar todos os problemas. Ver alguém usar um: preocupação com amigos, problemas com parentes e amigos, alguma tristeza em família.
+DEDO - Os traidores serão desmascarados e castigados. Intriga desfeita por terceiros. Alguma melhora financeira. Sorte no jogo por três dias.
+DEFUNTO - Mau agouro, principalmente se o defunto for conhecido. Se parente: tristeza profunda na família. Se amigo: desentendimentos dentro e fora do lar.
+DEGRAU - Estar subindo um: ascensão social e financeira. Estar descendo: problemas no trabalho, na família e com os amigos.
+DENTE - Mau agouro, sobretudo se os dentes tiverem alguma enfermidade. Dentes brancos e certos: alguma alegria dentro do lar.
+DESAFIO - Desafiar alguém: desentendimentos com amigos e parentes. Estar sendo desafiado: grande problema de difícil solução a caminho.
+DESERTO - Ver um deserto: alguns problemas pela frente, sobretudo no trabalho ou nos negócios. Estar num deserto: reviravolta na vida, quase sempre desagradável. Sol quente no deserto: doença na família.
+DESPEDIDA - Estar vendo uma despedida: alguém da família fará uma longa viagem. Estar se despedindo de alguém: amigo ou conhecido vai viajar.
+DEUS - Excelente sonho, sob todos os aspectos, em especial se a pessoa que sonha está conversando com Deus. Grande proteção para as crianças.
+DIA - Ensolarado, céu claro: ótimas perspectivas de vida, alegrias e felicidade a caminho. Chuvoso, nublado: problemas à vista.
+DIABO - Péssimo sonho, sob todos os aspectos. Deve-se fazer muitas orações a Deus para que Ele afaste os maus fluidos da casa e das pessoas.
+DIAMANTE - Por ser uma jóia, é um sonho não muito propício. Mas, por outro lado, por ele brilhar, irradiar luz, sugere sempre alegria e felicidade.
+DINHEIRO - Bom sonho, pois representa melhoras financeiras, boas perspectivas no trabalho e nos negócios e sorte no jogo. Estar recebendo dinheiro: grande sorte no jogo, aumento de salário.
+DIVÃ - Estar deitado num: doença na família. Ver alguém deitado num: alguma má notícia a caminho. Ver um divã vazio: mudança de residência.
+DOCE - Doce lembra criança e criança sempre representa amor, alegria, beleza. Bom sonho, principalmente para os casais com muitos filhos.
+DRAGÃO - Não é muito bom sonho, em especial se o dragão estiver cuspindo fogo. Satisfação dos desejos, algumas dificuldades sem muita importância.
+DUELO - Estar assistindo a um: aventura sentimental sem maiores consequências. Estar participando de um: reconciliação com ente querido.
+DUETO - Estar ouvindo um dueto: ameaça de enfermidade mental em algum parente. Estar cantando em dueto: triunfo sobre os inimigos, os falsos amigos.
+DUQUE - Ser um duque: ascensão social, melhoras financeiras, promoções no trabalho, melhores negócios. Estar vendo ou conversando com um: novas amizades, de prestígio e bem colocadas financeiramente.`;
+
+const contentForE = `ÉGUA - Sonho de bom presságio, é sinal de advertência contra inimigos, inveja e falsos amigos. Algumas vezes, êxitos nos negócios.
+ELEFANTE - Muito bom sonho, em especial se for elefante branco, pois, segundo a lenda, os brancos sempre trazem alegrias, amor e felicidade.
+EMPADA - Ver uma: amor correspondido. Comer uma: trabalho desfeito através do pensamento positivo. Ver alguém comer uma: intrigas e traição.
+ENTERRO - Péssimo agouro, em especial se o caixão estiver aberto. Tristeza pela frente.
+ENTORNAR - Água: reconciliação com parentes próximos. Outros líquidos: mudança de residência.
+ENTULHO - Ver monte de: sorte no jogo, por quatro dias. Estar removendo um monte de: problemas sendo resolvidos rapidamente. Geralmente é um sonho bom, com ótimas consequências para quem sonha e seus íntimos.
+ENXADA - Estar escavando um terreno: reviravolta na vida, para melhor. Estar preparando terreno para plantio: alimentação farta, dinheiro à vista.
+ENXERTO - De órgãos humanos: problemas com a saúde, principalmente das pessoas mais idosas. De planta: boas notícias, casamento próximo, êxito no amor.
+ENXOTAR - Alguém conhecido de casa: falso amigo desmascarado. Ser enxotado de uma casa: bom sonho, indica mudança de residência para melhor.
+ENXUGAR - Alguma parte do corpo: pedido de casamento, promoção no emprego. Algum objeto, o chão da casa: casamento muito próximo com muitos filhos.
+ERVILHA - Crua: sérias dificuldades, sobretudo por causa de intrigas. Cozida: superação de problemas. Prato com: dificuldades financeiras.
+ESCADA - Estar subindo uma: pedido de casamento, convite para um casamento, ascensão social, promoção no trabalho. Estar descendo uma: rompimento passageiro de noivado, namoro ou mesmo casamento.
+ESCORPIÃO - Bom sonho. Ser picado por um: a sorte vai virar e muita coisa boa acontecerá. Ver alguém ser picado: discórdia entre amigos.
+ESCRAVO - Muito bom sonho, pois representa proteção vinda de algum preto velho ou preta velha. Geralmente representa trabalho já desfeito e inútil.
+ESCULTURA - Estar esculpindo alguma coisa: vitória sobre inimigos inescrupulosos. Ver uma pessoa esculpir: algum amigo receberá grande notícia.
+ESCURIDÃO - Péssimo presságio, problemas financeiros, grandes dificuldades a caminho. Uma luz na escuridão: a solução para tudo não tardará.
+ESGOTO - Prejuízos nos negócios: talvez probabilidade de uma viagem longa, para tratar de trabalho, visita de amigo distante, alguma contrariedade.
+ESMALTE - Cor clara: superação de intrigas, de maledicências. Cor escura: acautelar-se diante de perigos ocultos, rivalidades no emprego. Cor vermelha: geralmente significa discussões em família.
+ESMOLA - Dificuldades superadas, triunfo sobre os inimigos, os amigos interesseiros. Significa também árduos esforços, mas recompensados.
+ESPADA - Casamento ou noivado próximo, muito próximo. Achar uma espada: rompimento de relações, em especial as amorosas. Prejuízos nos negócios.
+ESPANTALHO - Notícias bastante desagradáveis, sobretudo referentes a parente distante e há muito não visto. Sorte no jogo por três dias.
+ESPANADOR - Sorte nos amores, um pedido de casamento em vista, convites para casamentos, batizados e bodas. Sorte nos negócios e no jogo.
+ESPELHO - Estar se mirando num espelho: um novo amor a caminho, melhora financeira. Ver alguém se mirando num espelho: morte ou doença próximas.
+ESPINHO - Más notícias, tanto de perto quanto de longe. Algum perigo de desastre em viagens longas. Problemas na família. Cautela com maquinações de falsos amigos, acarretando prejuízos e dificuldades.
+ESTEIRA - Ver uma esteira: grandes dificuldades, mas que serão logo superadas. Estar deitado numa esteira: rompimento de uma velha amizade, desunião.
+ESTRADA - Estar caminhando por uma estrada: longos problemas pela frente, dificuldades a caminho. Talvez uma viagem, nem curta, nem longa.
+ESTRELA - Ver uma estrela em noite nublada: esperanças de grandes melhoras, a solução de problemas está perto. Em noite clara: felicidade e amor.
+ESTRELA-DO-MAR - Reconciliação com parentes próximos, mudança de residência para dentro em breve, regresso inesperado de um parente.
+ESTRUME - Ver estrume: a sorte pode mudar para melhor, bem melhor. Pisar ou escorregar em estrume: muita sorte, muita felicidade, amor e alegria.
+EXÉRCITO - Sorte no jogo, por três dias, realização de um velho desejo. Se for exército inimigo: traição de um falso amigo, inveja, fofoca de íntimos.`;
+
+const contentForF = `FACA - Achar uma faca: problemas à vista, não muito graves. Cortar-se com uma faca: problemas à vista, estes, sim, bastante graves. Intriga e traição.
+FAÍSCA - Desgostos, tanto mais profundos quanto maior for o número de faíscas. Representa também sérias dificuldades financeiras e atritos na família.
+FADA - Tropeços na vida, principalmente com os filhos homens e maiores de idade. Dificuldade provocadas por calúnias de falsos amigos e parentes.
+FALCÃO - Ver um falcão em voo: viagem longa mais para negócios que para diversão.
+FANTASMA - Desgosto na família, perda de emprego, má notícia referente a parente distante.
+FARINHA - Sonho bastante favorável, pois indica ascensão social, ascensão econômica, promoção no emprego. Indica também alguma reforma na casa ou mesmo uma mudança em breve de residência, para melhor.
+FAROL - Aceso: indica ótimas perspectivas de vida, em especial a solução há tanto aguardada para um problema. Apagado: mau agouro, tristeza.
+FAXINA - Estar fazendo faxina na casa: excelente sonho, os maus fluidos estão sendo varridos, levados para longe. Ver uma faxina: um amigo em breve feliz.
+FAZENDA - Maquinações de inimigos ou falsos amigos, mas que serão, cedo ou tarde, desmascarados. Muita cautela com documentos e com o que se fala da própria vida.
+FECHADURA - Funcionando bem: ótimas perspectivas de vida, sobretudo com relação a dinheiro, pagamentos atrasados. Emperrada: sucessos amorosos.
+FEIJÃO - Cru: casamento ou noivado próximos. Preparado: trabalho bem feito. Quanto mais elaborado o prato com feijão, pior o trabalho feito.
+FEIRA - Ver uma feira: intrigas desmascaradas, falsos amigos descobertos, calúnias esclarecidas. Estar fazendo feira: dinheiro a caminho, alimentação farta, promoção no emprego e muita sorte nos negócios.
+FEITIÇO - Não há motivos para preocupações, pois geralmente esse sonho é de bom presságio. Se vir alguma bruxa lançando o feitiço: sorte no jogo.
+FEL - Complicações sentimentais, atritos entre namorados, noivos ou cônjuges. Alguns problemas financeiros envolvendo empréstimos bancários.
+FERA - Sorte no amor, no jogo; um grande ideal, mais cedo ou mais tarde, será alcançado, para a felicidade de todos. Casamento em breve.
+FERRADURA - Sonho excelente, sob todos os aspectos. Sorte em todos os sentidos, sobretudo no amor, tanto maior quanto for o número de ferraduras.
+FIGA - Sorte na vida e principalmente nos negócios ou emprego. Provavelmente, muito em breve, uma excelente promoção, um bom aumento de salário.
+FIGO - Ao natural: melhoras de vida, talvez mudança de residência. Cristalizado: alguns problemas, em especial com intrigas de inimigos. Em calda: sonho de mau agouro, pois sugere vinganças há muito esquecidas.
+FILA - Ver uma fila: amigos, parentes ou amigos em breve enfrentarão alguma dificuldade. Estar numa fila: a pessoa que sonha terá problemas pela frente.
+FILHO - Filha mulher: problemas com os filhos homens, em especial o mais velho. Filho homem: alguns atritos com as filhas, sobretudo a mais velha.
+FITA - Branca: muita paz e tranquilidade, para todos. Colorida: uma pequena e passageira tristeza. Escura: provável morte de amigo ou conhecido.
+FLOR - Ótimo sonho, primeiro por se tratar de flor, segundo por ser algo vindo da terra, da mãe-natureza. Felicidade e alegria sob todos os aspectos.
+FLORESTA - Estar numa floresta: tranquilidade, despreocupação. Ver uma floresta em chamas: graves problemas a caminho, queda séria na vida.
+FOGO - Ver fogo: sorte no jogo, tanto maior quanto mais intenso for o fogo. Queimar-se com fogo: problemas sérios dentro em breve, envolvendo escrituras e documentos bancários. Cautela com fósforos, isqueiros, etc.
+FOLHA - Folha de árvore, planta: desavenças por questão de dinheiro, rivalidades no emprego. Folha de papel: problemas com documentos.
+FRUTAS EM GERAL - Sonho muito bom. Sorte no jogo e no trabalho. Frutas grandes, como melancia, jaca representam rápida ascensão social e financeira.
+FUMAÇA - Satisfação plena de um desejo há muito acalentado. Prosperidade, um amor correspondido, um provável casamento na família, em especial com a filha mais velha.
+FUNERAL - Péssimo sonho. Se for funeral de alguém conhecido: morte ou doença na família. Alguém desconhecido: morte de um amigo ou conhecido.
+FUNIL - Estar enchendo algo com um funil: prosperidade para todos na família. Ver um funil: infidelidade conjugal; geralmente o homem é o culpado.
+FUZIL - Ver um fuzil: viagem inesperada, geralmente em companhia dos filhos. Estar empunhando um fuzil: desilusão amorosa, infidelidade conjugal, aborrecimentos passageiros, em especial com os filhos.`;
 
 export default function AdminDashboardPage() {
   const { userProfile: adminProfile } = useAuth();
@@ -268,11 +417,12 @@ export default function AdminDashboardPage() {
     try {
       let content = await getDreamDictionaryEntry(letter);
       if (!content) {
-        if (letter === 'A') {
-            content = contentForA;
-        } else if (letter === 'B') {
-            content = contentForB;
-        }
+        if (letter === 'A') content = contentForA;
+        else if (letter === 'B') content = contentForB;
+        else if (letter === 'C') content = contentForC;
+        else if (letter === 'D') content = contentForD;
+        else if (letter === 'E') content = contentForE;
+        else if (letter === 'F') content = contentForF;
       }
       setDictionaryContent(content);
     } catch (error) {
@@ -826,3 +976,5 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
+
+    
