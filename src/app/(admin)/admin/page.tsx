@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState, type ChangeEvent, useCallback } from 'react';
@@ -139,7 +138,7 @@ BANDEIRA - Complicações financeiras, envolvendo documentos. Todo o cuidado com
 BANHO - O corpo e o espírito estão sendo descarregados, limpeza, purificação. O mesmo que água corrente que representa a descarga, a limpeza.
 BARALHO - Fechado: tristeza, infelicidade, problemas a caminho, inveja e intriga. Aberto: sorte no jogo e nos negócios. Amigo fiel e preocupado.
 BARATA - Não é muito bom sinal. Cuidado com os falsos amigos, amigos intrigantes. Cautela também com documentos, crianças e velhos.
-BARBA - Loura: felicidade e alegria a caminho. Branca: paz e muita tranquilidade. Escura: intriga, inveja, olho grande.
+BARBA - Loura: felicidade e alegria a caminho. Branca: paz e muita tranqüilidade. Escura: intriga, inveja, olho grande.
 BASTÃO - Os inimigos serão agredidos (castigados, justiçados) com ele. Proteção divina, segurança. Evitar preocupações desnecessárias.
 BAÚ - Fechado: existe um grande segredo a esconder; poupar para o futuro, evitar gastos supérfluos. Aberto: ótimo sonho, melhoras financeiras a caminho, sorte nos negócios e no jogo, felicidade para todos.
 BEBÊ - Tudo referente às crianças só pode ser bom. Significa pureza, beleza e alegria. Felicidade, novos amores, novas amizades, talvez uma gravidez benvinda.
