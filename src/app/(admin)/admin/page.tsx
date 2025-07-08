@@ -400,7 +400,7 @@ LENÇOL - Branco: Intrigas amorosas, infidelidade conjugal, falsos amigos, um am
 LEQUE - Aberto: Notícia surpreendente, dentro em breve, capaz de dar uma reviravolta na vida de quem sonha. Fechado: Morte de parente distante.
 LIGA - Geralmente, é de mau agouro, mas, em algumas ocasiões, pode ser um símbolo favorável, capaz de atrair dinheiro, sorte nos negócios e no amor.
 LIMÃO - Verde: Indica saúde boa para quem sonha e para seus entes queridos. Amarelo: Notícia muito boa a caminho, para felicidade de todos.
-LÍRIO - Muito bom sonho, principalmente para as moças solteiras, pois representa um feliz casamento para muito em breve. Para as casadas: uma ótima gravidez, e talvez nasçam gêmeos.
+LÍRIO - Muito bom sonho, principalmente para as moças solteiras, pois representa um feliz matrimônio para muito em breve. Para as casadas: uma ótima gravidez, e talvez nasçam gêmeos.
 LIVRO - Fechado: Problemas na escola com os filhos menores. Aberto: Boas notícias através dos filhos menores, uma formatura muito em breve.
 LIXA - De madeira: Viagens longas, para resolver negócios, ou mesmo assuntos de herança. De unhas: Maior cuidado com os pés e as mãos.
 LUA - Nova: Melhoras financeiras. Quarto crescente: Ascensão social. Quarto minguante: Problemas na família. Cheia: Boa sorte em tudo.
@@ -556,42 +556,42 @@ SINO - Ver um sino parado: Melhoras consideráveis em alguém muito doente. Ver 
 SOL - Ótimo presságio, sobretudo se o céu estiver completamente limpo, azul puro. Significa grandes notícias na família.
 SOMBRA - Ver a sombra de alguém: Dificuldades financeiras. Ver a própria sombra: Bom sonho, amor correspondido. Estar sendo seguido por uma sombra que não é a nossa: Trabalho feito, intriga, inveja.`;
 
-const contentForT = `TALHER - Ver um: fluidos nos negócios, na casa, no trabalho, muita inveja e mau olhado de falsos amigos. Para maiores detalhes, vede GARFO.
-TAMANCO - Ver alguém usando tamancos: algum amigo ou parente distante envolvido com problemas de dinheiro. Usar um: falsos amigos.
-TAMBOR - Estar tocando um tambor: bom sonho, sobretudo se o som for bem forte. Ver alguém tocando um tambor: sorte nos amores e nos negócios.
+const contentForT = `TALHER - Ver um: Fluidos negativos nos negócios, na casa, no trabalho, muita inveja e mau olhado de falsos amigos. Para maiores detalhes, vede GARFO.
+TAMANCO - Ver alguém usando tamancos: Algum amigo ou parente distante envolvido com problemas de dinheiro. Usar um: Falsos amigos.
+TAMBOR - Estar tocando um tambor: Bom sonho, sobretudo se o som for bem forte. Ver alguém tocando um tambor: Sorte nos amores e nos negócios.
 TAPETE - Geralmente, não é um sonho favorável, de bom presságio. No máximo, pode representar uma mudança de residência, tanto para melhor como para pior.
 TARTARUGA - Desilusão amorosa, mas logo surgirá um outro amor mais sincero.
-TERRA - Possivelmente, algumas complicações com a Justiça. Por outro lado, terra representa a mãe-natureza, Deus, e isso é indicativo de felicidade. Terra com letra maiúscula, planeta: os inimigos serão castigados.
-TESOURA - Sonho favorável. Ser cortado por uma tesoura: a sorte vai mudar e alguma coisa ocorrerá. Ver alguém sendo cortado com tesoura: desavenças na família.
+TERRA - Possivelmente, algumas complicações com a Justiça. Por outro lado, terra representa a mãe-natureza, Deus, e isso é indicativo de felicidade. Terra com letra maiúscula, planeta: Os inimigos serão castigados.
+TESOURA - Sonho favorável. Ser cortado por uma tesoura: A sorte vai mudar e alguma coisa ocorrerá. Ver alguém sendo cortado com tesoura: Desavenças na família.
 TIGRE - Sorte no amor, no jogo, um grande ideal, cedo ou tarde, será alcançado. Para maiores detalhes, vede FERA.
 TIJOLO - Vitória sobre inimigos inescrupulosos, intrigas vencidas, calúnias desmentidas e falsos amigos totalmente desmascarados.
-TINTA - Péssimo agouro; problemas econômicos, grandes dificuldades pela frente. Tinta azul ou branca: a solução para um problema não demorará.
+TINTA - Péssimo agouro; problemas econômicos, grandes dificuldades pela frente. Tinta azul ou branca: A solução para um problema não demorará.
 TOURO - Prejuízos nos negócios; talvez chance de longa viagem, para tratar de negócios, visita de parente distante, algum aborrecimento.
 TRIGO - Superação de tristeza, de dificuldades, e de intrigas também. Acautelar-se diante de perigos, de amigos muito sorridentes e cheios de elogios. Há indicação também de rivalidades no emprego.`;
 
 const contentForU = `UMBIGO - Bom sonho. Amigos fiéis e desinteressados. Um grande amigo ou parente próximo ajudará a solucionar um antigo problema.
 UNHA - Maior cuidado com os pés, as pernas e as mãos, para evitar qualquer doença infecciosa ou não. Uma longa viagem dentro em breve.
 URINA - Sonho favorável, sobretudo se a pessoa que sonha estiver urinando. Reviravolta na vida para bem melhor, com prosperidade financeira.
-URNA - Aberta: boas notícias a caminho. Fechada: notícia ruim, vinda de longe.
+URNA - Aberta: Boas notícias a caminho. Fechada: Notícia ruim, vinda de longe.
 URSO - Boas notícias, melhoras de vida; algum amigo falso trama uma traição.
 URUBU - Muito mau agouro, embora tenha algumas variações agradáveis, como receber um presente inesperado de um parente distante, ajuda de amigos e parentes, afeto de amigos e parentes.
 UVA - Prejuízos de pouca monta; coisa passageira, com a qual não se deve se preocupar.`;
 
-const contentForV = `VACA - Longas viagens pela frente, ou por diversão, ou para cuidar de alguns negócios. Ver uma vaca pastando: melhoras imediatas de algum doente na família, sobretudo os mais idosos.
+const contentForV = `VACA - Longas viagens pela frente, ou por diversão, ou para cuidar de alguns negócios. Ver uma vaca pastando: Melhoras imediatas de algum doente na família, sobretudo os mais idosos.
 VARANDA - Derrota de inimigos que tramam às escondidas. Logo, logo, notícias de reconciliação de um casal, amigos ou parentes.
 VASSOURA - Satisfação de um desejo há muito tempo alimentado. Sorte no jogo.
 VEADO - Dificuldades financeiras a caminho; depois, talvez haja uma sorte nos negócios.
 VELA - Muito bom presságio, embora a crença popular indique luto na família, morte próxima de um amigo ou amiga. Significa também casamento bem próximo ou então, no mínimo, um pedido de casamento.
-VERMELHO - Afeto correspondido, êxito nos amores, um casamento à vista. Estar vestido de vermelho: maus fluidos na casa.
-VINHO - Noivado ou namoro desfeito. Notícias de um divórcio de amigos. Estar tomando vinho: melhoras financeiras, alegrias no lar e no trabalho.
-VULCÃO - Extinto: novas amizades, sucesso no amor. Em erupção: problemas sendo resolvidos, trabalho desfeito, calúnia desmentida.`;
+VERMELHO - Afeto correspondido, êxito nos amores, um casamento à vista. Estar vestido de vermelho: Maus fluidos na casa.
+VINHO - Noivado ou namoro desfeito. Notícias de um divórcio de amigos. Estar tomando vinho: Melhoras financeiras, alegrias no lar e no trabalho.
+VULCÃO - Extinto: Novas amizades, sucesso no amor. Em erupção: Problemas sendo resolvidos, trabalho desfeito, calúnia desmentida.`;
 
 const contentForX = `XADREZ - Desentendimento na família e com os amigos. Alguém anda preparando armadilhas para a pessoa que sonha. Falsos amigos.
 XAROPE - Possibilidades de longas viagens, para trabalho ou por passatempo.
-XÍCARA - Estar se utilizando de uma: proteção divina, trabalho desfeito, disposição para enfrentar todas as dificuldades. Ver alguém se utilizar de uma: preocupação com os amigos mais chegados.`;
+XÍCARA - Estar se utilizando de uma: Proteção divina, trabalho desfeito, disposição para enfrentar todas as dificuldades. Ver alguém se utilizar de uma: Preocupação com os amigos mais chegados.`;
 
 const contentForZ = `ZEBRA - Mau agouro, principalmente se a zebra estiver pastando. Se tocar na zebra, tristeza profunda na família, desentendimento dentro e fora do lar.
-ZEBU - Acinzentado: melhoras financeiras, e bem depressa. Escuro: problemas no trabalho, na família e com os amigos. Cautela com a alimentação.
+ZEBU - Acinzentado: Melhoras financeiras, e bem depressa. Escuro: Problemas no trabalho, na família e com os amigos. Cautela com a alimentação.
 ZERO - Felicidade em todos os sentidos, maior quanto maior for o número de zeros. Sorte no jogo e realização de algum negócio lucrativo.
 ZURRO - Bom sonho, pois representa grandes melhoras financeiras, boas perspectivas no trabalho e nos negócios e sorte no jogo, por três dias. Em algumas ocasiões, pode indicar casamento feliz.`;
 
