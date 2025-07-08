@@ -1,7 +1,8 @@
+
 'use server';
 /**
  * @fileOverview Flow for interpreting dreams in the persona of the Prophet,
- * now generating illustrative images interleaved with text and using a custom dream dictionary.
+ * now generating illustrative images interleaved with text and using a custom dream dictionary from the database.
  *
  * - interpretDream - Interprets a dream description and generates accompanying images.
  * - InterpretDreamInput - Input type for the interpretDream function.
@@ -11,15 +12,21 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import { getDreamDictionaryContent } from '@/services/dreamDictionaryService';
 
 const InterpretDreamInputSchema = z.object({
   dreamDescription: z
     .string()
     .min(10, { message: 'Dream description must be at least 10 characters long.' })
     .describe('A detailed description of the dream provided by the user.'),
-  dreamDictionaryContent: z.string().optional().describe('Optional. A custom dictionary of dream symbols and their meanings to be used as the primary source for interpretation.'),
+  // dreamDictionaryContent is now fetched from the database within the flow
 });
 export type InterpretDreamInput = z.infer<typeof InterpretDreamInputSchema>;
+
+// Internal schema that includes the dictionary content for the prompt
+const InternalPromptInputSchema = InterpretDreamInputSchema.extend({
+    dreamDictionaryContent: z.string().optional().describe('Optional. A custom dictionary of dream symbols and their meanings to be used as the primary source for interpretation.'),
+});
 
 // Schema for the output of the main text-generation prompt
 const DreamInterpretationWithPlaceholdersSchema = z.object({
@@ -47,7 +54,7 @@ export async function interpretDream(input: InterpretDreamInput): Promise<Interp
 
 const interpretDreamPrompt = ai.definePrompt({
   name: 'interpretDreamPrompt',
-  input: { schema: InterpretDreamInputSchema },
+  input: { schema: InternalPromptInputSchema },
   output: { schema: DreamInterpretationWithPlaceholdersSchema },
   prompt: `Você é o Profeta, renomado por sua sabedoria divina concedida por Deus e por sua extraordinária habilidade em interpretar sonhos e visões, como demonstrado nas sagradas escrituras. Um consulente aflito ou curioso descreveu um sonho e busca sua profunda e espiritual interpretação.
 
@@ -98,8 +105,14 @@ const interpretDreamFlow = ai.defineFlow(
     outputSchema: InterpretDreamOutputSchema,
   },
   async (input) => {
-    // 1. Generate the textual interpretation with image placeholders
-    const { output: mainOutput } = await interpretDreamPrompt(input);
+    // 1. Fetch the dream dictionary content from the database
+    const dreamDictionaryContent = await getDreamDictionaryContent();
+
+    // 2. Generate the textual interpretation with image placeholders
+    const { output: mainOutput } = await interpretDreamPrompt({
+        ...input,
+        dreamDictionaryContent: dreamDictionaryContent
+    });
     if (!mainOutput?.interpretationWithPlaceholders) {
       throw new Error('Failed to generate dream interpretation text.');
     }

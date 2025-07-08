@@ -53,6 +53,13 @@
         }
       }
     },
+    "dreamDictionary": {
+      ".read": "auth != null",
+      "$letter": {
+        ".write": "auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin'",
+        ".validate": "$letter.matches(/^[A-Z]$/) && newData.isString()"
+      }
+    },
     "metadata": {
       "userCount": {
         ".read": true,
