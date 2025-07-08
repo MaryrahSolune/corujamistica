@@ -54,7 +54,7 @@ ACIDENTE - Más notícias. Alguns problemas na família e entre os cônjuges. Pe
 AÇOUGUE - Sinal de boas melhoras, de grande confiança no futuro, no sucesso. Grande subida nos negócios e propostas de emprego.
 ACROBACIA - Rapidez e facilidade para resolver problemas. Melhoras financeiras consideráveis.
 AÇUCAR - Vida melhor, mais próspera e afortunada. Grandes alegrias a caminho com relação aos filhos.
-ADAGA - Intriga, inveja, falsidade. Cautela com falsos amigos.
+ADAGA - Intriga, inveja, falsidade. Cautela com os falsos amigos.
 ADEGA - Desgosto em família, problemas com os filhos. Evitar o abuso de bebidas alcoólicas.
 ADEUS - Despedida, viagem a fazer em breve, mudança de residência ou de trabalho.
 ADULTÉRIO - Ver alguém conhecido em adultério: Tristeza, intriga, infelicidade. Ver o cônjuge em adultério: Separação, discussão, desunião.
@@ -180,7 +180,6 @@ BRANCO - Sonho excelente, alvissareiro. O branco significa pureza, amor, beleza.
 BRECHA - Quanto maior, mais significa esperança de vitória, de tudo se resolver. Estar fechando uma brecha: resolver um antigo problema.
 BRIGA - Discussão dentro e fora do lar, desentendimentos, falta de compreensão. Estar assistindo a uma briga: ver uma desunião, um rompimento.
 BRILHANTE - Jóia significa sempre cobiça, ganância, paixão pelos bens materiais; más notícias, tristeza, falsos amigos, problemas com dinheiro.
-BRINCO - Jóia de novo, más notícias, problemas na família e nos negócios. Evitar comentar demais a respeito da própria vida. Amigos falsos.
 BROA - É trigo, matéria-prima do pão, e o trigo sempre representou o alimento, o sustento da vida, alegria, alimentação farta. Visita de pessoa muito querida e talvez um novo e grande amor.
 BROCHE - Más notícias a caminho, possível desunião de amigos bem próximos, infidelidade conjugal. Cuidado especial com dinheiro e documentos.
 BROTO - Garota, jovem: viagem longa, para tratar de pequenos negócios. Flor: alegria inesperada, notícia excelente por carta.

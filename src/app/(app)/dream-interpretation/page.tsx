@@ -131,7 +131,7 @@ export default function DreamInterpretationPage() {
                     isLoading ||
                     !dreamDescription.trim() || 
                     dreamDescription.trim().length < 10 || 
-                    (userCredits && userCredits.balance < 1) || !!error // Use !!error to ensure it's a boolean
+                    (userCredits && userCredits.balance < 1)
                   }
                 >
                   {isLoading ? (
