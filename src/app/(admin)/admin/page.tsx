@@ -37,7 +37,7 @@ const mysticalIconNames = [
   'Grape', 'Zap', 'Pentagon', 'Rainbow', 'Heart'
 ];
 
-const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+const alphabet = "ABCDEFGHIJKLMNOPQRS".split('');
 
 const contentForA = `A - Escrever ou ler a letra A: Boas notícias, novidades ótimas que virão de longe, através de pessoa muito querida.
 ABACATE - Maduro: Esperança, dias melhores. Verde: Alguma tristeza na família, talvez uma discussão ou briga.
@@ -354,11 +354,11 @@ GRAMA - Ver uma grande extensão de: Melhoras financeiras, elevação social, pr
 GRAVATA - Clara: Casamento, noivado ou batizado. Colorida: Uma comemoração para celebrar um grande acontecimento. Escura: Doença ou morte.
 GRUTA - Estar saindo de: Solução de um problema. Estar entrando numa: Dificuldade pela frente. Estar em uma: A solução dos problemas demorará um pouco.
 GUARDA-CHUVA - Aberto: Proteção divina. Fechado: Notícia inesperada e desagradável. Estar com ele dentro de casa: Mau agouro, péssima novidades.
-GUARDANAPO - Todo branco: Paz e tranqüilidade no lar. Colorido e/ou bordado, enfeitado: Calúnia que será logo, logo, desmascarada. Estar limpando a boca com um: Os falsos amigos logo serão afastados.`;
+GUARDANAPO - Todo branco: Paz e tranquilidade no lar. Colorido e/ou bordado, enfeitado: Calúnia que será logo, logo, desmascarada. Estar limpando a boca com um: Os falsos amigos logo serão afastados.`;
 
 const contentForH = `HARPA - Ouvir uma: Viagem próxima. Estar tocando uma: Doença passageira, de fácil cura. Geralmente, harpa significa ótimas novidades nos negócios.
 HÉLICE - Ver uma hélice parada: As melhoras de vida ainda demorarão para vir, mas virão. Ver hélice girando: Bom presságio, amores correspondidos.
-HORIZONTE - Se não houver nuvens no céu, é um excelente sonho, pois revela paz e tranqüilidade. Com nuvens no céu: Sérios problemas pela frente.
+HORIZONTE - Se não houver nuvens no céu, é um excelente sonho, pois revela paz e tranquilidade. Com nuvens no céu: Sérios problemas pela frente.
 HOSPITAL - Ver um: Êxito nos negócios. Estar num: Doença, grave ou passageira, na família.
 HOTEL - Ver um: Alguma viagem pela frente, por motivo desagradável. Estar num: Viagem próxima.
 HOSPÍCIO - Ver um: Grande sorte no jogo, nos negócios, aumento de salário, promoções. Estar num: Doença mental na família ou na de amigos. Sair de um: Solução de um problema bem próxima.`;
@@ -411,7 +411,7 @@ LUZ - Sonho mais que propício, sobretudo para as mulheres grávidas, pois signi
 const contentForM = `MAÇÃ - Verde: Desgostos com parentes e amigos, alguma intriga, alguém em inveja. Madura: Bom presságio, melhoras em questões de dinheiro.
 MACACO - Grande: Indica promoção no trabalho, reconciliação amorosa. Pequeno: Dificuldades sentimentais, sobretudo entre os noivos.
 MACHADO - Normalmente, indica que o mal está sendo afastado para longe. Em algumas ocasiões, pode significar grande sorte no jogo.
-MÃE - Sonho perfeito, excelente, maravilhoso mesmo. Paz, tranqüilidade e felicidade para todos.
+MÃE - Sonho perfeito, excelente, maravilhoso mesmo. Paz, tranquilidade e felicidade para todos.
 MALA - Aberta: Visita de parente distante. Fechada: Uma viagem em breve.
 MANTEIGA - Dura, gelada: Prejuízos nos negócios, problemas no emprego, dívidas a pagar. Mole: Re-estabelecimento de pessoa doente, realização de um negócio lucrativo ou mesma reviravolta na vida.
 MAR - Calmo: Notícias que virão de longe e serão bastante agradáveis. Furioso: Problemas graves à vista, que só serão resolvidos com muita calma.
@@ -420,7 +420,7 @@ MARTELO - Maquinações de falsos e interesseiros amigos, para uma traição. Ca
 MÁSCARA - Engraçada: Boas notícias a caminho. Assustadora: Dificuldades financeiras, alguns desentendimentos com amigos que se vivem elogiando.
 MEDALHA - Vendo-se a parte da frente: Viagens longas, com motivos mais que agradáveis. Vendo-se o verso: Um amigo ou conhecido tem duas caras.
 MEDO - Estar com medo: Desavenças na família, com os amigos e até mesmo no emprego. Cautela com o relacionamento com as pessoas. Fazer medo a alguém: Tristeza na família, problemas de dinheiro.
-MEIA - Branca: Muita tranqüilidade no lar. De cor: Notícia auspiciosa a respeito de dinheiro ou trabalho. Escura: Discórdia de amigos.
+MEIA - Branca: Muita tranquilidade no lar. De cor: Notícia auspiciosa a respeito de dinheiro ou trabalho. Escura: Discórdia de amigos.
 MEL - Boas notícias, sobretudo referente a venda e compra de casa, a mudança de residência e a negócios lucrativos. Perfeita saúde para as crianças.
 MELANCIA - Êxitos nos negócios, sorte no jogo e muito êxito nos amores. Representa também que alguém muito apaixonado está morrendo por esse amor.
 MISSA - Assistir a uma missa: Regresso de um parente há muito afastado, possibilidades de mudança de residência. Estar rezando uma missa: Prejuízos nos negócios, demissão de um emprego.
@@ -460,6 +460,102 @@ NUDEZ - De mulher: Noivado à vista, com casamento logo em seguida. De homem: In
 NÚMERO - Possibilidades de grandes ganhos, seja no trabalho, nos negócios ou no jogo. Para maiores detalhes, ver algarismos.
 NÚPCIAS - Se for mulher quem sonha: Casamento bem próximo, ou um pedido de casamento em breve. Se for homem: Problemas nos negócios.
 NUVEM - Branca: Prosperidade, sobretudo nos negócios; um negócio muito lucrativo será realizado em breve. Escura: Perspectiva de mudança no ambiente familiar; problemas na família, discussão e desentendimentos.`;
+
+const contentForO = `ÓCULOS - Transparentes: Boas notícias, amigos fiéis prontos a ajudar no possível. Escuros: A pessoa que sonha está cega para as falsas amizades e más companhias.
+OLHOS - Escuros: Amor sincero. Castanhos: Amor correspondido. Azul: Pessoa amada muito ciumenta e insegura. Verdes: Traição, infidelidade, leviandade.
+ONÇA - Sorte no amor, no jogo; um grande ideal, mais cedo ou mais tarde, será alcançado, para a felicidade de todos. Casamento em breve.
+ONDA - Fraca: Dificuldades financeiras pela frente, mas serão passageiras e sem importância. Forte: Graves problemas a caminho, de difícil solução.
+ORAÇÃO - Sonho muito bom, sobretudo se é a pessoa que sonha quem está orando.
+ORELHA - De mulher: Tristeza a caminho e grande, em especial com os filhos homens. De homem: Felicidade a caminho, em especial com as filhas moças. Pequena: A felicidade é grande, assim como a tristeza.
+ÓRGÃO - Órgão do corpo: Notícia alvissareira. Se for um órgão doente, problemas com a família. Instrumento musical: Um casamento breve, muito breve.
+ORQUESTRA - Ver tocar uma: Prosperidade financeira, em especial os homens solteiros. Estar tocando numa: Noivado à vista, solução de um velho problema.
+ORVALHO - Um excelente sonho, de muito bom presságio, pois indica pureza, limpeza. Normalmente, para as moças solteiras, representa um feliz matrimônio.
+OSSO - Ver um esqueleto completo é sinal de doença grave na família, talvez seguida de morte. Ver um osso apenas: Sorte no jogo e nos amores.
+OURO - Péssimo sonho, mau agouro. Cautela com falsos amigos, com documentos importantes, sobretudo escrituras, certidões e papéis bancários.
+OVO - Fresco: Uma grande notícia a caminho. Podre: Dificuldades no emprego. Ovos fritos, preparados: Infidelidade conjugal. Ovo cozido: Discussão em família. Ovo aberto, deixando ver a gema: Trabalho desfeito.`;
+
+const contentForP = `PÁ - Sonho desfavorável, pois sugere morte, enterro, sepultura. Deve-se ter maior cuidado com as crianças de colo, os velhos e os enfermos.
+PADRE - Muito bom sonho, sobretudo se o padre estiver preparado para rezar uma missa. Padre rezando missa: Felicidade dentro e fora do lar.
+PAI - Sonho mais que propício, representando proteção divina, prosperidade e ótimos negócios. Estar tomando bênção ao pai: Grandes alegrias a caminho.
+PALÁCIO - Sair de um: Dinheiro à vista. Entrar em um: Azar no jogo e nos negócios.
+PALHAÇO - Ver um palhaço só: Alegria na família. No circo: Prosperidade financeira.
+PALITO - De fósforo: Maledicências, amigos invejosos, alguém que frequenta a casa é falso e intrigante. De dentes: Desavenças entre amigos no trabalho. Quebrado: Bom sonho, pois indica que um perigo grande já passou.
+PANELA - Vazia: Um problema de dinheiro será resolvido quando menos se esperar. Cheia: Alimentação farta, mesa farta, saúde para as crianças.
+PÃO - Muito bom sonho, sobretudo se o pão estiver fresco, estalando. Se for dormido, haverá alguma notícia alegre dentro em breve, tanto de longe quanto de perto.
+PAPA - O mesmo que padre, sendo que sonhar com papa é bem melhor que com padre ou qualquer outra personalidade eclesiástica, devido à sua posição suprema.
+PARTES SEXUAIS - Sonho que revela desejos ocultos. Órgão feminino: Carência de amor, de prazer. Órgãos masculinos: Violento desejo, ânsia insaciável.
+PÁSSARO - Normalmente, é um sonho favorável, por se tratar de aves. Sendo pássaro pequeno, representa liberdade, vida, beleza e felicidade.
+PÉ - Uma longa viagem pela frente, ou por motivos de negócios, ou para diversão. Pé defeituoso: Mau agouro, maré de azar, mas que logo terminará. Pé com alguma enfermidade: Desavenças no ambiente de trabalho.
+PEDRA - Grande: Alguém trará um problema que precisará ser resolvido sem demora. Pequena: Felicidade conjugal, alegrias com os filhos e os pais.
+PEDRAS PRECIOSAS EM GERAL - Mau agouro, mau presságio. Pedras preciosas sempre representaram a ganância humana, a cobiça violenta, que pode até levar à morte.
+PEIXE - Cru, ainda vivo: Boas notícias, no tocante a melhoras financeiras e a mudança de residência. Preparado: Não é um sonho muito favorável.
+PENTE - Novo, limpo: Visita de parente distante ou então visita de um amigo há muito afastado. Pente usado: Discórdia com amigos e parentes.
+PERNA - Uma longa viagem em breve, mais precisamente para tratar de negócios, como compra e venda de imóveis, receber uma herança ou mesmo empreendimento lucrativo.
+PÉROLA - Alguém está muito preocupado com problemas de família. Cautela com documentos importantes. Se a pessoa que sonha pensa em fazer empréstimos em bancos, é aconselhável desistir. O sonho não é bom presságio.
+PIANO - Estar tocando piano: Grandes planos para o futuro, sorte nos amores. Estar ouvindo um piano: Amor correspondido, noivado à vista.
+PIMENTA - Crua: Problemas referentes aos filhos menores, sobretudo em idade escolar. Cozida ou em prato feito: Esperanças de resolver um problema.
+PINCEL - Estar vendo alguém pintar com pincel: Amor correspondido. Estar pintando com pincel: Amor não correspondido, mas um outro surgirá, para sempre.
+PIRÂMIDE - Ver uma pirâmide: Tristeza no trabalho e com os amigos. Entrar numa pirâmide: Proteção divina. Sair de uma pirâmide: Sorte no jogo.
+POÇO - Sem água: Problemas à vista, alguma morte na família, tristeza por um velho amigo. Com água: Sorte nos negócios, no jogo, novidade muito boa.
+PONTE - Estar atravessando uma ponte: Melhoras financeiras, um problema será resolvido em breve. Ver uma ponte ser construída: Um novo horizonte está se descortinando. Ver uma ponte ruir: Intrigas e inveja.
+PORCO - Vivo: Vitória sobre os inimigos, os falsos amigos, que só têm segundas intenções. Assado: Dificuldades financeiras, e problemas também nos negócios.
+PORTA - Aberta: Afinal, a tão esperada solução para um problema muito antigo. Fechada: Desavenças na família, partida de um ente querido para uma longa viagem.
+PRAIA - Ver uma praia: Prosperidade no lar, no trabalho e nos negócios. Estar numa praia, se bronzeando: Melhoras vagarosas para todos.
+PRETO - Cor preta: Bom presságio, sobretudo para os homens de negócios. Homem preto: Felicidade conjugal. Mulher preta: Uma gravidez feliz e normal.
+PRÍNCIPE - Para as moças solteiras: Ótimo sonho, pois indica ou um casamento em breve, ou um grande amor. Se quem sonha é mulher casada, uma tentação de amor a caminho.
+PULSEIRA - Usar uma pulseira: Casamento para muito breve, sobretudo se for moça quem sonha. Ver uma pulseira: Sorte no jogo, no amor e nos negócios. Ver alguém usando uma pulseira: Um novo emprego.`;
+
+const contentForQ = `QUADRILHA - De bandidos: Muitos amigos falsos em volta da pessoa que sonha. De São João: Ótimo sonho, pois indica felicidade e alegria.
+QUADRO - Pintar um quadro: Sonho há muito acalentado afinal realizado. Ver o próprio rosto retratado num quadro: Problemas de saúde.
+QUADRÚPEDE - Qualquer animal quadrúpede representa realização de desejos e felicidade, sobretudo os cavalos, os bois e os cachorros.
+QUARESMA - Ótimo sonho, indicador de grandes prosperidades no lar e nos negócios. Realização de um empreendimento bastante lucrativo.
+QUARENTENA - Problemas de saúde, principalmente com as pessoas mais idosas.
+QUARTEL - Estar num quartel: Muitas dificuldades pela frente, sobretudo com o filho mais velho. Sair de um quartel: Solução de problemas. Entrar num quartel: Alguns problemas envolvendo justiça.
+QUARTZO - Reviravolta na vida, para melhor; alguma mudança de residência; carta ou telegrama trazendo boa notícia dentro dos próximos cinco dias.
+QUATI - Muito bom sonho. Representa uma grande mudança na vida de quem sonha, e uma mudança para melhor. Maior alegria no lar e promoção no emprego.
+QUEBRAR - Uma janela, um vidro qualquer: Problemas graves com dinheiro. Ver alguém quebrar: Inimizades no trabalho, frustração de planos.
+QUEDA - Ver alguém cair de um lugar alto: Algum amigo ou parente sofrerá uma grande perda. Estar caindo: Ascensão social e econômica.
+QUEIJO - Fresco, sobretudo de Minas, ótimo sonho, pois indica resolução de problemas, dificuldades superadas. Podre: Mau agouro, infelicidade no casamento.
+QUEIMADA - Realizar uma queimada significa inveja de falsos amigos, inimigos preparando ciladas perigosas. Ver uma queimada: Discussão dentro e fora do lar, algum parente sofrendo por motivos de doença.
+QUEIMAR - Inveja de falsos amigos, inimigos preparando ciladas perigosas. Maiores detalhes, vide QUEIMADA.
+QUIABO - Cru: Sonho auspicioso. Cozido: Problemas referentes a dinheiro e a documentos. Frito: Trabalho desfeito, calúnia desmentida.
+QUIBE - Geralmente, indica bom presságio, principalmente para a pessoa que sonha. Essa sorte pode estender-se para as pessoas mais íntimas daquela que sonha.
+QUIOSQUE - Ver um quiosque: Amor correspondido. Fazer compras num quiosque: Alimentação farta, mesa farta, saúde para crianças e pessoas idosas.
+QUIROMANTE - Ver uma quiromante: Azar no jogo e nos negócios. Consultar-se com uma quiromante: Bom sonho, e é quase certo que as previsões no sonho se realizem.
+QUITANDA - Ver uma quitanda: Amor correspondido. Fazer compras numa quitanda: Problemas financeiros passageiros, podendo ser resolvidos com a ajuda de um velho amigo ou um parente distante.`;
+
+const contentForR = `RAIO - Ver um raio no céu: Intrigas de velhos inimigos. Ser atingido por um raio: Graves dificuldades pela frente, com sérias consequências.
+RAIZ - Ver uma raiz: Mudança de residência, para melhor. Estar comendo uma raiz, realização de um antigo desejo, sobretudo de ordem sexual.
+RAMALHETE - Flor é sempre beleza e alegria. De flores comuns: Alegrias no casamento e com os filhos. De rosas: Muita sorte no amor, afeto correspondido.
+RAMO - Boas notícias a caminho, assim como uma visita totalmente inesperada e que trará algumas alegrias, mas logo em seguida sérios aborrecimentos.
+RAPADURA - Comer rapadura: Sorte no jogo. Ver alguém comer: Tristeza na família.
+RAPOSA - Caçar uma raposa indica sorte nos negócios, ascensão social e econômica. Ver uma raposa morta: Inimigos traiçoeiros e ladinos vencidos. Ver uma raposa: Falsos amigos com segundas intenções.
+RASGAR - Estar rasgando alguma coisa: Problemas financeiros na família. Ver alguém rasgar alguma coisa: Tristeza com amigos e parentes.
+RATO - Ver um rato: Amigos traiçoeiros tramam alguma cilada. Caçar um rato e capturá-lo: Boas notícias a caminho, sobretudo vindas de longe.
+REBANHO - Bovino: Felicidade conjugal, longevidade, casamento longo e com muitos filhos. De ovelhas: Prosperidade no emprego e nos negócios.
+RECÉM-NASCIDO - Excelente sonho, sob todos os aspectos. Felicidade no lar, no casamento, negócios lucrativos, sorte no jogo, proposta de emprego, etc.
+REDE - Ver uma rede: Intrigas perigosas, calúnias. Ver alguém numa rede: Um amigo ou parente envolvido com problemas. Estar numa rede: Dificuldades a caminho.
+REFEIÇÃO - Preparar uma refeição, para si ou para outros: Cautela com a própria saúde. Ver alguém fazer uma refeição: Notícia de morte a caminho. Fazer uma refeição: Perigo de morte na família.
+REI - Sonhar que se é rei: Boas notícias no tocante a dinheiro ou empreendimentos. Ver um rei: Cilada de amigos interesseiros.
+RELÓGIO - Funcionando: Esperanças de melhoras. Quebrado: Péssimo agouro, grandes dificuldades pela frente. Despertando: Quem sonha está meio alheio a sua realidade.
+REMÉDIO - Cautela com as crianças e as pessoas mais idosas, sobretudo as da família. Risco de alguma enfermidade dentro e fora do lar.
+RIO - Ver um rio manso, tranquilo: Paz e confiança no futuro, muita tranquilidade a caminho. Rio caudaloso: Problemas pequenos e graves pela frente.
+ROCHEDO - Ver o mar batendo forte num rochedo: Proteção divina, muita força interior. Ver o mar quebrando um rochedo: Maus fluidos na casa, que enfraquecem a todos.
+ROSÁRIO - Muito bom presságio, pois indica várias coisas boas: um casamento próximo, um pedido de matrimônio, uma gravidez benvinda e feliz, sorte no jogo e nos negócios, boas notícias há muito esperadas.`;
+
+const contentForS = `SACO - Vazio: Partida para uma viagem de um amigo muito querido. Cheio: Dinheiro à vista, seja através dos negócios, seja através do jogo.
+SAIA - Branca: Casamento muito próximo. De cor: Alegrias inesperadas na família. Escura: Talvez alguma morte, dentro ou fora do lar.
+SAL - Comer sal: Sorte, muita sorte, em tudo. Ver alguém comer sal: Um amigo, conhecido ou parente receberá uma grande notícia e ficará feliz.
+SANFONA - Tocar uma: Dificuldades superadas. Ver alguém tocar uma: Amor correspondido.
+SANGUE - Ver o sangue de alguém: Morte de um amigo. Ver o próprio sangue: Morte na família.
+SAPATO - Sonho bastante favorável, indicador de prosperidade econômica, ascensão social, em especial para o chefe da casa; talvez uma viagem longa, por navio, para tratar de negócios.
+SAPO - Ver um sapo vivo, numa lagoa, num lago: Notícias otimistas, amigos sinceros prontos a ajudar. Ver um sapo morto: Falsos amigos.
+SEIOS - Se for homem quem sonha: Furioso desejo sexual, com sinais de dependência psicológica. Se for mulher: Anseios maternais, frustração sexual.
+SELVA - Ver uma selva: Dificuldades à vista, mas que serão logo superadas. Estar numa selva: Problemas graves, de difícil solução.
+SINO - Ver um sino parado: Melhoras consideráveis em alguém muito doente. Ver um sino tocando: Casamento em breve; talvez desavenças com um parente.
+SOL - Ótimo presságio, sobretudo se o céu estiver completamente limpo, azul puro. Significa grandes notícias na família.
+SOMBRA - Ver a sombra de alguém: Dificuldades financeiras. Ver a própria sombra: Bom sonho, amor correspondido. Estar sendo seguido por uma sombra que não é a nossa: Trabalho feito, intriga, inveja.`;
+
 
 export default function AdminDashboardPage() {
   const { userProfile: adminProfile } = useAuth();
@@ -554,6 +650,11 @@ export default function AdminDashboardPage() {
         else if (letter === 'L') content = contentForL;
         else if (letter === 'M') content = contentForM;
         else if (letter === 'N') content = contentForN;
+        else if (letter === 'O') content = contentForO;
+        else if (letter === 'P') content = contentForP;
+        else if (letter === 'Q') content = contentForQ;
+        else if (letter === 'R') content = contentForR;
+        else if (letter === 'S') content = contentForS;
       }
       setDictionaryContent(content);
     } catch (error) {
@@ -1107,5 +1208,3 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
-
-    
