@@ -13,9 +13,9 @@
           }
         },
         "credits": {
-          ".read": "auth != null && auth.uid == $uid",
+          ".read": "auth != null && (auth.uid == $uid || root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin')",
           "balance": {
-            ".write": "(auth != null && auth.uid == $uid) || (auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin')",
+            ".write": "(auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin') || (auth != null && auth.uid == $uid && ((!data.exists() && newData.val() === 0) || (data.exists() && newData.val() < data.val() && newData.val() == data.val() - 1)))",
             ".validate": "newData.isNumber()"
           },
           "freeCreditClaimed": {
