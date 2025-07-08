@@ -127,6 +127,69 @@ AZUL - Sonho excelente. Felicidade. Escuro: Boas notícias. Claro: Casamento.
 AZULÃO - Felicidade à vista, bom casamento.
 AZULEJO - Branco: Felicidade. Colorido: Novo amor. Escuro: Cuidado com a inveja.`;
 
+const contentForB = `BACALHAU - É sempre mau agouro, sobretudo preparado, pois representa trabalho feito.
+BACIA - Cheia: muita alegria com o ser amado, o lar, e os filhos. Vazia: notícia de parente distante, visita de alguém há muito afastado.
+BAILE - É sempre motivo de alegria, de felicidade, de novas e boas amizades, de simpatia. Coisas boas e alegres estão por acontecer.
+BALDE - Cheio: preocupações com a família ou os amigos. Alguma discussão sem consequências. Vazio: ótimo, trabalho desfeito ou muito fraco.
+BALEIA - Energias redobradas para enfrentar a luta da vida, os problemas. Força e confiança no futuro. Esquecer o pessimismo e pensar com fé.
+BALSA - A solução para cada problema é encontrada mais cedo ou mais tarde. Não desanimar nunca na luta. Alguém muito apaixonado. Vida.
+BANANA - Ameaça de revelação de um grande segredo, o que trará sérios aborrecimentos. Banana descascada: trabalho desfeito e inútil.
+BANCO - De praça: notícia alvissareira, encontro com velho amigo. De dinheiro: sucesso nos negócios, promoção, sorte no jogo por cinco dias.
+BANDEIRA - Complicações financeiras, envolvendo documentos. Todo o cuidado com documentos, papéis de justiça. Não assinar nada sem antes ler com cuidado. Cautela com falsos amigos e advogados.
+BANHO - O corpo e o espírito estão sendo descarregados, limpeza, purificação. O mesmo que água corrente que representa a descarga, a limpeza.
+BARALHO - Fechado: tristeza, infelicidade, problemas a caminho, inveja e intriga. Aberto: sorte no jogo e nos negócios. Amigo fiel e preocupado.
+BARATA - Não é muito bom sinal. Cuidado com os falsos amigos, amigos intrigantes. Cautela também com documentos, crianças e velhos.
+BARBA - Loura: felicidade e alegria a caminho. Branca: paz e muita tranquilidade. Escura: intriga, inveja, olho grande.
+BASTÃO - Os inimigos serão agredidos (castigados, justiçados) com ele. Proteção divina, segurança. Evitar preocupações desnecessárias.
+BAÚ - Fechado: existe um grande segredo a esconder; poupar para o futuro, evitar gastos supérfluos. Aberto: ótimo sonho, melhoras financeiras a caminho, sorte nos negócios e no jogo, felicidade para todos.
+BEBÊ - Tudo referente às crianças só pode ser bom. Significa pureza, beleza e alegria. Felicidade, novos amores, novas amizades, talvez uma gravidez benvinda.
+BEBER - Água: limpeza, descarga, purificação do corpo e do espírito. Bebida alcoólica: não é de muito bom agouro, tristeza, desunião.
+BECO - Entrar num: problema à vista, preocupação, trabalho sendo feito. Sair de um: ótimo sonho, trabalho desfeito, problemas sendo resolvidos.
+BEIJO - Na testa: amigos sinceros, desinteressados. No rosto: o ser amado é fiel. Na boca: traição, infidelidade, adultério.
+BENGALA - Alguém virá em auxílio, servirá de apoio moral e talvez até resolva alguns problemas. Alguém em dificuldades, precisando de ajuda.
+BERÇO - Criança novamente. Alegria, felicidade, paz, tranquilidade. Também uma futura gravidez, perfeita sob todos os aspectos. Em geral, nascerá menina; se menino, terá vida plena e muita riqueza.
+BERRO - De alegria: bom sonho, felicidade à vista. De dor: uma grande tristeza a caminho. De agonia: problema grave, doença na família.
+BESOURO - Sinal de prosperidade, fartura, sucesso e boa sorte. Chances de sorte no jogo por dois dias. Uma notícia agradável surgirá.
+BEZERRO - Junto da vaca, sendo amamentado: alegria no ar, a caminho. Desgarrado: problemas no lar, desunião, discussão ou briga entre parentes.
+BIBELÔ - De porcelana: alegria no lar e no trabalho. Vidro: sucesso no jogo e no trabalho. De madeira: alimentação farta, uma nova residência.
+BÍBLIA - Fechada: alta fé no futuro. Aberta: proteção. Luxuosa: traição.
+BICO - Alguém lhe guarda um grande segredo, amigos.
+BIGODE - Ver em alguém: felicidade em todos os sentidos.
+BICICLETA - Negócios em bom andamento. Uma viagem curta, de bicicleta. Insistência e fé.
+BOBO - Algumas dificuldades financeiras. Infidelidade conjugal. Bobo da corte: alguém está usando uma das pessoas da família, explorando, enganando.
+BOCA - De dentes bem feitos: felicidade em breve. De dentes feios: tristeza. Sorrindo: um novo amor. Contorcida: desunião, infidelidade.
+BODE - Falta de fé, pensamento negativo, falta de orações e conversas com Deus. Negligência para com as coisas do espírito. Há alguma influência maléfica sobre a família e os amigos mais chegados.
+BOFETADA - Agressão, briga no lar, discussão entre parentes ou amigos, desentendimentos. Deve-se ter cautela com o que se diz para as pessoas a nossa volta.
+BOI - Branco: felicidade completa, muitas alegrias. Castanho: boas notícias. Preto: alguma tristeza. Malhado: sorte nos negócios.
+BÓIA - Salvação, libertação dos problemas, solução para as preocupações, boas notícias. Talvez uma longa viagem de navio ou lancha.
+BOLA - Branca: felicidade, alegria. Colorida: sorte no jogo por três dias e sorte nos negócios. Escura: desunião, problemas na família.
+BOLACHA - Fartura de alimentos, mesa farta, algum bom dinheiro a caminho. Maior cuidado com a alimentação dos velhos e das crianças.
+BOLO - Simples: solução para os problemas maiores, principalmente os que envolvem o amor e o dinheiro. Confeitado: alegria, uma grande notícia a caminho, casamento, noivado, em breve.
+BOLSA - Poupar para o futuro, guardar algum dinheiro para uma emergência; evitar gastos desnecessários, esbanjamento. Dinheiro a caminho.
+BOLSO - Significa poupar, guardar uma reserva para o amanhã. Também pode representar uma reviravolta na vida, um projeto fracassado.
+BOMBOM - É criança e criança só pode ser coisa boa: dinheiro, amor, alegria. De chocolate, ótimo sonho, pois significa felicidade completa.
+BONDE - Viagem a fazer em breve, visita de um parente ou amigo há muito tempo não visto. Infelicidade nos amores, uma nova amizade.
+BONÉ - Branco: alegria e felicidade para todos. Colorido: felicidades no amor, no casamento. Escuro: tristeza profunda, falsos amigos.
+BONECA - De louça: intriga sendo feita, amigo falso, interesseiro. De pano: pureza, amizade sincera, um amigo virá ajudar. Que fala: evitar ficar falando da própria vida, o que sempre suscita inveja.
+BORBOLETA - Escura: mau agouro, talvez uma curta onda de azar. Colorida: ótimo sonho, pois representa alegria e sorte com um novo amor.
+BOTA - Longas viagens pela frente, ou por diversão, ou para resolver pequenos negócios. Maiores cuidados com os pés e as mãos.
+BOTÃO - Branco: certeza de vitória quanto a um antigo problema. Colorido: alegrias no amor e com a família. Escuro: falsos amigos, problemas com dinheiro.
+BOTE - A vitória chegará, mas deve-se lutar por ela, mesmo remando contra a correnteza. Pequena viagem, sobretudo por meio marítimo.
+BRACELETE - Traição por parte de amigos, falsos amigos que só tem segundas intenções. Evitar a boa-fé excessiva e confiança em todo o mundo.
+BRAÇO - Excelente sonho, sob todos os aspectos. Força, energia, vigor, saúde, disposição férrea para enfrentar todos os problemas e vencê-los. Coragem para tudo, sem esmorecimento. Fé no futuro.
+BRANCO - Sonho excelente, alvissareiro. O branco significa pureza, amor, beleza. Estar vestido de branco: felicidade dentro em breve.
+BRECHA - Quanto maior, mais significa esperança de vitória, de tudo se resolver. Estar fechando uma brecha: resolver um antigo problema.
+BRIGA - Discussão dentro e fora do lar, desentendimentos, falta de compreensão. Estar assistindo a uma briga: ver uma desunião, um rompimento.
+BRILHANTE - Jóia significa sempre cobiça, ganância, paixão pelos bens materiais; más notícias, tristeza, falsos amigos, problemas com dinheiro.
+BRINCO - Jóia de novo, más notícias, problemas na família e nos negócios. Evitar comentar demais a respeito da própria vida. Amigos falsos.
+BROA - É trigo, matéria-prima do pão, e o trigo sempre representou o alimento, o sustento da vida, alegria, alimentação farta. Visita de pessoa muito querida e talvez um novo e grande amor.
+BROCHE - Más notícias a caminho, possível desunião de amigos bem próximos, infidelidade conjugal. Cuidado especial com dinheiro e documentos.
+BROTO - Garota, jovem: viagem longa, para tratar de pequenos negócios. Flor: alegria inesperada, notícia excelente por carta.
+BRUXA - Mau agouro, perspectiva de azar nos negócios, trabalho sendo feito, inveja. Alguém com mau pensamento para com quem sonhou.
+BÚFALO - Símbolo de força, de energia. Escuro: determinação para vencer os problemas. Branco: muito bom o sonho, felicidade e alegria.
+BUQUÊ - Flor é sempre beleza e alegria. De flores comuns: alegria no casamento e com os filhos. De rosas: muita sorte no amor, afeto correspondido.
+BURRO - Com insistência, fé e pensamento positivo, tudo pode ser conseguido. Burro puxando carroça: visita de parente distante.`;
+
 export default function AdminDashboardPage() {
   const { userProfile: adminProfile } = useAuth();
   const { t } = useLanguage();
@@ -206,8 +269,12 @@ export default function AdminDashboardPage() {
     setIsLoadingDictionary(true);
     try {
       let content = await getDreamDictionaryEntry(letter);
-      if (letter === 'A' && !content) {
-        content = contentForA;
+      if (!content) {
+        if (letter === 'A') {
+            content = contentForA;
+        } else if (letter === 'B') {
+            content = contentForB;
+        }
       }
       setDictionaryContent(content);
     } catch (error) {
