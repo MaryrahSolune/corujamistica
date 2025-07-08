@@ -65,10 +65,12 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
 
   // 3. Search for the keywords in the fetched content using normalized comparison
   for (const line of dictionaryLines) {
-    // Extract the keyword part of the line (the first word before a hyphen)
-    const lineKeywordMatch = line.match(/^([^\s-]+)/); 
+    // Corrected, robust regex to extract the keyword before " - "
+    const lineKeywordMatch = line.match(/^(.+?) - /);
     if (lineKeywordMatch && lineKeywordMatch[1]) {
-      const normalizedLineKeyword = normalizeString(lineKeywordMatch[1]);
+      const keywordFromLine = lineKeywordMatch[1].trim();
+      const normalizedLineKeyword = normalizeString(keywordFromLine);
+
       if (normalizedKeywords.includes(normalizedLineKeyword)) {
         foundDefinitions.add(line);
       }

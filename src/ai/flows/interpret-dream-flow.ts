@@ -60,11 +60,15 @@ const extractKeywordsPrompt = ai.definePrompt({
   name: 'extractDreamKeywordsPrompt',
   input: { schema: z.object({ dreamDescription: z.string() }) },
   output: { schema: KeywordExtractionSchema },
-  prompt: `Analise a seguinte descrição de sonho e extraia de 1 a 5 substantivos ou símbolos principais. Retorne apenas a lista de palavras-chave.
+  prompt: `Analise a seguinte descrição de sonho e extraia de 1 a 5 substantivos ou símbolos principais. Para símbolos compostos (ex: estrela-do-mar), retorne o símbolo completo. Para palavras no plural (ex: gatos), retorne o singular (gato). Retorne apenas a lista de palavras-chave.
   
-  Exemplo:
+  Exemplo 1:
   Sonho: "Eu estava em uma casa antiga e uma cobra grande apareceu, mas eu não tive medo."
   Resultado: ["casa", "cobra"]
+  
+  Exemplo 2:
+  Sonho: "Vi uma estrela-do-mar na praia e depois comi pão de ló."
+  Resultado: ["estrela-do-mar", "pão de ló", "praia"]
 
   Sonho:
   {{{dreamDescription}}}
