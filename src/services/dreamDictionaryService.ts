@@ -26,23 +26,31 @@ export async function getDreamDictionaryEntry(letter: string): Promise<string> {
 
 /**
  * Searches the dream dictionary for specific keywords and returns their definitions.
+ * This version normalizes text to handle accents and case-insensitivity.
  * @param keywords An array of keywords to look for.
  * @returns A formatted string containing the definitions of found keywords.
  */
 export async function getDictionaryEntriesForKeywords(keywords: string[]): Promise<string> {
   if (!keywords || keywords.length === 0) {
-    return '';
+    return "Nenhum símbolo-chave foi extraído do sonho para consulta.";
   }
 
-  // 1. Determine which letters we need to fetch from the DB
+  // Helper function to remove accents and convert to lower case for comparison
+  const normalizeString = (str: string) =>
+    str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+
+  // 1. Determine which letters we need to fetch from the DB based on normalized keywords
   const uniqueLetters = [...new Set(
     keywords
-      .map(k => k.trim().charAt(0).toUpperCase())
+      .map(k => normalizeString(k).charAt(0).toUpperCase())
       .filter(l => /^[A-Z]$/.test(l))
   )];
 
   if (uniqueLetters.length === 0) {
-    return '';
+    return "Nenhum símbolo-chave válido foi extraído para consulta no dicionário.";
   }
 
   // 2. Fetch all required letter entries in parallel
@@ -53,23 +61,22 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
   const foundDefinitions = new Set<string>();
 
   const dictionaryLines = fullDictionaryText.split('\n').map(l => l.trim()).filter(Boolean);
+  const normalizedKeywords = keywords.map(normalizeString);
 
-  // 3. Search for the keywords in the fetched content
-  for (const keyword of keywords) {
-      // Create a regex that looks for the keyword at the start of a line, followed by a hyphen.
-      // This is more robust than just checking if a line includes the keyword.
-      // Example: `new RegExp('^' + 'CASA' + '\\s*-\\s*(.+)', 'i')`
-      const regex = new RegExp(`^${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*-\\s*(.+)`, 'i');
-      for (const line of dictionaryLines) {
-          if (regex.test(line)) {
-              foundDefinitions.add(line);
-              // Don't break here, in case a keyword appears multiple times with different meanings (though unlikely with current structure)
-          }
+  // 3. Search for the keywords in the fetched content using normalized comparison
+  for (const line of dictionaryLines) {
+    // Extract the keyword part of the line (the first word before a hyphen)
+    const lineKeywordMatch = line.match(/^([^\s-]+)/); 
+    if (lineKeywordMatch && lineKeywordMatch[1]) {
+      const normalizedLineKeyword = normalizeString(lineKeywordMatch[1]);
+      if (normalizedKeywords.includes(normalizedLineKeyword)) {
+        foundDefinitions.add(line);
       }
+    }
   }
 
   if (foundDefinitions.size === 0) {
-    return "Nenhum símbolo específico foi encontrado no Livro dos Sonhos para esta análise.";
+    return "Nenhum dos símbolos do seu sonho foi encontrado em nosso Livro dos Sonhos. A interpretação seguirá o conhecimento geral do Profeta.";
   }
 
   return `Considerando os símbolos do seu sonho, aqui estão os significados encontrados no Livro dos Sonhos para sua referência:\n\n${Array.from(foundDefinitions).join('\n')}`;
