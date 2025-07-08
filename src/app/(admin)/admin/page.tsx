@@ -37,7 +37,7 @@ const mysticalIconNames = [
   'Grape', 'Zap', 'Pentagon', 'Rainbow', 'Heart'
 ];
 
-const alphabet = "ABCDEFGHIJKLMNOPQRS".split('');
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
 
 const contentForA = `A - Escrever ou ler a letra A: Boas notícias, novidades ótimas que virão de longe, através de pessoa muito querida.
 ABACATE - Maduro: Esperança, dias melhores. Verde: Alguma tristeza na família, talvez uma discussão ou briga.
@@ -133,7 +133,7 @@ BAILE - É sempre motivo de alegria, de felicidade, de novas e boas amizades, de
 BALDE - Cheio: Preocupações com a família ou os amigos. Alguma discussão sem consequências. Vazio: Ótimo, trabalho desfeito ou muito fraco.
 BALEIA - Energias redobradas para enfrentar a luta da vida, os problemas. Força e confiança no futuro. Esquecer o pessimismo e pensar com fé.
 BALSA - A solução para cada problema é encontrada mais cedo ou mais tarde. Não desanimar nunca na luta. Alguém muito apaixonado. Vida.
-BANANA - Ameaça de revelação de um grande segredo, o que trará sérios aborrecimentos. Banana descascada: Trabalho desfeito e inútil.
+BANANA - Ameaça de revelação de um grande segredo, o que trará sérios aborrecimentos. Banana descascada: trabalho desfeito e inútil.
 BANCO - De praça: Notícia alvissareira, encontro com velho amigo. De dinheiro: Sucesso nos negócios, promoção, sorte no jogo por cinco dias.
 BANDEIRA - Complicações financeiras, envolvendo documentos. Todo o cuidado com documentos, papéis de justiça. Não assinar nada sem antes ler com cuidado. Cautela com falsos amigos e advogados.
 BANHO - O corpo e o espírito estão sendo descarregados, limpeza, purificação. O mesmo que água corrente que representa a descarga, a limpeza.
@@ -358,7 +358,7 @@ GUARDANAPO - Todo branco: Paz e tranquilidade no lar. Colorido e/ou bordado, enf
 
 const contentForH = `HARPA - Ouvir uma: Viagem próxima. Estar tocando uma: Doença passageira, de fácil cura. Geralmente, harpa significa ótimas novidades nos negócios.
 HÉLICE - Ver uma hélice parada: As melhoras de vida ainda demorarão para vir, mas virão. Ver hélice girando: Bom presságio, amores correspondidos.
-HORIZONTE - Se não houver nuvens no céu, é um excelente sonho, pois revela paz e tranquilidade. Com nuvens no céu: Sérios problemas pela frente.
+HORIZONTE - Se não houver nuvens no céu, é um excelente sonho, pois revela paz e tranqüilidade. Com nuvens no céu: Sérios problemas pela frente.
 HOSPITAL - Ver um: Êxito nos negócios. Estar num: Doença, grave ou passageira, na família.
 HOTEL - Ver um: Alguma viagem pela frente, por motivo desagradável. Estar num: Viagem próxima.
 HOSPÍCIO - Ver um: Grande sorte no jogo, nos negócios, aumento de salário, promoções. Estar num: Doença mental na família ou na de amigos. Sair de um: Solução de um problema bem próxima.`;
@@ -426,7 +426,7 @@ MELANCIA - Êxitos nos negócios, sorte no jogo e muito êxito nos amores. Repre
 MISSA - Assistir a uma missa: Regresso de um parente há muito afastado, possibilidades de mudança de residência. Estar rezando uma missa: Prejuízos nos negócios, demissão de um emprego.
 MITRA - Ver uma mitra: Proteção divina, segurança no lar e no emprego. Estar usando uma mitra: Boas novidades a respeito de trabalho.
 MOBÍLIA - Sonho muito favorável, em especial para os noivos com data marcada para o casamento, pois indica casamento longo, feliz e com muitos filhos.
-MOCHO - Mau agouro, mau presságio, ainda mais se o mocho estiver dentro de casa. Cautela com as crianças e os mais velhos, maior cuidado consigo mesmo.
+MOCHO - Mau agouro, mau presságio, ainda mais se o mocho estiver dentro de casa. Cautela com as crianças e os velhos, maior cuidado consigo mesmo.
 MOEDA - Vendo-se a parte da frente: Viagem longa, por motivos agradáveis. Vendo-se o verso: Traição por parte de um velho amigo da família.
 MOINHO - Ver um moinho por fora: Atraso na vida. Ver um moinho por dentro: Discórdia entre amigos. Normalmente, o moinho pode representar alguma doença não muito grave na família, em especial com os velhos.
 MONTANHA - Estar subindo uma montanha: Grande prosperidade, ascensão social, promoção no emprego. Estar descendo: Problemas graves pela frente.
@@ -556,6 +556,45 @@ SINO - Ver um sino parado: Melhoras consideráveis em alguém muito doente. Ver 
 SOL - Ótimo presságio, sobretudo se o céu estiver completamente limpo, azul puro. Significa grandes notícias na família.
 SOMBRA - Ver a sombra de alguém: Dificuldades financeiras. Ver a própria sombra: Bom sonho, amor correspondido. Estar sendo seguido por uma sombra que não é a nossa: Trabalho feito, intriga, inveja.`;
 
+const contentForT = `TALHER - Ver um: fluidos nos negócios, na casa, no trabalho, muita inveja e mau olhado de falsos amigos.
+TAMANCO - Ver alguém usando tamancos: algum amigo ou parente distante envolvido com problemas de dinheiro. Usar um: falsos amigos.
+TAMBOR - Estar tocando um tambor: bom sonho, sobretudo se o som for bem forte. Ver alguém tocando um tambor: sorte nos amores e nos negócios.
+TAPETE - Geralmente, não é um sonho favorável, de bom presságio. No máximo, pode representar uma mudança de residência, tanto para melhor como para pior.
+TARTARUGA - Desilusão amorosa, mas logo surgirá um outro amor mais sincero.
+TERRA - Possivelmente, algumas complicações com a Justiça. Por outro lado, terra representa a mãe-natureza, Deus, e isso é indicativo de felicidade. Terra com letra maiúscula, planeta: os inimigos serão castigados.
+TESOURA - Sonho favorável. Ser cortado por uma tesoura: a sorte vai mudar e alguma coisa ocorrerá. Ver alguém sendo cortado com tesoura: desavenças na família.
+TIGRE - Sorte no amor, no jogo, um grande ideal, cedo ou tarde, será alcançado.
+TIJOLO - Vitória sobre inimigos inescrupulosos, intrigas vencidas, calúnias desmentidas e falsos amigos totalmente desmascarados.
+TINTA - Péssimo agouro; problemas econômicos, grandes dificuldades pela frente. Tinta azul ou branca: a solução para um problema não demorará.
+TOURO - Prejuízos nos negócios; talvez chance de longa viagem, para tratar de negócios, visita de parente distante, algum aborrecimento.
+TRIGO - Superação de tristeza, de dificuldades, e de intrigas também. Acautelar-se diante de perigos, de amigos muito sorridentes e cheios de elogios. Há indicação também de rivalidades no emprego.`;
+
+const contentForU = `UMBIGO - Bom sonho. Amigos fiéis e desinteressados. Um grande amigo ou parente próximo ajudará a solucionar um antigo problema.
+UNHA - Maior cuidado com os pés, as pernas e as mãos, para evitar qualquer doença infecciosa ou não. Uma longa viagem dentro em breve.
+URINA - Sonho favorável, sobretudo se a pessoa que sonha estiver urinando. Reviravolta na vida para bem melhor, com prosperidade financeira.
+URNA - Aberta: boas notícias a caminho. Fechada: notícia ruim, vinda de longe.
+URSO - Boas notícias, melhoras de vida; algum amigo falso trama uma traição.
+URUBU - Muito mau agouro, embora tenha algumas variações agradáveis, como receber um presente inesperado de um parente distante, ajuda de amigos e parentes, afeto de amigos e parentes.
+UVA - Prejuízos de pouca monta; coisa passageira, com a qual não se deve se preocupar.`;
+
+const contentForV = `VACA - Longas viagens pela frente, ou por diversão, ou para cuidar de alguns negócios. Ver uma vaca pastando: melhoras imediatas de algum doente na família, sobretudo os mais idosos.
+VARANDA - Derrota de inimigos que tramam às escondidas. Logo, logo, notícias de reconciliação de um casal, amigos ou parentes.
+VASSOURA - Satisfação de um desejo há muito tempo alimentado. Sorte no jogo.
+VEADO - Dificuldades financeiras a caminho; depois, talvez haja uma sorte nos negócios.
+VELA - Muito bom presságio, embora a crença popular indique luto na família, morte próxima de um amigo ou amiga. Significa também casamento bem próximo ou então, no mínimo, um pedido de casamento.
+VERMELHO - Afeto correspondido, êxito nos amores, um casamento à vista. Estar vestido de vermelho: maus fluidos na casa.
+VINHO - Noivado ou namoro desfeito. Notícias de um divórcio de amigos. Estar tomando vinho: melhoras financeiras, alegrias no lar e no trabalho.
+VULCÃO - Extinto: novas amizades, sucesso no amor. Em erupção: problemas sendo resolvidos, trabalho desfeito, calúnia desmentida.`;
+
+const contentForX = `XADREZ - Desentendimento na família e com os amigos. Alguém anda preparando armadilhas para a pessoa que sonha. Falsos amigos.
+XAROPE - Possibilidades de longas viagens, para trabalho ou por passatempo.
+XÍCARA - Estar se utilizando de uma: proteção divina, trabalho desfeito, disposição para enfrentar todas as dificuldades. Ver alguém se utilizar de uma: preocupação com os amigos mais chegados.`;
+
+const contentForZ = `ZEBRA - Mau agouro, principalmente se a zebra estiver pastando. Se tocar na zebra, tristeza profunda na família, desentendimento dentro e fora do lar.
+ZEBU - Acinzentado: melhoras financeiras, e bem depressa. Escuro: problemas no trabalho, na família e com os amigos. Cautela com a alimentação.
+ZERO - Felicidade em todos os sentidos, maior quanto maior for o número de zeros. Sorte no jogo e realização de algum negócio lucrativo.
+ZURRO - Bom sonho, pois representa grandes melhoras financeiras, boas perspectivas no trabalho e nos negócios e sorte no jogo, por três dias. Em algumas ocasiões, pode indicar casamento feliz.`;
+
 
 export default function AdminDashboardPage() {
   const { userProfile: adminProfile } = useAuth();
@@ -655,6 +694,11 @@ export default function AdminDashboardPage() {
         else if (letter === 'Q') content = contentForQ;
         else if (letter === 'R') content = contentForR;
         else if (letter === 'S') content = contentForS;
+        else if (letter === 'T') content = contentForT;
+        else if (letter === 'U') content = contentForU;
+        else if (letter === 'V') content = contentForV;
+        else if (letter === 'X') content = contentForX;
+        else if (letter === 'Z') content = contentForZ;
       }
       setDictionaryContent(content);
     } catch (error) {
