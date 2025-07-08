@@ -34,6 +34,27 @@ export async function getDreamDictionaryContent(): Promise<string> {
 }
 
 /**
+ * Fetches the content for a single letter from the dream dictionary.
+ * @param letter The letter to fetch (e.g., 'A').
+ * @returns A promise that resolves to the content string or an empty string if not found.
+ */
+export async function getDreamDictionaryEntry(letter: string): Promise<string> {
+  const letterRegex = /^[A-Z]$/;
+  if (!letterRegex.test(letter)) {
+    console.error('Invalid letter requested from dream dictionary.');
+    return '';
+  }
+  const entryRef = ref(rtdb, `dreamDictionary/${letter}`);
+  try {
+    const snapshot = await get(entryRef);
+    return snapshot.exists() ? snapshot.val() : '';
+  } catch (error) {
+    console.error(`Error fetching dream dictionary entry for '${letter}':`, error);
+    return '';
+  }
+}
+
+/**
  * Admin function to add or update the content for a specific letter in the dream dictionary.
  * The letter must be a single uppercase character.
  * @param letter The letter to update (e.g., 'A', 'B').

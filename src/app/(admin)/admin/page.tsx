@@ -1,13 +1,14 @@
 
 'use client';
 
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAllUserProfiles, deleteUserRtdbData, type UserProfileData } from '@/services/userService';
 import { adminAddCredits, getUserCredits, type UserCreditsData } from '@/services/creditService';
 import { getRewardCycle, setRewardForDay, type DailyReward } from '@/services/rewardService';
 import { getPromptContent, updatePromptContent, type PromptName } from '@/services/promptManagementService';
+import { getDreamDictionaryEntry, updateDreamDictionaryEntry } from '@/services/dreamDictionaryService';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -17,7 +18,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, ShieldCheck, UserPlus, Trash2, Coins, Edit, MessageSquareQuote, Gift } from 'lucide-react';
+import { Loader2, ShieldCheck, UserPlus, Trash2, Coins, Edit, MessageSquareQuote, Gift, BookHeart } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -27,7 +28,6 @@ interface UserWithCredits extends UserProfileData {
   credits?: UserCreditsData | null;
 }
 
-// List of 30 unique icons for the reward cycle, moved here from service.
 const mysticalIconNames = [
   'Gem', 'Sparkles', 'Moon', 'Sun', 'Star',
   'Crown', 'Feather', 'Key', 'Scroll', 'Eye',
@@ -37,6 +37,95 @@ const mysticalIconNames = [
   'Grape', 'Zap', 'Pentagon', 'Rainbow', 'Heart'
 ];
 
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+
+const contentForA = `A - Escrever ou ler a letra A: Boas notícias, novidades ótimas que virão de longe, através de pessoa muito querida.
+ABACATE - Maduro: Esperança, dias melhores. Verde: Alguma tristeza na família, talvez uma discussão ou briga.
+ABACAXI - Força e esperança no futuro. Grandes melhoras para todos. Para as jovens solteiras, um casamento à vista.
+ABELHA - Mel, açúcar: Adoçar a vida, melhorar, afastar os problemas. Logo, motivos para grandes alegrias.
+ABISMO - Possível preocupação, uma queda no amor ou nos negócios, mas com melhoras imediatas. Pensamento positivo e fé.
+ABOBORA - Fartura, boa alimentação, dinheiro entrando. Felicidade conjugal.
+ABORDAGEM - Alguém virá trazer uma boa notícia. Um bom conselho vindo de um amigo fiel. Novas amizades e talvez um romance.
+ABOTOAR - Intriga se formando, inveja. Evitar confiar em todo mundo.
+ABRAÇO - Visita de parente distante, novas amizades, boas notícias, reconciliação com amigos, parentes ou com o ser amado.
+ABRIR (porta, janela, etc.) - Novos horizontes se abrindo, felicidade a caminho, perspectivas de promoção no emprego ou negócios.
+ABRIGO - Proteção, aconchego, defesa contra o mal e a intriga.
+ACENDER - Fogo, energia, esperança, vida. Um futuro melhor se descortinando, boas notícias, confiança em grandes melhoras.
+ACIDENTE - Más notícias. Alguns problemas na família e entre os cônjuges. Pensar antes de falar.
+AÇOUGUE - Sinal de boas melhoras, de grande confiança no futuro, no sucesso. Grande subida nos negócios e propostas de emprego.
+ACROBACIA - Rapidez e facilidade para resolver problemas. Melhoras financeiras consideráveis.
+AÇUCAR - Vida melhor, mais próspera e afortunada. Grandes alegrias a caminho com relação aos filhos.
+ADAGA - Intriga, inveja, falsidade. Cautela com falsos amigos.
+ADEGA - Desgosto em família, problemas com os filhos. Evitar o abuso de bebidas alcoólicas.
+ADEUS - Despedida, viagem a fazer em breve, mudança de residência ou de trabalho.
+ADULTÉRIO - Ver alguém conhecido em adultério: Tristeza, intriga, infelicidade. Ver o cônjuge em adultério: Separação, discussão, desunião.
+ADVOGADO - Possibilidade de problemas com documentos. Cautela com escrituras e certidões.
+AGONIA - Algum sofrimento por vir, tristeza. Cautela com o abuso de remédios.
+AGRADAR (a alguém) - Grandes alegrias, dentro e fora do lar, boas notícias, contentamento, comemoração de uma grande vitória.
+AGRADECER - Pessoa interessada ou grata poderá resolver um problema. Nova amizade sincera a caminho.
+AGRESSÃO - Briga, discussão, intriga, talvez uma desunião, mas sempre passageira. Cautela nos relacionamentos.
+ÁGUA - Limpeza, purificação. Água corrente: Todo o mal está sendo levado para longe.
+AGUARDENTE - Festa, muita alegria, contentamento. Alguém na família muito feliz devido a boas notícias.
+ÁGUIA - Alguém trará boas notícias. Proteção e forças divinas diante dos problemas. Esperança e energia.
+AGULHA - Problemas sendo resolvidos, dificuldades a serem superadas logo. Cautela com agulhas e crianças.
+AJUDAR - Alguém sincero e interessado estará pronto para auxiliar. Visita de um parente distante que trará alegria.
+ALCOVA - Casamento em breve. Adultério, infidelidade conjugal. Para os recém-casados, muita alegria.
+ALEIJÃO - Sorte no jogo e na vida. Casamento duradouro e filhos sadios. Uma gravidez desejável a caminho.
+ALFINETE - Prosperidade no lar, no trabalho e nos negócios. Uma boa promoção no emprego. Para os solteiros, um novo amor.
+ALFORJE - Cuidado com gastos desnecessários. Poupar hoje para uma eventualidade amanhã.
+ALGA - Alimentação farta, saúde, vida. Para as crianças, saúde e alegria. Para os idosos, melhoras e saúde.
+ALGARISMO - Possibilidades de grandes ganhos no trabalho, negócios ou jogo. Dinheiro à vista.
+ALGEMAS - Um casamento apenas de aparência ou conveniência. Possível divórcio a caminho.
+ALGODÃO - Sonho muito propício. Pureza, limpeza, felicidade e alegria à vista.
+ALHO - Todo o mal está sendo espantado. Amigos falsos sendo afastados. Bons fluidos para a família.
+ALIANÇA - Casamento mais próximo que o esperado. Amor, felicidade e filhos sadios.
+ALINHAMENTOS EM GERAL - Sonho excelente. Boa saúde, cura para as doenças, longevidade, alegrias.
+ALMOÇO - Saúde e alegria, mas com moderação no comer e no beber.
+ALMÍSCAR - Surpresas muito boas no amor, ser amado fiel. Sorte no jogo por três dias.
+ALPENDRE - Proteção, abrigo, segurança contra o mal e a inveja.
+ALTAR - Sonho excelente. Casamento bem próximo.
+ALVORADA - Novas e redobradas esperanças. Confiança e fé.
+AMAMENTAR - Notícias em breve de uma gravidez bem-vinda. Vida forte e feliz.
+AMANHECER - O mesmo que alvorada. Grandes esperanças, vida nova, problemas resolvidos.
+AMARELO - Cor que significa felicidade, paz e alegria. Sonho muito bom.
+AMEIXA - Presságio ruim, alguma tristeza ou desilusão amorosa. Com calda, um novo amor à vista.
+AMÊNDOAS - Afeto correspondido, amor sincero, felicidade se aproximando.
+AMIGO - Ótimo sonho. Amizades sinceras, prontas a ajudar.
+AMORA - Azar no jogo por três dias, depois a sorte sorrirá.
+AMURADA - Proteção, obstáculo diante do mal, da intriga e da inveja.
+ANÃO - Grande sorte nos negócios, investimentos e projetos. Azar no jogo.
+ANCORA - Segurança, estabilidade, firmeza nos negócios e na vida conjugal.
+ANDORINHA - Liberdade dos problemas e preocupações. Evitar atitudes impensadas.
+ANEL - Nova amizade sincera. Pedido de casamento à vista.
+ANIMAL - Em geral, é um bom sonho, traz boa sorte.
+ANJO - Ótimo sonho. Paz, felicidade, bem-estar, problemas resolvidos.
+ANZOL - Boas melhoras no ambiente familiar e nos negócios. Pazes entre namorados.
+APÓSTOLO - Proteção divina. Amor correspondido. Solução de um grande problema.
+AQUEDUTO - Uma grande ligação amorosa em breve.
+ARANHA - Bicho de mau agouro, sobretudo as grandes e negras. As pequenas significam dinheiro e sucesso.
+ARADO - Prosperidade moderada. Sorte relativa no jogo.
+ARARA - Falsidade, intriga e inveja por parte de amigos.
+ARCHOTE - Aceso: Bom agouro, luz, energia. Apagado: Mau agouro, má sorte.
+ARCO - Notícia inesperada em breve. Visita de parente distante.
+ARCO-ÍRIS - Sonho excelente. Bonança, calma após os problemas.
+AREIA - Retorno de pessoa querida com boas notícias. Novas amizades.
+ARMA BRANCA - Traição, infidelidade, intrigas.
+ARMA DE FOGO - Discussão em família, briga, namoro desfeito.
+ARMADURA - Proteção, segurança, força diante dos problemas.
+ARMÁRIO - Poupança, evitar gastos supérfluos. Sorte no jogo por três dias.
+ARRUMAR - Mudança em vista, para melhor. Promoção ou aumento de salário.
+ÁRVORE - Ótimo sonho. Grandes esperanças, a situação vai melhorar.
+ASNO - Com insistência e fé, tudo há de se resolver.
+ASSOBIO - Alguém chegará de surpresa para ajudar. Novo amor pode acontecer.
+ATAÚDE - Sonho de mau agouro. Morte na família ou fora dela.
+AUTOMÓVEL - Andando: Prosperidade, sorte. Parado: Dificuldades financeiras.
+AVES EM GERAL - Sonho auspicioso, liberdade, vida, beleza, felicidade.
+AVIÃO - Viagem longa bem próxima.
+AZEITE - Mudança de casa, grande prosperidade, encontro inesperado.
+AZEITONA - Verde: Esperança e alegria. Preta: Cautela com amigos falsos.
+AZUL - Sonho excelente. Felicidade. Escuro: Boas notícias. Claro: Casamento.
+AZULÃO - Felicidade à vista, bom casamento.
+AZULEJO - Branco: Felicidade. Colorido: Novo amor. Escuro: Cuidado com a inveja.`;
 
 export default function AdminDashboardPage() {
   const { userProfile: adminProfile } = useAuth();
@@ -60,7 +149,12 @@ export default function AdminDashboardPage() {
   const [editingReward, setEditingReward] = useState<DailyReward | null>(null);
   const [isSavingReward, setIsSavingReward] = useState(false);
 
-  const fetchUsersAndCredits = async () => {
+  const [selectedDictionaryLetter, setSelectedDictionaryLetter] = useState('A');
+  const [dictionaryContent, setDictionaryContent] = useState('');
+  const [isLoadingDictionary, setIsLoadingDictionary] = useState(false);
+  const [isSavingDictionary, setIsSavingDictionary] = useState(false);
+
+  const fetchUsersAndCredits = useCallback(async () => {
     setIsLoadingUsers(true);
     try {
       const profiles = await getAllUserProfiles();
@@ -76,9 +170,9 @@ export default function AdminDashboardPage() {
     } finally {
       setIsLoadingUsers(false);
     }
-  };
+  }, [t, toast]);
 
-  const fetchAllPrompts = async () => {
+  const fetchAllPrompts = useCallback(async () => {
     setIsLoadingPrompts(true);
     try {
       const [cardPrompt, dreamPrompt] = await Promise.all([
@@ -93,9 +187,9 @@ export default function AdminDashboardPage() {
     } finally {
       setIsLoadingPrompts(false);
     }
-  };
+  }, [t, toast]);
 
-  const fetchRewardCycle = async () => {
+  const fetchRewardCycle = useCallback(async () => {
     setIsLoadingRewards(true);
     try {
       const cycle = await getRewardCycle();
@@ -106,15 +200,31 @@ export default function AdminDashboardPage() {
     } finally {
       setIsLoadingRewards(false);
     }
-  };
+  }, [t, toast]);
+
+  const fetchDictionaryEntry = useCallback(async (letter: string) => {
+    setIsLoadingDictionary(true);
+    try {
+      let content = await getDreamDictionaryEntry(letter);
+      if (letter === 'A' && !content) {
+        content = contentForA;
+      }
+      setDictionaryContent(content);
+    } catch (error) {
+      toast({ title: t('errorGenericTitle'), description: t('dictionaryFetchError'), variant: 'destructive' });
+    } finally {
+      setIsLoadingDictionary(false);
+    }
+  }, [t, toast]);
 
   useEffect(() => {
     if (adminProfile?.role === 'admin') {
       fetchUsersAndCredits();
       fetchAllPrompts();
       fetchRewardCycle();
+      fetchDictionaryEntry(selectedDictionaryLetter);
     }
-  }, [adminProfile]);
+  }, [adminProfile, fetchUsersAndCredits, fetchAllPrompts, fetchRewardCycle, fetchDictionaryEntry, selectedDictionaryLetter]);
 
 
   const handleAddCredits = async (e: React.FormEvent) => {
@@ -128,7 +238,7 @@ export default function AdminDashboardPage() {
       const result = await adminAddCredits(selectedUserForCredits.uid, creditsToAdd);
       if (result.success) {
         toast({ title: t('mysticInsights'), description: t('addCreditsSuccessToast', { count: String(creditsToAdd), email: selectedUserForCredits.email || 'user' }) });
-        fetchUsersAndCredits(); // Refresh users list
+        await fetchUsersAndCredits();
         setSelectedUserForCredits(null);
         setCreditsToAdd(0);
       } else {
@@ -145,7 +255,7 @@ export default function AdminDashboardPage() {
     try {
       await deleteUserRtdbData(uid);
       toast({ title: t('mysticInsights'), description: t('deleteUserSuccessToast', { email: email || 'User' }) });
-      fetchUsersAndCredits(); // Refresh users list
+      await fetchUsersAndCredits();
     } catch (error: any) {
       toast({ title: t('errorGenericTitle'), description: error.message || t('deleteUserErrorToast', { email: email || 'User' }), variant: 'destructive' });
     }
@@ -179,8 +289,8 @@ export default function AdminDashboardPage() {
       const result = await setRewardForDay(day, rewardData);
        if (result.success) {
         toast({ title: t('mysticInsights'), description: t('rewardUpdateSuccess') });
-        fetchRewardCycle(); // Refresh the list
-        setEditingReward(null); // Close the dialog
+        await fetchRewardCycle();
+        setEditingReward(null);
       } else {
         toast({ title: t('errorGenericTitle'), description: result.message || t('rewardUpdateError'), variant: 'destructive' });
       }
@@ -190,6 +300,23 @@ export default function AdminDashboardPage() {
       setIsSavingReward(false);
     }
   };
+
+  const handleSaveDictionaryEntry = async () => {
+    setIsSavingDictionary(true);
+    try {
+      const result = await updateDreamDictionaryEntry(selectedDictionaryLetter, dictionaryContent);
+      if (result.success) {
+        toast({ title: t('mysticInsights'), description: t('dictionarySaveSuccess', { letter: selectedDictionaryLetter }) });
+      } else {
+        toast({ title: t('errorGenericTitle'), description: result.message || t('dictionarySaveError'), variant: 'destructive' });
+      }
+    } catch (error: any) {
+       toast({ title: t('errorGenericTitle'), description: error.message || t('dictionarySaveError'), variant: 'destructive' });
+    } finally {
+      setIsSavingDictionary(false);
+    }
+  };
+
 
   if (adminProfile?.role !== 'admin') {
     return ( 
@@ -244,7 +371,6 @@ export default function AdminDashboardPage() {
               <p className="text-center text-muted-foreground py-4">{t('noUsersFound')}</p>
             ) : (
               <>
-                {/* Mobile View: List of Cards */}
                 <div className="md:hidden space-y-4">
                   {users.map((user) => (
                     <Card key={user.uid} className="p-4">
@@ -260,7 +386,6 @@ export default function AdminDashboardPage() {
                       <div className="mt-4 pt-4 border-t flex justify-between items-center">
                         <p className="text-sm">Créditos: <span className="font-bold">{user.credits?.balance ?? t('creditsCouldNotBeFetched')}</span></p>
                         <div className="flex space-x-2">
-                          {/* Add Credits Dialog Trigger for Mobile */}
                           <Dialog>
                             <DialogTrigger asChild>
                               <Button variant="outline" size="icon" onClick={() => setSelectedUserForCredits(user)}>
@@ -304,7 +429,6 @@ export default function AdminDashboardPage() {
                               </DialogContent>
                             )}
                           </Dialog>
-                          {/* Delete User Alert Trigger for Mobile */}
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
                               <Button variant="destructive" size="icon">
@@ -332,7 +456,6 @@ export default function AdminDashboardPage() {
                   ))}
                 </div>
 
-                {/* Desktop View: Table */}
                 <div className="hidden md:block">
                     <Table>
                     <TableHeader>
@@ -433,6 +556,57 @@ export default function AdminDashboardPage() {
           </CardContent>
         </div>
       </Card>
+      
+      {/* Dream Dictionary Management Section */}
+      <Card className="shadow-xl animated-aurora-background">
+        <div className="relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md">
+          <CardHeader>
+            <CardTitle className="text-2xl font-serif flex items-center">
+              <BookHeart className="h-7 w-7 mr-3 text-primary" />
+              {t('dreamDictionaryManagementTitle')}
+            </CardTitle>
+            <CardDescription>{t('dreamDictionaryManagementDescription')}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="dictionary-letter">{t('selectLetterLabel')}</Label>
+              <Select value={selectedDictionaryLetter} onValueChange={setSelectedDictionaryLetter}>
+                <SelectTrigger id="dictionary-letter" className="w-[180px]">
+                  <SelectValue placeholder="Selecione uma letra" />
+                </SelectTrigger>
+                <SelectContent>
+                  {alphabet.map(letter => (
+                    <SelectItem key={letter} value={letter}>Letra {letter}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div>
+              <Label htmlFor="dictionary-content">{t('dictionaryContentLabel', { letter: selectedDictionaryLetter })}</Label>
+              {isLoadingDictionary ? (
+                <Skeleton className="h-64 w-full mt-2" />
+              ) : (
+                <Textarea
+                  id="dictionary-content"
+                  value={dictionaryContent}
+                  onChange={(e) => setDictionaryContent(e.target.value)}
+                  rows={20}
+                  className="mt-2 font-mono text-xs"
+                  placeholder={t('dictionaryContentPlaceholder', { letter: selectedDictionaryLetter })}
+                  disabled={isSavingDictionary}
+                />
+              )}
+            </div>
+            
+            <Button onClick={handleSaveDictionaryEntry} disabled={isSavingDictionary || isLoadingDictionary}>
+              {isSavingDictionary ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+              {isSavingDictionary ? t('savingButton') : t('saveDictionaryButton')}
+            </Button>
+          </CardContent>
+        </div>
+      </Card>
+
 
       {/* Daily Rewards Management Section */}
       <Card className="shadow-xl animated-aurora-background">

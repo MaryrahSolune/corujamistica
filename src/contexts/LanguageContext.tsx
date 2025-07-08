@@ -291,6 +291,15 @@ export type TranslationKey =
   | 'chooseFileButton'
   | 'noFileChosenText'
   | 'rememberMeLabel'
+  | 'dreamDictionaryManagementTitle'
+  | 'dreamDictionaryManagementDescription'
+  | 'selectLetterLabel'
+  | 'dictionaryContentLabel'
+  | 'dictionaryContentPlaceholder'
+  | 'saveDictionaryButton'
+  | 'dictionaryFetchError'
+  | 'dictionarySaveSuccess'
+  | 'dictionarySaveError'
   ;
 
 interface LanguageContextType {
@@ -582,6 +591,15 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     chooseFileButton: 'Choose File',
     noFileChosenText: 'No file chosen',
     rememberMeLabel: 'Remember me',
+    dreamDictionaryManagementTitle: 'Dream Dictionary Management',
+    dreamDictionaryManagementDescription: 'Manage the content for the dream interpretation AI. The AI will use this as its primary source.',
+    selectLetterLabel: 'Select Letter',
+    dictionaryContentLabel: 'Content for Letter {letter}',
+    dictionaryContentPlaceholder: 'Enter the dictionary content for the letter {letter}...',
+    saveDictionaryButton: 'Save Dictionary Entry',
+    dictionaryFetchError: 'Could not fetch dictionary entry.',
+    dictionarySaveSuccess: 'Successfully saved dictionary for letter {letter}.',
+    dictionarySaveError: 'Failed to save dictionary entry.',
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -865,6 +883,15 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     chooseFileButton: 'Escolher Arquivo',
     noFileChosenText: 'Nenhum arquivo escolhido',
     rememberMeLabel: 'Lembrar-me',
+    dreamDictionaryManagementTitle: 'Gerenciador do Dicionário de Sonhos',
+    dreamDictionaryManagementDescription: 'Gerencie o conteúdo para a IA de interpretação de sonhos. A IA usará isso como sua fonte primária.',
+    selectLetterLabel: 'Selecione a Letra',
+    dictionaryContentLabel: 'Conteúdo para a Letra {letter}',
+    dictionaryContentPlaceholder: 'Insira o conteúdo do dicionário para a letra {letter}...',
+    saveDictionaryButton: 'Salvar Dicionário',
+    dictionaryFetchError: 'Não foi possível buscar a entrada do dicionário.',
+    dictionarySaveSuccess: 'Dicionário para a letra {letter} salvo com sucesso.',
+    dictionarySaveError: 'Falha ao salvar a entrada do dicionário.',
   }
 };
 
@@ -939,5 +966,3 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
-
-    
