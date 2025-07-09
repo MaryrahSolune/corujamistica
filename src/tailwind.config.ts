@@ -123,23 +123,23 @@ export default {
         },
         'float-1': {
           '0%': { transform: 'translate(0px, 0px) rotate(0deg)' },
-          '25%': { transform: 'translate(1px, 2px) rotate(-0.1deg)' },
-          '50%': { transform: 'translate(-1px, -1px) rotate(0.1deg)' },
-          '75%': { transform: 'translate(1px, -2px) rotate(0deg)' },
+          '25%': { transform: 'translate(0.5px, 1px) rotate(-0.05deg)' },
+          '50%': { transform: 'translate(-0.5px, -0.5px) rotate(0.05deg)' },
+          '75%': { transform: 'translate(0.5px, -1px) rotate(0deg)' },
           '100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
         },
         'float-2': {
           '0%': { transform: 'translate(0px, 0px) rotate(0deg)' },
-          '25%': { transform: 'translate(-2px, 1px) rotate(0.2deg)' },
-          '50%': { transform: 'translate(1px, -1px) rotate(-0.1deg)' },
-          '75%': { transform: 'translate(-1px, 1px) rotate(0.1deg)' },
+          '25%': { transform: 'translate(-1px, 0.5px) rotate(0.1deg)' },
+          '50%': { transform: 'translate(0.5px, -0.5px) rotate(-0.05deg)' },
+          '75%': { transform: 'translate(-0.5px, 0.5px) rotate(0.05deg)' },
           '100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
         },
         'float-3': {
           '0%': { transform: 'translate(0px, 0px) rotate(0deg)' },
-          '25%': { transform: 'translate(1px, -2px) rotate(0.1deg)' },
-          '50%': { transform: 'translate(-2px, 1px) rotate(-0.1deg)' },
-          '75%': { transform: 'translate(2px, 1px) rotate(-0.2deg)' },
+          '25%': { transform: 'translate(0.5px, -1px) rotate(0.05deg)' },
+          '50%': { transform: 'translate(-1px, 0.5px) rotate(-0.05deg)' },
+          '75%': { transform: 'translate(1px, 0.5px) rotate(-0.1deg)' },
           '100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
         },
         'float-up-and-fade': {
@@ -167,9 +167,9 @@ export default {
         'pulse_slow': 'pulse_slow 6s infinite ease-in-out',
         'spin-gradient': 'spin-gradient 8s linear infinite',
         'subtle-glow': 'subtle-glow 3.5s ease-in-out infinite',
-        'float-1': 'float-1 30s ease-in-out infinite',
-        'float-2': 'float-2 40s ease-in-out infinite',
-        'float-3': 'float-3 50s ease-in-out infinite',
+        'float-1': 'float-1 240s linear infinite',
+        'float-2': 'float-2 300s linear infinite',
+        'float-3': 'float-3 360s linear infinite',
         'float-up': 'float-up-and-fade 1.5s ease-out forwards',
         'icon-flow': 'icon-color-flow 4s linear infinite',
         'text-gradient-flow': 'text-gradient-flow 4s ease infinite',
@@ -178,3 +178,5 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+
+    
