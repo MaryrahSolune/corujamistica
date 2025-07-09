@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -281,7 +280,7 @@ export default function HomePage() {
                       width={500}
                       height={750}
                       className={cn(
-                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105 animate-float-quad"
+                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105"
                       )}
                       data-ai-hint={prize.imgHint}
                     />
