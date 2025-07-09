@@ -70,28 +70,28 @@ export default function HomePage() {
     {
       titleKey: 'prizeCreditsTitle',
       descriptionKey: 'prizeCreditsDescription',
-      imgSrc: 'https://placehold.co/200x300.png',
+      imgSrc: 'https://placehold.co/250x375.png',
       imgHint: 'mystical credits coin',
       reverse: false,
     },
     {
       titleKey: 'prizeEbooksTitle',
       descriptionKey: 'prizeEbooksDescription',
-      imgSrc: 'https://placehold.co/200x300.png',
+      imgSrc: 'https://placehold.co/250x375.png',
       imgHint: 'esoteric ebook cover',
       reverse: true,
     },
     {
       titleKey: 'prizeDigitalTarotTitle',
       descriptionKey: 'prizeDigitalTarotDescription',
-      imgSrc: 'https://placehold.co/200x300.png',
+      imgSrc: 'https://placehold.co/250x375.png',
       imgHint: 'tarot card reading',
       reverse: false,
     },
     {
       titleKey: 'prizePhysicalTarotTitle',
       descriptionKey: 'prizePhysicalTarotDescription',
-      imgSrc: 'https://placehold.co/200x300.png',
+      imgSrc: 'https://placehold.co/250x375.png',
       imgHint: 'physical tarot deck',
       reverse: true,
     },
@@ -278,8 +278,8 @@ export default function HomePage() {
                     <Image
                       src={prize.imgSrc}
                       alt={t('prizeImageAlt', { prizeName: t(prize.titleKey as any) })}
-                      width={200}
-                      height={300}
+                      width={250}
+                      height={375}
                       className="rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105"
                       data-ai-hint={prize.imgHint}
                     />
