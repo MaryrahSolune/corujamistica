@@ -14,6 +14,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { onValue, ref } from 'firebase/database';
 import { rtdb } from '@/lib/firebase';
 import { AdSlot } from '@/components/AdSlot';
+import { cn } from '@/lib/utils';
 
 // Custom Separator Component
 const CustomSeparator = () => (
@@ -95,6 +96,13 @@ export default function HomePage() {
       imgHint: 'physical tarot deck',
       reverse: true,
     },
+  ];
+
+  const animationClasses = [
+    'animate-float-1',
+    'animate-float-2',
+    'animate-float-3',
+    'animate-float-2',
   ];
 
 
@@ -280,7 +288,10 @@ export default function HomePage() {
                       alt={t('prizeImageAlt', { prizeName: t(prize.titleKey as any) })}
                       width={500}
                       height={750}
-                      className="rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105 animate-subtle-bob"
+                      className={cn(
+                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105",
+                        animationClasses[index % animationClasses.length]
+                      )}
                       data-ai-hint={prize.imgHint}
                     />
                   </div>
