@@ -78,8 +78,8 @@ export default function HomePage() {
     {
       titleKey: 'prizeEbooksTitle',
       descriptionKey: 'prizeEbooksDescription',
-      imgSrc: 'https://placehold.co/500x750.png',
-      imgHint: 'esoteric ebook cover',
+      imgSrc: '/img/coruja.gif',
+      imgHint: 'mystical owl animation',
       reverse: true,
     },
     {
@@ -284,6 +284,7 @@ export default function HomePage() {
                         "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105 animate-float"
                       )}
                       data-ai-hint={prize.imgHint}
+                      unoptimized={prize.imgSrc.endsWith('.gif')}
                     />
                   </div>
                   <div className="md:w-2/3 text-center md:text-left">
