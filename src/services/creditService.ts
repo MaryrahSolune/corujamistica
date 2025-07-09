@@ -13,6 +13,7 @@ export interface UserCreditsData {
 const FREE_CREDITS_ON_CLAIM = 1;
 const INITIAL_CREDITS = 0;
 const GIFT_COOLDOWN_MILLISECONDS = 24 * 60 * 60 * 1000; // 24 hours
+const STREAK_RESET_MILLISECONDS = 48 * 60 * 60 * 1000; // 48 hours
 
 export async function initializeUserCredits(uid: string): Promise<void> {
   const creditsRef = ref(rtdb, `users/${uid}/credits`);
@@ -90,12 +91,19 @@ export async function claimDailyReward(uid: string): Promise<{ success: boolean;
     const now = Date.now();
     const lastClaim = userProfile.lastClaimTimestamp || 0;
 
+    // Check if user is still in cooldown
     if (now - lastClaim < GIFT_COOLDOWN_MILLISECONDS) {
       const cooldownEndTime = lastClaim + GIFT_COOLDOWN_MILLISECONDS;
       return { success: false, message: "Daily reward is still on cooldown.", cooldownEndTime };
     }
 
-    const currentStreak = userProfile.dailyRewardStreak || 0;
+    let currentStreak = userProfile.dailyRewardStreak || 0;
+
+    // Check if the streak should be reset. If more than 48h passed since last claim, reset.
+    if (lastClaim !== 0 && (now - lastClaim > STREAK_RESET_MILLISECONDS)) {
+      currentStreak = 0; // Reset the streak
+    }
+
     const nextStreakDay = (currentStreak % 30) + 1; // Cycle through 1-30
     const reward = await getRewardForDay(nextStreakDay);
 
