@@ -150,3 +150,25 @@
       }
   }
 }
+
+/* User added animation */
+@layer utilities {
+  .animate-float {
+    /* Esta classe aplica a animação 'float-on-moon' ao elemento */
+    animation: float-on-moon 8s ease-in-out infinite;
+  }
+}
+
+@layer base {
+  /* Aqui definimos a animação em si */
+  @keyframes float-on-moon {
+    /* No início e no fim, a imagem está na posição original com uma leve rotação */
+    0%, 100% {
+      transform: translateY(0) rotate(-0.5deg);
+    }
+    /* Na metade da animação, ela sobe 15 pixels e rotaciona para o outro lado */
+    50% {
+      transform: translateY(-15px) rotate(0.5deg);
+    }
+  }
+}

@@ -281,7 +281,7 @@ export default function HomePage() {
                       width={500}
                       height={750}
                       className={cn(
-                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105"
+                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105 animate-float"
                       )}
                       data-ai-hint={prize.imgHint}
                     />
@@ -346,5 +346,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
