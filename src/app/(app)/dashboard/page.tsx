@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState, useCallback, type ComponentType } from 'react';
@@ -247,16 +248,33 @@ export default function DashboardPage() {
                                     const isClaimable = index === currentStreak && dailyRewardStatus.claimable;
                                     const isLocked = index > currentStreak;
                                     const IconComponent = iconMap[reward.iconName] || Gift;
+                                    const isUpgradePreviewDay = [7, 14, 21].includes(reward.day);
 
                                     return (
-                                        <div key={reward.day} className={cn("relative p-2 border rounded-md flex flex-col items-center justify-center aspect-square transition-all",
+                                        <div 
+                                          key={reward.day} 
+                                          className={cn("relative p-2 border rounded-md flex flex-col items-center justify-center aspect-square transition-all",
                                             isClaimed && "bg-primary/20 border-primary/30",
-                                            isClaimable && "border-primary border-2 shadow-lg shadow-primary/50 animate-subtle-pulse",
-                                            isLocked && "bg-muted/50 border-border/50 opacity-60"
-                                        )}>
+                                            isClaimable && "border-primary border-2 shadow-lg shadow-primary/50",
+                                            isLocked && "bg-muted/50 border-border/50 opacity-60",
+                                            isClaimable && !isClaimingReward && "cursor-pointer hover:scale-105 hover:shadow-accent/50",
+                                            isClaimable && isClaimingReward && "cursor-wait"
+                                          )}
+                                          onClick={isClaimable && !isClaimingReward ? handleClaimDailyReward : undefined}
+                                        >
+                                            {isUpgradePreviewDay && !isClaimed && (
+                                                <div className="absolute -top-2.5 -right-2.5 bg-accent text-accent-foreground text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-lg z-10 transform rotate-12 animate-subtle-pulse">
+                                                    +VALOR
+                                                </div>
+                                            )}
+                                            {isClaimingReward && isClaimable && (
+                                              <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm rounded-md">
+                                                <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                                              </div>
+                                            )}
                                             <p className="text-xs font-bold text-center absolute top-1 right-1">{reward.day}</p>
                                             <div className="flex-grow flex items-center justify-center">
-                                                <IconComponent className={cn("h-8 w-8", isLocked ? "opacity-50" : "animate-icon-flow")} />
+                                                <IconComponent className={cn("h-8 w-8", isLocked ? "opacity-50" : "animate-icon-flow", isClaimable && "animate-subtle-pulse")} />
                                             </div>
                                             {isClaimed && <CheckCircle2 className="absolute bottom-1 right-1 h-4 w-4 text-green-500"/>}
                                             {isLocked && <Lock className="absolute bottom-1 right-1 h-3 w-3 text-muted-foreground"/>}
@@ -264,14 +282,13 @@ export default function DashboardPage() {
                                     )
                                 })}
                                 </div>
-                                <Button className="w-full" onClick={handleClaimDailyReward} disabled={!dailyRewardStatus.claimable || isClaimingReward}>
-                                    {isClaimingReward && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
-                                    {dailyRewardStatus.claimable ? (
+                                <div className='text-center text-sm text-muted-foreground font-semibold h-5'>
+                                  {dailyRewardStatus.claimable ? (
                                         `${t('claimRewardButton')} - ${t('dayLabel', {day: currentStreak + 1})}`
                                     ) : (
                                         `${t('comeBackIn', {time: dailyRewardStatus.timeRemaining || '...'})}`
                                     )}
-                                </Button>
+                                </div>
                             </div>
                         )}
                     </CardContent>

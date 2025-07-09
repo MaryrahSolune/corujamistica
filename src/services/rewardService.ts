@@ -25,13 +25,25 @@ const mysticalIconNames = [
 ];
 
 // Helper to create a default reward if none is set
-const createDefaultReward = (day: number): DailyReward => ({
-  day,
-  title: `Recompensa do Dia ${day}`,
-  type: 'credits',
-  value: day % 5 === 0 ? 5 : 1, // Give more credits every 5 days
-  iconName: mysticalIconNames[day - 1] || 'Gift', // Fallback to Gift icon
-});
+const createDefaultReward = (day: number): DailyReward => {
+  let value = 1;
+  if (day >= 22) { // Days 22-30
+    value = 4;
+  } else if (day >= 15) { // Days 15-21
+    value = 3;
+  } else if (day >= 8) { // Days 8-14
+    value = 2;
+  }
+
+  return {
+    day,
+    title: `Recompensa do Dia ${day}`,
+    type: 'credits',
+    value: value,
+    iconName: mysticalIconNames[day - 1] || 'Gift',
+  };
+};
+
 
 /**
  * Fetches the entire 30-day reward cycle from the database.
