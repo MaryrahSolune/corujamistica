@@ -248,7 +248,11 @@ export default function DashboardPage() {
                                     const isClaimable = index === currentStreak && dailyRewardStatus.claimable;
                                     const isLocked = index > currentStreak;
                                     const IconComponent = iconMap[reward.iconName] || Gift;
-                                    const isUpgradePreviewDay = [7, 14, 21].includes(reward.day);
+                                    
+                                    let bonusTag: string | null = null;
+                                    if (reward.day >= 22) bonusTag = '+4';
+                                    else if (reward.day >= 15) bonusTag = '+3';
+                                    else if (reward.day >= 8) bonusTag = '+2';
 
                                     return (
                                         <div 
@@ -262,9 +266,9 @@ export default function DashboardPage() {
                                           )}
                                           onClick={isClaimable && !isClaimingReward ? handleClaimDailyReward : undefined}
                                         >
-                                            {isUpgradePreviewDay && !isClaimed && (
+                                            {bonusTag && !isClaimed && (
                                                 <div className="absolute -top-2.5 -right-2.5 bg-accent text-accent-foreground text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-lg z-10 transform rotate-12 animate-subtle-pulse">
-                                                    +VALOR
+                                                    {bonusTag}
                                                 </div>
                                             )}
                                             {isClaimingReward && isClaimable && (
@@ -292,6 +296,13 @@ export default function DashboardPage() {
                             </div>
                         )}
                     </CardContent>
+                    <CardFooter className="mt-4 p-4 bg-primary/10 rounded-b-lg border-t border-primary/20 flex items-center justify-center text-center">
+                        <Star className="h-6 w-6 text-yellow-400 mr-3 flex-shrink-0 animate-subtle-pulse" />
+                        <div>
+                            <p className="font-bold text-primary">{t('specialPrizeNoticeTitle')}</p>
+                            <p className="text-sm text-muted-foreground font-semibold">{t('specialPrizeNoticeDescription')}</p>
+                        </div>
+                    </CardFooter>
                 </Card>
             </div>
 
