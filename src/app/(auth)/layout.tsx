@@ -3,7 +3,7 @@
 
 import type { ReactNode } from 'react';
 import { Sparkles } from 'lucide-react';
-import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
+import { LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext'; // Import useLanguage
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -13,7 +13,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col items-center justify-center bg-black p-4 relative overflow-hidden">
       
       <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
-        <ThemeToggle />
         <LanguageSwitcher />
       </div>
 
@@ -38,4 +37,3 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-

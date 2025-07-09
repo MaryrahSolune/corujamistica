@@ -5,53 +5,7 @@
 
 @layer base {
   :root {
-    /* Mystic Insights - Light Theme (PRD Aligned) */
-    --background: 276 33% 90%; /* Soft lavender (#F0E6EF) */
-    --foreground: 273 37% 25%; /* Darker Deep Purple for text */
-
-    --card: 276 33% 95%; /* Slightly lighter lavender/off-white */
-    --card-foreground: 273 37% 25%;
-
-    --popover: 276 33% 95%;
-    --popover-foreground: 273 37% 25%;
-
-    --primary: 273 37% 44%; /* Deep purple (#6A459B) */
-    --primary-foreground: 276 60% 97%; /* Very light lavender for contrast */
-
-    --secondary: 273 30% 65%; /* Supporting lighter purple */
-    --secondary-foreground: 276 60% 97%;
-
-    --muted: 276 30% 85%; /* Muted lavender */
-    --muted-foreground: 273 30% 50%; /* Darker muted purple */
-
-    --accent: 45 74% 52%; /* Gold (#D4AF37) */
-    --accent-foreground: 45 100% 15%; /* Dark brown/black for contrast */
-
-    --destructive: 0 70% 50%; /* Standard Red */
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 273 25% 75%; /* Lavender-gray border */
-    --input: 276 30% 92%; /* Very light lavender input background */
-    --ring: 45 74% 52%; /* Gold ring for focus */
-
-    --chart-1: 273 37% 44%; /* Primary Deep Purple */
-    --chart-2: 45 74% 52%; /* Accent Gold */
-    --chart-3: 273 30% 65%; /* Secondary Lighter Purple */
-    --chart-4: 273 37% 55%; /* Lighter Deep Purple */
-    --chart-5: 45 74% 65%; /* Lighter Gold */
-
-    --sidebar-background: 276 33% 88%; /* Slightly darker lavender for sidebar */
-    --sidebar-foreground: 273 37% 20%; /* Darkest purple */
-    --sidebar-primary: 273 37% 44%; /* Deep purple */
-    --sidebar-primary-foreground: 276 60% 97%;
-    --sidebar-accent: 276 33% 80%; /* Lighter hover for sidebar items */
-    --sidebar-accent-foreground: 273 37% 44%;
-    --sidebar-border: 273 20% 65%;
-    --sidebar-ring: 45 74% 52%; /* Gold focus */
-  }
-
-  .dark {
-    /* Mystic Insights - Dark Theme (PRD Aligned) */
+    /* Mystic Insights - Dark Theme Only */
     --background: 273 30% 10%; /* Very dark deep purple */
     --foreground: 276 30% 85%; /* Light lavender for text */
 

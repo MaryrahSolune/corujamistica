@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Gift } from 'lucide-react';
-import { ThemeToggle, LanguageSwitcher } from '@/components/AppHeader';
+import { LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -109,7 +109,6 @@ export default function HomePage() {
             </div>
             <div className="flex items-center space-x-1 sm:space-x-2">
               <Skeleton className="h-8 w-8" />
-              <Skeleton className="h-8 w-8" />
               <Skeleton className="h-9 w-20" />
               <Skeleton className="h-9 w-24" />
             </div>
@@ -147,7 +146,6 @@ export default function HomePage() {
             <span className="text-2xl font-bold font-serif text-primary">{t('mysticInsights')}</span>
           </div>
           <nav className="flex items-center space-x-1 sm:space-x-2">
-            <ThemeToggle />
             <LanguageSwitcher />
             <Button variant="ghost" asChild>
               <Link href="/login">

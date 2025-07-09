@@ -17,7 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Moon, Sun, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn } from 'lucide-react';
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn } from 'lucide-react';
 import { IconAvatar } from './IconAvatar';
 
 const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
@@ -30,46 +30,6 @@ const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React
 const navLinksAdmin: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
   { href: '/admin', labelKey: 'adminPanel', icon: <ShieldCheck className="mr-2 h-4 w-4" /> },
 ];
-
-
-export const ThemeToggle = () => {
-  const { t } = useLanguage();
-  const [isDark, setIsDark] = React.useState(false);
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme = localStorage.getItem('theme');
-    let initialIsDark;
-    if (savedTheme) {
-      initialIsDark = savedTheme === 'dark';
-    } else {
-      initialIsDark = prefersDark;
-    }
-    setIsDark(initialIsDark);
-    document.documentElement.classList.toggle('dark', initialIsDark);
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDark(prevIsDark => {
-      const newIsDark = !prevIsDark;
-      localStorage.setItem('theme', newIsDark ? 'dark' : 'light');
-      document.documentElement.classList.toggle('dark', newIsDark);
-      return newIsDark;
-    });
-  };
-
-  if (!mounted) {
-    return <Button variant="ghost" size="icon" aria-label={t('toggleTheme')} disabled><Sparkles className="h-5 w-5" /></Button>;
-  }
-
-  return (
-    <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label={t('toggleTheme')}>
-      {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-    </Button>
-  );
-};
 
 export const LanguageSwitcher = () => {
   const { locale, setLocale, t } = useLanguage();
@@ -165,7 +125,6 @@ export default function AppHeader() {
 
 
         <div className="flex items-center gap-2">
-          <ThemeToggle />
           <LanguageSwitcher />
           {isClient && currentUser && !isAuthPage && (
             <DropdownMenu>
