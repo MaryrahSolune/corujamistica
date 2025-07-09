@@ -126,7 +126,7 @@ export default {
           '25%': { transform: 'translate(-4px, -4px)' }, // Top-left
           '50%': { transform: 'translate(-4px, 4px)' },  // Bottom-left
           '75%': { transform: 'translate(4px, -4px)' },  // Top-right
-          '100%': { transform: 'translate(4px, 4px)' }, // Bottom-right
+          '100%': { transform: 'translate(0, 0)' }, // Back to start for a smooth loop
         },
         'float-up-and-fade': {
           '0%': { opacity: '1', transform: 'translateY(0px) scale(1)' },
@@ -153,7 +153,7 @@ export default {
         'pulse_slow': 'pulse_slow 6s infinite ease-in-out',
         'spin-gradient': 'spin-gradient 8s linear infinite',
         'subtle-glow': 'subtle-glow 3.5s ease-in-out infinite',
-        'float-quad': 'float-quad 4s linear infinite alternate',
+        'float-quad': 'float-quad 30s linear infinite alternate',
         'float-up': 'float-up-and-fade 1.5s ease-out forwards',
         'icon-flow': 'icon-color-flow 4s linear infinite',
         'text-gradient-flow': 'text-gradient-flow 4s ease infinite',
