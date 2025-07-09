@@ -98,14 +98,6 @@ export default function HomePage() {
     },
   ];
 
-  const animationClasses = [
-    'animate-float-1',
-    'animate-float-2',
-    'animate-float-3',
-    'animate-float-2',
-  ];
-
-
  if (!isClient) {
     return (
       <div className="flex min-h-screen flex-col bg-background">
@@ -289,8 +281,7 @@ export default function HomePage() {
                       width={500}
                       height={750}
                       className={cn(
-                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105",
-                        animationClasses[index % animationClasses.length]
+                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105 animate-float-quad"
                       )}
                       data-ai-hint={prize.imgHint}
                     />

@@ -121,26 +121,12 @@ export default {
           '0%, 100%': { opacity: '0.5', filter: 'drop-shadow(0 0 5px currentColor) drop-shadow(0 0 2px currentColor)' },
           '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 12px currentColor) drop-shadow(0 0 5px currentColor)' },
         },
-        'float-1': {
-          '0%': { transform: 'translate(0px, 0px) rotate(0deg)' },
-          '25%': { transform: 'translate(0.5px, 1px) rotate(-0.05deg)' },
-          '50%': { transform: 'translate(-0.5px, -0.5px) rotate(0.05deg)' },
-          '75%': { transform: 'translate(0.5px, -1px) rotate(0deg)' },
-          '100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
-        },
-        'float-2': {
-          '0%': { transform: 'translate(0px, 0px) rotate(0deg)' },
-          '25%': { transform: 'translate(-1px, 0.5px) rotate(0.1deg)' },
-          '50%': { transform: 'translate(0.5px, -0.5px) rotate(-0.05deg)' },
-          '75%': { transform: 'translate(-0.5px, 0.5px) rotate(0.05deg)' },
-          '100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
-        },
-        'float-3': {
-          '0%': { transform: 'translate(0px, 0px) rotate(0deg)' },
-          '25%': { transform: 'translate(0.5px, -1px) rotate(0.05deg)' },
-          '50%': { transform: 'translate(-1px, 0.5px) rotate(-0.05deg)' },
-          '75%': { transform: 'translate(1px, 0.5px) rotate(-0.1deg)' },
-          '100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
+        'float-quad': {
+          '0%': { transform: 'translate(0, 0)' },
+          '25%': { transform: 'translate(-4px, -4px)' }, // Top-left
+          '50%': { transform: 'translate(-4px, 4px)' },  // Bottom-left
+          '75%': { transform: 'translate(4px, -4px)' },  // Top-right
+          '100%': { transform: 'translate(4px, 4px)' }, // Bottom-right
         },
         'float-up-and-fade': {
           '0%': { opacity: '1', transform: 'translateY(0px) scale(1)' },
@@ -167,9 +153,7 @@ export default {
         'pulse_slow': 'pulse_slow 6s infinite ease-in-out',
         'spin-gradient': 'spin-gradient 8s linear infinite',
         'subtle-glow': 'subtle-glow 3.5s ease-in-out infinite',
-        'float-1': 'float-1 240s linear infinite',
-        'float-2': 'float-2 300s linear infinite',
-        'float-3': 'float-3 360s linear infinite',
+        'float-quad': 'float-quad 4s linear infinite alternate',
         'float-up': 'float-up-and-fade 1.5s ease-out forwards',
         'icon-flow': 'icon-color-flow 4s linear infinite',
         'text-gradient-flow': 'text-gradient-flow 4s ease infinite',
