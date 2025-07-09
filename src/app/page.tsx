@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -70,7 +71,7 @@ export default function HomePage() {
     {
       titleKey: 'prizeCreditsTitle',
       descriptionKey: 'prizeCreditsDescription',
-      imgSrc: 'https://placehold.co/500x750.png',
+      imgSrc: '/img/koin.png',
       imgHint: 'mystical credits coin',
       reverse: false,
     },
@@ -345,3 +346,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
