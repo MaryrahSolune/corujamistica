@@ -78,8 +78,8 @@ export default function HomePage() {
     {
       titleKey: 'prizeEbooksTitle',
       descriptionKey: 'prizeEbooksDescription',
-      imgSrc: '/img/coruja.gif',
-      imgHint: 'mystical owl animation',
+      imgSrc: '/img/OOP.png',
+      imgHint: 'exclusive ebook',
       reverse: true,
     },
     {
