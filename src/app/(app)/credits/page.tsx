@@ -63,9 +63,7 @@ export default function CreditsPage() {
       }
       setClaimingFreeCredit(false);
     } else {
-      // TODO: Implement actual payment gateway integration here.
-      // In a real app, you'd typically call a backend function to create a payment intent/checkout session,
-      // then redirect the user to the payment provider's hosted page.
+      // In a real app, you'd call a backend function to create a payment session.
       // The link below is for demonstration purposes using a test Stripe link.
       setRedirecting(true);
       let redirectUrl = 'https://buy.stripe.com/test_28E7sLbgO0VobAg4XO6Na00'; // Default for package 1 (Seeker's Pack)
@@ -77,10 +75,6 @@ export default function CreditsPage() {
       }
       window.location.href = redirectUrl;
       // Note: The actual addition of credits should happen via a webhook after a successful payment.
-      // if (currentUser) {
-      //   await addCredits(currentUser.uid, creditsAmount);
-      //   refreshCredits();
-      // }
       setPurchasingPackageId(null);
     }
   };
@@ -94,6 +88,14 @@ export default function CreditsPage() {
       return `R$ ${priceBRL.toFixed(2).replace('.', ',')}`;
     }
     return `$${priceUSD.toFixed(2)}`;
+  };
+  
+  const handlePixPurchase = () => {
+    toast({
+      title: "Função Futura",
+      description: "O pagamento com Pix estará disponível em breve. Por enquanto, utilize o pagamento com cartão.",
+      variant: 'default'
+    });
   };
 
   return (
@@ -145,28 +147,15 @@ export default function CreditsPage() {
                       {pkg.priceUSD === 0 ? (userCredits?.freeCreditClaimed ? t('freeCreditAlreadyClaimedButton') : t('getItNowButton')) : t('purchaseNowButton')}
                     </Button>
                   </CardFooter>
-                  {pkg.id === 1 && ( // Add this condition to only show the Pix button for Pacote do Buscador (id: 1)
+                  {(pkg.id === 1 || pkg.id === 2 || pkg.id === 3) && ( 
                     <CardFooter className="mt-2">
                       <Button
-                        onClick={() => { /* Add Pix payment logic here */ }}
-                        className="w-full text-lg py-3 animated-aurora-background" // Added animated-aurora-background class
-                        variant={'outline'} // Use outline variant for secondary action
-                        disabled={claimingFreeCredit || redirecting} // Disable when loading or redirecting
+                        onClick={handlePixPurchase}
+                        className="w-full text-lg py-3 animated-aurora-background"
+                        variant={'outline'}
+                        disabled={claimingFreeCredit || redirecting}
                       >
                         Pagar com Pix
-                      </Button>
-                    </CardFooter>
-                  )}
-                  {(pkg.id === 2 || pkg.id === 3) && ( // Add this condition to show the Pix button for Combo do Oráculo (id: 2) and Tesouro do Místico (id: 3)
-                    <CardFooter className="mt-2">
-                      <Button
-                        onClick={() => { /* Add Pix payment logic here */ }}
-                        className="w-full text-lg py-3 animated-aurora-background" // Apply same styling as other buttons
-                        variant={'outline'} // Use outline variant
-                        disabled={claimingFreeCredit || redirecting} // Disable when loading or redirecting
-                      >
-                        Pagar com Pix
-
                       </Button>
                     </CardFooter>
                   )}
