@@ -63,19 +63,22 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
   const dictionaryLines = fullDictionaryText.split('\n').map(l => l.trim()).filter(Boolean);
   const normalizedKeywords = keywords.map(normalizeString);
 
-  // 3. Search for the keywords in the fetched content using normalized comparison
-  for (const line of dictionaryLines) {
-    // Corrected, robust regex to extract the keyword before " - "
-    const lineKeywordMatch = line.match(/^(.+?) - /);
-    if (lineKeywordMatch && lineKeywordMatch[1]) {
-      const keywordFromLine = lineKeywordMatch[1].trim();
-      const normalizedLineKeyword = normalizeString(keywordFromLine);
+  // 3. Robustly search for keywords in the fetched content.
+  // This logic is improved to find exact keyword matches at the beginning of a line.
+  dictionaryLines.forEach(line => {
+    // Regex to find a word/phrase at the start of the line, before " - "
+    const match = line.match(/^([A-ZÇÃÁÉÍÓÚÂÊÔa-zçãáéíóúâêô\s-]+?)\s*-\s*.*/);
+    if (match && match[1]) {
+      const entryKeyword = match[1].trim();
+      const normalizedEntryKeyword = normalizeString(entryKeyword);
 
-      if (normalizedKeywords.includes(normalizedLineKeyword)) {
+      // Check if any of the user's keywords match this entry's keyword
+      if (normalizedKeywords.includes(normalizedEntryKeyword)) {
         foundDefinitions.add(line);
       }
     }
-  }
+  });
+
 
   if (foundDefinitions.size === 0) {
     return "Nenhum dos símbolos do seu sonho foi encontrado em nosso Livro dos Sonhos. A interpretação seguirá o conhecimento geral do Profeta.";
