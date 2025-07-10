@@ -1,3 +1,4 @@
+
 'use client';
 
 
@@ -154,24 +155,24 @@ export default function DreamInterpretationPage() {
       
       {interpretationResult && !isLoading && (
           <div className='space-y-8'>
-              {interpretationResult.dictionaryInterpretation && (
-                    <div className="max-w-2xl mx-auto animated-aurora-background rounded-lg">
-                      <Card className="shadow-lg bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10">
-                          <CardHeader>
-                              <CardTitle className="text-2xl font-serif flex items-center">
-                                  <Library className="h-7 w-7 mr-3 text-accent" />
-                                  {t('dreamDictionaryInterpretationTitle')}
-                              </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                              <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                                  {interpretationResult.dictionaryInterpretation}
-                              </p>
-                          </CardContent>
-                      </Card>
-                  </div>
-              )}
+              {/* Card for the Dictionary Interpretation - It will always be attempted */}
+              <div className="max-w-2xl mx-auto animated-aurora-background rounded-lg">
+                <Card className="shadow-lg bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10">
+                    <CardHeader>
+                        <CardTitle className="text-2xl font-serif flex items-center">
+                            <Library className="h-7 w-7 mr-3 text-accent" />
+                            {t('dreamDictionaryInterpretationTitle')}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                            {interpretationResult.dictionaryInterpretation || "Nenhum símbolo correspondente encontrado no Livro dos Sonhos."}
+                        </p>
+                    </CardContent>
+                </Card>
+            </div>
 
+              {/* Card for the Prophetic Story Interpretation */}
               {interpretationResult.storySegments.length > 0 && (
                     <div className="max-w-2xl mx-auto animated-aurora-background rounded-lg">
                       <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
