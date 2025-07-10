@@ -41,9 +41,10 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
     str
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
+      .toLowerCase()
+      .trim();
 
-  // 1. Determine which letters we need to fetch from the DB based on normalized keywords
+  // 1. Determine which letters we need to fetch from the DB
   const uniqueLetters = [...new Set(
     keywords
       .map(k => normalizeString(k).charAt(0).toUpperCase())
@@ -64,20 +65,17 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
   const dictionaryLines = fullDictionaryText.split('\n').map(l => l.trim()).filter(Boolean);
   const normalizedKeywords = keywords.map(normalizeString);
 
-  // 3. Robustly search for keywords in the fetched content.
-  // This logic is improved to find exact keyword matches at the beginning of a line.
+  // 3. DEFINITIVE FIX: Robustly search for keywords in the fetched content.
   dictionaryLines.forEach(line => {
-    // Regex to find a word/phrase at the start of the line, before " - "
-    // This now handles more complex characters in the keyword
-    const match = line.match(/^([A-ZÇÃÁÉÍÓÚÂÊÔa-zçãáéíóúâêô\s-]+?)\s*-\s*.*/);
-    if (match && match[1]) {
-      const entryKeyword = match[1].trim();
-      const normalizedEntryKeyword = normalizeString(entryKeyword);
+    const parts = line.split(' - ');
+    if (parts.length < 2) return; // Skip lines that don't have the "KEYWORD - Definition" structure
 
-      // Check if any of the user's keywords match this entry's keyword
-      if (normalizedKeywords.includes(normalizedEntryKeyword)) {
-        foundDefinitions.add(line);
-      }
+    const entryKeyword = parts[0].trim();
+    const normalizedEntryKeyword = normalizeString(entryKeyword);
+
+    // Check if any of the user's keywords match this entry's keyword
+    if (normalizedKeywords.includes(normalizedEntryKeyword)) {
+      foundDefinitions.add(line);
     }
   });
 
@@ -112,5 +110,3 @@ export async function updateDreamDictionaryEntry(letter: string, content: string
     return { success: false, message: error.message || 'An unknown error occurred.' };
   }
 }
-
-    
