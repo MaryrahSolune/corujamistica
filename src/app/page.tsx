@@ -281,7 +281,7 @@ export default function HomePage() {
                       width={500}
                       height={750}
                       className={cn(
-                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105 animate-float"
+                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105"
                       )}
                       data-ai-hint={prize.imgHint}
                       unoptimized={prize.imgSrc.endsWith('.gif')}
@@ -320,8 +320,8 @@ export default function HomePage() {
         <CustomSeparator /> 
 
         {/* Final CTA Section */}
-        <section className="py-20 sm:py-28 text-center bg-primary/10 relative overflow-hidden">
-           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-70"></div>
+        <section className="py-20 sm:py-28 text-center bg-primary/10 relative overflow-hidden cta-gif-background">
+           <div className="absolute inset-0 bg-black/50 z-0"></div>
           <div className="container mx-auto px-4 relative z-10">
             <Sparkles className="h-16 w-16 text-accent mx-auto mb-6 animate-subtle-pulse" style={{animationDelay: '0.2s'}}/>
             <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 animate-fade-in" style={{animationDelay: '0.4s'}}>
