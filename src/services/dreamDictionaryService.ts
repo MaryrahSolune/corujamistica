@@ -1,3 +1,4 @@
+
 'use server';
 
 import { rtdb } from '@/lib/firebase';
@@ -111,3 +112,5 @@ export async function updateDreamDictionaryEntry(letter: string, content: string
     return { success: false, message: error.message || 'An unknown error occurred.' };
   }
 }
+
+    
