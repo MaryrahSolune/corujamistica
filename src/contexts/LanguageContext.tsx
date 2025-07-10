@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { ReactNode } from 'react';
@@ -300,6 +301,8 @@ export type TranslationKey =
   | 'dictionarySaveSuccess'
   | 'dictionarySaveError'
   | 'dreamDictionaryInterpretationTitle'
+  | 'specialPrizeNoticeTitle'
+  | 'specialPrizeNoticeDescription'
   ;
 
 interface LanguageContextType {
@@ -601,6 +604,8 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dictionarySaveSuccess: 'Successfully saved dictionary for letter {letter}.',
     dictionarySaveError: 'Failed to save dictionary entry.',
     dreamDictionaryInterpretationTitle: "Dream Dictionary Interpretation",
+    specialPrizeNoticeTitle: "Special Prize!",
+    specialPrizeNoticeDescription: "Complete the 30-day cycle to win a surprise!",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -894,6 +899,8 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dictionarySaveSuccess: 'Dicionário para a letra {letter} salvo com sucesso.',
     dictionarySaveError: 'Falha ao salvar a entrada do dicionário.',
     dreamDictionaryInterpretationTitle: "Interpretação do Livro dos Sonhos",
+    specialPrizeNoticeTitle: "Prêmio Especial!",
+    specialPrizeNoticeDescription: "Complete o ciclo de 30 dias para ganhar uma surpresa!",
   }
 };
 
