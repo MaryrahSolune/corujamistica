@@ -44,10 +44,12 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
       .toLowerCase()
       .trim();
 
+  const normalizedKeywords = keywords.map(normalizeString);
+
   // 1. Determine which letters we need to fetch from the DB
   const uniqueLetters = [...new Set(
-    keywords
-      .map(k => normalizeString(k).charAt(0).toUpperCase())
+    normalizedKeywords
+      .map(k => k.charAt(0).toUpperCase())
       .filter(l => /^[A-Z]$/.test(l))
   )];
 
@@ -63,19 +65,19 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
   const foundDefinitions = new Set<string>();
 
   const dictionaryLines = fullDictionaryText.split('\n').map(l => l.trim()).filter(Boolean);
-  const normalizedKeywords = keywords.map(normalizeString);
 
-  // 3. DEFINITIVE FIX: Robustly search for keywords in the fetched content.
-  dictionaryLines.forEach(line => {
-    const parts = line.split(' - ');
-    if (parts.length < 2) return; // Skip lines that don't have the "KEYWORD - Definition" structure
-
-    const entryKeyword = parts[0].trim();
-    const normalizedEntryKeyword = normalizeString(entryKeyword);
-
-    // Check if any of the user's keywords match this entry's keyword
-    if (normalizedKeywords.includes(normalizedEntryKeyword)) {
-      foundDefinitions.add(line);
+  // 3. Robustly search for keywords in the fetched content.
+  normalizedKeywords.forEach(keyword => {
+    for (const line of dictionaryLines) {
+        // Find lines that start with the keyword, case-insensitively.
+        // The regex `^${keyword}(\s|-)` looks for the keyword at the start of the line,
+        // followed by either a space or a hyphen, ensuring we match whole words like "LEBRE"
+        // and not "LEBREIRO". `i` flag makes it case-insensitive.
+        const lineStartNormalized = normalizeString(line.split(' - ')[0]);
+        if (lineStartNormalized === keyword) {
+            foundDefinitions.add(line);
+            break; // Move to the next keyword once found
+        }
     }
   });
 
