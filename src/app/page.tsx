@@ -143,7 +143,7 @@ export default function HomePage() {
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center space-x-2">
             <Sparkles className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold font-serif text-primary">{t('mysticInsights')}</span>
+            <span className="text-2xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">{t('mysticInsights')}</span>
           </div>
           <nav className="flex items-center space-x-1 sm:space-x-2">
             <LanguageSwitcher />
@@ -281,8 +281,7 @@ export default function HomePage() {
                       width={500}
                       height={750}
                       className={cn(
-                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105",
-                        "animate-float" // Restored animation class
+                        "rounded-lg shadow-xl object-cover transition-transform duration-300 hover:scale-105"
                       )}
                       data-ai-hint={prize.imgHint}
                       unoptimized={prize.imgSrc.endsWith('.gif')}

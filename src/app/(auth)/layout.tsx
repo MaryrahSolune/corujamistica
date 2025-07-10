@@ -18,7 +18,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
       <div className="flex flex-col items-center text-center z-10 mb-8">
         <Sparkles className="h-16 w-16 sm:h-20 sm:w-20 text-primary mb-4 animate-subtle-pulse" />
-        <h1 className="text-4xl sm:text-5xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">
+        <h1 className="text-4xl sm:text-5xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">
           {t('mysticInsights')}
         </h1>
         <p className="text-muted-foreground mt-2 text-md sm:text-lg">
