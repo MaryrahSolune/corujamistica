@@ -85,14 +85,14 @@ export default function HomePage() {
     {
       titleKey: 'prizeDigitalTarotTitle',
       descriptionKey: 'prizeDigitalTarotDescription',
-      imgSrc: 'https://placehold.co/500x750.png',
+      imgSrc: '/img/tar2.png',
       imgHint: 'tarot card reading',
       reverse: false,
     },
     {
       titleKey: 'prizePhysicalTarotTitle',
       descriptionKey: 'prizePhysicalTarotDescription',
-      imgSrc: 'https://placehold.co/500x750.png',
+      imgSrc: '/img/tar1.png',
       imgHint: 'physical tarot deck',
       reverse: true,
     },
