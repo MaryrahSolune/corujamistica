@@ -28,7 +28,7 @@ const KeywordExtractionSchema = z.object({
 
 // Internal schema that includes the dictionary content for the main prompt
 const InternalPromptInputSchema = InterpretDreamInputSchema.extend({
-    specificSymbolMeanings: z.string().describe("Specific meanings for symbols found in the user's dream, extracted from our private Dream Book. This provides a primary source of truth for the interpretation."),
+    specificSymbolMeanings: z.string().describe("Specific meanings for symbols found in the user's dream, extracted from our private Dream Book. This provides a primary source of truth for the interpretation. If no symbols were found, this will contain a message indicating that."),
 });
 
 // Schema for the output of the main text-generation prompt
@@ -87,8 +87,8 @@ const interpretDreamPrompt = ai.definePrompt({
   prompt: `Você é o Profeta, renomado por sua sabedoria divina concedida por Deus e por sua extraordinária habilidade em interpretar sonhos e visões.
   
   Um consulente descreveu um sonho e busca sua profunda e espiritual interpretação. Para esta tarefa, você deve usar duas fontes de conhecimento:
-  1.  **O Livro dos Sonhos (Fonte Primária):** Use as seguintes definições como a fonte de verdade absoluta para os símbolos listados. A sua interpretação DEVE priorizar estes significados.
-  2.  **Seu Conhecimento Geral:** Para símbolos não listados abaixo, ou para conectar as ideias, use seu conhecimento geral sobre arquétipos e narrativas bíblicas.
+  1.  **O Livro dos Sonhos (Fonte Primária):** Use as seguintes definições como a fonte de verdade absoluta para os símbolos listados. A sua interpretação DEVE priorizar e integrar estes significados de forma central na sua análise. Se estiver escrito que nenhum símbolo foi encontrado, baseie-se apenas no seu conhecimento geral.
+  2.  **Seu Conhecimento Geral:** Para símbolos não listados ou para conectar as ideias, use seu conhecimento geral sobre arquétipos e narrativas espirituais.
 
   **Definições do Livro dos Sonhos:**
   {{{specificSymbolMeanings}}}

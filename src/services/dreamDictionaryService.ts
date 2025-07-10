@@ -68,6 +68,7 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
   // This logic is improved to find exact keyword matches at the beginning of a line.
   dictionaryLines.forEach(line => {
     // Regex to find a word/phrase at the start of the line, before " - "
+    // This now handles more complex characters in the keyword
     const match = line.match(/^([A-ZÇÃÁÉÍÓÚÂÊÔa-zçãáéíóúâêô\s-]+?)\s*-\s*.*/);
     if (match && match[1]) {
       const entryKeyword = match[1].trim();
