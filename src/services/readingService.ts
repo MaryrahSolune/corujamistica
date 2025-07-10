@@ -1,3 +1,4 @@
+
 import { rtdb } from '@/lib/firebase';
 import { ref, push, set, get, serverTimestamp, query, orderByChild, limitToLast } from 'firebase/database';
 import type { ProcessedStorySegment } from '@/ai/flows/interpret-dream-flow';
@@ -50,12 +51,8 @@ export async function getUserReadings(uid: string, limit: number = 5): Promise<A
       snapshot.forEach((childSnapshot) => {
         readings.push({ id: childSnapshot.key!, ...childSnapshot.val() } as ReadingData & { id: string });
       });
-      readings.sort((a, b) => {
-        const tsA = typeof a.interpretationTimestamp === 'number' ? a.interpretationTimestamp : 0;
-        const tsB = typeof b.interpretationTimestamp === 'number' ? b.interpretationTimestamp : 0;
-        return tsB - tsA;
-      });
-      return readings;
+      // Reverse sort to get the most recent first
+      return readings.reverse();
     }
     return [];
   } catch (error) {
@@ -63,6 +60,7 @@ export async function getUserReadings(uid: string, limit: number = 5): Promise<A
     throw error;
   }
 }
+
 
 export async function getReadingById(uid: string, readingId: string): Promise<(ReadingData & { id: string }) | null> {
   const readingRef = ref(rtdb, `users/${uid}/readings/${readingId}`);
@@ -77,3 +75,5 @@ export async function getReadingById(uid: string, readingId: string): Promise<(R
     throw error;
   }
 }
+
+    

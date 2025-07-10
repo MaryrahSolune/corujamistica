@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -11,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { format, fromUnixTime } from 'date-fns';
+import { format } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
 
 type ReadingWithId = ReadingData & { id: string };
@@ -50,7 +51,7 @@ export default function ViewReadingPage() {
         setLoading(false);
         setError(t('mustBeLoggedInToViewReading'));
     }
-  }, [currentUser, readingId, t]);
+  }, [currentUser, readingId, t, locale]);
 
   if (loading) {
     return (
@@ -96,10 +97,10 @@ export default function ViewReadingPage() {
   }
 
   const formatTimestamp = (timestamp: number | object) => {
-    if (typeof timestamp === 'number') {
-      return format(fromUnixTime(timestamp / 1000), 'PPP p', { locale: getDateFnsLocale() });
-    }
-    return t('timestampProcessing');
+    // Firebase server timestamp is initially an object, then a number.
+    if (typeof timestamp !== 'number') return t('timestampProcessing');
+    // The timestamp might be in milliseconds from the server.
+    return format(new Date(timestamp), 'PPP p', { locale: getDateFnsLocale() });
   };
   
   let pageTitle = '';
@@ -211,34 +212,36 @@ export default function ViewReadingPage() {
                   </div>
                 )}
                 
-                <div>
-                  <h3 className="text-xl font-bold font-serif mb-4 text-accent flex items-center">
-                     <BookOpenText className="mr-2 h-5 w-5"/> {t('interpretationTitle')}
-                  </h3>
-                  <div className="space-y-4">
-                    {reading.interpretationSegments.map((segment, index) => (
-                      <div key={index}>
-                        {segment.type === 'text' && segment.content && (
-                          <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify font-medium">
-                            {segment.content}
-                          </p>
-                        )}
-                        {segment.type === 'image' && segment.dataUri && (
-                            <div className="my-4 animated-aurora-background rounded-lg overflow-hidden shadow-lg">
-                                <Image
-                                src={segment.dataUri}
-                                alt={t('dreamIllustrationAlt', { number: index + 1 })+`: ${segment.alt || 'Dream illustration'}`}
-                                width={500}
-                                height={300}
-                                className="w-full h-auto object-contain relative z-10 bg-black/10"
-                                data-ai-hint="dream scene abstract"
-                                />
-                          </div>
-                        )}
-                      </div>
-                    ))}
+                {reading.interpretationSegments && reading.interpretationSegments.length > 0 && (
+                  <div>
+                    <h3 className="text-xl font-bold font-serif mb-4 text-accent flex items-center">
+                      <BookOpenText className="mr-2 h-5 w-5"/> {t('interpretationTitle')}
+                    </h3>
+                    <div className="space-y-4">
+                      {reading.interpretationSegments.map((segment, index) => (
+                        <div key={index}>
+                          {segment.type === 'text' && segment.content && (
+                            <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify font-medium">
+                              {segment.content}
+                            </p>
+                          )}
+                          {segment.type === 'image' && segment.dataUri && (
+                              <div className="my-4 animated-aurora-background rounded-lg overflow-hidden shadow-lg">
+                                  <Image
+                                  src={segment.dataUri}
+                                  alt={t('dreamIllustrationAlt', { number: index + 1 })+`: ${segment.alt || 'Dream illustration'}`}
+                                  width={500}
+                                  height={300}
+                                  className="w-full h-auto object-contain relative z-10 bg-black/10"
+                                  data-ai-hint="dream scene abstract"
+                                  />
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </>
             )}
           </CardContent>
@@ -247,3 +250,5 @@ export default function ViewReadingPage() {
     </div>
   );
 }
+
+    

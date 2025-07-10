@@ -36,7 +36,6 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
     return "Nenhum símbolo-chave foi extraído do sonho para consulta.";
   }
 
-  // Helper function to remove accents and convert to lower case for comparison
   const normalizeString = (str: string) =>
     str
       .normalize("NFD")
@@ -46,7 +45,6 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
 
   const normalizedKeywords = keywords.map(normalizeString);
 
-  // 1. Determine which letters we need to fetch from the DB
   const uniqueLetters = [...new Set(
     normalizedKeywords
       .map(k => k.charAt(0).toUpperCase())
@@ -57,7 +55,6 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
     return "Nenhum símbolo-chave válido foi extraído para consulta no dicionário.";
   }
 
-  // 2. Fetch all required letter entries in parallel
   const letterPromises = uniqueLetters.map(letter => getDreamDictionaryEntry(letter));
   const letterContents = await Promise.all(letterPromises);
   
@@ -66,17 +63,14 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
 
   const dictionaryLines = fullDictionaryText.split('\n').map(l => l.trim()).filter(Boolean);
 
-  // 3. Robustly search for keywords in the fetched content.
   normalizedKeywords.forEach(keyword => {
     for (const line of dictionaryLines) {
-        // Find lines that start with the keyword, case-insensitively.
-        // The regex `^${keyword}(\s|-)` looks for the keyword at the start of the line,
-        // followed by either a space or a hyphen, ensuring we match whole words like "LEBRE"
-        // and not "LEBREIRO". `i` flag makes it case-insensitive.
-        const lineStartNormalized = normalizeString(line.split(' - ')[0]);
+        const lineStartOriginal = line.split(' - ')[0];
+        const lineStartNormalized = normalizeString(lineStartOriginal);
+        
         if (lineStartNormalized === keyword) {
             foundDefinitions.add(line);
-            break; // Move to the next keyword once found
+            break; 
         }
     }
   });
@@ -112,3 +106,5 @@ export async function updateDreamDictionaryEntry(letter: string, content: string
     return { success: false, message: error.message || 'An unknown error occurred.' };
   }
 }
+
+    
