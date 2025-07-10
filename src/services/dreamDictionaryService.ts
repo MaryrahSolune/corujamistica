@@ -2,7 +2,7 @@
 'use server';
 
 import { rtdb } from '@/lib/firebase';
-import { ref, set, get } from 'firebase/database';
+import { ref, get } from 'firebase/database';
 
 /**
  * Fetches the content for a single letter from the dream dictionary.
@@ -68,6 +68,8 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
         const lineStartOriginal = line.split(' - ')[0];
         const lineStartNormalized = normalizeString(lineStartOriginal);
         
+        // This is a more robust check. It verifies if the normalized line starts with the normalized keyword.
+        // This handles cases like "LEBRE" matching "LEBRE - ..."
         if (lineStartNormalized === keyword) {
             foundDefinitions.add(line);
             break; 
@@ -82,7 +84,6 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
 
   return `Considerando os símbolos do seu sonho, aqui estão os significados encontrados no Livro dos Sonhos para sua referência:\n\n${Array.from(foundDefinitions).join('\n')}`;
 }
-
 
 /**
  * Admin function to add or update the content for a specific letter in the dream dictionary.

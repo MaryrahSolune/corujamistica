@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { interpretDream, type InterpretDreamOutput, type ProcessedStorySegment } from '@/ai/flows/interpret-dream-flow';
+import { interpretDream, type InterpretDreamOutput } from '@/ai/flows/interpret-dream-flow';
 import { Loader2, MessageCircleQuestion, BookOpenText, BrainCircuit, Library } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
@@ -155,7 +155,7 @@ export default function DreamInterpretationPage() {
       
       {interpretationResult && !isLoading && (
           <div className='space-y-8'>
-              {/* Card for the Dictionary Interpretation - It will always be attempted */}
+              {/* Card for the Dictionary Interpretation - Now always rendered first if content exists */}
               {interpretationResult.dictionaryInterpretation && (
                 <div className="max-w-2xl mx-auto animated-aurora-background rounded-lg">
                   <Card className="shadow-lg bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10">

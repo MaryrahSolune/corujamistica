@@ -72,8 +72,8 @@ const extractKeywordsPrompt = ai.definePrompt({
   Resultado: ["casa", "cobra"]
   
   Exemplo 2:
-  Sonho: "Vi uma estrela-do-mar na praia e depois comi pão de ló."
-  Resultado: ["estrela-do-mar", "pão de ló", "praia"]
+  Sonho: "Vi uma estrela-do-mar na praia e depois comi pão de ló. Também vi uma lebre correndo."
+  Resultado: ["estrela-do-mar", "pão de ló", "praia", "lebre"]
 
   Sonho:
   {{{dreamDescription}}}
