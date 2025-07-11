@@ -194,12 +194,12 @@ export default function HomePage() {
             <p className="text-lg font-bold text-muted-foreground mb-12 max-w-2xl mx-auto">{t('ourOraclesSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
-                <Brain className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
+                <Star className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
                 <h3 className="text-xl font-bold mb-3">Seu TARÔ</h3>
                 <p className="text-lg font-semibold text-foreground/80">Carregue sua tiragem de Tarô para obter a Interpretação Mística.</p>
               </div>
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
-                <Star className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
+                <Brain className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
                 <h3 className="text-xl font-bold mb-3">Interpretação de SONHOS</h3>
                 <p className="text-lg font-semibold text-foreground/80">Descreva seu sonho detalhado para obter Interpretação Profética</p>
               </div>
