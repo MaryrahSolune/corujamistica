@@ -27,3 +27,14 @@ export const MoonIcon = (props: SVGProps<SVGSVGElement>) => (
     <path d="M 50 10 A 40 40 0 1 0 50 90 A 30 30 0 1 1 50 10 Z" />
   </svg>
 );
+
+export const OghamIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M12 2L12 22" />
+    <path d="M12 4L16 4" />
+    <path d="M12 8L16 8" />
+    <path d="M12 12L8 12" />
+    <path d="M12 16L8 16" />
+    <path d="M12 20L8 20" />
+  </svg>
+);
