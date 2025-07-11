@@ -201,7 +201,7 @@ export default function HomePage() {
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <Brain className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
                 <h3 className="text-xl font-bold mb-3">Interpretação de SONHOS</h3>
-                <p className="text-lg font-semibold text-foreground/80">Descreva seu sonho detalhado para obter Interpretação Profética</p>
+                <p className="text-lg font-semibold text-foreground/80">Descreva seu sonho detalhado para obter Interpretação Profética.</p>
               </div>
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <TreeDeciduous className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
