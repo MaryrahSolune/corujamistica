@@ -4,7 +4,7 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Gift } from 'lucide-react';
+import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Gift, TreeDeciduous } from 'lucide-react';
 import { LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -204,9 +204,9 @@ export default function HomePage() {
                 <p className="text-lg font-semibold text-foreground/80">Descreva seu sonho detalhado para obter Interpretação Profética</p>
               </div>
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
-                <OghamIcon className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
-                <h3 className="text-xl font-bold mb-3">Ler Ogham</h3>
-                <p className="text-lg font-semibold text-foreground/80">Oráculo Celta - Símbolos Sagrados Árvores e na Natureza</p>
+                <TreeDeciduous className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
+                <h3 className="text-xl font-bold mb-3">Ler OGHAM</h3>
+                <p className="text-lg font-semibold text-foreground/80">Oraculo Celta</p>
               </div>
             </div>
           </div>
