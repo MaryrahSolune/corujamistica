@@ -2,7 +2,7 @@
 'use server';
 
 import { rtdb } from '@/lib/firebase';
-import { ref, get } from 'firebase/database';
+import { ref, get, set } from 'firebase/database';
 
 /**
  * Fetches the content for a single letter from the dream dictionary.
@@ -107,5 +107,3 @@ export async function updateDreamDictionaryEntry(letter: string, content: string
     return { success: false, message: error.message || 'An unknown error occurred.' };
   }
 }
-
-    

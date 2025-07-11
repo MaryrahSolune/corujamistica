@@ -51,8 +51,11 @@
       }
     },
     "dreamDictionary": {
-      ".read": true,
-      ".write": "auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin'"
+        "$letra": {
+          ".validate": "$letra.matches(/^[A-Z]$/)",
+          ".read": "auth != null",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin'"
+        }
     },
     "metadata": {
       "userCount": {
