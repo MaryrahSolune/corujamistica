@@ -2,7 +2,7 @@
 'use client';
 
 
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -15,6 +15,12 @@ import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
 import { deductCredit } from '@/services/creditService';
 import { saveReading, type DreamInterpretationData } from '@/services/readingService';
+import { getDreamDictionaryEntry } from '@/services/dreamDictionaryService';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Skeleton } from '@/components/ui/skeleton';
+
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
 
 export default function DreamInterpretationPage() {
   const [dreamDescription, setDreamDescription] = useState<string>('');
@@ -24,6 +30,29 @@ export default function DreamInterpretationPage() {
   const { toast } = useToast();
   const { t } = useLanguage();
   const { currentUser, userCredits, refreshCredits } = useAuth();
+
+  // State for manual dictionary lookup
+  const [selectedLetter, setSelectedLetter] = useState('A');
+  const [dictionaryContent, setDictionaryContent] = useState('');
+  const [isLoadingDictionary, setIsLoadingDictionary] = useState(false);
+
+  const fetchDictionaryEntry = useCallback(async (letter: string) => {
+    setIsLoadingDictionary(true);
+    try {
+      let content = await getDreamDictionaryEntry(letter);
+      setDictionaryContent(content);
+    } catch (error) {
+      toast({ title: t('errorGenericTitle'), description: t('dictionaryFetchError'), variant: 'destructive' });
+      setDictionaryContent(t('dictionaryFetchError'));
+    } finally {
+      setIsLoadingDictionary(false);
+    }
+  }, [t, toast]);
+
+  useEffect(() => {
+    fetchDictionaryEntry(selectedLetter);
+  }, [selectedLetter, fetchDictionaryEntry]);
+
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -86,6 +115,49 @@ export default function DreamInterpretationPage() {
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
+
+      {/* Manual Dictionary Lookup Section */}
+       <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-12">
+        <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
+          <CardHeader>
+            <CardTitle className="text-3xl font-serif flex items-center">
+                <Library className="h-8 w-8 mr-3 text-primary" />
+                {t('dreamDictionaryManagementTitle')}
+            </CardTitle>
+            <CardDescription>{t('dreamDictionaryManagementDescription')}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="dictionary-letter" className="text-lg">{t('selectLetterLabel')}</Label>
+              <Select value={selectedLetter} onValueChange={setSelectedLetter}>
+                <SelectTrigger id="dictionary-letter" className="w-[180px] mt-2">
+                  <SelectValue placeholder="Selecione uma letra" />
+                </SelectTrigger>
+                <SelectContent>
+                  {alphabet.map(letter => (
+                    <SelectItem key={letter} value={letter}>Letra {letter}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div>
+              <Label htmlFor="dictionary-content" className="text-lg">{t('dictionaryContentLabel', { letter: selectedLetter })}</Label>
+              {isLoadingDictionary ? (
+                <Skeleton className="h-64 w-full mt-2" />
+              ) : (
+                <ScrollArea className="h-72 w-full rounded-md border p-4 mt-2 bg-muted/30">
+                   <div className="prose-base dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                    {dictionaryContent || t('dictionaryContentPlaceholder', { letter: selectedLetter })}
+                   </div>
+                </ScrollArea>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+
       <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-8">
         <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
           <CardHeader>
