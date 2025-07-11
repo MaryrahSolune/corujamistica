@@ -251,12 +251,11 @@ export default function DreamInterpretationPage() {
                 <AccordionTrigger>
                   <div className='flex items-center text-lg'>
                     <Library className="h-6 w-6 mr-3 text-primary" />
-                    {t('dreamDictionaryManagementTitle')}
+                    Dicionário de Sonhos
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="p-4 rounded-b-lg bg-card/50">
-                    <p className="text-muted-foreground mb-4">{t('dreamDictionaryManagementDescription')}</p>
                     <div className="space-y-4">
                       <div>
                         <Label htmlFor="dictionary-letter" className="text-md">{t('selectLetterLabel')}</Label>
