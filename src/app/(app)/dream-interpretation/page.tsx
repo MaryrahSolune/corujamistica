@@ -116,48 +116,6 @@ export default function DreamInterpretationPage() {
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
 
-      {/* Manual Dictionary Lookup Section */}
-       <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-12">
-        <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-3xl font-serif flex items-center">
-                <Library className="h-8 w-8 mr-3 text-primary" />
-                {t('dreamDictionaryManagementTitle')}
-            </CardTitle>
-            <CardDescription>{t('dreamDictionaryManagementDescription')}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="dictionary-letter" className="text-lg">{t('selectLetterLabel')}</Label>
-              <Select value={selectedLetter} onValueChange={setSelectedLetter}>
-                <SelectTrigger id="dictionary-letter" className="w-[180px] mt-2">
-                  <SelectValue placeholder="Selecione uma letra" />
-                </SelectTrigger>
-                <SelectContent>
-                  {alphabet.map(letter => (
-                    <SelectItem key={letter} value={letter}>Letra {letter}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div>
-              <Label htmlFor="dictionary-content" className="text-lg">{t('dictionaryContentLabel', { letter: selectedLetter })}</Label>
-              {isLoadingDictionary ? (
-                <Skeleton className="h-64 w-full mt-2" />
-              ) : (
-                <ScrollArea className="h-72 w-full rounded-md border p-4 mt-2 bg-muted/30">
-                   <div className="prose-base dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                    {dictionaryContent || t('dictionaryContentPlaceholder', { letter: selectedLetter })}
-                   </div>
-                </ScrollArea>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-
       <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-8">
         <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
           <CardHeader>
@@ -284,6 +242,48 @@ export default function DreamInterpretationPage() {
               )}
           </div>
       )}
+
+      {/* Manual Dictionary Lookup Section */}
+      <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mt-12">
+        <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
+          <CardHeader>
+            <CardTitle className="text-3xl font-serif flex items-center">
+                <Library className="h-8 w-8 mr-3 text-primary" />
+                {t('dreamDictionaryManagementTitle')}
+            </CardTitle>
+            <CardDescription>{t('dreamDictionaryManagementDescription')}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="dictionary-letter" className="text-lg">{t('selectLetterLabel')}</Label>
+              <Select value={selectedLetter} onValueChange={setSelectedLetter}>
+                <SelectTrigger id="dictionary-letter" className="w-[180px] mt-2">
+                  <SelectValue placeholder="Selecione uma letra" />
+                </SelectTrigger>
+                <SelectContent>
+                  {alphabet.map(letter => (
+                    <SelectItem key={letter} value={letter}>Letra {letter}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div>
+              <Label htmlFor="dictionary-content" className="text-lg">{t('dictionaryContentLabel', { letter: selectedLetter })}</Label>
+              {isLoadingDictionary ? (
+                <Skeleton className="h-64 w-full mt-2" />
+              ) : (
+                <ScrollArea className="h-72 w-full rounded-md border p-4 mt-2 bg-muted/30">
+                   <div className="prose-base dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                    {dictionaryContent || t('dictionaryContentPlaceholder', { letter: selectedLetter })}
+                   </div>
+                </ScrollArea>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       <img src="/img/olho.gif" alt="Olho místico" className="mt-8 mx-auto block max-w-full h-auto" />
     </div>
   );
