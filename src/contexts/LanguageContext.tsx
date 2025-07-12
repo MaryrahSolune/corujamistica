@@ -331,6 +331,7 @@ export type TranslationKey =
   | 'oghamInterpretationTitle'
   | 'getYourOghamReadingButton'
   | 'generatingOghamReadingButton'
+  | 'lerOghamButton'
   ;
 
 interface LanguageContextType {
@@ -662,6 +663,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     oghamInterpretationTitle: "Your Ogham Reading",
     getYourOghamReadingButton: "Get Ogham Reading (1 Credit)",
     generatingOghamReadingButton: "Generating Reading...",
+    lerOghamButton: "Read OGHAM",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -985,6 +987,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     oghamInterpretationTitle: "Sua Leitura Ogham",
     getYourOghamReadingButton: "Receber Leitura Ogham (1 Crédito)",
     generatingOghamReadingButton: "Gerando Leitura...",
+    lerOghamButton: "Ler OGHAM",
   }
 };
 

@@ -215,7 +215,7 @@ export default function DashboardPage() {
                 </CardContent>
                 <CardFooter>
                   <Button asChild className="w-full">
-                    <Link href="/ogham"><span>{t('interpretDreamButton')}</span></Link>
+                    <Link href="/ogham"><span>{t('lerOghamButton')}</span></Link>
                   </Button>
                 </CardFooter>
               </Card>
