@@ -22,7 +22,7 @@ export interface UserProfileData {
   role: 'user' | 'admin';
   dailyRewardStreak: number; // User's current position in the 30-day cycle
   lastClaimTimestamp: number | null; // Timestamp of the last claim, for the 24h cooldown
-  whatsapp?: UserWhatsappPreferences; // New field for WhatsApp preferences
+  whatsapp?: Partial<UserWhatsappPreferences>; // Use Partial to allow for gradual creation
 }
 
 export async function createUserProfile(user: User): Promise<void> {
@@ -109,6 +109,19 @@ export async function updateUserProfile(uid: string, data: Partial<Omit<UserProf
     if (data.role && !['user', 'admin'].includes(data.role)) {
         delete updates.role;
     }
+    
+    // If updating whatsapp, ensure we merge with existing settings
+    if (data.whatsapp) {
+      const existingProfileSnapshot = await get(userProfileRef);
+      if(existingProfileSnapshot.exists()) {
+        const existingProfile = existingProfileSnapshot.val();
+        updates.whatsapp = {
+          ...existingProfile.whatsapp,
+          ...data.whatsapp,
+        }
+      }
+    }
+
     await update(userProfileRef, updates);
   } catch (error) {
     console.error("Error updating user profile in RTDB:", error);

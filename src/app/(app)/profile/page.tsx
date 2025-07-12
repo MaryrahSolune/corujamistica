@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
 import { updateUserProfile as updateUserProfileInRtdb, getUserProfile } from '@/services/userService';
-import { Loader2, Edit3, UserCircle2, Palette, Check } from 'lucide-react';
+import { Loader2, Edit3, UserCircle2, Palette, Check, Phone } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { auth } from '@/lib/firebase';
 import { IconAvatar, availableIcons, gradientMap } from '@/components/IconAvatar';
@@ -25,6 +25,7 @@ export default function ProfilePage() {
   const { t } = useLanguage();
   
   const [displayName, setDisplayName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedIcon, setSelectedIcon] = useState('UserCircle2');
   const [selectedGradient, setSelectedGradient] = useState('aurora');
   
@@ -45,8 +46,8 @@ export default function ProfilePage() {
         .then(profile => {
           if (profile) {
             setDisplayName(profile.displayName || user.displayName || '');
+            setPhoneNumber(profile.whatsapp?.phoneNumber || '');
             if (profile.avatar) {
-              // Safeguard: Ensure we don't set state to null or undefined
               const icon = profile.avatar.iconName || 'UserCircle2';
               const gradient = profile.avatar.gradient || 'aurora';
               setSelectedIcon(icon);
@@ -75,13 +76,14 @@ export default function ProfilePage() {
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     const user = auth.currentUser;
-    if (!user) return;
+    if (!user || !userProfile) return;
 
-    const nameChanged = displayName !== (userProfile?.displayName || '');
-    const iconChanged = selectedIcon !== (userProfile?.avatar?.iconName || 'UserCircle2');
-    const gradientChanged = selectedGradient !== (userProfile?.avatar?.gradient || 'aurora');
+    const nameChanged = displayName !== userProfile.displayName;
+    const phoneChanged = phoneNumber !== (userProfile.whatsapp?.phoneNumber || '');
+    const iconChanged = selectedIcon !== (userProfile.avatar?.iconName || 'UserCircle2');
+    const gradientChanged = selectedGradient !== (userProfile.avatar?.gradient || 'aurora');
 
-    if (!nameChanged && !iconChanged && !gradientChanged) {
+    if (!nameChanged && !phoneChanged && !iconChanged && !gradientChanged) {
         setIsEditing(false);
         return;
     }
@@ -89,13 +91,19 @@ export default function ProfilePage() {
     setIsLoading(true);
 
     try {
-      const rtdbUpdates: { displayName?: string; avatar?: { iconName: string; gradient: string } } = {};
+      const rtdbUpdates: Partial<Omit<UserProfileData, 'uid' | 'email' | 'createdAt'>> = {};
 
       if (nameChanged) {
         rtdbUpdates.displayName = displayName;
       }
       if (iconChanged || gradientChanged) {
         rtdbUpdates.avatar = { iconName: selectedIcon, gradient: selectedGradient };
+      }
+      if(phoneChanged) {
+        rtdbUpdates.whatsapp = {
+            ...userProfile.whatsapp, // Preserve existing whatsapp settings like isEnabled and frequency
+            phoneNumber: phoneNumber,
+        };
       }
 
       await updateUserProfileInRtdb(user.uid, rtdbUpdates);
@@ -141,6 +149,7 @@ export default function ProfilePage() {
   }
 
   const hasChanges = displayName !== (userProfile?.displayName || '') || 
+                     phoneNumber !== (userProfile?.whatsapp?.phoneNumber || '') ||
                      selectedIcon !== (userProfile?.avatar?.iconName || 'UserCircle2') ||
                      selectedGradient !== (userProfile?.avatar?.gradient || 'aurora');
   
@@ -184,6 +193,18 @@ export default function ProfilePage() {
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   disabled={!isEditing || isLoading}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="phoneNumber">{t('whatsappPhoneNumberLabel')}</Label>
+                <Input
+                  id="phoneNumber"
+                  type="tel"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  disabled={!isEditing || isLoading}
+                  placeholder="+55 (XX) XXXXX-XXXX"
                 />
               </div>
 
@@ -282,6 +303,7 @@ export default function ProfilePage() {
                   <Button type="button" variant="outline" onClick={() => {
                     setIsEditing(false);
                     setDisplayName(userProfile?.displayName || '');
+                    setPhoneNumber(userProfile?.whatsapp?.phoneNumber || '');
                     setSelectedIcon(userProfile?.avatar?.iconName || 'UserCircle2');
                     setSelectedGradient(userProfile?.avatar?.gradient || 'aurora');
                   }} className="flex-1" disabled={isLoading}>
