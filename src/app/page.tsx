@@ -79,7 +79,7 @@ export default function HomePage() {
     {
       titleKey: 'prizeEbooksTitle',
       descriptionKey: 'prizeEbooksDescription',
-      imgSrc: '/img/OOP.png',
+      imgSrc: '/img/ebook-prize.png',
       imgHint: 'exclusive ebook',
       reverse: true,
     },
@@ -95,7 +95,7 @@ export default function HomePage() {
       descriptionKey: 'prizePhysicalTarotDescription',
       imgSrc: '/img/tar1.png',
       imgHint: 'physical tarot deck',
-      reverse: true,
+      reverse: false,
     },
   ];
 
