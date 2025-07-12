@@ -188,7 +188,7 @@ export default function OghamPage() {
                   <BookOpenText className="h-7 w-7 mr-3 text-accent" />
                   {t('oghamInterpretationTitle')}
                 </CardTitle>
-                <CardDescription className="text-lg text-accent-foreground font-semibold font-celtic">
+                <CardDescription className="text-lg text-accent font-semibold font-celtic">
                   Sua letra sorteada: {interpretationResult.oghamLetter} ({interpretationResult.oghamSymbol})
                 </CardDescription>
               </CardHeader>
