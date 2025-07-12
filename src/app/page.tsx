@@ -173,9 +173,6 @@ export default function HomePage() {
                 <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
                   {t('landingTitle')}
                 </h1>
-                <p className="text-xl md:text-2xl text-muted-foreground font-semibold max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '0.4s'}}>
-                  {t('landingSubtitle')}
-                </p>
             </div>
 
             <div className="space-x-4 animate-fade-in" style={{animationDelay: '0.6s'}}>

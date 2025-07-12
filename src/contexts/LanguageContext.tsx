@@ -150,6 +150,7 @@ export type TranslationKey =
   | 'timestampProcessing'
   | 'landingTitle'
   | 'landingSubtitle'
+  | 'landingButton'
   | 'howItWorksTitle'
   | 'howItWorksSubtitle'
   | 'howItWorksUploadTitle'
@@ -471,6 +472,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     timestampProcessing: "Processing timestamp...",
     landingTitle: "Unveil Your Destiny",
     landingSubtitle: "",
+    landingButton: "Start Your Journey",
     howItWorksTitle: "How It Works",
     howItWorksSubtitle: "Simple steps to your personalized mystical insights.",
     howItWorksUploadTitle: "1. Upload Your Cards",
@@ -782,8 +784,9 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     backToDashboardButton: "Voltar ao Painel",
     readingNotFound: "Leitura não encontrada.",
     timestampProcessing: "Processando data...",
-    landingTitle: "Desvende Seu Destino",
+    landingTitle: "Desvende seu Destino",
     landingSubtitle: "",
+    landingButton: "Iniciar sua Jornada",
     howItWorksTitle: "Como Funciona",
     howItWorksSubtitle: "Passos simples para seus insights místicos personalizados.",
     howItWorksUploadTitle: "1. Envie Suas Cartas",
