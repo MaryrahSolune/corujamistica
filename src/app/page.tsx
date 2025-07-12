@@ -28,22 +28,23 @@ export default function HomePage() {
   const [userCount, setUserCount] = useState<number | null>(null);
   const [showPlusOne, setShowPlusOne] = useState(false);
 
+  const INITIAL_SYMBOLIC_COUNT = 154;
+
   useEffect(() => {
     setIsClient(true);
     
     const countRef = ref(rtdb, 'metadata/userCount');
 
     const unsubscribe = onValue(countRef, (snapshot) => {
-      const newCount = snapshot.val();
-      const currentCount = newCount ?? 0; // Default to 0 if null/undefined
+      const newCount = snapshot.val() || 0;
 
       setUserCount((prevCount) => {
         // Only trigger animation if it's not the initial load and count has increased
-        if (prevCount !== null && currentCount > prevCount) {
+        if (prevCount !== null && newCount > prevCount) {
           setShowPlusOne(true);
           setTimeout(() => setShowPlusOne(false), 1500); // Animation duration
         }
-        return currentCount;
+        return newCount;
       });
     }, (error) => {
       console.error("Error fetching user count from Firebase:", error);
@@ -138,6 +139,8 @@ export default function HomePage() {
     );
   }
 
+  const displayCount = INITIAL_SYMBOLIC_COUNT + (userCount || 0);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <header className="py-6 sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -221,11 +224,11 @@ export default function HomePage() {
               <Users className="h-12 w-12 text-accent mx-auto mb-3" />
                <div className="relative inline-block">
                  <div className="text-4xl font-bold text-primary">
-                    {userCount !== null ? `+${userCount.toLocaleString('pt-BR')}` : <Skeleton className="h-10 w-32 inline-block" />}
+                    {userCount !== null ? `+${displayCount.toLocaleString('pt-BR')}` : <Skeleton className="h-10 w-32 inline-block" />}
                  </div>
                  {showPlusOne && (
                     <div className="absolute -top-5 -right-8 text-green-400 font-bold text-3xl animate-float-up pointer-events-none">
-                        +
+                        +1
                     </div>
                  )}
                </div>
