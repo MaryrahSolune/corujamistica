@@ -7,7 +7,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { interpretOghamReading, oghamLetters, type OghamLetterData, type InterpretOghamReadingOutput } from '@/ai/flows/interpret-ogham-reading';
+import { interpretOghamReading, type InterpretOghamReadingOutput } from '@/ai/flows/interpret-ogham-reading';
+import { oghamLetters, type OghamLetterData } from '@/lib/ogham-data';
 import { Loader2, BookOpenText, Leaf } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
