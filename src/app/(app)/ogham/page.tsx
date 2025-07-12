@@ -170,7 +170,7 @@ export default function OghamPage() {
         </div>
       )}
 
-      <img src="/img/arvores.gif" alt="Árvore mística" className="mt-8 mx-auto block max-w-full h-auto rounded-lg" />
+      <img src="/img/arvore.gif" alt="Árvore mística" className="mt-8 mx-auto block max-w-full h-auto rounded-lg" />
     </div>
   );
 }
