@@ -26,7 +26,7 @@ export interface OghamReadingData {
   interpretationText: string;
   oghamLetter: string;
   oghamSymbol: string;
-  treeImageUri?: string; // Image of the corresponding tree
+  treeImageUri?: string | null; // Image of the corresponding tree
   interpretationTimestamp: number | object;
 }
 
@@ -36,10 +36,21 @@ export async function saveReading(uid: string, readingData: Omit<ReadingData, 'i
   const readingsRef = ref(rtdb, `users/${uid}/readings`);
   const newReadingRef = push(readingsRef); // Generates a unique ID
   
-  const dataToSave: ReadingData = {
+  const dataWithTimestamp: ReadingData = {
     ...readingData,
     interpretationTimestamp: serverTimestamp(),
-  } as ReadingData; 
+  } as ReadingData;
+
+  // Create a clean object to save, explicitly removing any undefined properties
+  const dataToSave: Partial<ReadingData> = { ...dataWithTimestamp };
+  if (dataToSave.type === 'ogham' && dataToSave.treeImageUri === undefined) {
+    delete (dataToSave as Partial<OghamReadingData>).treeImageUri;
+  }
+  if (dataToSave.type === 'tarot') {
+    if (dataToSave.cardSpreadImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).cardSpreadImageUri;
+    if (dataToSave.summaryImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).summaryImageUri;
+  }
+
 
   try {
     await set(newReadingRef, dataToSave);

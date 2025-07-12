@@ -24,7 +24,7 @@ const InterpretOghamReadingOutputSchema = z.object({
     .describe('The AI-generated interpretation of the Ogham reading.'),
   oghamLetter: z.string().describe('The name of the randomly chosen Ogham letter.'),
   oghamSymbol: z.string().describe('The unicode symbol of the Ogham letter.'),
-  treeImageUri: z.string().describe('A data URI of a generated image representing the Ogham letter\'s tree.').optional(),
+  treeImageUri: z.string().describe('A data URI of a generated image representing the Ogham letter\'s tree.').optional().nullable(),
 });
 
 export type InterpretOghamReadingOutput = z.infer<
@@ -121,7 +121,7 @@ const interpretOghamReadingFlow = ai.defineFlow(
     }
 
     // 3. Generate the tree image in parallel
-    let treeImageUri: string | undefined = undefined;
+    let treeImageUri: string | null = null;
     try {
         const imagePrompt = `A realistic and enchanted, magical image of a large, ancient ${chosenLetter.tree} tree. The style should be like a beautiful tarot card, with intricate geometric borders and mystical glowing symbols. Ethereal lighting.`;
         const { media } = await ai.generate({
