@@ -24,6 +24,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { OghamIcon } from '@/components/MysticIcons';
+import { AdSlot } from '@/components/AdSlot';
 
 const GIFT_COOLDOWN_MILLISECONDS = 24 * 60 * 60 * 1000;
 
@@ -226,26 +227,27 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="rounded-lg animated-aurora-background">
-                <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-xl font-serif">{t('yourCreditsCardTitle')}</CardTitle>
-                    <CreditCard className="h-6 w-6 text-accent" />
-                    </CardHeader>
-                    <CardContent className="flex-grow">
-                    <div className="text-4xl font-bold text-primary">
-                        {userCredits !== null ? userCredits.balance : <Skeleton className="h-10 w-16 inline-block" />}
-                    </div>
-                    <p className="text-xs text-muted-foreground mb-4 font-medium">
-                        {t('creditsRemaining')}
-                    </p>
-                    </CardContent>
-                    <CardFooter>
-                    <Button variant="mystic-glow" asChild className="w-full">
-                        <Link href="/credits"><span>{t('purchaseMoreCreditsButton')}</span></Link>
-                    </Button>
-                    </CardFooter>
-                </Card>
+                    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-xl font-serif">{t('yourCreditsCardTitle')}</CardTitle>
+                        <CreditCard className="h-6 w-6 text-accent" />
+                        </CardHeader>
+                        <CardContent className="flex-grow">
+                        <div className="text-4xl font-bold text-primary">
+                            {userCredits !== null ? userCredits.balance : <Skeleton className="h-10 w-16 inline-block" />}
+                        </div>
+                        <p className="text-xs text-muted-foreground mb-4 font-medium">
+                            {t('creditsRemaining')}
+                        </p>
+                        </CardContent>
+                        <CardFooter>
+                        <Button variant="mystic-glow" asChild className="w-full">
+                            <Link href="/credits"><span>{t('purchaseMoreCreditsButton')}</span></Link>
+                        </Button>
+                        </CardFooter>
+                    </Card>
                 </div>
+                <AdSlot id="ad-dashboard-top" className="h-full min-h-[220px]" />
             </div>
             
             {/* Reward Calendar */}
