@@ -121,7 +121,7 @@ export default function OghamPage() {
         <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-8">
           <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
             <CardHeader>
-              <CardTitle className="text-3xl font-serif flex items-center">
+              <CardTitle className="text-3xl font-celtic flex items-center">
                 <OghamIcon className="h-8 w-8 mr-3 text-primary" />
                 {t('oghamOraclePageTitle')}
               </CardTitle>
@@ -171,7 +171,7 @@ export default function OghamPage() {
           <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
             <Card className="relative z-10 bg-destructive/80 dark:bg-destructive/70 backdrop-blur-md shadow-lg border-destructive">
               <CardHeader>
-                <CardTitle className="text-destructive-foreground font-serif">{t('errorOccurredCardTitle')}</CardTitle>
+                <CardTitle className="text-destructive-foreground font-celtic">{t('errorOccurredCardTitle')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-destructive-foreground">{error}</p>
@@ -184,11 +184,11 @@ export default function OghamPage() {
           <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
             <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
               <CardHeader>
-                <CardTitle className="text-2xl font-serif flex items-center">
+                <CardTitle className="text-2xl font-celtic flex items-center">
                   <BookOpenText className="h-7 w-7 mr-3 text-accent" />
                   {t('oghamInterpretationTitle')}
                 </CardTitle>
-                <CardDescription className="text-lg text-accent-foreground font-semibold">
+                <CardDescription className="text-lg text-accent-foreground font-semibold font-celtic">
                   Sua letra sorteada: {interpretationResult.oghamLetter} ({interpretationResult.oghamSymbol})
                 </CardDescription>
               </CardHeader>
@@ -205,7 +205,7 @@ export default function OghamPage() {
                       />
                   </div>
                 )}
-                <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify font-celtic">
                   {interpretationResult.interpretation}
                 </div>
               </CardContent>

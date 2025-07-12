@@ -61,7 +61,7 @@
   }
   /* Removed body::before rule for sacred geometry pattern */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif; /* Serif for headings */
+    @apply font-celtic; /* Use Celtic font for all headings */
   }
 
   @keyframes float-on-moon {

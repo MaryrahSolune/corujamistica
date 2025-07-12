@@ -14,6 +14,7 @@ export default {
       fontFamily: {
         sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
         serif: ['Georgia', 'Times New Roman', 'serif'], // Explicit system serifs
+        celtic: ['var(--font-celtic)', ...defaultTheme.fontFamily.serif],
       },
   		backgroundImage: {
         'shiva-hero-bg': "url('/img/shiva.jpg')",

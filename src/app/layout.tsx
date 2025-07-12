@@ -1,6 +1,6 @@
 
 import type { Metadata } from 'next';
-import { Inter as FontSans } from 'next/font/google'; // Using Inter as a clean sans-serif
+import { Inter as FontSans, Uncial_Antiqua as FontCeltic } from 'next/font/google'; // Using Inter as a clean sans-serif
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/contexts/AuthContext';
@@ -11,6 +11,13 @@ const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans',
 });
+
+const fontCeltic = FontCeltic({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-celtic',
+});
+
 
 export const metadata: Metadata = {
   title: {
@@ -49,7 +56,8 @@ export default function RootLayout({
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
-          fontSans.variable
+          fontSans.variable,
+          fontCeltic.variable
         )}
       >
         <AuthProvider>
