@@ -7,9 +7,13 @@
         ".write": "(auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin' && !newData.exists()) || (auth != null && auth.uid == $uid && newData.exists())",
         "profile": {
           ".write": "auth != null && auth.uid == $uid",
-          ".validate": "newData.hasChildren(['uid', 'displayName', 'email', 'createdAt', 'role']) && newData.child('uid').val() === $uid && newData.child('displayName').isString() && newData.child('displayName').val().length > 0 && newData.child('displayName').val().length < 100 && newData.child('email').isString() && newData.child('email').val().contains('@') && (newData.child('createdAt').isNumber() || (newData.child('createdAt').hasChild('.sv') && newData.child('createdAt').child('.sv').val() === 'timestamp')) && newData.child('role').isString() && (newData.child('role').val() === 'user' || newData.child('role').val() === 'admin')",
+          ".validate": "newData.hasChildren(['uid', 'displayName', 'email', 'createdAt', 'role']) && newData.child('uid').val() === $uid && newData.child('displayName').isString() && newData.child('displayName').val().length < 100 && newData.child('email').isString() && newData.child('email').val().contains('@') && (newData.child('createdAt').isNumber() || (newData.child('createdAt').hasChild('.sv') && newData.child('createdAt').child('.sv').val() === 'timestamp')) && newData.child('role').isString() && (newData.child('role').val() === 'user' || newData.child('role').val() === 'admin')",
           "role": {
             ".write": "auth != null && ((auth.uid == $uid && newData.val() === 'user' && (!data.exists() || data.child('role').val() === 'user')) || root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin')"
+          },
+          "whatsapp": {
+            ".write": "auth != null && auth.uid == $uid",
+            ".validate": "newData.hasChildren(['isEnabled', 'phoneNumber', 'frequency']) && newData.child('isEnabled').isBoolean() && newData.child('phoneNumber').isString() && newData.child('frequency').isString() && (newData.child('frequency').val() === '3h' || newData.child('frequency').val() === '6h' || newData.child('frequency').val() === '9h' || newData.child('frequency').val() === 'daily' || newData.child('frequency').val() === 'weekly')"
           }
         },
         "credits": {

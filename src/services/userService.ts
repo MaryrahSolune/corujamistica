@@ -3,6 +3,12 @@ import { rtdb } from '@/lib/firebase';
 import { ref, set, get, serverTimestamp, update, remove, runTransaction } from 'firebase/database';
 import type { User } from 'firebase/auth';
 
+export interface UserWhatsappPreferences {
+  isEnabled: boolean;
+  phoneNumber: string;
+  frequency: '3h' | '6h' | '9h' | 'daily' | 'weekly';
+}
+
 export interface UserProfileData {
   uid: string;
   displayName: string | null;
@@ -16,6 +22,7 @@ export interface UserProfileData {
   role: 'user' | 'admin';
   dailyRewardStreak: number; // User's current position in the 30-day cycle
   lastClaimTimestamp: number | null; // Timestamp of the last claim, for the 24h cooldown
+  whatsapp?: UserWhatsappPreferences; // New field for WhatsApp preferences
 }
 
 export async function createUserProfile(user: User): Promise<void> {
@@ -42,6 +49,14 @@ export async function createUserProfile(user: User): Promise<void> {
     if (existingProfile.lastClaimTimestamp === undefined) {
       updates.lastClaimTimestamp = null;
     }
+    // Initialize whatsapp preferences if they don't exist
+    if (existingProfile.whatsapp === undefined) {
+      updates.whatsapp = {
+        isEnabled: false,
+        phoneNumber: '',
+        frequency: 'daily',
+      };
+    }
     await update(userProfileRef, updates);
     return;
   }
@@ -56,6 +71,11 @@ export async function createUserProfile(user: User): Promise<void> {
     dailyRewardStreak: 0,
     lastClaimTimestamp: null,
     avatar: null, // Initialize avatar
+    whatsapp: { // Initialize whatsapp preferences
+      isEnabled: false,
+      phoneNumber: '',
+      frequency: 'daily',
+    },
   };
   if (user.photoURL) {
     profileData.photoURL = user.photoURL;
@@ -92,6 +112,17 @@ export async function updateUserProfile(uid: string, data: Partial<Omit<UserProf
     await update(userProfileRef, updates);
   } catch (error) {
     console.error("Error updating user profile in RTDB:", error);
+    throw error;
+  }
+}
+
+// Function to update only WhatsApp preferences
+export async function updateUserWhatsappPreferences(uid: string, preferences: UserWhatsappPreferences): Promise<void> {
+  const whatsappRef = ref(rtdb, `users/${uid}/profile/whatsapp`);
+  try {
+    await set(whatsappRef, preferences);
+  } catch (error) {
+    console.error("Error updating user WhatsApp preferences in RTDB:", error);
     throw error;
   }
 }

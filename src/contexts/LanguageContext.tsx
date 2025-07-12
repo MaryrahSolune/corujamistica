@@ -303,6 +303,25 @@ export type TranslationKey =
   | 'dreamDictionaryInterpretationTitle'
   | 'specialPrizeNoticeTitle'
   | 'specialPrizeNoticeDescription'
+  | 'whatsappMode'
+  | 'whatsappModeTitle'
+  | 'whatsappModeDescription'
+  | 'whatsappEnableLabel'
+  | 'whatsappEnableDescription'
+  | 'whatsappPhoneNumberLabel'
+  | 'whatsappPhoneNumberDescription'
+  | 'whatsappFrequencyLabel'
+  | 'whatsappFrequencyDescription'
+  | 'whatsappFrequency3h'
+  | 'whatsappFrequency6h'
+  | 'whatsappFrequency9h'
+  | 'whatsappFrequencyDaily'
+  | 'whatsappFrequencyWeekly'
+  | 'whatsappCreditUsageTitle'
+  | 'whatsappCreditUsageDescription'
+  | 'whatsappSettingsSavedTitle'
+  | 'whatsappSettingsSavedDescription'
+  | 'whatsappInvalidPhoneNumber'
   ;
 
 interface LanguageContextType {
@@ -606,6 +625,25 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dreamDictionaryInterpretationTitle: "Dream Dictionary Interpretation",
     specialPrizeNoticeTitle: "Special Prize!",
     specialPrizeNoticeDescription: "Complete the 30-day cycle to win a surprise!",
+    whatsappMode: "WhatsApp Mode",
+    whatsappModeTitle: "WhatsApp Mode",
+    whatsappModeDescription: "Activate to receive daily forecasts and interpret your dreams directly through WhatsApp.",
+    whatsappEnableLabel: "Enable WhatsApp Mode",
+    whatsappEnableDescription: "Receive insights and interact with the oracle via WhatsApp.",
+    whatsappPhoneNumberLabel: "Your WhatsApp Number",
+    whatsappPhoneNumberDescription: "Enter your number with the country code (e.g., +14155552671).",
+    whatsappFrequencyLabel: "Forecast Frequency",
+    whatsappFrequencyDescription: "Choose how often you want to receive the 'Daily Forecast'.",
+    whatsappFrequency3h: "Every 3 hours",
+    whatsappFrequency6h: "Every 6 hours",
+    whatsappFrequency9h: "Every 9 hours",
+    whatsappFrequencyDaily: "Once a day",
+    whatsappFrequencyWeekly: "Once a week",
+    whatsappCreditUsageTitle: "Credit Usage",
+    whatsappCreditUsageDescription: "Each dream interpretation requested via WhatsApp will consume one credit, just like on the platform.",
+    whatsappSettingsSavedTitle: "Settings Saved",
+    whatsappSettingsSavedDescription: "Your WhatsApp preferences have been updated.",
+    whatsappInvalidPhoneNumber: "Please enter a valid phone number.",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -901,6 +939,25 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     dreamDictionaryInterpretationTitle: "Interpretação do Livro dos Sonhos",
     specialPrizeNoticeTitle: "Prêmio Especial!",
     specialPrizeNoticeDescription: "Complete o ciclo de 30 dias para ganhar uma surpresa!",
+    whatsappMode: "Modo WhatsApp",
+    whatsappModeTitle: "Modo WhatsApp",
+    whatsappModeDescription: "Ative para receber previsões diárias e interpretar seus sonhos diretamente pelo WhatsApp.",
+    whatsappEnableLabel: "Ativar Modo WhatsApp",
+    whatsappEnableDescription: "Receba insights e interaja com o oráculo via WhatsApp.",
+    whatsappPhoneNumberLabel: "Seu número de WhatsApp",
+    whatsappPhoneNumberDescription: "Insira seu número com o código do país (ex: +5511999998888).",
+    whatsappFrequencyLabel: "Frequência das Previsões",
+    whatsappFrequencyDescription: "Escolha com que frequência deseja receber a 'Previsão do dia'.",
+    whatsappFrequency3h: "A cada 3 horas",
+    whatsappFrequency6h: "A cada 6 horas",
+    whatsappFrequency9h: "A cada 9 horas",
+    whatsappFrequencyDaily: "Uma vez por dia",
+    whatsappFrequencyWeekly: "Uma vez por semana",
+    whatsappCreditUsageTitle: "Uso de Créditos",
+    whatsappCreditUsageDescription: "Cada interpretação de sonho solicitada pelo WhatsApp consumirá um crédito, assim como na plataforma.",
+    whatsappSettingsSavedTitle: "Configurações Salvas",
+    whatsappSettingsSavedDescription: "Suas preferências do WhatsApp foram atualizadas.",
+    whatsappInvalidPhoneNumber: "Por favor, insira um número de telefone válido.",
   }
 };
 
