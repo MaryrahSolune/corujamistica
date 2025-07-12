@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { interpretOghamReading, type InterpretOghamReadingOutput } from '@/ai/flows/interpret-ogham-reading';
-import { Loader2, BookOpenText } from 'lucide-react';
+import { Loader2, BookOpenText, Leaf } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -16,6 +16,18 @@ import { deductCredit } from '@/services/creditService';
 import { saveReading, type ReadingData } from '@/services/readingService';
 import { OghamIcon } from '@/components/MysticIcons';
 import { AdSlot } from '@/components/AdSlot';
+
+const LeafyBackground = () => (
+    <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* A few large, strategically placed leaves */}
+        <Leaf className="absolute top-[10%] left-[5%] h-24 w-24 text-green-500/80 animate-leaf-fade" style={{ animationDelay: '0s', transform: 'rotate(-20deg)' }} />
+        <Leaf className="absolute top-[20%] right-[10%] h-32 w-32 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '2s', transform: 'rotate(15deg)' }} />
+        <Leaf className="absolute bottom-[15%] left-[15%] h-28 w-28 text-green-500/80 animate-leaf-fade" style={{ animationDelay: '4s', transform: 'rotate(30deg)' }} />
+        <Leaf className="absolute bottom-[5%] right-[20%] h-36 w-36 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '6s', transform: 'rotate(-10deg)' }} />
+        <Leaf className="absolute top-[40%] left-[45%] h-20 w-20 text-green-500/80 animate-leaf-fade" style={{ animationDelay: '1s' }} />
+    </div>
+);
+
 
 export default function OghamPage() {
   const [query, setQuery] = useState<string>('');
@@ -184,7 +196,10 @@ export default function OghamPage() {
           </div>
         )}
 
-        <img src="/img/arvore.gif" alt="Árvore mística" className="mt-8 mx-auto block max-w-full h-auto rounded-lg" />
+        <div className="relative mt-8 mx-auto block max-w-full h-auto w-fit">
+            <LeafyBackground />
+            <img src="/img/arvore.gif" alt="Árvore mística" className="relative z-10 rounded-lg" />
+        </div>
       </div>
     </div>
   );
