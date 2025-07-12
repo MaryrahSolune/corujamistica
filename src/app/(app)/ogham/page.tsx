@@ -20,11 +20,11 @@ import { AdSlot } from '@/components/AdSlot';
 const LeafyBackground = () => (
     <div className="absolute inset-0 z-0 overflow-hidden">
         {/* A few large, strategically placed leaves */}
-        <Leaf className="absolute top-[10%] left-[5%] h-24 w-24 text-green-500/80 animate-leaf-fade" style={{ animationDelay: '0s', transform: 'rotate(-20deg)' }} />
-        <Leaf className="absolute top-[20%] right-[10%] h-32 w-32 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '2s', transform: 'rotate(15deg)' }} />
-        <Leaf className="absolute bottom-[15%] left-[15%] h-28 w-28 text-green-500/80 animate-leaf-fade" style={{ animationDelay: '4s', transform: 'rotate(30deg)' }} />
-        <Leaf className="absolute bottom-[5%] right-[20%] h-36 w-36 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '6s', transform: 'rotate(-10deg)' }} />
-        <Leaf className="absolute top-[40%] left-[45%] h-20 w-20 text-green-500/80 animate-leaf-fade" style={{ animationDelay: '1s' }} />
+        <Leaf className="absolute top-[10%] left-[5%] h-24 w-24 text-green-500/10 animate-leaf-fade" style={{ animationDelay: '0s', transform: 'rotate(-20deg)' }} />
+        <Leaf className="absolute top-[20%] right-[10%] h-32 w-32 text-green-400/10 animate-leaf-fade" style={{ animationDelay: '2s', transform: 'rotate(15deg)' }} />
+        <Leaf className="absolute bottom-[15%] left-[15%] h-28 w-28 text-green-500/10 animate-leaf-fade" style={{ animationDelay: '4s', transform: 'rotate(30deg)' }} />
+        <Leaf className="absolute bottom-[5%] right-[20%] h-36 w-36 text-green-400/10 animate-leaf-fade" style={{ animationDelay: '6s', transform: 'rotate(-10deg)' }} />
+        <Leaf className="absolute top-[40%] left-[45%] h-20 w-20 text-green-500/10 animate-leaf-fade" style={{ animationDelay: '1s' }} />
     </div>
 );
 
