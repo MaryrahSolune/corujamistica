@@ -3,7 +3,7 @@
 
 import { icons } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { ComponentProps } from 'react';
+import type { ComponentProps, ElementType } from 'react';
 
 export const gradientMap: Record<string, string> = {
   aurora: 'from-primary via-accent to-secondary',
@@ -31,10 +31,32 @@ export const IconAvatar = ({ iconName, gradientName, className, ...props }: Icon
   // OR if the icon lookup results in `undefined` (because the name is invalid),
   // it immediately falls back to a known safe default ('UserCircle2').
   // This ensures `LucideIcon` is always a valid component, preventing the crash.
-  const LucideIcon = (iconName && icons[iconName as keyof typeof icons]) || icons['UserCircle2'];
+  const LucideIcon: ElementType = (iconName && icons[iconName as keyof typeof icons]) || icons['UserCircle2'];
     
   // A similar robust fallback for the gradient.
   const gradientClass = (gradientName && gradientMap[gradientName]) || gradientMap['aurora'];
+
+  if (!LucideIcon) {
+    // This is an absolute fallback in case the primary fallback fails,
+    // which should not happen. It prevents a crash.
+    const FallbackIcon = icons['UserCircle2'];
+    return (
+       <div
+        className={cn(
+          'flex h-full w-full items-center justify-center rounded-full bg-muted',
+          className
+        )}
+        {...props}
+      >
+        <div className={cn('h-2/3 w-2/3 bg-gradient-to-br bg-clip-text', gradientClass)}>
+          <FallbackIcon
+            className="h-full w-full text-transparent"
+            strokeWidth={1.5}
+          />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div
