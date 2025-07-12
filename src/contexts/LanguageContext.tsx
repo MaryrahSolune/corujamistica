@@ -150,7 +150,6 @@ export type TranslationKey =
   | 'timestampProcessing'
   | 'landingTitle'
   | 'landingSubtitle'
-  | 'landingButton'
   | 'howItWorksTitle'
   | 'howItWorksSubtitle'
   | 'howItWorksUploadTitle'
@@ -471,8 +470,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     readingNotFound: "Reading not found.",
     timestampProcessing: "Processing timestamp...",
     landingTitle: "Unveil Your Destiny",
-    landingSubtitle: "Uncover the meaning of your tarot cards and the interpretation of your dreams. Your journey of self-discovery, guided by Tarot and Cigano Cards, begins here.",
-    landingButton: "Begin Your Journey",
+    landingSubtitle: "",
     howItWorksTitle: "How It Works",
     howItWorksSubtitle: "Simple steps to your personalized mystical insights.",
     howItWorksUploadTitle: "1. Upload Your Cards",
@@ -785,8 +783,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     readingNotFound: "Leitura não encontrada.",
     timestampProcessing: "Processando data...",
     landingTitle: "Desvende Seu Destino",
-    landingSubtitle: "Desvende o significado das suas cartas de tarô e a interpretação dos seus sonhos. Sua jornada de autoconhecimento, guiada por Tarot e Baralho Cigano, começa aqui.",
-    landingButton: "Comece Sua Jornada",
+    landingSubtitle: "",
     howItWorksTitle: "Como Funciona",
     howItWorksSubtitle: "Passos simples para seus insights místicos personalizados.",
     howItWorksUploadTitle: "1. Envie Suas Cartas",
