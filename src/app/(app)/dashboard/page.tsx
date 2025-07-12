@@ -145,6 +145,7 @@ export default function DashboardPage() {
     else if (reading.type === 'dream') title = reading.dreamDescription;
     else if (reading.type === 'ogham') title = reading.query;
     
+    if (!title) return t('noRecentReadings');
     return title.substring(0, maxLength) + (title.length > maxLength ? '...' : '');
   };
 
