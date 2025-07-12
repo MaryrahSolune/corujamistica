@@ -79,7 +79,7 @@ export default function HomePage() {
     {
       titleKey: 'prizeEbooksTitle',
       descriptionKey: 'prizeEbooksDescription',
-      imgSrc: '/img/livro.png',
+      imgSrc: '/img/livro777.png',
       imgHint: 'exclusive ebook',
       reverse: true,
     },
