@@ -176,7 +176,7 @@
       transform: scale(0.95) rotate(var(--tw-rotate, 0deg));
     }
     50% {
-      opacity: 0.25;
+      opacity: 0.8; /* Increased opacity to be visible */
       transform: scale(1.05) rotate(var(--tw-rotate, 0deg));
     }
   }
