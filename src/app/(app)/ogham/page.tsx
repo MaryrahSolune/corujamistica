@@ -1,13 +1,13 @@
 
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { interpretOghamReading, type InterpretOghamReadingOutput } from '@/ai/flows/interpret-ogham-reading';
+import { interpretOghamReading, oghamLetters, type OghamLetterData, type InterpretOghamReadingOutput } from '@/ai/flows/interpret-ogham-reading';
 import { Loader2, BookOpenText, Leaf } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
@@ -20,10 +20,9 @@ import { cn } from '@/lib/utils';
 
 const LeafyBackground = () => (
     <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* A few large, strategically placed leaves with a more visible color */}
         <Leaf className="absolute top-[10%] left-[5%] h-24 w-24 text-green-400 animate-leaf-fade" style={{ animationDelay: '0s', transform: 'rotate(-20deg)' }} />
         <Leaf className="absolute top-[20%] right-[10%] h-32 w-32 text-green-400 animate-leaf-fade" style={{ animationDelay: '2s', transform: 'rotate(15deg)' }} />
-        <Leaf className="absolute bottom-[15%] left-[15%] h-28 w-28 text-green-400 animate-leaf-fade" style={{ animationDelay: '4s', transform: 'rotate(30deg)' }} />
+        <Leaf className="absolute bottom-[15%] left-[15%]%] h-28 w-28 text-green-400 animate-leaf-fade" style={{ animationDelay: '4s', transform: 'rotate(30deg)' }} />
         <Leaf className="absolute bottom-[5%] right-[20%] h-36 w-36 text-green-400 animate-leaf-fade" style={{ animationDelay: '6s', transform: 'rotate(-10deg)' }} />
         <Leaf className="absolute top-[40%] left-[45%] h-20 w-20 text-green-400 animate-leaf-fade" style={{ animationDelay: '1s' }} />
     </div>
@@ -31,20 +30,13 @@ const LeafyBackground = () => (
 
 const VineFrame = () => (
     <div className="absolute inset-0 z-20 pointer-events-none">
-        {/* Top-left vine */}
         <Leaf className="absolute -top-2 -left-3 h-10 w-10 text-green-400 -rotate-45" />
         <Leaf className="absolute top-8 -left-5 h-8 w-8 text-green-400 -rotate-[60deg]" />
         <Leaf className="absolute top-20 -left-2 h-10 w-10 text-green-400 -rotate-[75deg]" />
-
-        {/* Top-right vine */}
         <Leaf className="absolute -top-3 -right-2 h-10 w-10 text-green-400 rotate-45" />
         <Leaf className="absolute top-10 -right-4 h-8 w-8 text-green-400 rotate-[60deg]" />
-        
-        {/* Bottom-left vine */}
         <Leaf className="absolute -bottom-2 -left-2 h-12 w-12 text-green-400 -rotate-[120deg]" />
         <Leaf className="absolute bottom-16 -left-4 h-8 w-8 text-green-400 -rotate-[100deg]" />
-
-        {/* Bottom-right vine */}
         <Leaf className="absolute -bottom-4 -right-3 h-12 w-12 text-green-400 rotate-[120deg]" />
         <Leaf className="absolute bottom-20 -right-2 h-8 w-8 text-green-400 rotate-[100deg]" />
         <Leaf className="absolute bottom-36 -right-1 h-6 w-6 text-green-400 rotate-[80deg]" />
@@ -60,9 +52,18 @@ export default function OghamPage() {
   const { toast } = useToast();
   const { t } = useLanguage();
   const { currentUser, userCredits, refreshCredits } = useAuth();
+  
+  const [readingStarted, setReadingStarted] = useState(false);
+  const [selectedStick, setSelectedStick] = useState<OghamLetterData | null>(null);
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+  // Memoize shuffled sticks so they don't re-shuffle on every render
+  const shuffledSticks = useMemo(() => {
+    // We only need a few sticks for the user to choose from
+    return oghamLetters.sort(() => 0.5 - Math.random()).slice(0, 5);
+  }, []);
+
+  const handleStickClick = async (stick: OghamLetterData) => {
+    if (isLoading || readingStarted) return; // Prevent multiple clicks
 
     if (!currentUser) {
       toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToRead'), variant: 'destructive' });
@@ -78,6 +79,8 @@ export default function OghamPage() {
     }
 
     setIsLoading(true);
+    setReadingStarted(true);
+    setSelectedStick(stick);
     setInterpretationResult(null);
     setError(null);
 
@@ -88,7 +91,7 @@ export default function OghamPage() {
       }
       refreshCredits();
 
-      const result = await interpretOghamReading({ query });
+      const result = await interpretOghamReading({ query, chosenLetter: stick });
       setInterpretationResult(result);
 
       if (result && result.interpretation) {
@@ -113,6 +116,14 @@ export default function OghamPage() {
       setIsLoading(false);
     }
   };
+  
+  const handleReset = () => {
+    setQuery('');
+    setInterpretationResult(null);
+    setError(null);
+    setReadingStarted(false);
+    setSelectedStick(null);
+  };
 
   return (
     <div className="bg-black">
@@ -129,41 +140,64 @@ export default function OghamPage() {
                 {t('oghamOraclePageDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
               </CardDescription>
             </CardHeader>
-            <form onSubmit={handleSubmit}>
-              <CardContent className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="query" className="text-lg">{t('yourQuestionLabel')}</Label>
-                  <Textarea
-                    id="query"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder={t('questionPlaceholder')}
-                    rows={4}
-                    className="resize-none"
-                    disabled={isLoading}
-                  />
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="query" className="text-lg">{t('yourQuestionLabel')}</Label>
+                <Textarea
+                  id="query"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={t('questionPlaceholder')}
+                  rows={3}
+                  className="resize-none"
+                  disabled={readingStarted}
+                />
+              </div>
+
+              <div>
+                <Label className="text-lg mb-2 block text-center">Escolha um Ogham</Label>
+                <div className="flex justify-center items-center gap-4 py-4 min-h-[100px]">
+                  {shuffledSticks.map((stick, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleStickClick(stick)}
+                      disabled={readingStarted || isLoading}
+                      className={cn(
+                        "group w-10 h-28 rounded-lg transition-all duration-300 transform-gpu",
+                        "bg-gradient-to-b from-amber-900 via-yellow-950 to-amber-950 shadow-md border-2 border-amber-950",
+                        readingStarted && selectedStick?.letter !== stick.letter && "opacity-30 blur-sm",
+                        readingStarted && selectedStick?.letter === stick.letter && "scale-110 shadow-accent/50",
+                        !readingStarted && "hover:scale-110 hover:shadow-lg hover:shadow-accent/40 cursor-pointer"
+                      )}
+                    >
+                      <div className={cn(
+                        "w-full h-full flex items-center justify-center transition-opacity duration-500",
+                        readingStarted && selectedStick?.letter === stick.letter ? "opacity-100" : "opacity-0"
+                      )}>
+                        {selectedStick?.letter === stick.letter && (
+                          <div className="w-8 h-16 bg-amber-200 rounded-md flex items-center justify-center shadow-inner">
+                             <span className="text-3xl font-celtic text-amber-950">{stick.symbol}</span>
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  ))}
                 </div>
-              </CardContent>
-              <CardFooter>
-                <Button 
-                  type="submit"
-                  className="w-full text-lg py-6"
-                  disabled={isLoading || !query.trim() || (userCredits && userCredits.balance < 1)}
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      {t('generatingOghamReadingButton')}
-                    </>
-                  ) : (
-                    <>
-                      <OghamIcon className="mr-2 h-5 w-5" />
-                      {t('getYourOghamReadingButton')}
-                    </>
-                  )}
-                </Button>
-              </CardFooter>
-            </form>
+                {isLoading && (
+                    <div className="flex items-center justify-center text-primary">
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        <span>Consultando as árvores...</span>
+                    </div>
+                )}
+              </div>
+            </CardContent>
+            {readingStarted && !isLoading && (
+                <CardFooter>
+                    <Button onClick={handleReset} variant="outline" className="w-full">
+                        Fazer Outra Leitura
+                    </Button>
+                </CardFooter>
+            )}
           </Card>
         </div>
 
@@ -219,10 +253,10 @@ export default function OghamPage() {
           </div>
         )}
 
-        <div className="relative mt-8 mx-auto block max-w-full h-auto w-fit">
+        <div className="relative mt-8 mx-auto w-fit">
             <LeafyBackground />
             <div className="relative z-10 p-2">
-                <img src="/img/arvore.gif" alt="Árvore mística" className="rounded-lg relative z-10" />
+                 <img src="/img/arvore.gif" alt="Árvore mística" className="rounded-lg relative z-10" />
             </div>
             <VineFrame />
         </div>

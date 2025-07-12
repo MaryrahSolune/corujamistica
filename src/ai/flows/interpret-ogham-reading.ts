@@ -12,27 +12,9 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-const InterpretOghamReadingInputSchema = z.object({
-  query: z.string().describe('The user query or context for the Ogham reading.'),
-});
-
-export type InterpretOghamReadingInput = z.infer<typeof InterpretOghamReadingInputSchema>;
-
-const InterpretOghamReadingOutputSchema = z.object({
-  interpretation: z
-    .string()
-    .describe('The AI-generated interpretation of the Ogham reading.'),
-  oghamLetter: z.string().describe('The name of the randomly chosen Ogham letter.'),
-  oghamSymbol: z.string().describe('The unicode symbol of the Ogham letter.'),
-  treeImageUri: z.string().describe('A data URI of a generated image representing the Ogham letter\'s tree.').optional().nullable(),
-});
-
-export type InterpretOghamReadingOutput = z.infer<
-  typeof InterpretOghamReadingOutputSchema
->;
-
 // Ogham letters data (Aicme A, B, C, D, and Forfeda)
-const oghamLetters = [
+// This is now also used by the frontend to display the sticks
+export const oghamLetters = [
     // Aicme Beithe (Birch Group)
     { letter: "Beith", tree: "Birch", symbol: "ᚁ", meaning: "Birch, Beginnings, New starts, Purification, Renewal" },
     { letter: "Luis", tree: "Rowan", symbol: "ᚂ", meaning: "Rowan, Protection, Insight, Vision, Control" },
@@ -65,6 +47,31 @@ const oghamLetters = [
     { letter: "Aamhancholl", tree: "Witch Hazel", symbol: "ᚙ", meaning: "Witch Hazel, Duality, Protection, Hidden knowledge" },
 ];
 
+export type OghamLetterData = (typeof oghamLetters)[0];
+
+const InterpretOghamReadingInputSchema = z.object({
+  query: z.string().describe('The user query or context for the Ogham reading.'),
+  chosenLetter: z.object({
+    letter: z.string(),
+    tree: z.string(),
+    symbol: z.string(),
+    meaning: z.string(),
+  }).describe('The Ogham letter object chosen by the user.'),
+});
+export type InterpretOghamReadingInput = z.infer<typeof InterpretOghamReadingInputSchema>;
+
+
+const InterpretOghamReadingOutputSchema = z.object({
+  interpretation: z
+    .string()
+    .describe('The AI-generated interpretation of the Ogham reading.'),
+  oghamLetter: z.string().describe('The name of the chosen Ogham letter.'),
+  oghamSymbol: z.string().describe('The unicode symbol of the Ogham letter.'),
+  treeImageUri: z.string().describe('A data URI of a generated image representing the Ogham letter\'s tree.').nullable(),
+});
+export type InterpretOghamReadingOutput = z.infer<
+  typeof InterpretOghamReadingOutputSchema
+>;
 
 const interpretOghamPrompt = ai.definePrompt({
   name: 'interpretOghamPrompt',
@@ -77,9 +84,7 @@ const interpretOghamPrompt = ai.definePrompt({
   output: { schema: z.object({ interpretation: z.string() }) }, // Only text interpretation from this prompt
   prompt: `Você é um Druida ancião, um guardião da sabedoria das árvores e dos mistérios do Ogham, o alfabeto sagrado dos celtas. Sua voz é calma, poética e profunda, carregada com o conhecimento de eras. Um consulente se aproxima buscando orientação para uma questão específica.
   
-Uma única letra do Ogham foi sorteada para responder à pergunta. Sua tarefa é interpretar a mensagem da letra sorteada no contexto da pergunta do consulente.
-
-A letra sorteada é: **{{oghamLetter}} ({{oghamSymbol}})**
+A letra do Ogham sorteada para responder à pergunta foi **{{oghamLetter}} ({{oghamSymbol}})**.
 O significado central desta letra é: **{{oghamMeaning}}**
 
 **Instruções para a Interpretação:**
@@ -104,9 +109,8 @@ const interpretOghamReadingFlow = ai.defineFlow(
     outputSchema: InterpretOghamReadingOutputSchema,
   },
   async (input) => {
-    // 1. "Draw" a random Ogham letter
-    const randomIndex = Math.floor(Math.random() * oghamLetters.length);
-    const chosenLetter = oghamLetters[randomIndex];
+    // 1. The letter is now passed in directly from the frontend
+    const chosenLetter = input.chosenLetter;
     
     // 2. Generate the interpretation based on the drawn letter and the user's query
     const { output: interpretationOutput } = await interpretOghamPrompt({
@@ -137,12 +141,11 @@ const interpretOghamReadingFlow = ai.defineFlow(
                 ],
             },
         });
-        if (media?.url) {
-            treeImageUri = media.url;
-        }
+        treeImageUri = media?.url || null;
     } catch (e) {
         console.error('Error generating Ogham tree image:', e);
         // Fail gracefully, the text interpretation will still be returned.
+        treeImageUri = null;
     }
 
     // 4. Return the complete output
