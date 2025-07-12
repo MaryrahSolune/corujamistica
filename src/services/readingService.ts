@@ -43,7 +43,7 @@ export async function saveReading(uid: string, readingData: Omit<ReadingData, 'i
 
   // Create a clean object to save, explicitly removing any undefined properties
   const dataToSave: Partial<ReadingData> = { ...dataWithTimestamp };
-  if (dataToSave.type === 'ogham' && dataToSave.treeImageUri === undefined) {
+  if (dataToSave.type === 'ogham' && (dataToSave.treeImageUri === undefined || dataToSave.treeImageUri === null)) {
     delete (dataToSave as Partial<OghamReadingData>).treeImageUri;
   }
   if (dataToSave.type === 'tarot') {
