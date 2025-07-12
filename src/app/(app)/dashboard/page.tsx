@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback, type ComponentType } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock } from 'lucide-react';
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock, TreeDeciduous } from 'lucide-react';
 import { 
   Gem, Sparkles, Moon, Sun, Star, Crown, Feather, Key, Scroll, 
   BrainCircuit as BrainIcon, Shield, Pyramid, Infinity as InfinityIcon, Hexagon, Flower, Flame, Leaf, 
@@ -23,6 +23,7 @@ import { ptBR, enUS } from 'date-fns/locale';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { OghamIcon } from '@/components/MysticIcons';
 
 const GIFT_COOLDOWN_MILLISECONDS = 24 * 60 * 60 * 1000;
 
@@ -141,6 +142,7 @@ export default function DashboardPage() {
     let title = '';
     if (reading.type === 'tarot') title = reading.query;
     else if (reading.type === 'dream') title = reading.dreamDescription;
+    else if (reading.type === 'ogham') title = reading.query;
     
     return title.substring(0, maxLength) + (title.length > maxLength ? '...' : '');
   };
@@ -148,6 +150,7 @@ export default function DashboardPage() {
   const getReadingTypeTranslation = (type: ReadingData['type']) => {
     if (type === 'tarot') return t('tarotReadingType');
     if (type === 'dream') return t('dreamInterpretationType');
+    if (type === 'ogham') return t('oghamReadingType');
     return 'Leitura';
   }
 
@@ -196,6 +199,23 @@ export default function DashboardPage() {
                 <CardFooter>
                   <Button asChild className="w-full">
                     <Link href="/dream-interpretation"><span>{t('interpretDreamButton')}</span></Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+
+            <div className="rounded-lg animated-aurora-background">
+              <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-xl font-serif">{t('oghamOracle')}</CardTitle>
+                  <OghamIcon className="h-6 w-6 text-primary" />
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-muted-foreground mb-4 font-medium">{t('oghamOracleDescription')}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild className="w-full">
+                    <Link href="/ogham"><span>{t('interpretDreamButton')}</span></Link>
                   </Button>
                 </CardFooter>
               </Card>

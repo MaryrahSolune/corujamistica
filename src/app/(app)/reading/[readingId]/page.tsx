@@ -15,6 +15,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { format } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
 import { AdSlot } from '@/components/AdSlot';
+import { OghamIcon } from '@/components/MysticIcons';
 
 type ReadingWithId = ReadingData & { id: string };
 
@@ -113,7 +114,10 @@ export default function ViewReadingPage() {
   } else if (reading.type === 'dream') {
     pageTitle = t('dreamInterpretationDetailsTitle');
     PageIcon = BrainCircuit;
-  } 
+  } else if (reading.type === 'ogham') {
+    pageTitle = t('oghamReadingType');
+    PageIcon = OghamIcon;
+  }
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 max-w-3xl">
@@ -243,6 +247,28 @@ export default function ViewReadingPage() {
                     </div>
                   </div>
                 )}
+              </>
+            )}
+
+            {reading.type === 'ogham' && (
+              <>
+                <div>
+                  <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yourQuestionLabel')}</h3>
+                  <blockquote className="mt-2 border-l-4 border-accent pl-4 italic text-foreground/80 whitespace-pre-wrap">
+                    {reading.query}
+                  </blockquote>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold font-serif mb-2 text-accent flex items-center">
+                    <BookOpenText className="mr-2 h-5 w-5"/> {t('interpretationTitle')}
+                  </h3>
+                   <p className="mb-4 text-lg text-foreground font-semibold">
+                    Letra Sorteada: {reading.oghamLetter} ({reading.oghamSymbol})
+                  </p>
+                  <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify font-medium">
+                    {reading.interpretationText}
+                  </div>
+                </div>
               </>
             )}
             

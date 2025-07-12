@@ -20,7 +20,16 @@ export interface DreamInterpretationData {
   interpretationTimestamp: number | object;
 }
 
-export type ReadingData = TarotReadingData | DreamInterpretationData;
+export interface OghamReadingData {
+  type: 'ogham';
+  query: string;
+  interpretationText: string;
+  oghamLetter: string;
+  oghamSymbol: string;
+  interpretationTimestamp: number | object;
+}
+
+export type ReadingData = TarotReadingData | DreamInterpretationData | OghamReadingData;
 
 export async function saveReading(uid: string, readingData: Omit<ReadingData, 'interpretationTimestamp'>): Promise<string | null> {
   const readingsRef = ref(rtdb, `users/${uid}/readings`);
@@ -75,5 +84,3 @@ export async function getReadingById(uid: string, readingId: string): Promise<(R
     throw error;
   }
 }
-
-    

@@ -322,6 +322,15 @@ export type TranslationKey =
   | 'whatsappSettingsSavedTitle'
   | 'whatsappSettingsSavedDescription'
   | 'whatsappInvalidPhoneNumber'
+  | 'oghamOracle'
+  | 'oghamOracleDescription'
+  | 'oghamOracleTitle'
+  | 'oghamOraclePageTitle'
+  | 'oghamOraclePageDescription'
+  | 'oghamReadingType'
+  | 'oghamInterpretationTitle'
+  | 'getYourOghamReadingButton'
+  | 'generatingOghamReadingButton'
   ;
 
 interface LanguageContextType {
@@ -644,6 +653,15 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     whatsappSettingsSavedTitle: "Settings Saved",
     whatsappSettingsSavedDescription: "Your WhatsApp preferences have been updated.",
     whatsappInvalidPhoneNumber: "Please enter a valid phone number.",
+    oghamOracle: "Ogham Oracle",
+    oghamOracleDescription: "Vibrate with the frequency of the Sacred Trees and begin your Spiritual Discovery.",
+    oghamOracleTitle: "OGHAM Druid Oracle",
+    oghamOraclePageTitle: "Ogham Oracle",
+    oghamOraclePageDescription: "Connect with the ancient wisdom of the trees. Ask your question and receive guidance from the Ogham oracle.",
+    oghamReadingType: "Ogham Reading",
+    oghamInterpretationTitle: "Your Ogham Reading",
+    getYourOghamReadingButton: "Get Ogham Reading (1 Credit)",
+    generatingOghamReadingButton: "Generating Reading...",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -726,7 +744,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     viewReadingButton: 'Ver',
     tarotReadingType: 'Leitura de Tarot',
     dreamInterpretationType: 'Interpretação de Sonho',
-    discoverYourPathTitle: 'Descubra Seu Caminho',
+    discoverYourPathTitle: 'Desvende seu Destino',
     discoverYourPathDescription: 'Deixe as cartas e estrelas guiarem sua jornada. Nossas interpretações por IA oferecem uma visão moderna da sabedoria ancestral.',
     defaultSeekerName: 'Consulente',
     authErrorTitle: 'Erro de Autenticação',
@@ -958,6 +976,15 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     whatsappSettingsSavedTitle: "Configurações Salvas",
     whatsappSettingsSavedDescription: "Suas preferências do WhatsApp foram atualizadas.",
     whatsappInvalidPhoneNumber: "Por favor, insira um número de telefone válido.",
+    oghamOracle: "Oráculo de Ogham",
+    oghamOracleDescription: "Vibre na frequência das Árvores Sagradas e inicie sua Descoberta Espiritual.",
+    oghamOracleTitle: "OGHAM Oráculo Druída",
+    oghamOraclePageTitle: "Oráculo de Ogham",
+    oghamOraclePageDescription: "Conecte-se com a sabedoria ancestral das árvores. Faça sua pergunta e receba orientação do oráculo Ogham.",
+    oghamReadingType: "Leitura de Ogham",
+    oghamInterpretationTitle: "Sua Leitura Ogham",
+    getYourOghamReadingButton: "Receber Leitura Ogham (1 Crédito)",
+    generatingOghamReadingButton: "Gerando Leitura...",
   }
 };
 
