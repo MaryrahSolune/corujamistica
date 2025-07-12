@@ -14,6 +14,7 @@ import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles,
 import { useLanguage } from '@/contexts/LanguageContext';
 import { format } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
+import { AdSlot } from '@/components/AdSlot';
 
 type ReadingWithId = ReadingData & { id: string };
 
@@ -244,11 +245,14 @@ export default function ViewReadingPage() {
                 )}
               </>
             )}
+            
+             <div className="pt-8">
+                <AdSlot id="ad-reading-bottom" />
+            </div>
+
           </CardContent>
         </Card>
       </div>
     </div>
   );
 }
-
-    

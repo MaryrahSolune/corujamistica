@@ -19,7 +19,7 @@ export function AdSlot({
   useEffect(() => {
     setIsClient(true);
     // In a real scenario, you might initialize an ad here.
-    // e.g., adNetwork.loadAd(id);
+    // e.g., (window.adsbygoogle = window.adsbygoogle || []).push({});
   }, [id]);
 
   if (!isClient) {
@@ -40,7 +40,7 @@ export function AdSlot({
         className
       )}
     >
-      {/* Using a simple string as a placeholder. */}
+      {/* This is where the ad would be displayed. */}
       <span>Espaço Publicitário</span>
     </div>
   );

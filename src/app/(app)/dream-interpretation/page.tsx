@@ -20,6 +20,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { AdSlot } from '@/components/AdSlot';
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
 
@@ -242,6 +243,12 @@ export default function DreamInterpretationPage() {
                   </div>
               )}
           </div>
+      )}
+
+      {(isLoading || interpretationResult) && (
+        <div className="max-w-2xl mx-auto mt-8">
+            <AdSlot id="ad-dream-bottom" />
+        </div>
       )}
 
       {/* Manual Dictionary Lookup Section */}

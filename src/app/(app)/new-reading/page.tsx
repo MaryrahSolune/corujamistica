@@ -16,6 +16,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { deductCredit } from '@/services/creditService';
 import { saveReading, type TarotReadingData } from '@/services/readingService';
 import { cn } from '@/lib/utils';
+import { AdSlot } from '@/components/AdSlot';
 
 interface ExtendedGenerateReadingOutput extends GenerateReadingInterpretationOutput {
   summaryImageUri?: string;
@@ -272,6 +273,12 @@ export default function NewReadingPage() {
               />
             </CardContent>
           </Card>
+        </div>
+      )}
+
+      {(isLoading || interpretationResult) && (
+        <div className="max-w-2xl mx-auto mt-8">
+            <AdSlot id="ad-new-reading-bottom" />
         </div>
       )}
 
