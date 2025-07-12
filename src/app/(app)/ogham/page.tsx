@@ -16,6 +16,7 @@ import { deductCredit } from '@/services/creditService';
 import { saveReading, type ReadingData } from '@/services/readingService';
 import { OghamIcon } from '@/components/MysticIcons';
 import { AdSlot } from '@/components/AdSlot';
+import { cn } from '@/lib/utils';
 
 const LeafyBackground = () => (
     <div className="absolute inset-0 z-0 overflow-hidden">
@@ -25,6 +26,28 @@ const LeafyBackground = () => (
         <Leaf className="absolute bottom-[15%] left-[15%] h-28 w-28 text-green-400 animate-leaf-fade" style={{ animationDelay: '4s', transform: 'rotate(30deg)' }} />
         <Leaf className="absolute bottom-[5%] right-[20%] h-36 w-36 text-green-400 animate-leaf-fade" style={{ animationDelay: '6s', transform: 'rotate(-10deg)' }} />
         <Leaf className="absolute top-[40%] left-[45%] h-20 w-20 text-green-400 animate-leaf-fade" style={{ animationDelay: '1s' }} />
+    </div>
+);
+
+const VineFrame = () => (
+    <div className="absolute inset-0 z-20 pointer-events-none">
+        {/* Top-left vine */}
+        <Leaf className="absolute -top-2 -left-3 h-10 w-10 text-green-400 -rotate-45" />
+        <Leaf className="absolute top-8 -left-5 h-8 w-8 text-green-400 -rotate-[60deg]" />
+        <Leaf className="absolute top-20 -left-2 h-10 w-10 text-green-400 -rotate-[75deg]" />
+
+        {/* Top-right vine */}
+        <Leaf className="absolute -top-3 -right-2 h-10 w-10 text-green-400 rotate-45" />
+        <Leaf className="absolute top-10 -right-4 h-8 w-8 text-green-400 rotate-[60deg]" />
+        
+        {/* Bottom-left vine */}
+        <Leaf className="absolute -bottom-2 -left-2 h-12 w-12 text-green-400 -rotate-[120deg]" />
+        <Leaf className="absolute bottom-16 -left-4 h-8 w-8 text-green-400 -rotate-[100deg]" />
+
+        {/* Bottom-right vine */}
+        <Leaf className="absolute -bottom-4 -right-3 h-12 w-12 text-green-400 rotate-[120deg]" />
+        <Leaf className="absolute bottom-20 -right-2 h-8 w-8 text-green-400 rotate-[100deg]" />
+        <Leaf className="absolute bottom-36 -right-1 h-6 w-6 text-green-400 rotate-[80deg]" />
     </div>
 );
 
@@ -198,7 +221,10 @@ export default function OghamPage() {
 
         <div className="relative mt-8 mx-auto block max-w-full h-auto w-fit">
             <LeafyBackground />
-            <img src="/img/arvore.gif" alt="Árvore mística" className="relative z-10 rounded-lg" />
+            <div className="relative z-10 p-2"> 
+                <img src="/img/arvore.gif" alt="Árvore mística" className="rounded-lg" />
+                <VineFrame />
+            </div>
         </div>
       </div>
     </div>
