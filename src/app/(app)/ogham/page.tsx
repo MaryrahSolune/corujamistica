@@ -221,10 +221,10 @@ export default function OghamPage() {
 
         <div className="relative mt-8 mx-auto block max-w-full h-auto w-fit">
             <LeafyBackground />
-            <div className="relative z-10 p-2"> 
-                <img src="/img/arvore.gif" alt="Árvore mística" className="rounded-lg" />
-                <VineFrame />
+            <div className="relative z-10 p-2">
+                <img src="/img/arvore.gif" alt="Árvore mística" className="rounded-lg relative z-10" />
             </div>
+            <VineFrame />
         </div>
       </div>
     </div>
