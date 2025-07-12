@@ -63,6 +63,7 @@ export default function OghamPage() {
           interpretationText: result.interpretation,
           oghamLetter: result.oghamLetter,
           oghamSymbol: result.oghamSymbol,
+          treeImageUri: result.treeImageUri,
         };
         await saveReading(currentUser.uid, readingToSave);
       }
@@ -155,10 +156,22 @@ export default function OghamPage() {
                 Sua letra sorteada: {interpretationResult.oghamLetter} ({interpretationResult.oghamSymbol})
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+            <CardContent className="space-y-6">
+              {interpretationResult.treeImageUri && (
+                <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
+                    <Image
+                        src={interpretationResult.treeImageUri}
+                        alt={`Imagem da árvore ${interpretationResult.oghamLetter}`}
+                        data-ai-hint="enchanted tree tarot card"
+                        width={512}
+                        height={512}
+                        className="w-full h-auto object-contain relative z-10 bg-black/10"
+                    />
+                </div>
+              )}
+              <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
                 {interpretationResult.interpretation}
-              </p>
+              </div>
             </CardContent>
           </Card>
         </div>

@@ -2,7 +2,7 @@
 'use server';
 
 /**
- * @fileOverview Flow for generating personalized Ogham oracle interpretations.
+ * @fileOverview Flow for generating personalized Ogham oracle interpretations, including a dynamically generated image of the associated tree.
  *
  * - interpretOghamReading - A function that initiates the Ogham reading interpretation process.
  * - InterpretOghamReadingInput - The input type for the interpretOghamReading function.
@@ -24,6 +24,7 @@ const InterpretOghamReadingOutputSchema = z.object({
     .describe('The AI-generated interpretation of the Ogham reading.'),
   oghamLetter: z.string().describe('The name of the randomly chosen Ogham letter.'),
   oghamSymbol: z.string().describe('The unicode symbol of the Ogham letter.'),
+  treeImageUri: z.string().describe('A data URI of a generated image representing the Ogham letter\'s tree.').optional(),
 });
 
 export type InterpretOghamReadingOutput = z.infer<
@@ -33,35 +34,35 @@ export type InterpretOghamReadingOutput = z.infer<
 // Ogham letters data (Aicme A, B, C, D, and Forfeda)
 const oghamLetters = [
     // Aicme Beithe (Birch Group)
-    { letter: "Beith", symbol: "ᚁ", meaning: "Birch, Beginnings, New starts, Purification, Renewal" },
-    { letter: "Luis", symbol: "ᚂ", meaning: "Rowan, Protection, Insight, Vision, Control" },
-    { letter: "Fearn", symbol: "ᚃ", meaning: "Alder, Shield, Foundation, Strength, Release" },
-    { letter: "Saille", symbol: "ᚄ", meaning: "Willow, Intuition, The Unconscious, Flexibility, The Moon" },
-    { letter: "Nuin", symbol: "ᚅ", meaning: "Ash, Connection, The World Tree, Links, Weaving" },
+    { letter: "Beith", tree: "Birch", symbol: "ᚁ", meaning: "Birch, Beginnings, New starts, Purification, Renewal" },
+    { letter: "Luis", tree: "Rowan", symbol: "ᚂ", meaning: "Rowan, Protection, Insight, Vision, Control" },
+    { letter: "Fearn", tree: "Alder", symbol: "ᚃ", meaning: "Alder, Shield, Foundation, Strength, Release" },
+    { letter: "Saille", tree: "Willow", symbol: "ᚄ", meaning: "Willow, Intuition, The Unconscious, Flexibility, The Moon" },
+    { letter: "Nuin", tree: "Ash", symbol: "ᚅ", meaning: "Ash, Connection, The World Tree, Links, Weaving" },
     // Aicme hÚatha (Hawthorn Group)
-    { letter: "Huathe", symbol: "ᚆ", meaning: "Hawthorn, Consequence, Cleansing, Trial, Restraint" },
-    { letter: "Dair", symbol: "ᚇ", meaning: "Oak, Strength, Endurance, Sovereignty, Protection" },
-    { letter: "Tinne", symbol: "ᚈ", meaning: "Holly, Challenge, Action, Defence, The Warrior" },
-    { letter: "Coll", symbol: "ᚉ", meaning: "Hazel, Wisdom, Knowledge, Divination, Inspiration" },
-    { letter: "Quert", symbol: "ᚊ", meaning: "Apple, Choice, Healing, Beauty, Love" },
+    { letter: "Huathe", tree: "Hawthorn", symbol: "ᚆ", meaning: "Hawthorn, Consequence, Cleansing, Trial, Restraint" },
+    { letter: "Dair", tree: "Oak", symbol: "ᚇ", meaning: "Oak, Strength, Endurance, Sovereignty, Protection" },
+    { letter: "Tinne", tree: "Holly", symbol: "ᚈ", meaning: "Holly, Challenge, Action, Defence, The Warrior" },
+    { letter: "Coll", tree: "Hazel", symbol: "ᚉ", meaning: "Hazel, Wisdom, Knowledge, Divination, Inspiration" },
+    { letter: "Quert", tree: "Apple", symbol: "ᚊ", meaning: "Apple, Choice, Healing, Beauty, Love" },
     // Aicme Muine (Vine Group)
-    { letter: "Muin", symbol: "ᚋ", meaning: "Vine, Harvest, Introspection, Prophecy, The Inward Journey" },
-    { letter: "Gort", symbol: "ᚌ", meaning: "Ivy, Growth, Tenacity, Development, The Wild Self" },
-    { letter: "Ngetal", symbol: "ᚍ", meaning: "Reed, Direct Action, Purpose, Health, Order" },
-    { letter: "Straif", symbol: "ᚎ", meaning: "Blackthorn, Strife, The Inevitable, Fate, Overcoming obstacles" },
-    { letter: "Ruis", symbol: "ᚏ", meaning: "Elder, Endings and Beginnings, Transition, The Crone, Maturity" },
+    { letter: "Muin", tree: "Vine", symbol: "ᚋ", meaning: "Vine, Harvest, Introspection, Prophecy, The Inward Journey" },
+    { letter: "Gort", tree: "Ivy", symbol: "ᚌ", meaning: "Ivy, Growth, Tenacity, Development, The Wild Self" },
+    { letter: "Ngetal", tree: "Reed", symbol: "ᚍ", meaning: "Reed, Direct Action, Purpose, Health, Order" },
+    { letter: "Straif", tree: "Blackthorn", symbol: "ᚎ", meaning: "Blackthorn, Strife, The Inevitable, Fate, Overcoming obstacles" },
+    { letter: "Ruis", tree: "Elder", symbol: "ᚏ", meaning: "Elder, Endings and Beginnings, Transition, The Crone, Maturity" },
     // Aicme Ailme (Pine Group)
-    { letter: "Ailm", symbol: "ᚐ", meaning: "Pine/Fir, Perspective, Foresight, The Long View, Objectivity" },
-    { letter: "Onn", symbol: "ᚑ", meaning: "Gorse, Gathering, Sustained effort, Long-term goals, The Sun" },
-    { letter: "Ur", symbol: "ᚒ", meaning: "Heather, Passion, Healing, The Earth, Sensuality" },
-    { letter: "Eadhadh", symbol: "ᚓ", meaning: "Aspen, Endurance, Overcoming, Courage, Resilience" },
-    { letter: "Idho", symbol: "ᚔ", meaning: "Yew, Death and Rebirth, Ancestors, The Past, Immortality" },
+    { letter: "Ailm", tree: "Pine", symbol: "ᚐ", meaning: "Pine/Fir, Perspective, Foresight, The Long View, Objectivity" },
+    { letter: "Onn", tree: "Gorse", symbol: "ᚑ", meaning: "Gorse, Gathering, Sustained effort, Long-term goals, The Sun" },
+    { letter: "Ur", tree: "Heather", symbol: "ᚒ", meaning: "Heather, Passion, Healing, The Earth, Sensuality" },
+    { letter: "Eadhadh", tree: "Aspen", symbol: "ᚓ", meaning: "Aspen, Endurance, Overcoming, Courage, Resilience" },
+    { letter: "Idho", tree: "Yew", symbol: "ᚔ", meaning: "Yew, Death and Rebirth, Ancestors, The Past, Immortality" },
     // Forfeda (The 'Extra' Letters)
-    { letter: "Eabhadh", symbol: "ᚕ", meaning: "Groove/Aspen, Adaptability, Twin aspects, Duality" },
-    { letter: "Or", symbol: "ᚖ", meaning: "Spindle/Gold, Inheritance, Legacy, The Hearth, Community" },
-    { letter: "Uilleann", symbol: "ᚗ", meaning: "Honeysuckle/Elbow, Connection, Seeking, The Soul's desire" },
-    { letter: "Ifin", symbol: "ᚘ", meaning: "Pine, Sweetness, The 'in-between' places, Unexpected gifts" },
-    { letter: "Aamhancholl", symbol: "ᚙ", meaning: "Witch Hazel, Duality, Protection, Hidden knowledge" },
+    { letter: "Eabhadh", tree: "Aspen", symbol: "ᚕ", meaning: "Groove/Aspen, Adaptability, Twin aspects, Duality" },
+    { letter: "Or", tree: "Spindle", symbol: "ᚖ", meaning: "Spindle/Gold, Inheritance, Legacy, The Hearth, Community" },
+    { letter: "Uilleann", tree: "Honeysuckle", symbol: "ᚗ", meaning: "Honeysuckle/Elbow, Connection, Seeking, The Soul's desire" },
+    { letter: "Ifin", tree: "Pine", symbol: "ᚘ", meaning: "Pine, Sweetness, The 'in-between' places, Unexpected gifts" },
+    { letter: "Aamhancholl", tree: "Witch Hazel", symbol: "ᚙ", meaning: "Witch Hazel, Duality, Protection, Hidden knowledge" },
 ];
 
 
@@ -73,7 +74,7 @@ const interpretOghamPrompt = ai.definePrompt({
     oghamSymbol: z.string(), 
     oghamMeaning: z.string() 
   }) },
-  output: { schema: InterpretOghamReadingOutputSchema },
+  output: { schema: z.object({ interpretation: z.string() }) }, // Only text interpretation from this prompt
   prompt: `Você é um Druida ancião, um guardião da sabedoria das árvores e dos mistérios do Ogham, o alfabeto sagrado dos celtas. Sua voz é calma, poética e profunda, carregada com o conhecimento de eras. Um consulente se aproxima buscando orientação para uma questão específica.
   
 Uma única letra do Ogham foi sorteada para responder à pergunta. Sua tarefa é interpretar a mensagem da letra sorteada no contexto da pergunta do consulente.
@@ -93,7 +94,7 @@ O significado central desta letra é: **{{oghamMeaning}}**
 
 ---
 
-Interprete a mensagem do Ogham para este consulente, lembrando-se de retornar não apenas a interpretação, mas também o nome da letra e seu símbolo no objeto de saída.`,
+Interprete a mensagem do Ogham para este consulente.`,
 });
 
 const interpretOghamReadingFlow = ai.defineFlow(
@@ -108,22 +109,48 @@ const interpretOghamReadingFlow = ai.defineFlow(
     const chosenLetter = oghamLetters[randomIndex];
     
     // 2. Generate the interpretation based on the drawn letter and the user's query
-    const { output } = await interpretOghamPrompt({
+    const { output: interpretationOutput } = await interpretOghamPrompt({
       query: input.query,
       oghamLetter: chosenLetter.letter,
       oghamSymbol: chosenLetter.symbol,
       oghamMeaning: chosenLetter.meaning,
     });
     
-    // 3. Ensure the output object is correctly formed
-    if (!output) {
-      throw new Error('Failed to generate Ogham interpretation.');
+    if (!interpretationOutput) {
+      throw new Error('Failed to generate Ogham interpretation text.');
     }
 
+    // 3. Generate the tree image in parallel
+    let treeImageUri: string | undefined = undefined;
+    try {
+        const imagePrompt = `A realistic and enchanted, magical image of a large, ancient ${chosenLetter.tree} tree. The style should be like a beautiful tarot card, with intricate geometric borders and mystical glowing symbols. Ethereal lighting.`;
+        const { media } = await ai.generate({
+            model: 'googleai/gemini-2.0-flash-preview-image-generation',
+            prompt: imagePrompt,
+            config: {
+                responseModalities: ['TEXT', 'IMAGE'],
+                safetySettings: [
+                    { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+                    { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
+                    { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+                    { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
+                ],
+            },
+        });
+        if (media?.url) {
+            treeImageUri = media.url;
+        }
+    } catch (e) {
+        console.error('Error generating Ogham tree image:', e);
+        // Fail gracefully, the text interpretation will still be returned.
+    }
+
+    // 4. Return the complete output
     return {
-      interpretation: output.interpretation,
+      interpretation: interpretationOutput.interpretation,
       oghamLetter: chosenLetter.letter,
       oghamSymbol: chosenLetter.symbol,
+      treeImageUri: treeImageUri,
     };
   }
 );

@@ -258,6 +258,23 @@ export default function ViewReadingPage() {
                     {reading.query}
                   </blockquote>
                 </div>
+                 {reading.treeImageUri && (
+                  <div className="my-4">
+                    <h3 className="text-xl font-bold font-serif mb-3 text-accent flex items-center">
+                        <ImageIcon className="mr-2 h-5 w-5"/> Imagem da Árvore
+                    </h3>
+                    <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
+                        <Image
+                            src={reading.treeImageUri}
+                            alt={`Imagem da árvore ${reading.oghamLetter}`}
+                            data-ai-hint="enchanted tree tarot card"
+                            width={512}
+                            height={512}
+                            className="w-full h-auto object-contain relative z-10 bg-black/10"
+                        />
+                    </div>
+                  </div>
+                )}
                 <div>
                   <h3 className="text-xl font-bold font-serif mb-2 text-accent flex items-center">
                     <BookOpenText className="mr-2 h-5 w-5"/> {t('interpretationTitle')}

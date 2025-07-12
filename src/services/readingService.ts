@@ -26,6 +26,7 @@ export interface OghamReadingData {
   interpretationText: string;
   oghamLetter: string;
   oghamSymbol: string;
+  treeImageUri?: string; // Image of the corresponding tree
   interpretationTimestamp: number | object;
 }
 
