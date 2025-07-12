@@ -170,7 +170,7 @@ export default function HomePage() {
            <div className="absolute inset-0 -z-10 animated-aurora-background opacity-90"></div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="inline-block bg-black/40 p-4 sm:p-6 rounded-xl backdrop-blur-sm mb-10">
-                <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-fade-in" style={{animationDelay: '0.2s'}}>
+                <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-primary animate-fade-in" style={{animationDelay: '0.2s'}}>
                   {t('landingTitle')}
                 </h1>
             </div>
