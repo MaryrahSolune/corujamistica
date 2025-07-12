@@ -321,7 +321,7 @@ export default function HomePage() {
         <CustomSeparator /> 
 
         {/* Final CTA Section */}
-        <section className="py-20 sm:py-28 text-center bg-primary/10 relative overflow-hidden cta-gif-background">
+        <section className="py-20 sm:py-28 text-center bg-black relative overflow-hidden cta-gif-background">
            <div className="absolute inset-0 bg-black/50 z-0"></div>
           <div className="container mx-auto px-4 relative z-10">
             <Sparkles className="h-16 w-16 text-accent mx-auto mb-6 animate-subtle-pulse" style={{animationDelay: '0.2s'}}/>
