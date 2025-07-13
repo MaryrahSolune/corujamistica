@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -18,6 +18,41 @@ import { saveReading, type ReadingData } from '@/services/readingService';
 import { OghamIcon } from '@/components/MysticIcons';
 import { AdSlot } from '@/components/AdSlot';
 import { cn } from '@/lib/utils';
+
+// New component for dynamic leaf animation
+const FallingLeaves = ({ count = 20 }) => {
+  const [leaves, setLeaves] = useState<any[]>([]);
+
+  useEffect(() => {
+    const generateLeaves = () => {
+      const newLeaves = Array.from({ length: count }).map((_, i) => ({
+        id: i,
+        style: {
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          transform: `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random() * 0.5})`,
+          animationDuration: `${5 + Math.random() * 5}s`,
+          animationDelay: `${Math.random() * 5}s`,
+        },
+      }));
+      setLeaves(newLeaves);
+    };
+
+    generateLeaves();
+  }, [count]);
+
+  return (
+    <>
+      {leaves.map(leaf => (
+        <Leaf
+          key={leaf.id}
+          className="absolute h-6 w-6 text-green-400/80 animate-fall-and-fade pointer-events-none"
+          style={{ ...leaf.style, filter: 'drop-shadow(0 0 4px #65f57a)' }}
+        />
+      ))}
+    </>
+  );
+};
 
 
 export default function OghamPage() {
@@ -109,11 +144,11 @@ export default function OghamPage() {
         <div className="max-w-4xl mx-auto animated-aurora-background rounded-xl mb-8">
           <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
             <CardHeader>
-              <CardTitle className="text-3xl font-celtic flex items-center">
+              <CardTitle className="text-3xl flex items-center">
                 <OghamIcon className="h-8 w-8 mr-3 text-primary" />
                 {t('oghamOraclePageTitle')}
               </CardTitle>
-              <CardDescription className="text-justify">
+              <CardDescription className="text-justify text-muted-foreground">
                 {t('oghamOraclePageDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
               </CardDescription>
             </CardHeader>
@@ -291,17 +326,11 @@ export default function OghamPage() {
           </div>
         )}
         <div className="relative mt-8 flex justify-center">
-          <div className="relative z-10 p-2">
-            <div className="relative group">
-              <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
-              {/* Animated leaves */}
-              <Leaf className="absolute top-[10%] left-[5%] h-6 w-6 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '0s', filter: 'drop-shadow(0 0 3px #65f57a)' }}/>
-              <Leaf className="absolute top-[20%] right-[15%] h-5 w-5 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '1.5s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(70deg)' }}/>
-              <Leaf className="absolute top-[35%] left-[20%] h-7 w-7 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '0.5s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(-40deg)' }}/>
-              <Leaf className="absolute bottom-[25%] left-[10%] h-6 w-6 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '2s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(-120deg)' }}/>
-              <Leaf className="absolute bottom-[10%] right-[8%] h-8 w-8 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '1s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(150deg)' }}/>
-              <Leaf className="absolute top-[50%] right-[5%] h-5 w-5 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '2.5s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(100deg)' }}/>
-              <Leaf className="absolute top-[60%] left-[2%] h-6 w-6 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '3s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(-80deg)' }}/>
+          <div className="relative z-10 p-2 group w-full max-w-md h-auto">
+            <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg w-full h-auto" />
+             {/* Dynamic falling leaves container */}
+            <div className="absolute inset-0 pointer-events-none">
+              <FallingLeaves />
             </div>
           </div>
         </div>
