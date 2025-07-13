@@ -147,7 +147,7 @@ export default function OghamPage() {
                 <OghamIcon className="h-8 w-8 mr-3 text-primary" />
                 {t('oghamOraclePageTitle')}
               </CardTitle>
-              <CardDescription className="text-muted-foreground">
+              <CardDescription className="text-muted-foreground text-justify">
                 {t('oghamOraclePageDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
               </CardDescription>
             </CardHeader>
@@ -171,7 +171,7 @@ export default function OghamPage() {
                 <div className="relative flex justify-center items-center w-full min-h-[450px]">
                   {/* The circular board */}
                   <div 
-                    className="relative w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-gradient-to-br from-amber-900/20 via-amber-800/10 to-transparent border-2 border-amber-800/30 shadow-inner"
+                    className="relative w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-black border-2 border-amber-700/50 shadow-inner"
                   >
                      <div className="absolute inset-4 rounded-full border border-dashed border-amber-800/30"></div>
                      <div className="absolute inset-16 rounded-full border border-dashed border-amber-800/30"></div>
