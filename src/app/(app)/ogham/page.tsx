@@ -194,7 +194,7 @@ export default function OghamPage() {
                             transformOrigin: 'center center',
                           }}
                            className={cn(
-                            "absolute w-[105px] h-[21px] flex items-center justify-center rounded-md transition-all duration-500 ease-in-out",
+                            "absolute w-[105px] h-[31.5px] flex items-center justify-center rounded-md transition-all duration-500 ease-in-out",
                             !readingStarted && "hover:scale-110 hover:shadow-lg hover:shadow-accent/50 cursor-pointer",
                             readingStarted && !isSelected && "opacity-20 blur-sm scale-90",
                             isSelected && "scale-125 shadow-lg shadow-accent/50 z-10"
@@ -203,7 +203,7 @@ export default function OghamPage() {
                         >
                           <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isRevealed && "[transform:rotateY(180deg)]")}>
                             {/* Back of the card (hidden) */}
-                            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-amber-500/50 rounded-md flex items-center justify-center">
+                            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-black rounded-md flex items-center justify-center">
                                <OghamIcon className="w-5 h-5 text-amber-300/50" />
                             </div>
                             {/* Front of the card (revealed) */}
