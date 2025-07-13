@@ -20,7 +20,7 @@ import { AdSlot } from '@/components/AdSlot';
 import { cn } from '@/lib/utils';
 
 const LeafyBackground = () => (
-    <div className="absolute inset-0 z-0 overflow-hidden">
+    <div className="absolute inset-0 z-0 overflow-hidden opacity-10">
         <Leaf className="absolute top-[10%] left-[5%] h-24 w-24 text-green-400 animate-leaf-fade" style={{ animationDelay: '0s', transform: 'rotate(-20deg)' }} />
         <Leaf className="absolute top-[20%] right-[10%] h-32 w-32 text-green-400 animate-leaf-fade" style={{ animationDelay: '2s', transform: 'rotate(15deg)' }} />
         <Leaf className="absolute bottom-[15%] left-[15%]%] h-28 w-28 text-green-400 animate-leaf-fade" style={{ animationDelay: '4s', transform: 'rotate(30deg)' }} />
@@ -30,7 +30,7 @@ const LeafyBackground = () => (
 );
 
 const VineFrame = () => (
-    <div className="absolute inset-0 z-20 pointer-events-none">
+    <div className="absolute inset-0 z-20 pointer-events-none opacity-50">
         <Leaf className="absolute -top-2 -left-3 h-10 w-10 text-green-400 -rotate-45" />
         <Leaf className="absolute top-8 -left-5 h-8 w-8 text-green-400 -rotate-[60deg]" />
         <Leaf className="absolute top-20 -left-2 h-10 w-10 text-green-400 -rotate-[75deg]" />
@@ -59,8 +59,8 @@ export default function OghamPage() {
 
   // Memoize shuffled sticks so they don't re-shuffle on every render
   const shuffledSticks = useMemo(() => {
-    // We only need a few sticks for the user to choose from
-    return oghamLetters.sort(() => 0.5 - Math.random()).slice(0, 5);
+    // Now using all 25 letters
+    return oghamLetters.sort(() => 0.5 - Math.random());
   }, []);
 
   const handleStickClick = async (stick: OghamLetterData) => {
@@ -130,7 +130,7 @@ export default function OghamPage() {
     <div className="bg-black">
       <div className="container mx-auto p-4 sm:p-6 lg:p-8">
 
-        <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-8">
+        <div className="max-w-4xl mx-auto animated-aurora-background rounded-xl mb-8">
           <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
             <CardHeader>
               <CardTitle className="text-3xl font-celtic flex items-center">
@@ -150,34 +150,35 @@ export default function OghamPage() {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={t('questionPlaceholder')}
                   rows={3}
-                  className="resize-none"
+                  className="resize-none font-celtic"
                   disabled={readingStarted}
                 />
               </div>
 
               <div>
-                <Label className="text-lg mb-2 block text-center">Escolha um Ogham</Label>
-                <div className="flex justify-center items-center gap-4 py-4 min-h-[100px]">
+                <Label className="text-lg mb-2 block text-center font-celtic">{t('chooseFileButton')}</Label>
+                <div className="grid grid-cols-5 md:grid-cols-7 lg:grid-cols-9 gap-3 py-4 min-h-[100px] transition-all duration-500">
                   {shuffledSticks.map((stick, index) => (
                     <button
                       key={index}
                       onClick={() => handleStickClick(stick)}
                       disabled={readingStarted || isLoading}
                       className={cn(
-                        "group w-10 h-28 rounded-lg transition-all duration-300 transform-gpu",
-                        "bg-gradient-to-b from-amber-900 via-yellow-950 to-amber-950 shadow-md border-2 border-amber-950",
-                        readingStarted && selectedStick?.letter !== stick.letter && "opacity-30 blur-sm",
-                        readingStarted && selectedStick?.letter === stick.letter && "scale-110 shadow-accent/50",
-                        !readingStarted && "hover:scale-110 hover:shadow-lg hover:shadow-accent/40 cursor-pointer"
+                        "group w-full h-28 rounded-md transition-all duration-300 transform-gpu flex items-center justify-center",
+                        "bg-gradient-to-b from-amber-900 via-yellow-950 to-amber-950 shadow-md border-2 border-amber-950/50",
+                        readingStarted && selectedStick?.letter !== stick.letter && "opacity-20 blur-sm scale-90",
+                        readingStarted && selectedStick?.letter === stick.letter && "scale-110 shadow-lg shadow-accent/50",
+                        !readingStarted && "hover:scale-105 hover:shadow-md hover:shadow-accent/40 cursor-pointer"
                       )}
+                      aria-label={`Escolher Ogham ${index + 1}`}
                     >
                       <div className={cn(
                         "w-full h-full flex items-center justify-center transition-opacity duration-500",
                         readingStarted && selectedStick?.letter === stick.letter ? "opacity-100" : "opacity-0"
                       )}>
                         {selectedStick?.letter === stick.letter && (
-                          <div className="w-8 h-16 bg-amber-200 rounded-md flex items-center justify-center shadow-inner">
-                             <span className="text-3xl font-celtic text-amber-950">{stick.symbol}</span>
+                          <div className="w-8 h-16 bg-amber-200/90 rounded-md flex items-center justify-center shadow-inner">
+                             <span className="text-4xl font-celtic text-amber-950">{stick.symbol}</span>
                           </div>
                         )}
                       </div>
@@ -185,7 +186,7 @@ export default function OghamPage() {
                   ))}
                 </div>
                 {isLoading && (
-                    <div className="flex items-center justify-center text-primary">
+                    <div className="flex items-center justify-center text-primary font-celtic">
                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                         <span>Consultando as árvores...</span>
                     </div>
@@ -194,7 +195,7 @@ export default function OghamPage() {
             </CardContent>
             {readingStarted && !isLoading && (
                 <CardFooter>
-                    <Button onClick={handleReset} variant="outline" className="w-full">
+                    <Button onClick={handleReset} variant="outline" className="w-full font-celtic">
                         Fazer Outra Leitura
                     </Button>
                 </CardFooter>
@@ -256,8 +257,8 @@ export default function OghamPage() {
 
         <div className="relative mt-8 mx-auto w-fit">
             <LeafyBackground />
-            <div className="relative z-10 p-2">
-                 <img src="/img/arvore.gif" alt="Árvore mística" className="rounded-lg relative z-10" />
+            <div className="relative z-10">
+                 <img src="/img/arvore.gif" alt="Árvore mística" className="rounded-lg" />
             </div>
             <VineFrame />
         </div>
