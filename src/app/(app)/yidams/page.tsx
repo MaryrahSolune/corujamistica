@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, type ChangeEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -22,6 +22,20 @@ export default function YidamsPage() {
   const { toast } = useToast();
   const { t } = useLanguage();
   const { currentUser, userCredits, refreshCredits } = useAuth();
+
+  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, ''); // Remove all non-digits
+    if (value.length > 8) {
+      value = value.slice(0, 8); // Limit to 8 digits (DDMMYYYY)
+    }
+
+    if (value.length > 4) {
+      value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4)}`;
+    } else if (value.length > 2) {
+      value = `${value.slice(0, 2)}/${value.slice(2)}`;
+    }
+    setBirthDate(value);
+  };
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -95,7 +109,7 @@ export default function YidamsPage() {
                   <Input
                     id="birth-date"
                     value={birthDate}
-                    onChange={(e) => setBirthDate(e.target.value)}
+                    onChange={handleDateChange}
                     placeholder={t('yidamsBirthDatePlaceholder')}
                     disabled={isLoading}
                     maxLength={10}
@@ -106,7 +120,7 @@ export default function YidamsPage() {
                 <Button 
                   type="submit" 
                   className="w-full text-lg py-6" 
-                  disabled={isLoading || !birthDate || (userCredits && userCredits.balance < 1)}
+                  disabled={isLoading || !birthDate || !/^\d{2}\/\d{2}\/\d{4}$/.test(birthDate) || (userCredits && userCredits.balance < 1)}
                 >
                   {isLoading ? (
                     <>
@@ -187,5 +201,3 @@ export default function YidamsPage() {
     </div>
   );
 }
-
-    
