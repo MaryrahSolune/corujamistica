@@ -5,7 +5,7 @@ export const yidams = [
     { name: "Tara Verde", symbolicRepresentation: "Selo de oito pétalas", symbolicMeaning: "Ação compassiva e proteção", symbolicImage: "Sentada em lótus, perna estendida, olhar doce" },
     { name: "Tara Branca", symbolicRepresentation: "Roda", symbolicMeaning: "Longevidade e pura", symbolicImage: "Rosto sereno, brilho prateado, três olhos" },
     { name: "Manjushri", symbolicRepresentation: "Espada flamejante", symbolicMeaning: "Sabedoria que corta a ignorância", symbolicImage: "Espada flamejante e pergaminho de sabedoria" },
-    { name: "Vajrapani", symbolicRepresentation: "Vajra (raio)", symbolicMeaning: "Força espiritual indomável", symbolicImage: "Corpo azul, raios elétricos e expressão feroz" },
+    { name: "Vajrapani (Raio)", symbolicRepresentation: "Vajra (raio)", symbolicMeaning: "Força espiritual indomável", symbolicImage: "Corpo azul, raios elétricos e expressão feroz" },
     { name: "Padmasambhava (Guru Rinpoche)", symbolicRepresentation: "Vajra de lótus curvado", symbolicMeaning: "Transformação e poder tântrico", symbolicImage: "Cajado khatvanga, aura dourada, olhar compassivo" },
     { name: "Vajrasattva", symbolicRepresentation: "Diamante (vajra duplo)", symbolicMeaning: "Purificação kármica", symbolicImage: "Corpo branco, segurando vajra e sino" },
     { name: "Amitabha", symbolicRepresentation: "Sol vermelho", symbolicMeaning: "Amor compassivo e renascimento no Paraíso Ocidental", symbolicImage: "Buda vermelho em meditação com lótus e luz rubi" },
@@ -40,7 +40,7 @@ export const yidams = [
     { name: "Chinnamasta", symbolicRepresentation: "Cabeça decapitada", symbolicMeaning: "Entrega total e transformação completa", symbolicImage: "Deusa segurando sua própria cabeça, sangue jorrando" },
     { name: "Vajrakilaya", symbolicRepresentation: "Adaga de pontas", symbolicMeaning: "Poder transformador e violento", symbolicImage: "Figura irada com asas, segurando uma phurba (adaga)" },
     { name: "Tilopa", symbolicRepresentation: "Caveira que brilha", symbolicMeaning: "Sabedoria direta e realização direta", symbolicImage: "Yogi em postura de meditação, segurando peixe" },
-    { name: "Vajrapani", symbolicRepresentation: "garuda", symbolicMeaning: "Coragem, força e proteção", symbolicImage: "Corpo azul, expressão feroz, segurando um vajra" }
+    { name: "Vajrapani (Garuda)", symbolicRepresentation: "garuda", symbolicMeaning: "Coragem, força e proteção", symbolicImage: "Corpo azul, expressão feroz, segurando um vajra" }
 ];
 
 export type YidamData = (typeof yidams)[0];
