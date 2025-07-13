@@ -86,15 +86,15 @@
     content: "";
     @apply absolute top-1/2 left-1/2 w-[150%] pt-[150%] -z-10 animate-spin-gradient;
     background: conic-gradient(
-      hsl(var(--primary) / 0.6),      /* Primary - Deep Purple */
-      hsl(var(--secondary) / 0.7),    /* Secondary - Lighter Purple */
-      hsl(var(--accent) / 0.8),         /* Gold/Yellow */
-      hsl(var(--primary) / 0.5),
-      hsl(var(--secondary) / 0.6),
+      hsl(var(--primary) / 0.5),      /* Primary - Deep Purple */
+      hsl(var(--secondary) / 0.6),    /* Secondary - Lighter Purple */
+      hsl(var(--accent) / 0.6),       /* Gold/Yellow with reduced opacity */
+      hsl(var(--primary) / 0.4),
+      hsl(var(--secondary) / 0.5),
       transparent 70% /* Adjusted transparency point */
     );
     border-radius: 50%;
-    filter: blur(25px); /* Adjust blur for desired neon intensity behind card */
+    filter: blur(30px); /* Slightly more blur for a softer effect */
   }
 
   .login-button-aura-wrapper {
@@ -104,40 +104,40 @@
   .login-button-aura-wrapper::before {
     content: '';
     @apply absolute top-1/2 left-1/2 -z-[5]; /* Behind the button */
-    width: calc(100% + 16px); /* Aura slightly larger than button */
-    height: calc(100% + 16px);
+    width: calc(100% + 12px); /* Aura slightly smaller */
+    height: calc(100% + 12px);
     background: conic-gradient(
-      hsl(var(--primary) / 0.7) 0deg,    /* Primary color */
-      hsl(var(--accent) / 0.8) 90deg,    /* Accent color */
-      hsl(var(--primary) / 0.6) 180deg,   /* Primary color slightly different opacity */
-      hsl(var(--accent) / 0.7) 270deg,   /* Accent color slightly different opacity */
-      hsl(var(--primary) / 0.7) 360deg   /* Primary color to close the loop */
+      hsl(var(--primary) / 0.6) 0deg,
+      hsl(var(--accent) / 0.6) 90deg,
+      hsl(var(--primary) / 0.5) 180deg,
+      hsl(var(--accent) / 0.5) 270deg,
+      hsl(var(--primary) / 0.6) 360deg
     );
-    border-radius: calc(var(--radius) + 8px); /* Slightly more rounded than button */
-    filter: blur(12px); /* Soft glow */
-    animation: subtle-breathing-glow 2.2s ease-in-out infinite alternate, spin-aura 10s linear infinite;
-    transform: translate(-50%, -50%); /* Center the aura */
+    border-radius: calc(var(--radius) + 8px);
+    filter: blur(10px); /* Slightly less blur */
+    animation: subtle-breathing-glow 2.5s ease-in-out infinite alternate, spin-aura 12s linear infinite;
+    transform: translate(-50%, -50%);
     pointer-events: none;
     transition: opacity 0.3s ease-out, transform 0.3s ease-out;
   }
 
   .login-btn-custom:hover {
     background-image: none !important;
-    background-color: hsl(var(--accent) / 0.15) !important; /* Light gold background */
-    transform: scale(1.03) !important;
-    box-shadow: 0 0 10px hsl(var(--accent) / 0.5) !important; /* Subtle gold shadow */
+    background-color: hsl(var(--accent) / 0.1) !important; /* Lighter gold background */
+    transform: scale(1.02) !important;
+    box-shadow: 0 0 8px hsl(var(--accent) / 0.4) !important; /* More subtle gold shadow */
     color: hsl(var(--primary-foreground)) !important; /* Keep text color consistent */
   }
 
 
   @keyframes subtle-breathing-glow {
     0% {
-      opacity: 0.5;
+      opacity: 0.4;
       transform: translate(-50%, -50%) scale(1);
     }
     100% {
-      opacity: 0.8;
-      transform: translate(-50%, -50%) scale(1.05);
+      opacity: 0.7;
+      transform: translate(-50%, -50%) scale(1.03);
     }
   }
 

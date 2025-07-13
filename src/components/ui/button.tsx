@@ -11,15 +11,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--secondary))] text-primary-foreground shadow-md hover:shadow-[0_0_15px_3px_hsl(var(--accent)/0.7),_0_0_8px_1px_hsl(var(--accent)/0.5)] hover:brightness-110 active:brightness-90 transform hover:scale-[1.02] active:scale-[0.98]",
+          "bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--secondary))] text-primary-foreground shadow-md hover:shadow-[0_0_12px_2px_hsl(var(--accent)/0.5),_0_0_6px_1px_hsl(var(--accent)/0.4)] hover:brightness-110 active:brightness-90 transform hover:scale-[1.02] active:scale-[0.98]",
         "mystic-glow":
-          "border border-accent/40 bg-background text-accent font-semibold shadow-[0_0_12px_1px_hsl(var(--accent)/0.3)] transform hover:scale-[1.03] hover:font-bold hover:shadow-[0_0_20px_4px_hsl(var(--accent)/0.5)] active:scale-[0.98]",
+          "border border-accent/30 bg-background text-accent font-semibold shadow-[0_0_10px_1px_hsl(var(--accent)/0.25)] transform hover:scale-[1.03] hover:font-bold hover:shadow-[0_0_15px_3px_hsl(var(--accent)/0.4)] active:scale-[0.98]",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-[0_0_15px_hsl(var(--destructive)/0.6)]",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-[0_0_12px_hsl(var(--destructive)/0.5)]",
         outline:
-          "border border-input bg-transparent text-foreground shadow-sm hover:bg-accent/10 hover:text-accent hover:shadow-[0_0_8px_1px_hsl(var(--accent)/0.4)] active:bg-accent/20",
+          "border border-input bg-transparent text-foreground shadow-sm hover:bg-accent/10 hover:text-accent hover:shadow-[0_0_6px_1px_hsl(var(--accent)/0.3)] active:bg-accent/20",
         secondary:
-          "bg-gradient-to-br from-[hsl(var(--secondary))] to-[hsl(var(--accent)/70)] text-secondary-foreground shadow-md hover:shadow-[0_0_15px_3px_hsl(var(--primary)/0.6),_0_0_8px_1px_hsl(var(--primary)/0.4)] hover:brightness-110 active:brightness-90",
+          "bg-gradient-to-br from-[hsl(var(--secondary))] to-[hsl(var(--accent)/60)] text-secondary-foreground shadow-md hover:shadow-[0_0_12px_2px_hsl(var(--primary)/0.5),_0_0_6px_1px_hsl(var(--primary)/0.3)] hover:brightness-110 active:brightness-90",
         ghost:
           "bg-transparent text-foreground hover:bg-accent/10 hover:text-accent active:bg-accent/20",
         link: "text-primary underline-offset-4 hover:underline hover:text-[hsl(var(--accent))] active:text-[hsl(var(--accent)/80)]",
