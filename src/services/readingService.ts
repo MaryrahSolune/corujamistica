@@ -37,7 +37,7 @@ export interface YidamsReadingData {
   deityName: string;
   mantra: string;
   characteristics: string;
-  yidamImageUri?: string;
+  yidamImageUri: string;
   interpretationTimestamp: number | object;
 }
 
@@ -118,5 +118,3 @@ export async function getReadingById(uid: string, readingId: string): Promise<(R
     throw error;
   }
 }
-
-    

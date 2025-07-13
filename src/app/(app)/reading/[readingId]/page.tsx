@@ -337,9 +337,9 @@ export default function ViewReadingPage() {
                 
                 <div>
                   <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yidamsCharacteristicsLabel')}</h3>
-                  <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                  <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
                     {reading.characteristics}
-                  </p>
+                  </div>
                 </div>
               </div>
             )}
@@ -354,5 +354,3 @@ export default function ViewReadingPage() {
     </div>
   );
 }
-
-    
