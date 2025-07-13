@@ -5,10 +5,10 @@ import { useEffect, useState, useCallback, type ComponentType } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock, TreeDeciduous, VenetianMask, HeartHandshake } from 'lucide-react';
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock, TreeDeciduous, VenetianMask, Flower } from 'lucide-react';
 import { 
   Gem, Sparkles, Moon, Sun, Star, Crown, Feather, Key, Scroll, 
-  BrainCircuit as BrainIcon, Shield, Pyramid, Infinity as InfinityIcon, Hexagon, Flower, Flame, Leaf, 
+  BrainCircuit as BrainIcon, Shield, Pyramid, Infinity as InfinityIcon, Hexagon, Flame, Leaf, 
   Cat, Bird, Bot, Cloud, Dna, Fish, Ghost, Grape, Zap, Pentagon, Rainbow, Heart 
 } from 'lucide-react';
 import Image from 'next/image';
@@ -456,5 +456,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-    

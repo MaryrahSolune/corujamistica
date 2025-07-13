@@ -17,7 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn, MessageCircle, TreeDeciduous, HeartHandshake, Flower } from 'lucide-react';
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn, MessageCircle, TreeDeciduous, Flower } from 'lucide-react';
 import { IconAvatar } from './IconAvatar';
 
 const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
