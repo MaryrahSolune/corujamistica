@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, type FormEvent, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -19,15 +19,6 @@ import { OghamIcon } from '@/components/MysticIcons';
 import { AdSlot } from '@/components/AdSlot';
 import { cn } from '@/lib/utils';
 
-const LeafyBackground = () => (
-    <div className="absolute inset-0 z-0 overflow-hidden opacity-10">
-        <Leaf className="absolute top-[10%] left-[5%] h-24 w-24 text-green-400 animate-leaf-fade" style={{ animationDelay: '0s', transform: 'rotate(-20deg)' }} />
-        <Leaf className="absolute top-[20%] right-[10%] h-32 w-32 text-green-400 animate-leaf-fade" style={{ animationDelay: '2s', transform: 'rotate(15deg)' }} />
-        <Leaf className="absolute bottom-[15%] left-[15%]%] h-28 w-28 text-green-400 animate-leaf-fade" style={{ animationDelay: '4s', transform: 'rotate(30deg)' }} />
-        <Leaf className="absolute bottom-[5%] right-[20%] h-36 w-36 text-green-400 animate-leaf-fade" style={{ animationDelay: '6s', transform: 'rotate(-10deg)' }} />
-        <Leaf className="absolute top-[40%] left-[45%] h-20 w-20 text-green-400 animate-leaf-fade" style={{ animationDelay: '1s' }} />
-    </div>
-);
 
 const VineFrame = () => (
     <div className="absolute inset-0 z-20 pointer-events-none opacity-50">
@@ -162,60 +153,44 @@ export default function OghamPage() {
               <div>
                 <Label className="text-lg mb-4 block text-center font-celtic">{t('chooseOghamStickLabel')}</Label>
                 
-                <div className="flex justify-center items-center w-full min-h-[250px] py-4">
-                     <div className="relative w-[300px] h-[200px]">
-                        {/* Left Wing */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-[calc(100%-25px)] -translate-y-1/2 flex flex-col items-end">
-                             {leftWing.map((stick, index) => (
+                <div className="relative flex justify-center items-center w-full min-h-[350px]">
+                    <div className="absolute inset-0 flex justify-center items-center">
+                        <Image
+                            src="/img/ogham_owl.png"
+                            alt="Coruja"
+                            data-ai-hint="stylized owl illustration"
+                            width={100}
+                            height={125}
+                            className="object-contain z-10"
+                        />
+                    </div>
+
+                    <div className="relative w-full h-[350px]">
+                        {/* Render all sticks, then position them */}
+                        {oghamLetters.map((stick, index) => {
+                            const totalSticks = oghamLetters.length;
+                            const angle = (index / (totalSticks - 1)) * 160 - 80; // Spread from -80 to +80 degrees
+                            
+                            return (
                                 <button
-                                    key={`left-${index}`}
+                                    key={stick.letter}
                                     onClick={() => handleStickClick(stick)}
                                     disabled={readingStarted || isLoading}
-                                    style={{ transform: `rotate(${ -10 - (index * 4) }deg) translateX(5px)`, zIndex: 12 - index }}
+                                    style={{
+                                        transform: `rotate(${angle}deg) translate(150px) rotate(-${angle}deg) rotate(90deg)`,
+                                        transformOrigin: 'center center',
+                                    }}
                                     className={cn(
-                                        "relative h-20 w-8 my-[-1.5rem] rounded-md transition-all duration-300 ease-in-out",
+                                        "absolute top-1/2 left-1/2 w-20 h-6 origin-center -translate-x-1/2 -translate-y-1/2 rounded-md transition-all duration-300 ease-in-out",
                                         "bg-gradient-to-br from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-amber-500/50",
-                                        !readingStarted && "hover:scale-110 hover:-translate-x-2 hover:shadow-lg hover:shadow-accent/30 cursor-pointer",
-                                        readingStarted && selectedStick?.letter === stick.letter && "scale-110 -translate-x-2 shadow-lg shadow-accent/50",
+                                        !readingStarted && "hover:scale-125 hover:shadow-lg hover:shadow-accent/50 cursor-pointer",
+                                        readingStarted && selectedStick?.letter === stick.letter && "scale-125 shadow-lg shadow-accent/50",
                                         readingStarted && selectedStick?.letter !== stick.letter && "opacity-30 blur-sm scale-90"
                                     )}
-                                    aria-label={`Escolher Ogham ${index + 1}`}
+                                    aria-label={`Escolher Ogham ${stick.letter}`}
                                 />
-                            ))}
-                        </div>
-                        
-                        {/* Owl Body in the center */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                            <Image
-                                src="/img/ogham_owl.png"
-                                alt="Coruja"
-                                data-ai-hint="stylized owl illustration"
-                                width={120}
-                                height={150}
-                                className="object-contain"
-                            />
-                        </div>
-
-                        {/* Right Wing */}
-                         <div className="absolute top-1/2 right-1/2 translate-x-[calc(100%-25px)] -translate-y-1/2 flex flex-col items-start">
-                             {rightWing.map((stick, index) => (
-                                <button
-                                    key={`right-${index}`}
-                                    onClick={() => handleStickClick(stick)}
-                                    disabled={readingStarted || isLoading}
-                                    style={{ transform: `rotate(${10 + (index * 4)}deg) translateX(-5px)`, zIndex: 12 - index }}
-                                    className={cn(
-                                        "relative h-20 w-8 my-[-1.5rem] rounded-md transition-all duration-300 ease-in-out",
-                                        "bg-gradient-to-bl from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-amber-500/50",
-                                        !readingStarted && "hover:scale-110 hover:translate-x-2 hover:shadow-lg hover:shadow-accent/30 cursor-pointer",
-                                        readingStarted && selectedStick?.letter === stick.letter && "scale-110 translate-x-2 shadow-lg shadow-accent/50",
-                                        readingStarted && selectedStick?.letter !== stick.letter && "opacity-30 blur-sm scale-90"
-                                    )}
-                                    aria-label={`Escolher Ogham ${leftWing.length + index + 1}`}
-                                />
-                            ))}
-                        </div>
-
+                            )
+                        })}
                     </div>
                 </div>
 
