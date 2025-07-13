@@ -141,7 +141,7 @@ export default function OghamPage() {
                 <OghamIcon className="h-8 w-8 mr-3 text-primary" />
                 {t('oghamOraclePageTitle')}
               </CardTitle>
-              <CardDescription className="font-celtic">
+              <CardDescription className="font-celtic text-accent">
                 {t('oghamOraclePageDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
               </CardDescription>
             </CardHeader>
@@ -188,12 +188,12 @@ export default function OghamPage() {
                         {/* Owl Body */}
                         <div className="relative z-20">
                             <Image
-                                src="/img/coruja.png"
-                                alt="Coruja de madeira"
-                                data-ai-hint="stylized wooden owl face"
+                                src="/img/ogham_owl.png"
+                                alt="Coruja"
+                                data-ai-hint="stylized owl illustration"
                                 width={120}
                                 height={150}
-                                className="rounded-full object-cover shadow-lg border-4 border-amber-800"
+                                className="object-contain shadow-lg"
                             />
                         </div>
 
@@ -315,7 +315,7 @@ export default function OghamPage() {
           </div>
         )}
 
-        <div className="relative mt-8 mx-auto w-fit p-2">
+        <div className="relative mt-8 mx-auto w-fit">
           <div className="relative z-10">
             <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
           </div>
