@@ -57,8 +57,13 @@ export default function OghamPage() {
   const [readingStarted, setReadingStarted] = useState(false);
   const [selectedStick, setSelectedStick] = useState<OghamLetterData | null>(null);
 
-  const shuffledSticks = useMemo(() => {
-    return oghamLetters.sort(() => 0.5 - Math.random());
+  const { leftWing, rightWing } = useMemo(() => {
+    const shuffled = oghamLetters.sort(() => 0.5 - Math.random());
+    const midPoint = Math.ceil(shuffled.length / 2);
+    return {
+        leftWing: shuffled.slice(0, midPoint),
+        rightWing: shuffled.slice(midPoint),
+    };
   }, []);
 
   const handleStickClick = async (stick: OghamLetterData) => {
@@ -155,35 +160,65 @@ export default function OghamPage() {
               </div>
 
               <div>
-                <Label className="text-lg mb-2 block text-center font-celtic">{t('chooseFileButton')}</Label>
-                <div className="grid grid-cols-5 md:grid-cols-7 lg:grid-cols-9 gap-3 py-4 min-h-[100px] transition-all duration-500">
-                  {shuffledSticks.map((stick, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleStickClick(stick)}
-                      disabled={readingStarted || isLoading}
-                      className={cn(
-                        "group w-full h-28 rounded-md transition-all duration-300 transform-gpu flex items-center justify-center",
-                        "bg-gradient-to-b from-amber-900 via-yellow-950 to-amber-950 shadow-md border-2 border-amber-950/50",
-                        readingStarted && selectedStick?.letter !== stick.letter && "opacity-20 blur-sm scale-90",
-                        readingStarted && selectedStick?.letter === stick.letter && "scale-110 shadow-lg shadow-accent/50",
-                        !readingStarted && "hover:scale-105 hover:shadow-md hover:shadow-accent/40 cursor-pointer"
-                      )}
-                      aria-label={`Escolher Ogham ${index + 1}`}
-                    >
-                      <div className={cn(
-                        "w-full h-full flex items-center justify-center transition-opacity duration-500",
-                        readingStarted && selectedStick?.letter === stick.letter ? "opacity-100" : "opacity-0"
-                      )}>
-                        {selectedStick?.letter === stick.letter && (
-                          <div className="w-8 h-16 bg-amber-200/90 rounded-md flex items-center justify-center shadow-inner">
-                             <span className="text-4xl font-celtic text-amber-950">{stick.symbol}</span>
-                          </div>
-                        )}
-                      </div>
-                    </button>
-                  ))}
+                <Label className="text-lg mb-4 block text-center font-celtic">{t('chooseFileButton')}</Label>
+                
+                <div className="flex justify-center items-center w-full min-h-[250px] py-4 overflow-hidden">
+                    {/* Owl Display Container */}
+                    <div className="flex items-center justify-center">
+                        {/* Left Wing */}
+                        <div className="flex flex-col items-end -mr-2">
+                            {leftWing.map((stick, index) => (
+                                <button
+                                    key={`left-${index}`}
+                                    onClick={() => handleStickClick(stick)}
+                                    disabled={readingStarted || isLoading}
+                                    style={{ transform: `rotate(${ -10 - (index * 5) }deg) translateX(5px)`, zIndex: 12 - index }}
+                                    className={cn(
+                                        "relative h-20 w-8 my-[-1.5rem] rounded-md transition-all duration-300 ease-in-out",
+                                        "bg-gradient-to-br from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-amber-500/50",
+                                        !readingStarted && "hover:scale-110 hover:-translate-x-2 hover:shadow-lg hover:shadow-accent/30 cursor-pointer",
+                                        readingStarted && selectedStick?.letter === stick.letter && "scale-110 -translate-x-2 shadow-lg shadow-accent/50",
+                                        readingStarted && selectedStick?.letter !== stick.letter && "opacity-30 blur-sm scale-90"
+                                    )}
+                                    aria-label={`Escolher Ogham ${index + 1}`}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Owl Body */}
+                        <div className="relative z-20">
+                            <Image
+                                src="https://placehold.co/120x150.png"
+                                alt="Coruja de madeira"
+                                data-ai-hint="stylized wooden owl face"
+                                width={120}
+                                height={150}
+                                className="rounded-full object-cover shadow-lg border-4 border-amber-800"
+                            />
+                        </div>
+
+                        {/* Right Wing */}
+                        <div className="flex flex-col items-start -ml-2">
+                             {rightWing.map((stick, index) => (
+                                <button
+                                    key={`right-${index}`}
+                                    onClick={() => handleStickClick(stick)}
+                                    disabled={readingStarted || isLoading}
+                                    style={{ transform: `rotate(${10 + (index * 5)}deg) translateX(-5px)`, zIndex: 12 - index }}
+                                    className={cn(
+                                        "relative h-20 w-8 my-[-1.5rem] rounded-md transition-all duration-300 ease-in-out",
+                                        "bg-gradient-to-bl from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-amber-500/50",
+                                        !readingStarted && "hover:scale-110 hover:translate-x-2 hover:shadow-lg hover:shadow-accent/30 cursor-pointer",
+                                        readingStarted && selectedStick?.letter === stick.letter && "scale-110 translate-x-2 shadow-lg shadow-accent/50",
+                                        readingStarted && selectedStick?.letter !== stick.letter && "opacity-30 blur-sm scale-90"
+                                    )}
+                                    aria-label={`Escolher Ogham ${leftWing.length + index + 1}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
                 </div>
+
                 {isLoading && (
                     <div className="flex items-center justify-center text-primary font-celtic">
                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
