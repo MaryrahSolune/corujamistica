@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { interpretOghamReading, type InterpretOghamReadingOutput } from '@/ai/flows/interpret-ogham-reading';
 import { oghamLetters, type OghamLetterData } from '@/lib/ogham-data';
-import { Loader2, BookOpenText, Leaf } from 'lucide-react';
+import { Loader2, BookOpenText, Leaf, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -57,14 +57,12 @@ export default function OghamPage() {
   const [readingStarted, setReadingStarted] = useState(false);
   const [selectedStick, setSelectedStick] = useState<OghamLetterData | null>(null);
 
-  // Memoize shuffled sticks so they don't re-shuffle on every render
   const shuffledSticks = useMemo(() => {
-    // Now using all 25 letters
     return oghamLetters.sort(() => 0.5 - Math.random());
   }, []);
 
   const handleStickClick = async (stick: OghamLetterData) => {
-    if (isLoading || readingStarted) return; // Prevent multiple clicks
+    if (isLoading || readingStarted) return;
 
     if (!currentUser) {
       toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToRead'), variant: 'destructive' });
@@ -103,6 +101,7 @@ export default function OghamPage() {
           oghamLetter: result.oghamLetter,
           oghamSymbol: result.oghamSymbol,
           treeImageUri: result.treeImageUri,
+          adviceImageUri: result.adviceImageUri,
         };
         await saveReading(currentUser.uid, readingToSave);
       }
@@ -244,6 +243,24 @@ export default function OghamPage() {
                 <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify font-celtic">
                   {interpretationResult.interpretation}
                 </div>
+                 {interpretationResult.adviceImageUri && (
+                    <div className="space-y-4 pt-4">
+                        <h3 className="text-xl font-celtic text-primary flex items-center justify-center">
+                            <Sparkles className="h-6 w-6 mr-2" />
+                            Um Sigilo Visual para seu Caminho
+                        </h3>
+                        <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
+                            <Image
+                                src={interpretationResult.adviceImageUri}
+                                alt="Imagem representando o conselho de Merlin"
+                                data-ai-hint="mystical advice tarot card"
+                                width={512}
+                                height={512}
+                                className="w-full h-auto object-contain relative z-10 bg-black/10"
+                            />
+                        </div>
+                    </div>
+                )}
               </CardContent>
             </Card>
           </div>

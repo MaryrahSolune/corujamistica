@@ -27,6 +27,7 @@ export interface OghamReadingData {
   oghamLetter: string;
   oghamSymbol: string;
   treeImageUri?: string | null; // Image of the corresponding tree
+  adviceImageUri?: string | null; // Image representing Merlin's advice
   interpretationTimestamp: number | object;
 }
 
@@ -43,9 +44,15 @@ export async function saveReading(uid: string, readingData: Omit<ReadingData, 'i
 
   // Create a clean object to save, explicitly removing any undefined properties
   const dataToSave: Partial<ReadingData> = { ...dataWithTimestamp };
-  if (dataToSave.type === 'ogham' && (dataToSave.treeImageUri === undefined || dataToSave.treeImageUri === null)) {
-    delete (dataToSave as Partial<OghamReadingData>).treeImageUri;
+  if (dataToSave.type === 'ogham') {
+     if (dataToSave.treeImageUri === undefined || dataToSave.treeImageUri === null) {
+      delete (dataToSave as Partial<OghamReadingData>).treeImageUri;
+    }
+     if (dataToSave.adviceImageUri === undefined || dataToSave.adviceImageUri === null) {
+      delete (dataToSave as Partial<OghamReadingData>).adviceImageUri;
+    }
   }
+
   if (dataToSave.type === 'tarot') {
     if (dataToSave.cardSpreadImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).cardSpreadImageUri;
     if (dataToSave.summaryImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).summaryImageUri;

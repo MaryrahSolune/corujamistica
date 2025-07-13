@@ -286,6 +286,23 @@ export default function ViewReadingPage() {
                     {reading.interpretationText}
                   </div>
                 </div>
+                 {reading.adviceImageUri && (
+                    <div className="my-6">
+                        <h3 className="text-xl font-bold font-serif mb-3 text-accent flex items-center">
+                            <Sparkles className="mr-2 h-5 w-5"/> O Conselho de Merlin
+                        </h3>
+                        <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
+                            <Image
+                            src={reading.adviceImageUri}
+                            alt="Imagem representando o conselho de Merlin"
+                            data-ai-hint="mystical advice tarot card"
+                            width={512}
+                            height={512}
+                            className="w-full h-auto object-contain relative z-10 bg-black/10"
+                            />
+                        </div>
+                    </div>
+                )}
               </>
             )}
             
