@@ -119,20 +119,20 @@ export default function OghamPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="query" className="text-lg font-celtic">{t('yourQuestionLabel')}</Label>
+                <Label htmlFor="query" className="text-lg">{t('yourQuestionLabel')}</Label>
                 <Textarea
                   id="query"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={t('questionPlaceholder')}
                   rows={3}
-                  className="resize-none font-celtic"
+                  className="resize-none"
                   disabled={readingStarted}
                 />
               </div>
 
               <div>
-                <Label className="text-lg mb-4 block text-center font-celtic">{t('chooseOghamStickLabel')}</Label>
+                <Label className="text-lg mb-4 block text-center">{t('chooseOghamStickLabel')}</Label>
                 
                 <div className="relative flex justify-center items-center w-full min-h-[450px]">
                   {/* The circular board */}
@@ -196,7 +196,7 @@ export default function OghamPage() {
                 </div>
 
                 {isLoading && (
-                    <div className="flex items-center justify-center text-primary font-celtic mt-4">
+                    <div className="flex items-center justify-center text-primary mt-4">
                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                         <span>{t('oghamConsultingTrees')}</span>
                     </div>
@@ -205,7 +205,7 @@ export default function OghamPage() {
             </CardContent>
             {readingStarted && !isLoading && (
                 <CardFooter>
-                    <Button onClick={handleReset} variant="outline" className="w-full font-celtic">
+                    <Button onClick={handleReset} variant="outline" className="w-full">
                         {t('oghamDoAnotherReading')}
                     </Button>
                 </CardFooter>
@@ -217,7 +217,7 @@ export default function OghamPage() {
           <div className="max-w-4xl mx-auto mt-8 animated-aurora-background rounded-lg">
             <Card className="relative z-10 bg-destructive/80 dark:bg-destructive/70 backdrop-blur-md shadow-lg border-destructive">
               <CardHeader>
-                <CardTitle className="text-destructive-foreground font-celtic">{t('errorOccurredCardTitle')}</CardTitle>
+                <CardTitle className="text-destructive-foreground">{t('errorOccurredCardTitle')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-destructive-foreground">{error}</p>
@@ -230,17 +230,17 @@ export default function OghamPage() {
           <div className="max-w-4xl mx-auto mt-8 animated-aurora-background rounded-lg">
             <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
               <CardHeader>
-                <CardTitle className="text-2xl font-celtic flex items-center">
+                <CardTitle className="text-2xl flex items-center">
                   <BookOpenText className="h-7 w-7 mr-3 text-accent" />
                   {t('oghamInterpretationTitle')}
                 </CardTitle>
                  <div className="flex flex-col items-center justify-center my-4">
-                    <p className="font-celtic text-lg mb-2">{t('oghamYourChosenLetter', { letter: '', symbol: '' })}</p>
+                    <p className="text-lg mb-2">{t('oghamYourChosenLetter', { letter: '', symbol: '' })}</p>
                     <div className="relative w-28 h-28 flex items-center justify-center">
                         <div className="absolute inset-0 bg-gradient-to-br from-amber-600 to-amber-900 rounded-full shadow-inner"></div>
                         <div className="absolute inset-1 bg-gradient-to-br from-amber-500 to-amber-800 rounded-full"></div>
                         <div className="relative z-10 text-center text-amber-100">
-                            <div className="font-celtic text-xl font-bold">{interpretationResult.oghamLetter}</div>
+                            <div className="text-xl font-bold">{interpretationResult.oghamLetter}</div>
                             <div className="font-sans text-4xl font-black">{interpretationResult.oghamSymbol}</div>
                         </div>
                     </div>
@@ -259,12 +259,12 @@ export default function OghamPage() {
                       />
                   </div>
                 )}
-                <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify font-celtic">
+                <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
                   {interpretationResult.interpretation}
                 </div>
                  {interpretationResult.adviceImageUri && (
                     <div className="space-y-4 pt-4">
-                        <h3 className="text-xl font-celtic text-primary flex items-center justify-center">
+                        <h3 className="text-xl text-primary flex items-center justify-center">
                             <Sparkles className="h-6 w-6 mr-2" />
                             {t('oghamAdviceVisual')}
                         </h3>
@@ -292,7 +292,17 @@ export default function OghamPage() {
         )}
         <div className="relative mt-8 flex justify-center">
           <div className="relative z-10 p-2">
-             <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
+            <div className="relative group">
+              <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
+              {/* Animated leaves */}
+              <Leaf className="absolute top-[10%] left-[5%] h-6 w-6 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '0s', filter: 'drop-shadow(0 0 3px #65f57a)' }}/>
+              <Leaf className="absolute top-[20%] right-[15%] h-5 w-5 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '1.5s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(70deg)' }}/>
+              <Leaf className="absolute top-[35%] left-[20%] h-7 w-7 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '0.5s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(-40deg)' }}/>
+              <Leaf className="absolute bottom-[25%] left-[10%] h-6 w-6 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '2s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(-120deg)' }}/>
+              <Leaf className="absolute bottom-[10%] right-[8%] h-8 w-8 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '1s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(150deg)' }}/>
+              <Leaf className="absolute top-[50%] right-[5%] h-5 w-5 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '2.5s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(100deg)' }}/>
+              <Leaf className="absolute top-[60%] left-[2%] h-6 w-6 text-green-400/80 animate-leaf-fade" style={{ animationDelay: '3s', filter: 'drop-shadow(0 0 3px #65f57a)', transform: 'rotate(-80deg)' }}/>
+            </div>
           </div>
         </div>
 

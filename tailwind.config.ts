@@ -142,6 +142,16 @@ export default {
           '50%': { transform: 'translate(5px, -5px)' },
           '75%': { transform: 'translate(-5px, 5px)' },
         },
+        'fade-in-out-leaf': {
+          '0%, 100%': {
+            opacity: '0',
+            transform: 'scale(0.95) rotate(var(--tw-rotate, 0deg))',
+          },
+          '50%': {
+            opacity: '0.8',
+            transform: 'scale(1.05) rotate(var(--tw-rotate, 0deg))',
+          },
+        },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
@@ -157,6 +167,7 @@ export default {
         'icon-flow': 'icon-color-flow 4s linear infinite',
         'text-gradient-flow': 'text-gradient-flow 4s ease infinite',
         'float-quad': 'float-quad 30s linear infinite alternate',
+        'leaf-fade': 'fade-in-out-leaf 8s ease-in-out infinite',
   		}
   	}
   },
