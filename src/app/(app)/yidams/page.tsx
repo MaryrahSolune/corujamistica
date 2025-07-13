@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { generateYidam, type GenerateYidamOutput } from '@/ai/flows/generate-yidams-flow';
-import { Loader2, HeartHandshake, Sparkles } from 'lucide-react';
+import { Loader2, HeartHandshake, Sparkles, Hand } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -73,6 +73,7 @@ export default function YidamsPage() {
         deityName: yidamResult.deityName,
         mantra: yidamResult.mantra,
         characteristics: yidamResult.characteristics,
+        mudra: yidamResult.mudra,
         yidamImageUri: yidamResult.imageUri,
       };
       await saveReading(currentUser.uid, readingToSave);
@@ -194,6 +195,16 @@ export default function YidamsPage() {
                   {result.characteristics}
                 </p>
               </div>
+
+              <div>
+                <h3 className="text-xl font-bold font-serif mb-2 text-accent flex items-center">
+                  <Hand className="mr-2 h-5 w-5" /> Mudra de Conexão
+                </h3>
+                <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                  {result.mudra}
+                </p>
+              </div>
+
             </CardContent>
           </Card>
         </div>

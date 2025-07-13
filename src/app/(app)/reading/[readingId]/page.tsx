@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -10,7 +9,7 @@ import { getReadingById, type ReadingData } from '@/services/readingService';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, HeartHandshake } from 'lucide-react';
+import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, HeartHandshake, Hand } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { format } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
@@ -341,6 +340,18 @@ export default function ViewReadingPage() {
                     {reading.characteristics}
                   </div>
                 </div>
+
+                {reading.mudra && (
+                    <div>
+                        <h3 className="text-xl font-bold font-serif mb-2 text-accent flex items-center">
+                        <Hand className="mr-2 h-5 w-5" /> Mudra de Conexão
+                        </h3>
+                        <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                        {reading.mudra}
+                        </div>
+                    </div>
+                )}
+
               </div>
             )}
             

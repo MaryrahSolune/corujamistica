@@ -21,6 +21,7 @@ const GenerateYidamOutputSchema = z.object({
   deityName: z.string().describe('The name of the generated Yidam deity.'),
   mantra: z.string().describe('The mantra associated with the Yidam.'),
   characteristics: z.string().describe('A paragraph describing the main characteristics and symbolism of the Yidam.'),
+  mudra: z.string().describe('A description of a sacred hand gesture (mudra) for connecting with the Yidam.'),
   imageUri: z.string().describe('A data URI of a generated image representing the Yidam.'),
 });
 export type GenerateYidamOutput = z.infer<typeof GenerateYidamOutputSchema>;
@@ -36,6 +37,7 @@ const generateYidamPrompt = ai.definePrompt({
     deityName: z.string().describe('O nome exato do Yidam selecionado da lista.'),
     mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam. Se não houver um na lista, crie um que seja apropriado.'),
     characteristics: z.string().describe('Uma descrição poética e profunda sobre as qualidades, os símbolos e o que esta divindade representa, baseada nas informações da tabela. O parágrafo deve ter no mínimo 5 linhas.'),
+    mudra: z.string().describe('Uma descrição de um mudra (gesto sagrado com as mãos) que ajude a pessoa a se conectar com a energia do Yidam. O mudra deve ser poético, prático e alinhado com as características da divindade.'),
     imagePrompt: z.string().describe('Um prompt detalhado e artístico para um gerador de imagens, baseado na coluna "Imagem simbólica" da tabela, para criar uma bela representação do Yidam no estilo de uma pintura Thangka tradicional, com cores vibrantes e um fundo sagrado.'),
   }) },
   prompt: `Você é um LAMA, um mestre do budismo tibetano, com profundo conhecimento de astrologia e das divindades tântricas (Yidams). Um discípulo informou sua data de nascimento e busca descobrir qual Yidam de uma lista específica ressoa com sua essência para guiar sua meditação e caminho espiritual.
@@ -43,7 +45,7 @@ const generateYidamPrompt = ai.definePrompt({
 **Sua tarefa é:**
 1.  Analisar a data de nascimento do discípulo ({{{birthDate}}}).
 2.  Com base em sua sabedoria astrológica, selecionar a divindade Yidam **MAIS APROPRIADA** da lista abaixo.
-3.  Usar as informações da divindade selecionada na tabela para preencher os campos de saída solicitados.
+3.  Usar as informações da divindade selecionada na tabela para preencher os campos de saída solicitados, incluindo a criação de um Mudra apropriado.
 
 **Tabela de Yidams (Fonte de Verdade Absoluta):**
 
@@ -95,7 +97,8 @@ const generateYidamPrompt = ai.definePrompt({
 1.  **Nome da Divindade:** O nome EXATO como está na tabela.
 2.  **Mantra:** Crie um mantra autêntico e poderoso que se alinhe com a divindade e sua 'Palavra-chave'. (Ex: Para Avalokiteshvara, "Om Mani Padme Hum").
 3.  **Características:** Escreva uma descrição poética e detalhada (mínimo 5 linhas) sobre as qualidades da divindade, usando as colunas 'Forma', 'Elemento', 'Transmuta' e 'Palavra-chave' como base.
-4.  **Prompt de Imagem:** Use a coluna 'Imagem simbólica' como inspiração principal para criar um prompt de imagem detalhado e artístico para um gerador de imagens. O estilo deve ser uma pintura Thangka tradicional, com cores vibrantes, simbolismo rico e um fundo sagrado.
+4.  **Mudra:** Descreva um gesto sagrado e poético com as mãos que o discípulo possa praticar para se conectar com a energia do Yidam. O mudra deve ser simples de executar e alinhado com as 'Características' da divindade.
+5.  **Prompt de Imagem:** Use a coluna 'Imagem simbólica' como inspiração principal para criar um prompt de imagem detalhado e artístico para um gerador de imagens. O estilo deve ser uma pintura Thangka tradicional, com cores vibrantes, simbolismo rico e um fundo sagrado.
 
 Data de Nascimento do Discípulo: {{{birthDate}}}
 
@@ -139,6 +142,7 @@ const generateYidamFlow = ai.defineFlow(
       deityName: promptOutput.deityName,
       mantra: promptOutput.mantra,
       characteristics: promptOutput.characteristics,
+      mudra: promptOutput.mudra,
       imageUri: media.url,
     };
   }
