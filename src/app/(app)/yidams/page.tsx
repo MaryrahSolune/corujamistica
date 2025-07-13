@@ -1,44 +1,40 @@
 'use client';
 
-import { useState, type FormEvent, type ChangeEvent } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { generateYidam, type GenerateYidamOutput } from '@/ai/flows/generate-yidams-flow';
-import { Loader2, HeartHandshake, Sparkles, Hand } from 'lucide-react';
+import { generateYidam, type InterpretYidamOutput } from '@/ai/flows/generate-yidams-flow';
+import { yidams, type YidamData } from '@/lib/yidams-data';
+import { Loader2, HeartHandshake, Sparkles, Hand, BrainCircuit } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
 import { deductCredit } from '@/services/creditService';
 import { saveReading, type ReadingData } from '@/services/readingService';
+import { cn } from '@/lib/utils';
+
 
 export default function YidamsPage() {
-  const [birthDate, setBirthDate] = useState('');
-  const [result, setResult] = useState<GenerateYidamOutput | null>(null);
+  const [query, setQuery] = useState('');
+  const [result, setResult] = useState<InterpretYidamOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [readingStarted, setReadingStarted] = useState(false);
+  const [selectedSymbol, setSelectedSymbol] = useState<YidamData | null>(null);
+  
   const { toast } = useToast();
   const { t } = useLanguage();
   const { currentUser, userCredits, refreshCredits } = useAuth();
 
-  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, ''); // Remove all non-digits
-    if (value.length > 8) {
-      value = value.slice(0, 8); // Limit to 8 digits (DDMMYYYY)
-    }
+  const shuffledYidams = useMemo(() => {
+    return [...yidams].sort(() => 0.5 - Math.random());
+  }, []);
 
-    if (value.length > 4) {
-      value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4)}`;
-    } else if (value.length > 2) {
-      value = `${value.slice(0, 2)}/${value.slice(2)}`;
-    }
-    setBirthDate(value);
-  };
-
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+  const handleSymbolClick = async (symbol: YidamData) => {
+    if (isLoading || readingStarted) return;
 
     if (!currentUser) {
       toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToRead'), variant: 'destructive' });
@@ -48,12 +44,14 @@ export default function YidamsPage() {
       toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsDescription'), variant: 'destructive' });
       return;
     }
-    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(birthDate)) {
-      toast({ title: t('errorGenericTitle'), description: t('yidamsErrorDate'), variant: 'destructive' });
+    if (!query.trim()) {
+      toast({ title: t('noQueryErrorTitle'), description: t('noQueryErrorDescription'), variant: 'destructive' });
       return;
     }
 
     setIsLoading(true);
+    setReadingStarted(true);
+    setSelectedSymbol(symbol);
     setResult(null);
     setError(null);
 
@@ -64,12 +62,12 @@ export default function YidamsPage() {
       }
       refreshCredits();
 
-      const yidamResult = await generateYidam({ birthDate });
+      const yidamResult = await generateYidam({ query, chosenYidam: symbol });
       setResult(yidamResult);
 
       const readingToSave: Omit<ReadingData, 'interpretationTimestamp'> = {
         type: 'yidams',
-        query: `Yidam for ${birthDate}`,
+        query,
         deityName: yidamResult.deityName,
         mantra: yidamResult.mantra,
         characteristics: yidamResult.characteristics,
@@ -89,9 +87,19 @@ export default function YidamsPage() {
     }
   };
 
+  const handleReset = () => {
+    setQuery('');
+    setResult(null);
+    setError(null);
+    setReadingStarted(false);
+    setSelectedSymbol(null);
+  };
+  
+  const boardRadius = 200; // in pixels
+
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-8">
+      <div className="max-w-3xl mx-auto animated-aurora-background rounded-xl mb-8">
         <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
           <CardHeader>
             <CardTitle className="text-3xl font-serif flex items-center">
@@ -103,40 +111,98 @@ export default function YidamsPage() {
             </CardDescription>
           </CardHeader>
           {!result && (
-            <form onSubmit={handleSubmit}>
-              <CardContent>
+              <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="birth-date" className="text-lg">{t('yidamsBirthDateLabel')}</Label>
-                  <Input
-                    id="birth-date"
-                    value={birthDate}
-                    onChange={handleDateChange}
-                    placeholder={t('yidamsBirthDatePlaceholder')}
-                    disabled={isLoading}
-                    maxLength={10}
+                  <Label htmlFor="query" className="text-lg">{t('yourQuestionLabel')}</Label>
+                  <Textarea
+                    id="query"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder={t('questionPlaceholder')}
+                    rows={3}
+                    className="resize-none"
+                    disabled={readingStarted}
                   />
                 </div>
+
+                <div>
+                  <Label className="text-lg mb-4 block text-center">Escolha um símbolo para revelar seu Yidam</Label>
+                  
+                  <div className="relative flex justify-center items-center w-full min-h-[450px]">
+                     <div 
+                        className="relative w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-black border-2 border-primary/50 shadow-inner"
+                      >
+                         <div className="absolute inset-4 rounded-full border border-dashed border-primary/20"></div>
+                         <div className="absolute inset-16 rounded-full border border-dashed border-primary/20"></div>
+                         
+                        {shuffledYidams.map((symbol, index) => {
+                          const angle = (index / shuffledYidams.length) * 360;
+                          const x = boardRadius * Math.cos((angle - 90) * (Math.PI / 180));
+                          const y = boardRadius * Math.sin((angle - 90) * (Math.PI / 180));
+                          
+                          const isSelected = selectedSymbol?.name === symbol.name;
+                          const isRevealed = readingStarted && isSelected;
+
+                          return (
+                            <button
+                              key={symbol.name}
+                              onClick={() => handleSymbolClick(symbol)}
+                              disabled={readingStarted || isLoading}
+                              style={{
+                                transform: `translate(${x}px, ${y}px) rotate(${angle}deg)`,
+                                transformOrigin: 'center center',
+                              }}
+                               className={cn(
+                                "absolute w-[70px] h-[70px] flex items-center justify-center rounded-md transition-all duration-500 ease-in-out",
+                                !readingStarted && "hover:scale-110 hover:shadow-lg hover:shadow-accent/50 cursor-pointer",
+                                readingStarted && !isSelected && "opacity-10 blur-sm scale-90",
+                                isSelected && "scale-125 shadow-lg shadow-accent/50 z-10"
+                              )}
+                              aria-label={`Escolher símbolo oculto ${index + 1}`}
+                            >
+                              <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isRevealed && "[transform:rotateY(180deg)]")}>
+                                {/* Back of the card (hidden) */}
+                                <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-r from-secondary via-primary to-secondary shadow-md rounded-md flex items-center justify-center border border-black">
+                                   <Sparkles className="w-6 h-6 text-primary-foreground/50" />
+                                </div>
+                                {/* Front of the card (revealed) */}
+                                <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-accent/20 to-background shadow-lg border-2 border-accent/80 rounded-md flex flex-col items-center justify-center p-1 text-center">
+                                    <p className="font-sans text-xs font-bold text-accent whitespace-nowrap">{symbol.symbolicRepresentation}</p>
+                                </div>
+                              </div>
+                            </button>
+                          );
+                        })}
+
+                        <div className={cn("text-center transition-opacity duration-500 w-40 h-40", readingStarted ? "opacity-0" : "opacity-100")}>
+                           <img
+                              src="/img/luz.gif"
+                              alt="Luz mística central"
+                              data-ai-hint="mystical light animation"
+                              width={160}
+                              height={160}
+                              className="object-contain w-full h-full"
+                            />
+                        </div>
+                      </div>
+                  </div>
+
+                    {isLoading && (
+                        <div className="flex items-center justify-center text-primary mt-4">
+                            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                            <span>Revelando seu caminho...</span>
+                        </div>
+                    )}
+                </div>
               </CardContent>
+          )}
+
+          {readingStarted && !isLoading && result && (
               <CardFooter>
-                <Button 
-                  type="submit" 
-                  className="w-full text-lg py-6" 
-                  disabled={isLoading || !birthDate || !/^\d{2}\/\d{2}\/\d{4}$/.test(birthDate) || (userCredits && userCredits.balance < 1)}
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      {t('yidamsRevealingButton')}
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="mr-2 h-5 w-5" />
-                      {t('yidamsRevealButton')}
-                    </>
-                  )}
-                </Button>
+                  <Button onClick={handleReset} variant="outline" className="w-full">
+                      Fazer outra consulta
+                  </Button>
               </CardFooter>
-            </form>
           )}
         </Card>
       </div>
@@ -191,21 +257,26 @@ export default function YidamsPage() {
               
               <div>
                 <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yidamsCharacteristicsLabel')}</h3>
-                <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
                   {result.characteristics}
-                </p>
+                </div>
               </div>
 
               <div>
                 <h3 className="text-xl font-bold font-serif mb-2 text-accent flex items-center">
                   <Hand className="mr-2 h-5 w-5" /> Mudra de Conexão
                 </h3>
-                <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
                   {result.mudra}
-                </p>
+                </div>
               </div>
 
             </CardContent>
+             <CardFooter>
+                  <Button onClick={handleReset} variant="outline" className="w-full">
+                      Fazer outra consulta
+                  </Button>
+              </CardFooter>
           </Card>
         </div>
       )}

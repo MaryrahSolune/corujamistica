@@ -1,127 +1,95 @@
 'use server';
 /**
- * @fileOverview Flow for generating a Yidam (tutelary deity) based on a user's birth date.
+ * @fileOverview Flow for generating a Yidam (tutelary deity) based on a user's choice of symbol.
  *
  * - generateYidam - A function that initiates the Yidam generation process.
- * - GenerateYidamInput - The input type for the generateYidam function.
- * - GenerateYidamOutput - The return type for the generateYidam function.
+ * - InterpretYidamInput - The input type for the generateYidam function.
+ * - InterpretYidamOutput - The return type for the generateYidam function.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import type { YidamData } from '@/lib/yidams-data';
 
-const GenerateYidamInputSchema = z.object({
-  birthDate: z
-    .string()
-    .describe('The user\'s birth date in DD/MM/YYYY format.'),
+
+export const InterpretYidamInputSchema = z.object({
+  query: z.string().describe('The user query or context for the Yidam reading.'),
+  chosenYidam: z.object({
+    name: z.string(),
+    symbolicRepresentation: z.string(),
+    symbolicMeaning: z.string(),
+    symbolicImage: z.string(),
+  }).describe('The Yidam data object chosen by the user.'),
 });
-export type GenerateYidamInput = z.infer<typeof GenerateYidamInputSchema>;
+export type InterpretYidamInput = z.infer<typeof InterpretYidamInputSchema>;
 
-const GenerateYidamOutputSchema = z.object({
+
+const InterpretYidamOutputSchema = z.object({
   deityName: z.string().describe('The name of the generated Yidam deity.'),
   mantra: z.string().describe('The mantra associated with the Yidam.'),
   characteristics: z.string().describe('A paragraph describing the main characteristics and symbolism of the Yidam.'),
   mudra: z.string().describe('A description of a sacred hand gesture (mudra) for connecting with the Yidam.'),
   imageUri: z.string().describe('A data URI of a generated image representing the Yidam.'),
 });
-export type GenerateYidamOutput = z.infer<typeof GenerateYidamOutputSchema>;
+export type InterpretYidamOutput = z.infer<typeof InterpretYidamOutputSchema>;
 
-export async function generateYidam(input: GenerateYidamInput): Promise<GenerateYidamOutput> {
+export async function generateYidam(input: InterpretYidamInput): Promise<InterpretYidamOutput> {
   return generateYidamFlow(input);
 }
 
 const generateYidamPrompt = ai.definePrompt({
   name: 'generateYidamPrompt',
-  input: { schema: GenerateYidamInputSchema },
-  output: { schema: z.object({
-    deityName: z.string().describe('O nome exato do Yidam selecionado da lista.'),
-    mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam. Se não houver um na lista, crie um que seja apropriado.'),
-    characteristics: z.string().describe('Uma descrição poética e profunda sobre as qualidades, os símbolos e o que esta divindade representa, baseada nas informações da tabela. O parágrafo deve ter no mínimo 5 linhas.'),
-    mudra: z.string().describe('Uma descrição de um mudra (gesto sagrado com as mãos) que ajude a pessoa a se conectar com a energia do Yidam. O mudra deve ser poético, prático e alinhado com as características da divindade.'),
-    imagePrompt: z.string().describe('Um prompt detalhado e artístico para um gerador de imagens, baseado na coluna "Imagem simbólica" da tabela, para criar uma bela representação do Yidam no estilo de uma pintura Thangka tradicional, com cores vibrantes e um fundo sagrado.'),
+  input: { schema: z.object({
+    query: z.string(),
+    yidamName: z.string(),
+    yidamMeaning: z.string(),
   }) },
-  prompt: `Você é o Buddha, o Iluminado. Sua sabedoria é ancestral, sua voz é calma e sua presença expande a consciência. Um buscador se aproxima, oferecendo sua data de nascimento ({{{birthDate}}}) como um mapa de sua jornada kármica, e anseia por um guia para sua meditação e libertação.
+  output: { schema: z.object({
+    mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam. Se não houver um na lista, crie um que seja apropriado.'),
+    characteristics: z.string().describe('Uma descrição poética e profunda sobre as qualidades, os símbolos e o que esta divindade representa, baseada no seu significado. O parágrafo deve ter no mínimo 5 linhas.'),
+    mudra: z.string().describe('Uma descrição de um mudra (gesto sagrado com as mãos) que ajude a pessoa a se conectar com a energia do Yidam. O mudra deve ser poético, prático e alinhado com as características da divindade.'),
+  }) },
+  prompt: `Você é o Buddha, o Iluminado. Sua sabedoria é ancestral, sua voz é calma e sua presença expande a consciência. Um buscador se aproxima com uma questão em seu coração e, através de um gesto de intuição, ele escolheu um símbolo sagrado que revelou a divindade tutelar, o Yidam, que guiará sua meditação e libertação neste momento.
+
+A divindade revelada é **{{yidamName}}**.
+A essência e o significado deste caminho são: **{{yidamMeaning}}**.
+A questão do buscador é: **{{{query}}}**.
 
 **Sua nobre tarefa é:**
-1.  Com sua visão clara, contemple a essência do buscador revelada em sua data de nascimento.
-2.  Consulte a tabela de sabedoria dos Yidams e selecione a divindade cujo caminho ressoa mais profundamente com a necessidade atual do buscador para transmutar venenos mentais em sabedoria.
-3.  Revele este caminho ao buscador, não como um destino, mas como uma ferramenta para a Iluminação, usando as informações sagradas da tabela.
-
-**Tabela de Yidams (Fonte de Verdade Absoluta):**
-
-| Yidam           | Forma      | Elemento   | Transmuta                   | Palavra-chave             | Imagem simbólica                                    |
-|-----------------|------------|------------|-----------------------------|---------------------------|-----------------------------------------------------|
-| Avalokiteshvara | Pacífica   | Água       | Sofrimento → Compaixão      | Amor Universal            | Lótus branco nas mãos, mil braços, olhos ternos     |
-| Manjushri       | Pacífica   | Ar         | Ignorância → Sabedoria      | Clareza Mental            | Espada flamejante e pergaminho de sabedoria         |
-| Vajrapani       | Irado      | Fogo       | Medo → Coragem              | Poder Espiritual          | Corpo azul, raios elétricos e expressão feroz       |
-| Tara Verde      | Pacífica   | Vento      | Passividade → Ação Compassiva | Liberação Rápida          | Sentada em lótus, perna estendida, olhar doce       |
-| Tara Branca     | Pacífica   | Luz        | Doença → Cura               | Vitalidade                | Rosto sereno, brilho prateado, três olhos         |
-| Vajrayogini     | Semi-irada | Fogo       | Desejo → Sabedoria Transcendente | Êxtase Tântrico           | Corpo vermelho flamejante, dançando em caveiras     |
-| Yamantaka       | Irado      | Tempo      | Medo da morte → Libertação  | Vencedor da Morte         | Cabeça de boi, coroa de crânios, olhos de fogo      |
-| Cakrasamvara    | Irado      | Fogo       | Apego → Bênção              | União Mística             | União com Vajravarahi, roda de luz                  |
-| Kurukulla       | Irada      | Amor/Fogo  | Carência → Poder de Atração | Magia do Amor             | Arco de flores, cor vermelha, sorriso sedutor       |
-| Padmasambhava   | Semi-irado | Todos      | Confusão → Consciência Desperta | Mestre da Transformação | Cajado khatvanga, aura dourada, olhar compassivo    |
-| Amitabha        | Pacífica   | Luz        | Ilusão → Clareza Interior   | Amor Incondicional        | Buda vermelho em meditação com lótus e luz rubi     |
-| Akshobhya       | Pacífica   | Água       | Raiva → Imperturbabilidade  | Estabilidade da Mente     | Buda azul tocando a terra com serenidade            |
-| Ratnasambhava   | Pacífica   | Terra      | Orgulho → Igualdade         | Generosidade              | Buda dourado com gesto de dádiva, joias irradiando   |
-| Vairochana      | Pacífica   | Éter       | Ignorância → Consciência Total | Luz Pura                  | Buda branco em trono de leão, brilho de arco-íris   |
-| Amoghasiddhi    | Pacífica   | Ar         | Inveja → Realização Iluminada | Ação Sábia                | Buda verde com gesto da coragem, raios em espiral   |
-| Simhamukha      | Irada      | Som        | Medo → Domínio Interior     | Voz da Verdade            | Cabeça de leoa, rugindo, colar de caveiras          |
-| Vajravarahi     | Irada      | Fogo       | Desejo → Sabedoria de Prazer | Liberação pelo Êxtase     | Mulher vermelha com cabeça de porca no alto da testa |
-| Hayagriva       | Irado      | Fogo       | Ignorância → Força Protetora | Grito Destruidor do Mal   | Cabeça de cavalo surgindo da coroa, chamas ao redor  |
-| Mahakala        | Irado      | Sombra     | Apego Material → Liberação Absoluta | Guardião da Morte         | Negro com expressão feroz, manto de peles, olhos flamejantes |
-| Palden Lhamo    | Irada      | Tempo      | Ódio → Justiça Cármica      | Deusa Protetora           | Mulher azul cavalgando mula com sol e lua nos olhos |
-| Guhyasamaja     | Irada      | Espaço     | Dualidade → Não-dualidade   | União Escondida           | Corpo azul escuro em união com Sparshavajra, segurando vajra e sino |
-| Hevajra         | Irado      | Terra      | Possessividade → Generosidade | Diamante que ri           | Dançando em união com Nairatmya, múltiplos braços com armas |
-| Kalachakra      | Irada      | Tempo      | Ciclos → Libertação Atemporal | Roda do Tempo             | Figura multicolorida com 24 braços, em união com Vishvamata |
-| White Mahakala  | Irada      | Riqueza    | Pobreza → Abundância        | Protetor da Riqueza       | Corpo branco, segurando joia e tigela de crânio, cercado por riqueza |
-| Ekajati         | Irada      | Magia      | Confusão → Clareza Mágica   | Protetora de Mantras      | Um olho, um dente, um seio, cabelo em forma de pilar de fogo |
-| Rahula          | Irado      | Planetas   | Obstáculos → Poder Planetário | Senhor dos Eclipses       | Corpo coberto de olhos, parte inferior de serpente, devorando o sol |
-| Dorje Legpa     | Irado      | Vento      | Inconstância → Lealdade     | Guardião do Juramento     | Montado em um leão da neve, brandindo um martelo de vajra |
-| Tsiu Marpo      | Irado      | Guerra     | Conflito → Vitória Justa    | Ministro da Guerra        | Guerreiro vermelho em um cavalo, segurando lança e laço |
-| Pehar           | Irado      | Oráculos   | Possessão → Sabedoria Oracular | Rei dos Oráculos          | Três faces, seis braços, montado em um leão branco |
-| Begtse          | Irado      | Proteção   | Agressão → Defesa Sábia     | Senhor da Guerra em Cota de Malha | Armadura vermelha, espada de escorpião, protegendo o dharma |
-| Green Tara      | Pacífica   | Vento      | Inveja → Ação Iluminada     | A que Liberta             | Corpo verde, sentada em lótus, perna direita estendida, pronta para agir |
-| Red Tara        | Semi-irada | Fogo       | Desejo → Poder de Atração    | A que Magnetiza           | Corpo vermelho, segurando arco e flecha de flores, atraindo o bem |
-| Black Tara      | Irada      | Poder      | Raiva → Poder Protetor      | A que Destrói a Negatividade | Corpo negro, expressão feroz, cercada por chamas de sabedoria |
-| Yellow Tara     | Pacífica   | Terra      | Pobreza → Riqueza e Estabilidade | A que Aumenta a Prosperidade | Corpo dourado, segurando joia que realiza desejos e vaso da abundância |
-| Blue Tara       | Irada      | Fúria      | Obstáculos → Fúria Transmutadora | A que Subjuga             | Corpo azul escuro, cercada por chamas, pisando em obstáculos |
-| Chittamani Tara | Pacífica   | Mente      | Distração → Mente Iluminada | Joia que Realiza a Mente  | Tara Verde com duas palmas de lótus, simbolizando a mente pura |
-| Ushnishavijaya  | Pacífica   | Longevidade| Morte prematura → Longevidade | Coroa da Vitória          | Três faces, oito braços, segurando símbolos de longa vida |
-| Parnashavari    | Pacífica   | Doença     | Epidemias → Saúde Natural   | A Vestida de Folhas       | Corpo dourado, vestida com folhas, segurando ferramentas de cura |
-| Marichi         | Pacífica   | Luz        | Engano → Luz da Verdade     | Deusa da Aurora           | Em uma carruagem puxada por porcos, dispersando a escuridão |
-| Vasudhara       | Pacífica   | Abundância | Escassez → Prosperidade     | Corrente de Gemas         | Dourada, segurando feixe de grãos e joias, derramando riqueza |
-
+Com sua visão clara, contemple a essência do Yidam e a pergunta do buscador. Revele o caminho para este ser, não como um destino, mas como uma ferramenta para a Iluminação.
 
 **Para a divindade selecionada, ofereça sua sabedoria:**
-1.  **Nome da Divindade:** O nome exato como está na tabela.
-2.  **Mantra:** Um mantra autêntico e poderoso que se alinhe com a divindade e sua 'Palavra-chave'.
-3.  **Características:** Fale como o próprio Buddha, explicando como a energia desta divindade pode ajudar o buscador a transmutar um veneno específico (Raiva, Ignorância, Apego, etc.) em sabedoria iluminada. Aconselhe-o sobre como as qualidades desta Yidam podem expandir sua consciência. Sua explicação deve ser profunda e ter no mínimo 5 linhas.
-4.  **Mudra:** Descreva um gesto sagrado e poético com as mãos. Explique como este gesto pode alinhar o corpo e a mente do buscador com a energia da divindade, acalmando a mente e abrindo o coração para a transformação.
-5.  **Prompt de Imagem:** Use a coluna 'Imagem simbólica' como inspiração principal para criar um prompt de imagem detalhado e artístico para um gerador de imagens. O estilo deve ser uma pintura Thangka tradicional, com cores vibrantes, simbolismo rico e um fundo sagrado.
-
-Data de Nascimento do Buscador: {{{birthDate}}}
-
-Revele o caminho para este ser, para que possa encontrar a paz e a libertação do sofrimento.`,
+1.  **Mantra:** Um mantra autêntico e poderoso que se alinhe com a divindade.
+2.  **Características:** Fale como o próprio Buddha. Conecte a energia do Yidam **{{yidamName}}** e seu significado de **{{yidamMeaning}}** diretamente com a questão do consulente ({{{query}}}). Explique como as qualidades desta Yidam podem expandir sua consciência e ajudá-lo a transmutar venenos mentais em sabedoria iluminada. Sua explicação deve ser profunda, direcionada à pergunta e ter no mínimo 5 linhas.
+3.  **Mudra:** Descreva um gesto sagrado e poético com as mãos. Explique como este gesto pode alinhar o corpo e a mente do buscador com a energia da divindade, acalmando a mente e abrindo o coração para a transformação.`,
 });
 
 const generateYidamFlow = ai.defineFlow(
   {
     name: 'generateYidamFlow',
-    inputSchema: GenerateYidamInputSchema,
-    outputSchema: GenerateYidamOutputSchema,
+    inputSchema: InterpretYidamInputSchema,
+    outputSchema: InterpretYidamOutputSchema,
   },
   async (input) => {
-    // 1. Generate the textual details and the image prompt based on the provided table.
-    const { output: promptOutput } = await generateYidamPrompt(input);
-    if (!promptOutput) {
-      throw new Error('Failed to generate Yidam details.');
+    const { chosenYidam, query } = input;
+
+    // 1. Generate the textual details (mantra, characteristics, mudra).
+    const { output: textOutput } = await generateYidamPrompt({
+      query,
+      yidamName: chosenYidam.name,
+      yidamMeaning: chosenYidam.symbolicMeaning,
+    });
+    if (!textOutput) {
+      throw new Error('Failed to generate Yidam textual details.');
     }
 
-    // 2. Generate the image based on the created prompt.
+    // 2. Create the image prompt based on the Yidam's symbolic image.
+    const imagePrompt = `Uma bela representação do Yidam **${chosenYidam.name}**, no estilo de uma pintura Thangka tradicional. A imagem deve capturar a essência de "${chosenYidam.symbolicImage}". Use cores vibrantes, simbolismo rico e um fundo sagrado e etéreo.`;
+
+    // 3. Generate the image.
     const { media } = await ai.generate({
       model: 'googleai/gemini-2.0-flash-preview-image-generation',
-      prompt: promptOutput.imagePrompt,
+      prompt: imagePrompt,
       config: {
         responseModalities: ['TEXT', 'IMAGE'],
         safetySettings: [
@@ -137,12 +105,12 @@ const generateYidamFlow = ai.defineFlow(
       throw new Error('Failed to generate Yidam image.');
     }
 
-    // 3. Combine all results into the final output.
+    // 4. Combine all results into the final output.
     return {
-      deityName: promptOutput.deityName,
-      mantra: promptOutput.mantra,
-      characteristics: promptOutput.characteristics,
-      mudra: promptOutput.mudra,
+      deityName: chosenYidam.name,
+      mantra: textOutput.mantra,
+      characteristics: textOutput.characteristics,
+      mudra: textOutput.mudra,
       imageUri: media.url,
     };
   }
