@@ -193,7 +193,7 @@ export default function OghamPage() {
                                 data-ai-hint="stylized owl illustration"
                                 width={120}
                                 height={150}
-                                className="object-contain shadow-lg"
+                                className="object-contain"
                             />
                         </div>
 
@@ -316,7 +316,7 @@ export default function OghamPage() {
         )}
 
         <div className="relative mt-8 mx-auto w-fit">
-          <div className="relative z-10">
+          <div className="relative z-10 p-2">
             <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
           </div>
           <VineFrame />
