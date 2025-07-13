@@ -147,7 +147,7 @@ export default function OghamPage() {
                 <OghamIcon className="h-8 w-8 mr-3 text-primary" />
                 {t('oghamOraclePageTitle')}
               </CardTitle>
-              <CardDescription className="text-muted-foreground text-justify">
+              <CardDescription>
                 {t('oghamOraclePageDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
               </CardDescription>
             </CardHeader>
@@ -223,7 +223,6 @@ export default function OghamPage() {
                           width={160}
                           height={160}
                           className="object-contain w-full h-full"
-                          unoptimized={true}
                         />
                     </div>
 
