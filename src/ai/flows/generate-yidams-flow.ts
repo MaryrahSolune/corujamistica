@@ -69,6 +69,27 @@ const generateYidamPrompt = ai.definePrompt({
 | Hayagriva       | Irado      | Fogo       | Ignorância → Força Protetora | Grito Destruidor do Mal   | Cabeça de cavalo surgindo da coroa, chamas ao redor  |
 | Mahakala        | Irado      | Sombra     | Apego Material → Liberação Absoluta | Guardião da Morte         | Negro com expressão feroz, manto de peles, olhos flamejantes |
 | Palden Lhamo    | Irada      | Tempo      | Ódio → Justiça Cármica      | Deusa Protetora           | Mulher azul cavalgando mula com sol e lua nos olhos |
+| Guhyasamaja     | Irada      | Espaço     | Dualidade → Não-dualidade   | União Escondida           | Corpo azul escuro em união com Sparshavajra, segurando vajra e sino |
+| Hevajra         | Irado      | Terra      | Possessividade → Generosidade | Diamante que ri           | Dançando em união com Nairatmya, múltiplos braços com armas |
+| Kalachakra      | Irada      | Tempo      | Ciclos → Libertação Atemporal | Roda do Tempo             | Figura multicolorida com 24 braços, em união com Vishvamata |
+| White Mahakala  | Irada      | Riqueza    | Pobreza → Abundância        | Protetor da Riqueza       | Corpo branco, segurando joia e tigela de crânio, cercado por riqueza |
+| Ekajati         | Irada      | Magia      | Confusão → Clareza Mágica   | Protetora de Mantras      | Um olho, um dente, um seio, cabelo em forma de pilar de fogo |
+| Rahula          | Irado      | Planetas   | Obstáculos → Poder Planetário | Senhor dos Eclipses       | Corpo coberto de olhos, parte inferior de serpente, devorando o sol |
+| Dorje Legpa     | Irado      | Vento      | Inconstância → Lealdade     | Guardião do Juramento     | Montado em um leão da neve, brandindo um martelo de vajra |
+| Tsiu Marpo      | Irado      | Guerra     | Conflito → Vitória Justa    | Ministro da Guerra        | Guerreiro vermelho em um cavalo, segurando lança e laço |
+| Pehar           | Irado      | Oráculos   | Possessão → Sabedoria Oracular | Rei dos Oráculos          | Três faces, seis braços, montado em um leão branco |
+| Begtse          | Irado      | Proteção   | Agressão → Defesa Sábia     | Senhor da Guerra em Cota de Malha | Armadura vermelha, espada de escorpião, protegendo o dharma |
+| Green Tara      | Pacífica   | Vento      | Inveja → Ação Iluminada     | A que Liberta             | Corpo verde, sentada em lótus, perna direita estendida, pronta para agir |
+| Red Tara        | Semi-irada | Fogo       | Desejo → Poder de Atração    | A que Magnetiza           | Corpo vermelho, segurando arco e flecha de flores, atraindo o bem |
+| Black Tara      | Irada      | Poder      | Raiva → Poder Protetor      | A que Destrói a Negatividade | Corpo negro, expressão feroz, cercada por chamas de sabedoria |
+| Yellow Tara     | Pacífica   | Terra      | Pobreza → Riqueza e Estabilidade | A que Aumenta a Prosperidade | Corpo dourado, segurando joia que realiza desejos e vaso da abundância |
+| Blue Tara       | Irada      | Fúria      | Obstáculos → Fúria Transmutadora | A que Subjuga             | Corpo azul escuro, cercada por chamas, pisando em obstáculos |
+| Chittamani Tara | Pacífica   | Mente      | Distração → Mente Iluminada | Joia que Realiza a Mente  | Tara Verde com duas palmas de lótus, simbolizando a mente pura |
+| Ushnishavijaya  | Pacífica   | Longevidade| Morte prematura → Longevidade | Coroa da Vitória          | Três faces, oito braços, segurando símbolos de longa vida |
+| Parnashavari    | Pacífica   | Doença     | Epidemias → Saúde Natural   | A Vestida de Folhas       | Corpo dourado, vestida com folhas, segurando ferramentas de cura |
+| Marichi         | Pacífica   | Luz        | Engano → Luz da Verdade     | Deusa da Aurora           | Em uma carruagem puxada por porcos, dispersando a escuridão |
+| Vasudhara       | Pacífica   | Abundância | Escassez → Prosperidade     | Corrente de Gemas         | Dourada, segurando feixe de grãos e joias, derramando riqueza |
+
 
 **Para a divindade selecionada, forneça:**
 1.  **Nome da Divindade:** O nome EXATO como está na tabela.
