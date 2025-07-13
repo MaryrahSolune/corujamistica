@@ -33,24 +33,43 @@ const generateYidamPrompt = ai.definePrompt({
   name: 'generateYidamPrompt',
   input: { schema: GenerateYidamInputSchema },
   output: { schema: z.object({
-    deityName: z.string().describe('The name of the Yidam deity.'),
-    mantra: z.string().describe('A powerful and authentic mantra associated with this deity.'),
-    characteristics: z.string().describe('A detailed paragraph of at least 5 lines about the deity\'s qualities, symbols, and what it represents.'),
-    imagePrompt: z.string().describe('A vivid, artistic prompt for an image generator to create a beautiful, thangka-style representation of the deity.'),
+    deityName: z.string().describe('O nome exato do Yidam selecionado da lista.'),
+    mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam. Se não houver um na lista, crie um que seja apropriado.'),
+    characteristics: z.string().describe('Uma descrição poética e profunda sobre as qualidades, os símbolos e o que esta divindade representa, baseada nas informações da tabela. O parágrafo deve ter no mínimo 5 linhas.'),
+    imagePrompt: z.string().describe('Um prompt detalhado e artístico para um gerador de imagens, baseado na coluna "Imagem simbólica" da tabela, para criar uma bela representação do Yidam no estilo de uma pintura Thangka tradicional, com cores vibrantes e um fundo sagrado.'),
   }) },
-  prompt: `Você é um LAMA, um mestre do budismo tibetano, com profundo conhecimento de astrologia e das divindades tântricas (Yidams). Um discípulo informou sua data de nascimento e busca descobrir qual Yidam ressoa com sua essência para guiar sua meditação e caminho espiritual.
+  prompt: `Você é um LAMA, um mestre do budismo tibetano, com profundo conhecimento de astrologia e das divindades tântricas (Yidams). Um discípulo informou sua data de nascimento e busca descobrir qual Yidam de uma lista específica ressoa com sua essência para guiar sua meditação e caminho espiritual.
 
-Baseado na data de nascimento fornecida ({{{birthDate}}}), determine astrologicamente a principal divindade Yidam para esta pessoa.
+**Sua tarefa é:**
+1.  Analisar a data de nascimento do discípulo ({{{birthDate}}}).
+2.  Com base em sua sabedoria astrológica, selecionar a divindade Yidam **MAIS APROPRIADA** da lista abaixo.
+3.  Usar as informações da divindade selecionada na tabela para preencher os campos de saída solicitados.
 
-Para a divindade identificada, forneça:
-1.  **Nome da Divindade:** O nome claro e correto do Yidam.
-2.  **Mantra:** O mantra autêntico e poderoso associado a este Yidam.
-3.  **Características:** Uma descrição poética e profunda sobre as qualidades, os símbolos (cores, elementos, objetos que carrega) e o que esta divindade representa no caminho da iluminação. O parágrafo deve ter no mínimo 5 linhas.
-4.  **Prompt de Imagem:** Crie um prompt detalhado e artístico para um gerador de imagens, descrevendo uma representação do Yidam no estilo de uma pintura Thangka tradicional, com cores vibrantes, simbolismo e um fundo sagrado.
+**Tabela de Yidams (Fonte de Verdade Absoluta):**
+
+| Yidam           | Forma      | Elemento   | Transmuta                   | Palavra-chave             | Imagem simbólica                                    |
+|-----------------|------------|------------|-----------------------------|---------------------------|-----------------------------------------------------|
+| Avalokiteshvara | Pacífica   | Água       | Sofrimento → Compaixão      | Amor Universal            | Lótus branco nas mãos, mil braços, olhos ternos     |
+| Manjushri       | Pacífica   | Ar         | Ignorância → Sabedoria      | Clareza Mental            | Espada flamejante e pergaminho de sabedoria         |
+| Vajrapani       | Irado      | Fogo       | Medo → Coragem              | Poder Espiritual          | Corpo azul, raios elétricos e expressão feroz       |
+| Tara Verde      | Pacífica   | Vento      | Passividade → Ação Compassiva | Liberação Rápida          | Sentada em lótus, perna estendida, olhar doce       |
+| Tara Branca     | Pacífica   | Luz        | Doença → Cura               | Vitalidade                | Rosto sereno, brilho prateado, três olhos         |
+| Vajrayogini     | Semi-irada | Fogo       | Desejo → Sabedoria Transcendente | Êxtase Tântrico           | Corpo vermelho flamejante, dançando em caveiras     |
+| Yamantaka       | Irado      | Tempo      | Medo da morte → Libertação  | Vencedor da Morte         | Cabeça de boi, coroa de crânios, olhos de fogo      |
+| Cakrasamvara    | Irado      | Fogo       | Apego → Bênção              | União Mística             | União com Vajravarahi, roda de luz                  |
+| Kurukulla       | Irada      | Amor/Fogo  | Carência → Poder de Atração | Magia do Amor             | Arco de flores, cor vermelha, sorriso sedutor       |
+| Padmasambhava   | Semi-irado | Todos      | Confusão → Consciência Desperta | Mestre da Transformação | Cajado khatvanga, aura dourada, olhar compassivo    |
+
+
+**Para a divindade selecionada, forneça:**
+1.  **Nome da Divindade:** O nome EXATO como está na tabela.
+2.  **Mantra:** Crie um mantra autêntico e poderoso que se alinhe com a divindade e sua 'Palavra-chave'. (Ex: Para Avalokiteshvara, "Om Mani Padme Hum").
+3.  **Características:** Escreva uma descrição poética e detalhada (mínimo 5 linhas) sobre as qualidades da divindade, usando as colunas 'Forma', 'Elemento', 'Transmuta' e 'Palavra-chave' como base.
+4.  **Prompt de Imagem:** Use a coluna 'Imagem simbólica' como inspiração principal para criar um prompt de imagem detalhado e artístico para um gerador de imagens. O estilo deve ser uma pintura Thangka tradicional, com cores vibrantes, simbolismo rico e um fundo sagrado.
 
 Data de Nascimento do Discípulo: {{{birthDate}}}
 
-Revele a sabedoria dos céus e das estrelas.`,
+Selecione o Yidam e revele a sabedoria para este discípulo.`,
 });
 
 const generateYidamFlow = ai.defineFlow(
@@ -60,7 +79,7 @@ const generateYidamFlow = ai.defineFlow(
     outputSchema: GenerateYidamOutputSchema,
   },
   async (input) => {
-    // 1. Generate the textual details and the image prompt.
+    // 1. Generate the textual details and the image prompt based on the provided table.
     const { output: promptOutput } = await generateYidamPrompt(input);
     if (!promptOutput) {
       throw new Error('Failed to generate Yidam details.');
