@@ -20,22 +20,6 @@ import { AdSlot } from '@/components/AdSlot';
 import { cn } from '@/lib/utils';
 
 
-const VineFrame = () => (
-    <div className="absolute inset-0 z-20 pointer-events-none opacity-50">
-        <Leaf className="absolute -top-2 -left-3 h-10 w-10 text-green-400 -rotate-45" />
-        <Leaf className="absolute top-8 -left-5 h-8 w-8 text-green-400 -rotate-[60deg]" />
-        <Leaf className="absolute top-20 -left-2 h-10 w-10 text-green-400 -rotate-[75deg]" />
-        <Leaf className="absolute -top-3 -right-2 h-10 w-10 text-green-400 rotate-45" />
-        <Leaf className="absolute top-10 -right-4 h-8 w-8 text-green-400 rotate-[60deg]" />
-        <Leaf className="absolute -bottom-2 -left-2 h-12 w-12 text-green-400 -rotate-[120deg]" />
-        <Leaf className="absolute bottom-16 -left-4 h-8 w-8 text-green-400 -rotate-[100deg]" />
-        <Leaf className="absolute -bottom-4 -right-3 h-12 w-12 text-green-400 rotate-[120deg]" />
-        <Leaf className="absolute bottom-20 -right-2 h-8 w-8 text-green-400 rotate-[100deg]" />
-        <Leaf className="absolute bottom-36 -right-1 h-6 w-6 text-green-400 rotate-[80deg]" />
-    </div>
-);
-
-
 export default function OghamPage() {
   const [query, setQuery] = useState<string>('');
   const [interpretationResult, setInterpretationResult] = useState<InterpretOghamReadingOutput | null>(null);
@@ -48,13 +32,8 @@ export default function OghamPage() {
   const [readingStarted, setReadingStarted] = useState(false);
   const [selectedStick, setSelectedStick] = useState<OghamLetterData | null>(null);
 
-  const { leftWing, rightWing } = useMemo(() => {
-    const shuffled = [...oghamLetters].sort(() => 0.5 - Math.random());
-    const midPoint = Math.ceil(shuffled.length / 2);
-    return {
-        leftWing: shuffled.slice(0, midPoint),
-        rightWing: shuffled.slice(midPoint),
-    };
+  const shuffledOghams = useMemo(() => {
+    return [...oghamLetters].sort(() => 0.5 - Math.random());
   }, []);
 
   const handleStickClick = async (stick: OghamLetterData) => {
@@ -121,6 +100,8 @@ export default function OghamPage() {
     setSelectedStick(null);
   };
 
+  const boardRadius = 200; // in pixels
+
   return (
     <div className="bg-black">
       <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -153,49 +134,69 @@ export default function OghamPage() {
               <div>
                 <Label className="text-lg mb-4 block text-center font-celtic">{t('chooseOghamStickLabel')}</Label>
                 
-                <div className="relative flex justify-center items-center w-full min-h-[350px]">
-                    <div className="absolute inset-0 flex justify-center items-center">
-                        <Image
-                            src="/img/ogham_owl.png"
-                            alt="Coruja"
-                            data-ai-hint="stylized owl illustration"
-                            width={100}
-                            height={125}
-                            className="object-contain z-10"
-                        />
+                <div className="relative flex justify-center items-center w-full min-h-[450px]">
+                  {/* The circular board */}
+                  <div 
+                    className="relative w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-gradient-to-br from-amber-900/20 via-amber-800/10 to-transparent border-2 border-amber-800/30 shadow-inner"
+                  >
+                     <div className="absolute inset-4 rounded-full border border-dashed border-amber-800/30"></div>
+                     <div className="absolute inset-16 rounded-full border border-dashed border-amber-800/30"></div>
+                     
+                    {shuffledOghams.map((stick, index) => {
+                      const angle = (index / shuffledOghams.length) * 360;
+                      const x = boardRadius * Math.cos((angle - 90) * (Math.PI / 180));
+                      const y = boardRadius * Math.sin((angle - 90) * (Math.PI / 180));
+                      
+                      const isSelected = selectedStick?.letter === stick.letter;
+                      const isRevealed = readingStarted && isSelected;
+
+                      return (
+                        <button
+                          key={stick.letter}
+                          onClick={() => handleStickClick(stick)}
+                          disabled={readingStarted || isLoading}
+                          style={{
+                            transform: `translate(${x}px, ${y}px) rotate(${angle}deg)`,
+                            transformOrigin: 'center center',
+                          }}
+                           className={cn(
+                            "absolute w-[70px] h-9 flex items-center justify-center rounded-md transition-all duration-500 ease-in-out",
+                            !readingStarted && "hover:scale-110 hover:shadow-lg hover:shadow-accent/50 cursor-pointer",
+                            readingStarted && !isSelected && "opacity-20 blur-sm scale-90",
+                            isSelected && "scale-125 shadow-lg shadow-accent/50 z-10"
+                          )}
+                          aria-label={`Escolher Ogham oculto ${index + 1}`}
+                        >
+                          <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isRevealed && "[transform:rotateY(180deg)]")}>
+                            {/* Back of the card (hidden) */}
+                            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-amber-500/50 rounded-md flex items-center justify-center">
+                               <OghamIcon className="w-5 h-5 text-amber-300/50" />
+                            </div>
+                            {/* Front of the card (revealed) */}
+                            <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-amber-600 via-amber-800 to-amber-950 shadow-lg border-2 border-amber-400/80 rounded-md flex flex-col items-center justify-center p-1">
+                                <span className="font-sans text-xl font-black text-amber-100">{stick.symbol}</span>
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+
+                    <div className={cn("text-center transition-opacity duration-500", readingStarted ? "opacity-0" : "opacity-100")}>
+                      <Image
+                        src="/img/ogham_owl.png"
+                        alt="Coruja"
+                        data-ai-hint="stylized owl illustration"
+                        width={100}
+                        height={125}
+                        className="object-contain"
+                      />
                     </div>
 
-                    <div className="relative w-full h-[350px]">
-                        {/* Render all sticks, then position them */}
-                        {oghamLetters.map((stick, index) => {
-                            const totalSticks = oghamLetters.length;
-                            const angle = (index / (totalSticks - 1)) * 160 - 80; // Spread from -80 to +80 degrees
-                            
-                            return (
-                                <button
-                                    key={stick.letter}
-                                    onClick={() => handleStickClick(stick)}
-                                    disabled={readingStarted || isLoading}
-                                    style={{
-                                        transform: `rotate(${angle}deg) translate(150px) rotate(-${angle}deg) rotate(90deg)`,
-                                        transformOrigin: 'center center',
-                                    }}
-                                    className={cn(
-                                        "absolute top-1/2 left-1/2 w-20 h-6 origin-center -translate-x-1/2 -translate-y-1/2 rounded-md transition-all duration-300 ease-in-out",
-                                        "bg-gradient-to-br from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-amber-500/50",
-                                        !readingStarted && "hover:scale-125 hover:shadow-lg hover:shadow-accent/50 cursor-pointer",
-                                        readingStarted && selectedStick?.letter === stick.letter && "scale-125 shadow-lg shadow-accent/50",
-                                        readingStarted && selectedStick?.letter !== stick.letter && "opacity-30 blur-sm scale-90"
-                                    )}
-                                    aria-label={`Escolher Ogham ${stick.letter}`}
-                                />
-                            )
-                        })}
-                    </div>
+                  </div>
                 </div>
 
                 {isLoading && (
-                    <div className="flex items-center justify-center text-primary font-celtic">
+                    <div className="flex items-center justify-center text-primary font-celtic mt-4">
                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                         <span>{t('oghamConsultingTrees')}</span>
                     </div>
@@ -293,12 +294,10 @@ export default function OghamPage() {
           <div className="relative z-10 p-2">
              <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
           </div>
-          <div className="absolute inset-0 z-20 pointer-events-none opacity-50">
-             <VineFrame />
-          </div>
         </div>
 
       </div>
     </div>
   );
 }
+
