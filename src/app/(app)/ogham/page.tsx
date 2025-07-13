@@ -113,7 +113,7 @@ export default function OghamPage() {
                 <OghamIcon className="h-8 w-8 mr-3 text-primary" />
                 {t('oghamOraclePageTitle')}
               </CardTitle>
-              <CardDescription className="font-celtic">
+              <CardDescription className="text-justify">
                 {t('oghamOraclePageDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
               </CardDescription>
             </CardHeader>
