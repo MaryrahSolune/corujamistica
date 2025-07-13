@@ -159,7 +159,7 @@ export default function DashboardPage() {
       case 'ogham':
         return { translationKey: 'oghamReadingType', icon: <OghamIcon className="h-5 w-5 mr-2 flex-shrink-0" /> };
       case 'yidams':
-        return { translationKey: 'yidamsPath', icon: <HeartHandshake className="h-5 w-5 mr-2 flex-shrink-0" /> };
+        return { translationKey: 'yidamsPath', icon: <Flower className="h-5 w-5 mr-2 flex-shrink-0" /> };
       default:
         // Fallback for any unknown types
         return { translationKey: 'newReading', icon: <BookMarked className="h-5 w-5 mr-2 flex-shrink-0" /> };
@@ -237,7 +237,7 @@ export default function DashboardPage() {
               <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-xl font-serif">{t('yidamsPathTitle')}</CardTitle>
-                  <HeartHandshake className="h-6 w-6 text-primary" />
+                  <Flower className="h-6 w-6 text-primary" />
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <p className="text-muted-foreground mb-4 font-medium">{t('yidamsPathDescription')}</p>

@@ -9,7 +9,7 @@ import { getReadingById, type ReadingData } from '@/services/readingService';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, HeartHandshake, Hand } from 'lucide-react';
+import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, HeartHandshake, Hand, Flower } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { format } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
@@ -118,7 +118,7 @@ export default function ViewReadingPage() {
     PageIcon = OghamIcon;
   } else if (reading.type === 'yidams') {
     pageTitle = t('yidamsPathTitle');
-    PageIcon = HeartHandshake;
+    PageIcon = Flower;
   }
 
   return (
