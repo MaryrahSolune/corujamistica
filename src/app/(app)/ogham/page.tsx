@@ -162,17 +162,16 @@ export default function OghamPage() {
               <div>
                 <Label className="text-lg mb-4 block text-center font-celtic">{t('chooseOghamStickLabel')}</Label>
                 
-                <div className="flex justify-center items-center w-full min-h-[250px] py-4 overflow-hidden">
-                    {/* Owl Display Container */}
-                    <div className="flex items-center justify-center">
+                <div className="flex justify-center items-center w-full min-h-[250px] py-4">
+                     <div className="relative w-[300px] h-[200px]">
                         {/* Left Wing */}
-                        <div className="flex flex-col items-end -mr-2">
-                            {leftWing.map((stick, index) => (
+                        <div className="absolute top-1/2 left-1/2 -translate-x-[calc(100%-25px)] -translate-y-1/2 flex flex-col items-end">
+                             {leftWing.map((stick, index) => (
                                 <button
                                     key={`left-${index}`}
                                     onClick={() => handleStickClick(stick)}
                                     disabled={readingStarted || isLoading}
-                                    style={{ transform: `rotate(${ -10 - (index * 5) }deg) translateX(5px)`, zIndex: 12 - index }}
+                                    style={{ transform: `rotate(${ -10 - (index * 4) }deg) translateX(5px)`, zIndex: 12 - index }}
                                     className={cn(
                                         "relative h-20 w-8 my-[-1.5rem] rounded-md transition-all duration-300 ease-in-out",
                                         "bg-gradient-to-br from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-amber-500/50",
@@ -184,9 +183,9 @@ export default function OghamPage() {
                                 />
                             ))}
                         </div>
-
-                        {/* Owl Body */}
-                        <div className="relative z-20">
+                        
+                        {/* Owl Body in the center */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                             <Image
                                 src="/img/ogham_owl.png"
                                 alt="Coruja"
@@ -198,13 +197,13 @@ export default function OghamPage() {
                         </div>
 
                         {/* Right Wing */}
-                        <div className="flex flex-col items-start -ml-2">
+                         <div className="absolute top-1/2 right-1/2 translate-x-[calc(100%-25px)] -translate-y-1/2 flex flex-col items-start">
                              {rightWing.map((stick, index) => (
                                 <button
                                     key={`right-${index}`}
                                     onClick={() => handleStickClick(stick)}
                                     disabled={readingStarted || isLoading}
-                                    style={{ transform: `rotate(${10 + (index * 5)}deg) translateX(-5px)`, zIndex: 12 - index }}
+                                    style={{ transform: `rotate(${10 + (index * 4)}deg) translateX(-5px)`, zIndex: 12 - index }}
                                     className={cn(
                                         "relative h-20 w-8 my-[-1.5rem] rounded-md transition-all duration-300 ease-in-out",
                                         "bg-gradient-to-bl from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-amber-500/50",
@@ -216,6 +215,7 @@ export default function OghamPage() {
                                 />
                             ))}
                         </div>
+
                     </div>
                 </div>
 
@@ -316,8 +316,8 @@ export default function OghamPage() {
         )}
 
         <div className="relative mt-8 mx-auto w-fit">
-          <div className="relative z-10 p-2">
-            <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
+          <div className="relative z-10">
+             <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
           </div>
           <VineFrame />
         </div>
