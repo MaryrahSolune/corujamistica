@@ -149,12 +149,19 @@ export default function DashboardPage() {
     return title.substring(0, maxLength) + (title.length > maxLength ? '...' : '');
   };
 
-  const getReadingTypeInfo = (type: ReadingData['type']): { translation: string; icon: React.ReactNode } => {
-    if (type === 'tarot') return { translation: t('tarotReadingType'), icon: <VenetianMask className="h-5 w-5 mr-2 flex-shrink-0" /> };
-    if (type === 'dream') return { translation: t('dreamInterpretationType'), icon: <BrainCircuit className="h-5 w-5 mr-2 flex-shrink-0" /> };
-    if (type === 'ogham') return { translation: t('oghamReadingType'), icon: <OghamIcon className="h-5 w-5 mr-2 flex-shrink-0" /> };
-    return { translation: 'Leitura', icon: <BookMarked className="h-5 w-5 mr-2 flex-shrink-0" /> };
-  }
+  const getReadingTypeInfo = (type: ReadingData['type']): { translationKey: TranslationKey; icon: React.ReactNode } => {
+    switch (type) {
+      case 'tarot':
+        return { translationKey: 'tarotReadingType', icon: <VenetianMask className="h-5 w-5 mr-2 flex-shrink-0" /> };
+      case 'dream':
+        return { translationKey: 'dreamInterpretationType', icon: <BrainCircuit className="h-5 w-5 mr-2 flex-shrink-0" /> };
+      case 'ogham':
+        return { translationKey: 'oghamReadingType', icon: <OghamIcon className="h-5 w-5 mr-2 flex-shrink-0" /> };
+      default:
+        // Fallback for any unknown types
+        return { translationKey: 'newReading', icon: <BookMarked className="h-5 w-5 mr-2 flex-shrink-0" /> };
+    }
+  };
 
   const currentStreak = userProfile?.dailyRewardStreak || 0;
 
@@ -365,7 +372,7 @@ export default function DashboardPage() {
                                 </span>
                                 </h3>
                                 <p className="text-sm text-muted-foreground mt-1 ml-7 font-medium">
-                                  {typeInfo.translation}
+                                  {t(typeInfo.translationKey)}
                                 </p>
                             </div>
                             <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 w-full sm:w-auto">
