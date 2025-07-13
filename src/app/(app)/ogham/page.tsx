@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { interpretOghamReading, type InterpretOghamReadingOutput } from '@/ai/flows/interpret-ogham-reading';
 import { oghamLetters, type OghamLetterData } from '@/lib/ogham-data';
-import { Loader2, BookOpenText, Leaf, Sparkles } from 'lucide-react';
+import { Loader2, BookOpenText, Leaf, Sparkles, BookHeart, TreeDeciduous } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -18,6 +18,8 @@ import { saveReading, type ReadingData } from '@/services/readingService';
 import { OghamIcon } from '@/components/MysticIcons';
 import { AdSlot } from '@/components/AdSlot';
 import { cn } from '@/lib/utils';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+
 
 // New component for dynamic leaf animation
 const FallingLeaves = ({ count = 20 }) => {
@@ -203,7 +205,7 @@ export default function OghamPage() {
                         >
                           <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isRevealed && "[transform:rotateY(180deg)]")}>
                             {/* Back of the card (hidden) */}
-                            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-r from-amber-900 via-amber-700 to-amber-900 shadow-md rounded-md flex items-center justify-center">
+                            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-r from-amber-900 via-amber-700 to-amber-900 shadow-md rounded-md flex items-center justify-center border border-black">
                                <OghamIcon className="w-5 h-5 text-amber-300/50" />
                             </div>
                             {/* Front of the card (revealed) */}
@@ -318,6 +320,59 @@ export default function OghamPage() {
             </Card>
           </div>
         )}
+
+        <div className="max-w-4xl mx-auto mt-12 w-full">
+            <Accordion type="single" collapsible className="w-full animated-aurora-background rounded-xl">
+                <AccordionItem value="item-1" className="border-b-0">
+                    <AccordionTrigger className="p-4 sm:p-6 hover:no-underline">
+                      <div className='flex items-center text-lg font-serif'>
+                        <BookHeart className="h-6 w-6 mr-3 text-primary" />
+                        Aprenda Sobre o Ogham: O Oráculo das Árvores
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="p-4 sm:p-6 pt-0 space-y-6 text-foreground/90 leading-relaxed text-justify">
+                          
+                          <div className="space-y-2">
+                              <h3 className="text-xl font-bold font-serif text-accent flex items-center"><Leaf className="mr-2 h-5 w-5"/>Ogham: O Oráculo Sagrado das Árvores Celtas</h3>
+                              <p>Na antiga tradição celta, onde a natureza era sagrada e cada elemento possuía um espírito e um ensinamento, surgiu um sistema oracular ancestral conhecido como Ogham (pronuncia-se “Ô-gam” ou “Ô-ram”). Esse oráculo, profundamente ligado à sabedoria dos druídas, é mais do que um simples meio de adivinhação: é um canal de conexão com as forças da natureza, com os ciclos da Terra e com os ensinamentos espirituais das árvores.</p>
+                          </div>
+
+                          <div className="space-y-2">
+                              <h3 className="text-xl font-bold font-serif text-accent flex items-center"><TreeDeciduous className="mr-2 h-5 w-5"/>A Origem do Ogham</h3>
+                              <p>O Ogham tem suas raízes nos povos celtas que habitaram as Ilhas Britânicas há milhares de anos. É conhecido como a linguagem das árvores, um alfabeto composto por 20 símbolos (e posteriormente 5 adicionais), cada um representando uma árvore ou planta sagrada. A tradição druídica acreditava que cada árvore continha um espírito e um saber único, e que ao nos conectarmos com elas, poderíamos acessar orientações espirituais, curas e visões do destino.</p>
+                              <p>O sistema Ogham foi registrado pela primeira vez em pedras, gravado com traços retos ao longo de linhas verticais. Era também entalhado em pedaços de madeira – muitas vezes do próprio tipo de árvore que cada símbolo representava – e usado para rituais, proteção, escrita secreta e adivinhação.</p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                              <h3 className="text-xl font-bold font-serif text-accent flex items-center"><Sparkles className="mr-2 h-5 w-5"/>Como Funciona a Leitura do Ogham</h3>
+                              <p>Na tiragem oracular, os símbolos Ogham são geralmente representados em bastões de madeira, pedras ou cartas. Durante a leitura, o consulente mentaliza uma pergunta ou situação, e os símbolos são sorteados e interpretados de acordo com seus significados espirituais e as energias das árvores que representam.</p>
+                              <p>Cada símbolo do Ogham traz consigo uma mensagem arquetípica, uma lição ligada à natureza, ao crescimento pessoal, à transformação e à conexão com o divino. A leitura pode ser feita de várias formas – com uma única peça (resposta direta), três peças (passado, presente e futuro), ou disposições mais complexas, dependendo da profundidade da questão.</p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                              <h3 className="text-xl font-bold font-serif text-accent flex items-center"><Leaf className="mr-2 h-5 w-5"/>Exemplo de Símbolos e Seus Significados</h3>
+                              <ul className="list-disc list-inside space-y-1 pl-2">
+                                <li><strong>Beith (Bétula):</strong> Renascimento, novos começos, pureza.</li>
+                                <li><strong>Luis (Sorbeteira-brava):</strong> Proteção espiritual, intuição, alerta contra ilusões.</li>
+                                <li><strong>Fearn (Amieiro):</strong> Resiliência, superação de obstáculos, força interior.</li>
+                                <li><strong>Saille (Salgueiro):</strong> Emoções profundas, conexão com o feminino, ciclos lunares.</li>
+                                <li><strong>Duir (Carvalho):</strong> Sabedoria, coragem, portas que se abrem, poder dos ancestrais.</li>
+                              </ul>
+                              <p>Cada tiragem é única, pois dialoga diretamente com a energia do momento e com a alma do consulente. O Ogham não traz apenas respostas – ele provoca reflexões profundas, alinhadas com os ritmos da Terra e o sussurro das árvores antigas.</p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                              <h3 className="text-xl font-bold font-serif text-accent flex items-center"><OghamIcon className="mr-2 h-5 w-5"/>Ogham na Coruja Mística</h3>
+                              <p>Na Coruja Mística, o Ogham é tratado com o respeito e a reverência que merece. Cada tiragem é feita com intenção, conexão e sabedoria, proporcionando não apenas uma leitura, mas uma verdadeira vivência espiritual com as árvores celtas como guias. Aqui, você poderá descobrir o que a floresta ancestral deseja lhe revelar.</p>
+                              <p>Seja bem-vinda(o) ao oráculo das árvores. Que os ramos do Ogham o conduzam à clareza, ao equilíbrio e à ancestral sabedoria da natureza.</p>
+                          </div>
+                      </div>
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
+        </div>
+
 
         {(isLoading || interpretationResult) && (
           <div className="max-w-4xl mx-auto mt-8">
