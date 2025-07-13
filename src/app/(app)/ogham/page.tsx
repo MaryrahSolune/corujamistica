@@ -217,7 +217,7 @@ export default function OghamPage() {
 
                     <div className={cn("text-center transition-opacity duration-500 w-40 h-40", readingStarted ? "opacity-0" : "opacity-100")}>
                        <img
-                          src="/img/coruja giratoria.gif"
+                          src="/img/coruja%20giratoria.gif"
                           alt="Coruja mística giratória"
                           data-ai-hint="mystical owl animation"
                           width={160}
