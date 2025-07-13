@@ -194,7 +194,7 @@ export default function OghamPage() {
                             transformOrigin: 'center center',
                           }}
                            className={cn(
-                            "absolute w-[70px] h-9 flex items-center justify-center rounded-md transition-all duration-500 ease-in-out",
+                            "absolute w-[105px] h-[14px] flex items-center justify-center rounded-md transition-all duration-500 ease-in-out",
                             !readingStarted && "hover:scale-110 hover:shadow-lg hover:shadow-accent/50 cursor-pointer",
                             readingStarted && !isSelected && "opacity-20 blur-sm scale-90",
                             isSelected && "scale-125 shadow-lg shadow-accent/50 z-10"
