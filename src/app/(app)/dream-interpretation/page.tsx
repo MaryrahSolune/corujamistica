@@ -116,189 +116,191 @@ export default function DreamInterpretationPage() {
   };
 
   return (
-    <div className="container mx-auto p-4 sm:p-6 lg:p-8">
+    <div className="bg-black">
+      <div className="container mx-auto p-4 sm:p-6 lg:p-8">
 
-      <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-8">
-        <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-3xl font-serif flex items-center">
-              <MessageCircleQuestion className="h-8 w-8 mr-3 text-primary" />
-              {t('dreamInterpretationTitle')}
-            </CardTitle>
-            <CardDescription>
-              {t('dreamInterpretationDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
-            </CardDescription>
-          </CardHeader>
-          <form onSubmit={handleSubmit}>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="dream-description" className="text-lg">{t('yourDreamLabel')}</Label>
-                <Textarea
-                  id="dream-description"
-                  value={dreamDescription}
-                  onChange={(e) => setDreamDescription(e.target.value)}
-                  placeholder={t('dreamPlaceholder')}
-                  rows={6}
-                  className="resize-none"
-                  disabled={isLoading}
-                />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button 
-                type="submit"
-                className="w-full text-lg py-6"
-                disabled={
-                  isLoading ||
-                  !dreamDescription.trim() || 
-                  dreamDescription.trim().length < 10 || 
-                  (userCredits && userCredits.balance < 1)
-                }
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {t('generatingDreamInterpretationButton')}
-                  </>
-                ) : (
-                  <>
-                    <BrainCircuit className="mr-2 h-5 w-5" />
-                    {t('getDreamInterpretationButton')}
-                  </>
-                )}
-              </Button>
-            </CardFooter>
-          </form>
-        </Card>
-      </div>
-
-      {error && (
-        <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
-          <Card className="relative z-10 bg-destructive/80 dark:bg-destructive/70 backdrop-blur-md shadow-lg border-destructive">
+        <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl mb-8">
+          <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
             <CardHeader>
-              <CardTitle className="text-destructive-foreground font-serif">{t('errorOccurredCardTitle')}</CardTitle>
+              <CardTitle className="text-3xl font-serif flex items-center">
+                <MessageCircleQuestion className="h-8 w-8 mr-3 text-primary" />
+                {t('dreamInterpretationTitle')}
+              </CardTitle>
+              <CardDescription>
+                {t('dreamInterpretationDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
+              </CardDescription>
             </CardHeader>
-            <CardContent>
-              <p className="text-destructive-foreground">{error}</p>
-            </CardContent>
+            <form onSubmit={handleSubmit}>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="dream-description" className="text-lg">{t('yourDreamLabel')}</Label>
+                  <Textarea
+                    id="dream-description"
+                    value={dreamDescription}
+                    onChange={(e) => setDreamDescription(e.target.value)}
+                    placeholder={t('dreamPlaceholder')}
+                    rows={6}
+                    className="resize-none"
+                    disabled={isLoading}
+                  />
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button 
+                  type="submit"
+                  className="w-full text-lg py-6"
+                  disabled={
+                    isLoading ||
+                    !dreamDescription.trim() || 
+                    dreamDescription.trim().length < 10 || 
+                    (userCredits && userCredits.balance < 1)
+                  }
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      {t('generatingDreamInterpretationButton')}
+                    </>
+                  ) : (
+                    <>
+                      <BrainCircuit className="mr-2 h-5 w-5" />
+                      {t('getDreamInterpretationButton')}
+                    </>
+                  )}
+                </Button>
+              </CardFooter>
+            </form>
           </Card>
         </div>
-      )}
-      
-      {interpretationResult && !isLoading && (
-          <div className='space-y-8'>
-              {/* Card for the Dictionary Interpretation - Now always rendered first if content exists */}
-              {interpretationResult.dictionaryInterpretation && (
-                <div className="max-w-2xl mx-auto animated-aurora-background rounded-lg">
-                  <Card className="shadow-lg bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10">
-                      <CardHeader>
-                          <CardTitle className="text-2xl font-serif flex items-center">
-                              <Library className="h-7 w-7 mr-3 text-accent" />
-                              {t('dreamDictionaryInterpretationTitle')}
-                          </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                          <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                              {interpretationResult.dictionaryInterpretation}
-                          </p>
-                      </CardContent>
-                  </Card>
-              </div>
-              )}
 
-              {/* Card for the Prophetic Story Interpretation */}
-              {interpretationResult.storySegments.length > 0 && (
-                    <div className="max-w-2xl mx-auto animated-aurora-background rounded-lg">
-                      <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
-                      <CardHeader>
-                          <CardTitle className="text-2xl font-serif flex items-center">
-                          <BookOpenText className="h-7 w-7 mr-3 text-accent" />
-                          {t('yourPropheticInterpretationTitle')}
-                          </CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-6">
-                          {interpretationResult.storySegments.map((segment, index) => (
-                          <div key={index}>
-                              {segment.type === 'text' && segment.content && (
-                              <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                                  {segment.content}
-                              </p>
-                              )}
-                              {segment.type === 'image' && segment.dataUri && (
-                              <div className="my-4 rounded-lg overflow-hidden shadow-lg animated-aurora-background">
-                                  <Image
-                                  src={segment.dataUri}
-                                  alt={t('dreamIllustrationAlt', { number: index + 1 })+`: ${segment.alt || 'Dream illustration'}`}
-                                  width={500} 
-                                  height={300}
-                                  className="w-full h-auto object-contain relative z-10 bg-black/10"
-                                  data-ai-hint="dream scene abstract"
-                                  />
-                              </div>
-                              )}
-                          </div>
-                          ))}
-                      </CardContent>
-                      </Card>
-                  </div>
-              )}
+        {error && (
+          <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
+            <Card className="relative z-10 bg-destructive/80 dark:bg-destructive/70 backdrop-blur-md shadow-lg border-destructive">
+              <CardHeader>
+                <CardTitle className="text-destructive-foreground font-serif">{t('errorOccurredCardTitle')}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-destructive-foreground">{error}</p>
+              </CardContent>
+            </Card>
           </div>
-      )}
+        )}
+        
+        {interpretationResult && !isLoading && (
+            <div className='space-y-8'>
+                {/* Card for the Dictionary Interpretation - Now always rendered first if content exists */}
+                {interpretationResult.dictionaryInterpretation && (
+                  <div className="max-w-2xl mx-auto animated-aurora-background rounded-lg">
+                    <Card className="shadow-lg bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10">
+                        <CardHeader>
+                            <CardTitle className="text-2xl font-serif flex items-center">
+                                <Library className="h-7 w-7 mr-3 text-accent" />
+                                {t('dreamDictionaryInterpretationTitle')}
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                                {interpretationResult.dictionaryInterpretation}
+                            </p>
+                        </CardContent>
+                    </Card>
+                </div>
+                )}
 
-      {(isLoading || interpretationResult) && (
-        <div className="max-w-2xl mx-auto mt-8">
-            <AdSlot id="ad-dream-bottom" />
-        </div>
-      )}
-
-      {/* Manual Dictionary Lookup Section */}
-       <div className="max-w-2xl mx-auto mt-12 w-full">
-         <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1">
-                <AccordionTrigger>
-                  <div className='flex items-center text-lg'>
-                    <Library className="h-6 w-6 mr-3 text-primary" />
-                    Dicionário de Sonhos
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="p-4 rounded-b-lg bg-card/50">
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="dictionary-letter" className="text-md">{t('selectLetterLabel')}</Label>
-                        <Select value={selectedLetter} onValueChange={setSelectedLetter}>
-                          <SelectTrigger id="dictionary-letter" className="w-[180px] mt-2">
-                            <SelectValue placeholder="Selecione uma letra" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {alphabet.map(letter => (
-                              <SelectItem key={letter} value={letter}>Letra {letter}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor="dictionary-content" className="text-md">{t('dictionaryContentLabel', { letter: selectedLetter })}</Label>
-                        {isLoadingDictionary ? (
-                          <Skeleton className="h-64 w-full mt-2" />
-                        ) : (
-                          <ScrollArea className="h-72 w-full rounded-md border p-4 mt-2 bg-muted/30">
-                            <div className="prose-base dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                              {dictionaryContent || t('dictionaryContentPlaceholder', { letter: selectedLetter })}
+                {/* Card for the Prophetic Story Interpretation */}
+                {interpretationResult.storySegments.length > 0 && (
+                      <div className="max-w-2xl mx-auto animated-aurora-background rounded-lg">
+                        <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
+                        <CardHeader>
+                            <CardTitle className="text-2xl font-serif flex items-center">
+                            <BookOpenText className="h-7 w-7 mr-3 text-accent" />
+                            {t('yourPropheticInterpretationTitle')}
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            {interpretationResult.storySegments.map((segment, index) => (
+                            <div key={index}>
+                                {segment.type === 'text' && segment.content && (
+                                <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                                    {segment.content}
+                                </p>
+                                )}
+                                {segment.type === 'image' && segment.dataUri && (
+                                <div className="my-4 rounded-lg overflow-hidden shadow-lg animated-aurora-background">
+                                    <Image
+                                    src={segment.dataUri}
+                                    alt={t('dreamIllustrationAlt', { number: index + 1 })+`: ${segment.alt || 'Dream illustration'}`}
+                                    width={500} 
+                                    height={300}
+                                    className="w-full h-auto object-contain relative z-10 bg-black/10"
+                                    data-ai-hint="dream scene abstract"
+                                    />
+                                </div>
+                                )}
                             </div>
-                          </ScrollArea>
-                        )}
+                            ))}
+                        </CardContent>
+                        </Card>
+                    </div>
+                )}
+            </div>
+        )}
+
+        {(isLoading || interpretationResult) && (
+          <div className="max-w-2xl mx-auto mt-8">
+              <AdSlot id="ad-dream-bottom" />
+          </div>
+        )}
+
+        {/* Manual Dictionary Lookup Section */}
+        <div className="max-w-2xl mx-auto mt-12 w-full">
+          <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1">
+                  <AccordionTrigger>
+                    <div className='flex items-center text-lg'>
+                      <Library className="h-6 w-6 mr-3 text-primary" />
+                      Dicionário de Sonhos
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="p-4 rounded-b-lg bg-card/50">
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="dictionary-letter" className="text-md">{t('selectLetterLabel')}</Label>
+                          <Select value={selectedLetter} onValueChange={setSelectedLetter}>
+                            <SelectTrigger id="dictionary-letter" className="w-[180px] mt-2">
+                              <SelectValue placeholder="Selecione uma letra" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {alphabet.map(letter => (
+                                <SelectItem key={letter} value={letter}>Letra {letter}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        
+                        <div>
+                          <Label htmlFor="dictionary-content" className="text-md">{t('dictionaryContentLabel', { letter: selectedLetter })}</Label>
+                          {isLoadingDictionary ? (
+                            <Skeleton className="h-64 w-full mt-2" />
+                          ) : (
+                            <ScrollArea className="h-72 w-full rounded-md border p-4 mt-2 bg-muted/30">
+                              <div className="prose-base dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                                {dictionaryContent || t('dictionaryContentPlaceholder', { letter: selectedLetter })}
+                              </div>
+                            </ScrollArea>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+                  </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+        </div>
+
+
+        <img src="/img/olho.gif" alt="Olho místico" className="mt-8 mx-auto block max-w-full h-auto" />
       </div>
-
-
-      <img src="/img/olho.gif" alt="Olho místico" className="mt-8 mx-auto block max-w-full h-auto" />
     </div>
   );
 }
