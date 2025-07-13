@@ -194,7 +194,7 @@ export default function OghamPage() {
                             transformOrigin: 'center center',
                           }}
                            className={cn(
-                            "absolute w-[105px] h-[14px] flex items-center justify-center rounded-md transition-all duration-500 ease-in-out",
+                            "absolute w-[105px] h-[21px] flex items-center justify-center rounded-md transition-all duration-500 ease-in-out",
                             !readingStarted && "hover:scale-110 hover:shadow-lg hover:shadow-accent/50 cursor-pointer",
                             readingStarted && !isSelected && "opacity-20 blur-sm scale-90",
                             isSelected && "scale-125 shadow-lg shadow-accent/50 z-10"
@@ -270,7 +270,7 @@ export default function OghamPage() {
                   {t('oghamInterpretationTitle')}
                 </CardTitle>
                  <div className="flex flex-col items-center justify-center my-4">
-                    <p className="text-lg mb-2 text-muted-foreground">{t('oghamYourChosenLetter', { letter: '', symbol: '' })}</p>
+                    <p className="text-lg mb-2 text-muted-foreground">Sua letra sorteada:</p>
                     <div className="relative w-28 h-28 flex items-center justify-center">
                         <div className="absolute inset-0 bg-gradient-to-br from-amber-600 to-amber-900 rounded-full shadow-inner"></div>
                         <div className="absolute inset-1 bg-gradient-to-br from-amber-500 to-amber-800 rounded-full"></div>
