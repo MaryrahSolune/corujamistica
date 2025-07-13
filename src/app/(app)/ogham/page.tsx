@@ -218,8 +218,8 @@ export default function OghamPage() {
 
                     <div className={cn("text-center transition-opacity duration-500 w-40 h-40", readingStarted ? "opacity-0" : "opacity-100")}>
                        <img
-                          src="/img/coruja.gif"
-                          alt="Coruja Mística"
+                          src="/img/olho.gif"
+                          alt="Olho místico"
                           data-ai-hint="mystical owl animation"
                           width={160}
                           height={160}
@@ -267,7 +267,7 @@ export default function OghamPage() {
             <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
               <CardHeader>
                 <CardTitle className="text-2xl font-serif flex items-center">
-                  <BookOpenText className="h-7 w-7 mr-3 text-accent" />
+                  <BookOpenText className="h-7 w-7 mr-3 text-primary" />
                   {t('oghamInterpretationTitle')}
                 </CardTitle>
                  <div className="flex flex-col items-center justify-center my-4">
