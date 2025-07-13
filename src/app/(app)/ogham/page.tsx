@@ -138,7 +138,6 @@ export default function OghamPage() {
   const boardRadius = 200; // in pixels
 
   return (
-    <div className="bg-black">
       <div className="container mx-auto p-4 sm:p-6 lg:p-8">
 
         <div className="max-w-4xl mx-auto animated-aurora-background rounded-xl mb-8">
@@ -218,8 +217,8 @@ export default function OghamPage() {
 
                     <div className={cn("text-center transition-opacity duration-500 w-40 h-40", readingStarted ? "opacity-0" : "opacity-100")}>
                        <img
-                          src="/img/olho.gif"
-                          alt="Olho místico"
+                          src="/img/coruja.gif"
+                          alt="Coruja mística giratória"
                           data-ai-hint="mystical owl animation"
                           width={160}
                           height={160}
@@ -337,6 +336,5 @@ export default function OghamPage() {
         </div>
 
       </div>
-    </div>
   );
 }
