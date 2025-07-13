@@ -10,7 +10,7 @@ import { getReadingById, type ReadingData } from '@/services/readingService';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library } from 'lucide-react';
+import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, HeartHandshake } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { format } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
@@ -117,6 +117,9 @@ export default function ViewReadingPage() {
   } else if (reading.type === 'ogham') {
     pageTitle = t('oghamReadingType');
     PageIcon = OghamIcon;
+  } else if (reading.type === 'yidams') {
+    pageTitle = t('yidamsPathTitle');
+    PageIcon = HeartHandshake;
   }
 
   return (
@@ -305,6 +308,41 @@ export default function ViewReadingPage() {
                 )}
               </>
             )}
+             {reading.type === 'yidams' && (
+              <div className="space-y-6">
+                <div className="text-center">
+                  <p className="text-muted-foreground">{t('yidamsYourDeityIs')}</p>
+                  <p className="text-3xl font-bold text-primary font-serif">{reading.deityName}</p>
+                </div>
+
+                {reading.yidamImageUri && (
+                  <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
+                    <Image
+                      src={reading.yidamImageUri}
+                      alt={t('yidamsImageAlt', { name: reading.deityName })}
+                      data-ai-hint="deity thangka painting"
+                      width={512}
+                      height={512}
+                      className="w-full h-auto object-contain relative z-10 bg-black/10"
+                    />
+                  </div>
+                )}
+                
+                <div>
+                  <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yidamsMantraLabel')}</h3>
+                  <blockquote className="border-l-4 border-accent pl-4 italic text-foreground/80 text-lg">
+                    {reading.mantra}
+                  </blockquote>
+                </div>
+                
+                <div>
+                  <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yidamsCharacteristicsLabel')}</h3>
+                  <p className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
+                    {reading.characteristics}
+                  </p>
+                </div>
+              </div>
+            )}
             
              <div className="pt-8">
                 <AdSlot id="ad-reading-bottom" />
@@ -316,3 +354,5 @@ export default function ViewReadingPage() {
     </div>
   );
 }
+
+    

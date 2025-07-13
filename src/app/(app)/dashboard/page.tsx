@@ -144,6 +144,7 @@ export default function DashboardPage() {
     if (reading.type === 'tarot') title = reading.query;
     else if (reading.type === 'dream') title = reading.dreamDescription;
     else if (reading.type === 'ogham') title = reading.query;
+    else if (reading.type === 'yidams') title = reading.query;
     
     if (!title) return t('noRecentReadings');
     return title.substring(0, maxLength) + (title.length > maxLength ? '...' : '');
@@ -455,3 +456,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
