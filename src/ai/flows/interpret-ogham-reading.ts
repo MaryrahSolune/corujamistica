@@ -99,7 +99,7 @@ const interpretOghamReadingFlow = ai.defineFlow(
     const [treeImageResult, adviceImageResult] = await Promise.allSettled([
         ai.generate({
             model: 'googleai/gemini-2.0-flash-preview-image-generation',
-            prompt: `A realistic and enchanted, magical image of a large, ancient ${chosenLetter.tree} tree. The style should be like a beautiful tarot card, with intricate geometric borders and mystical glowing symbols. Ethereal lighting.`,
+            prompt: `Uma imagem realista, encantada e mágica de uma grande e antiga árvore de ${chosenLetter.tree}. O estilo deve ser como uma bela carta de tarô, com bordas geométricas intrincadas e símbolos místicos brilhantes. Iluminação etérea.`,
             config: {
                 responseModalities: ['TEXT', 'IMAGE'],
                 safetySettings: [
