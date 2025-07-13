@@ -314,14 +314,17 @@ export default function OghamPage() {
               <AdSlot id="ad-ogham-bottom" />
           </div>
         )}
-
-        <div className="relative mt-8 mx-auto w-fit">
+        <div className="relative mt-8 p-2 flex justify-center">
           <div className="relative z-10">
              <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
           </div>
-          <VineFrame />
+          <div className="absolute inset-0 z-20 pointer-events-none opacity-50">
+             <VineFrame />
+          </div>
         </div>
+
       </div>
     </div>
   );
 }
+
