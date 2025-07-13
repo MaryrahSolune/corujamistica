@@ -144,11 +144,11 @@ export default function OghamPage() {
         <div className="max-w-4xl mx-auto animated-aurora-background rounded-xl mb-8">
           <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
             <CardHeader>
-              <CardTitle className="text-3xl flex items-center">
+              <CardTitle className="text-3xl font-serif flex items-center">
                 <OghamIcon className="h-8 w-8 mr-3 text-primary" />
                 {t('oghamOraclePageTitle')}
               </CardTitle>
-              <CardDescription className="text-justify text-muted-foreground">
+              <CardDescription className="text-muted-foreground">
                 {t('oghamOraclePageDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
               </CardDescription>
             </CardHeader>
@@ -216,15 +216,16 @@ export default function OghamPage() {
                       );
                     })}
 
-                    <div className={cn("text-center transition-opacity duration-500", readingStarted ? "opacity-0" : "opacity-100")}>
-                      <Image
-                        src="/img/ogham_owl.png"
-                        alt="Coruja"
-                        data-ai-hint="stylized owl illustration"
-                        width={100}
-                        height={125}
-                        className="object-contain"
-                      />
+                    <div className={cn("text-center transition-opacity duration-500 w-40 h-40", readingStarted ? "opacity-0" : "opacity-100")}>
+                       <img
+                          src="/img/coruja.gif"
+                          alt="Coruja Mística"
+                          data-ai-hint="mystical owl animation"
+                          width={160}
+                          height={160}
+                          className="object-contain w-full h-full"
+                          unoptimized={true}
+                        />
                     </div>
 
                   </div>
@@ -265,12 +266,12 @@ export default function OghamPage() {
           <div className="max-w-4xl mx-auto mt-8 animated-aurora-background rounded-lg">
             <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
               <CardHeader>
-                <CardTitle className="text-2xl flex items-center">
+                <CardTitle className="text-2xl font-serif flex items-center">
                   <BookOpenText className="h-7 w-7 mr-3 text-accent" />
                   {t('oghamInterpretationTitle')}
                 </CardTitle>
                  <div className="flex flex-col items-center justify-center my-4">
-                    <p className="text-lg mb-2">{t('oghamYourChosenLetter', { letter: '', symbol: '' })}</p>
+                    <p className="text-lg mb-2 text-muted-foreground">{t('oghamYourChosenLetter', { letter: '', symbol: '' })}</p>
                     <div className="relative w-28 h-28 flex items-center justify-center">
                         <div className="absolute inset-0 bg-gradient-to-br from-amber-600 to-amber-900 rounded-full shadow-inner"></div>
                         <div className="absolute inset-1 bg-gradient-to-br from-amber-500 to-amber-800 rounded-full"></div>
@@ -299,7 +300,7 @@ export default function OghamPage() {
                 </div>
                  {interpretationResult.adviceImageUri && (
                     <div className="space-y-4 pt-4">
-                        <h3 className="text-xl text-primary flex items-center justify-center">
+                        <h3 className="text-xl font-bold font-serif text-primary flex items-center justify-center">
                             <Sparkles className="h-6 w-6 mr-2" />
                             {t('oghamAdviceVisual')}
                         </h3>
