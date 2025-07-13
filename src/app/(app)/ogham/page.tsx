@@ -141,13 +141,13 @@ export default function OghamPage() {
                 <OghamIcon className="h-8 w-8 mr-3 text-primary" />
                 {t('oghamOraclePageTitle')}
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="font-celtic">
                 {t('oghamOraclePageDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="query" className="text-lg">{t('yourQuestionLabel')}</Label>
+                <Label htmlFor="query" className="text-lg font-celtic">{t('yourQuestionLabel')}</Label>
                 <Textarea
                   id="query"
                   value={query}
@@ -160,7 +160,7 @@ export default function OghamPage() {
               </div>
 
               <div>
-                <Label className="text-lg mb-4 block text-center font-celtic">{t('chooseFileButton')}</Label>
+                <Label className="text-lg mb-4 block text-center font-celtic">{t('chooseOghamStickLabel')}</Label>
                 
                 <div className="flex justify-center items-center w-full min-h-[250px] py-4 overflow-hidden">
                     {/* Owl Display Container */}
@@ -222,7 +222,7 @@ export default function OghamPage() {
                 {isLoading && (
                     <div className="flex items-center justify-center text-primary font-celtic">
                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        <span>Consultando as árvores...</span>
+                        <span>{t('oghamConsultingTrees')}</span>
                     </div>
                 )}
               </div>
@@ -230,7 +230,7 @@ export default function OghamPage() {
             {readingStarted && !isLoading && (
                 <CardFooter>
                     <Button onClick={handleReset} variant="outline" className="w-full font-celtic">
-                        Fazer Outra Leitura
+                        {t('oghamDoAnotherReading')}
                     </Button>
                 </CardFooter>
             )}
@@ -259,7 +259,7 @@ export default function OghamPage() {
                   {t('oghamInterpretationTitle')}
                 </CardTitle>
                 <CardDescription className="text-lg text-accent font-semibold font-celtic">
-                  Sua letra sorteada: {interpretationResult.oghamLetter} ({interpretationResult.oghamSymbol})
+                  {t('oghamYourChosenLetter')}: {interpretationResult.oghamLetter} ({interpretationResult.oghamSymbol})
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -267,7 +267,7 @@ export default function OghamPage() {
                   <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
                       <Image
                           src={interpretationResult.treeImageUri}
-                          alt={`Imagem da árvore ${interpretationResult.oghamLetter}`}
+                          alt={t('oghamTreeImageAlt', { letter: interpretationResult.oghamLetter })}
                           data-ai-hint="enchanted tree tarot card"
                           width={512}
                           height={512}
@@ -282,12 +282,12 @@ export default function OghamPage() {
                     <div className="space-y-4 pt-4">
                         <h3 className="text-xl font-celtic text-primary flex items-center justify-center">
                             <Sparkles className="h-6 w-6 mr-2" />
-                            Um Sigilo Visual para seu Caminho
+                            {t('oghamAdviceVisual')}
                         </h3>
                         <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
                             <Image
                                 src={interpretationResult.adviceImageUri}
-                                alt="Imagem representando o conselho de Merlin"
+                                alt={t('oghamAdviceImageAlt')}
                                 data-ai-hint="mystical advice tarot card"
                                 width={512}
                                 height={512}
@@ -310,7 +310,7 @@ export default function OghamPage() {
         <div className="relative mt-8 mx-auto w-fit">
             <LeafyBackground />
             <div className="relative z-10">
-                 <img src="/img/arvore.gif" alt="Árvore mística" className="rounded-lg" />
+                 <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
             </div>
             <VineFrame />
         </div>

@@ -332,6 +332,14 @@ export type TranslationKey =
   | 'getYourOghamReadingButton'
   | 'generatingOghamReadingButton'
   | 'lerOghamButton'
+  | 'chooseOghamStickLabel'
+  | 'oghamConsultingTrees'
+  | 'oghamDoAnotherReading'
+  | 'oghamYourChosenLetter'
+  | 'oghamTreeImageAlt'
+  | 'oghamAdviceVisual'
+  | 'oghamAdviceImageAlt'
+  | 'oghamMysticalTreeAlt'
   ;
 
 interface LanguageContextType {
@@ -664,6 +672,14 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     getYourOghamReadingButton: "Get Ogham Reading (1 Credit)",
     generatingOghamReadingButton: "Generating Reading...",
     lerOghamButton: "Read OGHAM",
+    chooseOghamStickLabel: "Choose an Ogham stick to reveal your destiny.",
+    oghamConsultingTrees: "Consulting the trees...",
+    oghamDoAnotherReading: "Do Another Reading",
+    oghamYourChosenLetter: "Your chosen letter: {letter} ({symbol})",
+    oghamTreeImageAlt: "Image of the {letter} tree",
+    oghamAdviceVisual: "A Visual Sigil for Your Path",
+    oghamAdviceImageAlt: "Image representing Merlin's advice",
+    oghamMysticalTreeAlt: "Mystical tree",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -988,6 +1004,14 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     getYourOghamReadingButton: "Receber Leitura Ogham (1 Crédito)",
     generatingOghamReadingButton: "Gerando Leitura...",
     lerOghamButton: "Ler OGHAM",
+    chooseOghamStickLabel: "Escolha um galho de Ogham para revelar seu destino.",
+    oghamConsultingTrees: "Consultando as árvores...",
+    oghamDoAnotherReading: "Fazer Outra Leitura",
+    oghamYourChosenLetter: "Sua letra sorteada: {letter} ({symbol})",
+    oghamTreeImageAlt: "Imagem da árvore {letter}",
+    oghamAdviceVisual: "Um Sigilo Visual para seu Caminho",
+    oghamAdviceImageAlt: "Imagem representando o conselho de Merlin",
+    oghamMysticalTreeAlt: "Árvore mística",
   }
 };
 
