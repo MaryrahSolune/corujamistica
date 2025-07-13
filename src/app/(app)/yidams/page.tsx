@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -8,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { generateYidam, type InterpretYidamOutput } from '@/ai/flows/generate-yidams-flow';
 import { yidams, type YidamData } from '@/lib/yidams-data';
-import { Loader2, HeartHandshake, Sparkles, Hand, BrainCircuit } from 'lucide-react';
+import { Loader2, Sparkles, Hand, BrainCircuit, Flower } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -95,15 +96,16 @@ export default function YidamsPage() {
     setSelectedSymbol(null);
   };
   
-  const boardRadius = 200; // in pixels
+  const boardRadius = 220; // in pixels for the main circle of cards
+  const numCards = shuffledYidams.length;
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="max-w-3xl mx-auto animated-aurora-background rounded-xl mb-8">
-        <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
+      <div className="max-w-4xl mx-auto animated-aurora-background rounded-xl mb-8">
+        <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl overflow-hidden">
           <CardHeader>
             <CardTitle className="text-3xl font-serif flex items-center">
-              <HeartHandshake className="h-8 w-8 mr-3 text-primary" />
+              <Flower className="h-8 w-8 mr-3 text-primary" />
               {t('yidamsPageTitle')}
             </CardTitle>
             <CardDescription>
@@ -128,15 +130,15 @@ export default function YidamsPage() {
                 <div>
                   <Label className="text-lg mb-4 block text-center">Escolha um símbolo para revelar seu Yidam</Label>
                   
-                  <div className="relative flex justify-center items-center w-full min-h-[450px]">
+                  <div className="relative flex justify-center items-center w-full min-h-[500px]">
                      <div 
-                        className="relative w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-black border-2 border-primary/50 shadow-inner"
+                        className="relative w-[480px] h-[480px] rounded-full flex items-center justify-center transition-all duration-500 ease-in-out"
+                        style={{ perspective: '1000px' }}
                       >
-                         <div className="absolute inset-4 rounded-full border border-dashed border-primary/20"></div>
-                         <div className="absolute inset-16 rounded-full border border-dashed border-primary/20"></div>
+                         <div className="absolute inset-20 rounded-full border border-dashed border-primary/20"></div>
                          
                         {shuffledYidams.map((symbol, index) => {
-                          const angle = (index / shuffledYidams.length) * 360;
+                          const angle = (index / numCards) * 360;
                           const x = boardRadius * Math.cos((angle - 90) * (Math.PI / 180));
                           const y = boardRadius * Math.sin((angle - 90) * (Math.PI / 180));
                           
@@ -151,23 +153,25 @@ export default function YidamsPage() {
                               style={{
                                 transform: `translate(${x}px, ${y}px) rotate(${angle}deg)`,
                                 transformOrigin: 'center center',
+                                WebkitBackfaceVisibility: 'hidden',
+                                backfaceVisibility: 'hidden',
                               }}
                                className={cn(
-                                "absolute w-[70px] h-[70px] flex items-center justify-center rounded-md transition-all duration-500 ease-in-out",
+                                "absolute w-[70px] h-[90px] flex items-center justify-center transition-all duration-700 ease-in-out",
                                 !readingStarted && "hover:scale-110 hover:shadow-lg hover:shadow-accent/50 cursor-pointer",
-                                readingStarted && !isSelected && "opacity-10 blur-sm scale-90",
-                                isSelected && "scale-125 shadow-lg shadow-accent/50 z-10"
+                                readingStarted && !isSelected && "opacity-0 scale-90",
+                                isSelected && "scale-150 shadow-lg shadow-accent/50 z-10 -translate-y-4"
                               )}
                               aria-label={`Escolher símbolo oculto ${index + 1}`}
                             >
                               <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isRevealed && "[transform:rotateY(180deg)]")}>
                                 {/* Back of the card (hidden) */}
-                                <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-r from-secondary via-primary to-secondary shadow-md rounded-md flex items-center justify-center border border-black">
-                                   <Sparkles className="w-6 h-6 text-primary-foreground/50" />
+                                <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-primary via-secondary to-accent/80 shadow-md rounded-md flex items-center justify-center border-2 border-primary-foreground/20">
+                                   <Sparkles className="w-6 h-6 text-primary-foreground/70" />
                                 </div>
                                 {/* Front of the card (revealed) */}
-                                <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-accent/20 to-background shadow-lg border-2 border-accent/80 rounded-md flex flex-col items-center justify-center p-1 text-center">
-                                    <p className="font-sans text-xs font-bold text-accent whitespace-nowrap">{symbol.symbolicRepresentation}</p>
+                                <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-background/80 to-background shadow-lg border-2 border-accent/80 rounded-md flex flex-col items-center justify-center p-1 text-center">
+                                    <p className="font-sans text-[10px] leading-tight font-bold text-accent whitespace-nowrap">{symbol.symbolicRepresentation}</p>
                                 </div>
                               </div>
                             </button>
@@ -181,9 +185,10 @@ export default function YidamsPage() {
                               data-ai-hint="mystical light animation"
                               width={160}
                               height={160}
-                              className="object-contain w-full h-full"
+                              className="object-contain w-full h-full mix-blend-screen"
                             />
                         </div>
+
                       </div>
                   </div>
 
