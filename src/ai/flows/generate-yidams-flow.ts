@@ -59,7 +59,16 @@ const generateYidamPrompt = ai.definePrompt({
 | Cakrasamvara    | Irado      | Fogo       | Apego → Bênção              | União Mística             | União com Vajravarahi, roda de luz                  |
 | Kurukulla       | Irada      | Amor/Fogo  | Carência → Poder de Atração | Magia do Amor             | Arco de flores, cor vermelha, sorriso sedutor       |
 | Padmasambhava   | Semi-irado | Todos      | Confusão → Consciência Desperta | Mestre da Transformação | Cajado khatvanga, aura dourada, olhar compassivo    |
-
+| Amitabha        | Pacífica   | Luz        | Ilusão → Clareza Interior   | Amor Incondicional        | Buda vermelho em meditação com lótus e luz rubi     |
+| Akshobhya       | Pacífica   | Água       | Raiva → Imperturbabilidade  | Estabilidade da Mente     | Buda azul tocando a terra com serenidade            |
+| Ratnasambhava   | Pacífica   | Terra      | Orgulho → Igualdade         | Generosidade              | Buda dourado com gesto de dádiva, joias irradiando   |
+| Vairochana      | Pacífica   | Éter       | Ignorância → Consciência Total | Luz Pura                  | Buda branco em trono de leão, brilho de arco-íris   |
+| Amoghasiddhi    | Pacífica   | Ar         | Inveja → Realização Iluminada | Ação Sábia                | Buda verde com gesto da coragem, raios em espiral   |
+| Simhamukha      | Irada      | Som        | Medo → Domínio Interior     | Voz da Verdade            | Cabeça de leoa, rugindo, colar de caveiras          |
+| Vajravarahi     | Irada      | Fogo       | Desejo → Sabedoria de Prazer | Liberação pelo Êxtase     | Mulher vermelha com cabeça de porca no alto da testa |
+| Hayagriva       | Irado      | Fogo       | Ignorância → Força Protetora | Grito Destruidor do Mal   | Cabeça de cavalo surgindo da coroa, chamas ao redor  |
+| Mahakala        | Irado      | Sombra     | Apego Material → Liberação Absoluta | Guardião da Morte         | Negro com expressão feroz, manto de peles, olhos flamejantes |
+| Palden Lhamo    | Irada      | Tempo      | Ódio → Justiça Cármica      | Deusa Protetora           | Mulher azul cavalgando mula com sol e lua nos olhos |
 
 **Para a divindade selecionada, forneça:**
 1.  **Nome da Divindade:** O nome EXATO como está na tabela.
