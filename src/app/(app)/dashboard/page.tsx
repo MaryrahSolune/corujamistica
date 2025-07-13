@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback, type ComponentType } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock, TreeDeciduous, VenetianMask } from 'lucide-react';
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock, TreeDeciduous, VenetianMask, HeartHandshake } from 'lucide-react';
 import { 
   Gem, Sparkles, Moon, Sun, Star, Crown, Feather, Key, Scroll, 
   BrainCircuit as BrainIcon, Shield, Pyramid, Infinity as InfinityIcon, Hexagon, Flower, Flame, Leaf, 
@@ -157,6 +157,8 @@ export default function DashboardPage() {
         return { translationKey: 'dreamInterpretationType', icon: <BrainCircuit className="h-5 w-5 mr-2 flex-shrink-0" /> };
       case 'ogham':
         return { translationKey: 'oghamReadingType', icon: <OghamIcon className="h-5 w-5 mr-2 flex-shrink-0" /> };
+      case 'yidams':
+        return { translationKey: 'yidamsPath', icon: <HeartHandshake className="h-5 w-5 mr-2 flex-shrink-0" /> };
       default:
         // Fallback for any unknown types
         return { translationKey: 'newReading', icon: <BookMarked className="h-5 w-5 mr-2 flex-shrink-0" /> };
@@ -225,6 +227,23 @@ export default function DashboardPage() {
                 <CardFooter>
                   <Button asChild className="w-full">
                     <Link href="/ogham"><span>{t('lerOghamButton')}</span></Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+
+            <div className="rounded-lg animated-aurora-background">
+              <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-xl font-serif">{t('yidamsPathTitle')}</CardTitle>
+                  <HeartHandshake className="h-6 w-6 text-primary" />
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-muted-foreground mb-4 font-medium">{t('yidamsPathDescription')}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild className="w-full">
+                    <Link href="/yidams"><span>{t('discoverYourYidamButton')}</span></Link>
                   </Button>
                 </CardFooter>
               </Card>

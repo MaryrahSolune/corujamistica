@@ -31,7 +31,18 @@ export interface OghamReadingData {
   interpretationTimestamp: number | object;
 }
 
-export type ReadingData = TarotReadingData | DreamInterpretationData | OghamReadingData;
+export interface YidamsReadingData {
+  type: 'yidams';
+  query: string; // Will store "Yidam for DD/MM/YYYY"
+  deityName: string;
+  mantra: string;
+  characteristics: string;
+  yidamImageUri?: string;
+  interpretationTimestamp: number | object;
+}
+
+
+export type ReadingData = TarotReadingData | DreamInterpretationData | OghamReadingData | YidamsReadingData;
 
 export async function saveReading(uid: string, readingData: Omit<ReadingData, 'interpretationTimestamp'>): Promise<string | null> {
   const readingsRef = ref(rtdb, `users/${uid}/readings`);
@@ -56,6 +67,10 @@ export async function saveReading(uid: string, readingData: Omit<ReadingData, 'i
   if (dataToSave.type === 'tarot') {
     if (dataToSave.cardSpreadImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).cardSpreadImageUri;
     if (dataToSave.summaryImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).summaryImageUri;
+  }
+  
+  if (dataToSave.type === 'yidams') {
+    if (dataToSave.yidamImageUri === undefined) delete (dataToSave as Partial<YidamsReadingData>).yidamImageUri;
   }
 
 

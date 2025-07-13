@@ -33,7 +33,7 @@
             "interpretationTimestamp"
           ],
           "$readingId": {
-            ".validate": "newData.hasChildren(['type', 'interpretationTimestamp']) && (newData.child('type').val() == 'tarot' || newData.child('type').val() == 'dream' || newData.child('type').val() == 'ogham') && (newData.child('interpretationTimestamp').isNumber() || (newData.child('interpretationTimestamp').hasChild('.sv') && newData.child('interpretationTimestamp').child('.sv').val() === 'timestamp'))"
+            ".validate": "newData.hasChildren(['type', 'interpretationTimestamp']) && (newData.child('type').val() == 'tarot' || newData.child('type').val() == 'dream' || newData.child('type').val() == 'ogham' || newData.child('type').val() == 'yidams') && (newData.child('interpretationTimestamp').isNumber() || (newData.child('interpretationTimestamp').hasChild('.sv') && newData.child('interpretationTimestamp').child('.sv').val() === 'timestamp'))"
           }
         }
       }

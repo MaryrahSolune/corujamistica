@@ -340,6 +340,24 @@ export type TranslationKey =
   | 'oghamAdviceVisual'
   | 'oghamAdviceImageAlt'
   | 'oghamMysticalTreeAlt'
+  | 'yidamsPath'
+  | 'yidamsPathTitle'
+  | 'yidamsPathDescription'
+  | 'discoverYourYidamButton'
+  | 'yidamsPageTitle'
+  | 'yidamsPageDescription'
+  | 'yidamsBirthDateLabel'
+  | 'yidamsBirthDatePlaceholder'
+  | 'yidamsRevealButton'
+  | 'yidamsRevealingButton'
+  | 'yidamsResultTitle'
+  | 'yidamsYourDeityIs'
+  | 'yidamsMantraLabel'
+  | 'yidamsCharacteristicsLabel'
+  | 'yidamsImageAlt'
+  | 'yidamsErrorDate'
+  | 'yidamsErrorGenerating'
+  | 'yidamsSuccessToast'
   ;
 
 interface LanguageContextType {
@@ -680,6 +698,24 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     oghamAdviceVisual: "A Visual Sigil for Your Path",
     oghamAdviceImageAlt: "Image representing Merlin's advice",
     oghamMysticalTreeAlt: "Mystical tree",
+    yidamsPath: 'Yidams Path',
+    yidamsPathTitle: 'Path of the Yidams',
+    yidamsPathDescription: 'Discover the deity that guides your journey based on your birth.',
+    discoverYourYidamButton: 'Discover your Yidam',
+    yidamsPageTitle: 'Path of the Yidams',
+    yidamsPageDescription: 'Enter your birth date to reveal the spiritual deity that resonates with your essence. This costs 1 credit.',
+    yidamsBirthDateLabel: 'Your Birth Date',
+    yidamsBirthDatePlaceholder: 'DD/MM/YYYY',
+    yidamsRevealButton: 'Reveal my Yidam (1 Credit)',
+    yidamsRevealingButton: 'Revealing...',
+    yidamsResultTitle: 'The Yidam that Guides You',
+    yidamsYourDeityIs: 'Your deity is',
+    yidamsMantraLabel: 'Mantra',
+    yidamsCharacteristicsLabel: 'Characteristics',
+    yidamsImageAlt: 'Image of the Yidam {name}',
+    yidamsErrorDate: 'Please enter a valid birth date.',
+    yidamsErrorGenerating: 'An error occurred while revealing your Yidam.',
+    yidamsSuccessToast: 'Your Yidam has been revealed!',
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -1007,11 +1043,29 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     chooseOghamStickLabel: "Escolha um galho de Ogham para revelar seu destino.",
     oghamConsultingTrees: "Consultando as árvores...",
     oghamDoAnotherReading: "Fazer Outra Leitura",
-    oghamYourChosenLetter: "Sua letra sorteada: {letter} ({symbol})",
+    oghamYourChosenLetter: "Sua letra sorteada: {letter}",
     oghamTreeImageAlt: "Imagem da árvore {letter}",
     oghamAdviceVisual: "Um Sigilo Visual para seu Caminho",
     oghamAdviceImageAlt: "Imagem representando o conselho de Merlin",
     oghamMysticalTreeAlt: "Árvore mística",
+    yidamsPath: 'Caminho dos Yidams',
+    yidamsPathTitle: 'Caminho dos Yidams',
+    yidamsPathDescription: 'Descubra a divindade que guia sua jornada com base no seu nascimento.',
+    discoverYourYidamButton: 'Descobrir seu Yidam',
+    yidamsPageTitle: 'Caminho dos Yidams',
+    yidamsPageDescription: 'Insira sua data de nascimento para revelar a divindade espiritual que ressoa com sua essência. Custo: 1 crédito.',
+    yidamsBirthDateLabel: 'Sua Data de Nascimento',
+    yidamsBirthDatePlaceholder: 'DD/MM/AAAA',
+    yidamsRevealButton: 'Revelar meu Yidam (1 Crédito)',
+    yidamsRevealingButton: 'Revelando...',
+    yidamsResultTitle: 'O Yidam que te Guia',
+    yidamsYourDeityIs: 'Sua divindade é',
+    yidamsMantraLabel: 'Mantra',
+    yidamsCharacteristicsLabel: 'Características',
+    yidamsImageAlt: 'Imagem do Yidam {name}',
+    yidamsErrorDate: 'Por favor, insira uma data de nascimento válida.',
+    yidamsErrorGenerating: 'Ocorreu um erro ao revelar seu Yidam.',
+    yidamsSuccessToast: 'Seu Yidam foi revelado!',
   }
 };
 
