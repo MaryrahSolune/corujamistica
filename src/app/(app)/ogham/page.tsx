@@ -203,7 +203,7 @@ export default function OghamPage() {
                         >
                           <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isRevealed && "[transform:rotateY(180deg)]")}>
                             {/* Back of the card (hidden) */}
-                            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-amber-700 via-amber-900 to-black shadow-md border-t-2 border-black rounded-md flex items-center justify-center">
+                            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-r from-amber-900 via-amber-700 to-amber-900 shadow-md rounded-md flex items-center justify-center">
                                <OghamIcon className="w-5 h-5 text-amber-300/50" />
                             </div>
                             {/* Front of the card (revealed) */}
