@@ -81,22 +81,12 @@
 
   .animated-aurora-background {
     @apply relative overflow-hidden;
+    background:
+      radial-gradient(at 20% 100%, hsl(var(--primary) / 0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsl(var(--accent) / 0.1) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, hsl(var(--secondary) / 0.15) 0px, transparent 50%);
   }
-  .animated-aurora-background::before {
-    content: "";
-    @apply absolute top-1/2 left-1/2 w-[150%] pt-[150%] -z-10 animate-spin-gradient;
-    background: conic-gradient(
-      hsl(var(--primary) / 0.5),      /* Primary - Deep Purple */
-      hsl(var(--secondary) / 0.6),    /* Secondary - Lighter Purple */
-      hsl(var(--accent) / 0.6),       /* Gold/Yellow with reduced opacity */
-      hsl(var(--primary) / 0.4),
-      hsl(var(--secondary) / 0.5),
-      transparent 70% /* Adjusted transparency point */
-    );
-    border-radius: 50%;
-    filter: blur(30px); /* Slightly more blur for a softer effect */
-  }
-
+  
   .login-button-aura-wrapper {
     @apply relative inline-flex items-center justify-center;
   }
@@ -107,11 +97,11 @@
     width: calc(100% + 12px); /* Aura slightly smaller */
     height: calc(100% + 12px);
     background: conic-gradient(
-      hsl(var(--primary) / 0.6) 0deg,
-      hsl(var(--accent) / 0.6) 90deg,
-      hsl(var(--primary) / 0.5) 180deg,
-      hsl(var(--accent) / 0.5) 270deg,
-      hsl(var(--primary) / 0.6) 360deg
+      hsl(var(--primary) / 0.4) 0deg,
+      hsl(var(--accent) / 0.4) 90deg,
+      hsl(var(--primary) / 0.3) 180deg,
+      hsl(var(--accent) / 0.3) 270deg,
+      hsl(var(--primary) / 0.4) 360deg
     );
     border-radius: calc(var(--radius) + 8px);
     filter: blur(10px); /* Slightly less blur */
@@ -125,18 +115,18 @@
     background-image: none !important;
     background-color: hsl(var(--accent) / 0.1) !important; /* Lighter gold background */
     transform: scale(1.02) !important;
-    box-shadow: 0 0 8px hsl(var(--accent) / 0.4) !important; /* More subtle gold shadow */
+    box-shadow: 0 0 8px hsl(var(--accent) / 0.3) !important; /* More subtle gold shadow */
     color: hsl(var(--primary-foreground)) !important; /* Keep text color consistent */
   }
 
 
   @keyframes subtle-breathing-glow {
     0% {
-      opacity: 0.4;
+      opacity: 0.3;
       transform: translate(-50%, -50%) scale(1);
     }
     100% {
-      opacity: 0.7;
+      opacity: 0.6;
       transform: translate(-50%, -50%) scale(1.03);
     }
   }
