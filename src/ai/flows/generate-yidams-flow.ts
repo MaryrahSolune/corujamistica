@@ -12,7 +12,7 @@ import { z } from 'genkit';
 import type { YidamData } from '@/lib/yidams-data';
 
 
-export const InterpretYidamInputSchema = z.object({
+const InterpretYidamInputSchema = z.object({
   query: z.string().describe('The user query or context for the Yidam reading.'),
   chosenYidam: z.object({
     name: z.string(),
