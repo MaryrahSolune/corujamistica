@@ -58,7 +58,7 @@ export default function OghamPage() {
   const [selectedStick, setSelectedStick] = useState<OghamLetterData | null>(null);
 
   const { leftWing, rightWing } = useMemo(() => {
-    const shuffled = oghamLetters.sort(() => 0.5 - Math.random());
+    const shuffled = [...oghamLetters].sort(() => 0.5 - Math.random());
     const midPoint = Math.ceil(shuffled.length / 2);
     return {
         leftWing: shuffled.slice(0, midPoint),
@@ -238,7 +238,7 @@ export default function OghamPage() {
         </div>
 
         {error && (
-          <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
+          <div className="max-w-4xl mx-auto mt-8 animated-aurora-background rounded-lg">
             <Card className="relative z-10 bg-destructive/80 dark:bg-destructive/70 backdrop-blur-md shadow-lg border-destructive">
               <CardHeader>
                 <CardTitle className="text-destructive-foreground font-celtic">{t('errorOccurredCardTitle')}</CardTitle>
@@ -251,7 +251,7 @@ export default function OghamPage() {
         )}
         
         {interpretationResult && !isLoading && (
-          <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
+          <div className="max-w-4xl mx-auto mt-8 animated-aurora-background rounded-lg">
             <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
               <CardHeader>
                 <CardTitle className="text-2xl font-celtic flex items-center">
@@ -310,12 +310,12 @@ export default function OghamPage() {
         )}
 
         {(isLoading || interpretationResult) && (
-          <div className="max-w-2xl mx-auto mt-8">
+          <div className="max-w-4xl mx-auto mt-8">
               <AdSlot id="ad-ogham-bottom" />
           </div>
         )}
-        <div className="relative mt-8 p-2 flex justify-center">
-          <div className="relative z-10">
+        <div className="relative mt-8 flex justify-center">
+          <div className="relative z-10 p-2">
              <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
           </div>
           <div className="absolute inset-0 z-20 pointer-events-none opacity-50">
@@ -327,4 +327,3 @@ export default function OghamPage() {
     </div>
   );
 }
-
