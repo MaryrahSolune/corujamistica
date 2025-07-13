@@ -217,9 +217,9 @@ export default function OghamPage() {
 
                     <div className={cn("text-center transition-opacity duration-500 w-40 h-40", readingStarted ? "opacity-0" : "opacity-100")}>
                        <img
-                          src="/img/coruja%20giratoria.gif"
-                          alt="Coruja mística giratória"
-                          data-ai-hint="mystical owl animation"
+                          src="/img/luz.gif"
+                          alt="Luz mística central"
+                          data-ai-hint="mystical light animation"
                           width={160}
                           height={160}
                           className="object-contain w-full h-full"
