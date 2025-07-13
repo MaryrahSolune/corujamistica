@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback, type ComponentType } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock, TreeDeciduous } from 'lucide-react';
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock, TreeDeciduous, VenetianMask } from 'lucide-react';
 import { 
   Gem, Sparkles, Moon, Sun, Star, Crown, Feather, Key, Scroll, 
   BrainCircuit as BrainIcon, Shield, Pyramid, Infinity as InfinityIcon, Hexagon, Flower, Flame, Leaf, 
@@ -149,11 +149,11 @@ export default function DashboardPage() {
     return title.substring(0, maxLength) + (title.length > maxLength ? '...' : '');
   };
 
-  const getReadingTypeTranslation = (type: ReadingData['type']) => {
-    if (type === 'tarot') return t('tarotReadingType');
-    if (type === 'dream') return t('dreamInterpretationType');
-    if (type === 'ogham') return t('oghamReadingType');
-    return 'Leitura';
+  const getReadingTypeInfo = (type: ReadingData['type']): { translation: string; icon: React.ReactNode } => {
+    if (type === 'tarot') return { translation: t('tarotReadingType'), icon: <VenetianMask className="h-5 w-5 mr-2 flex-shrink-0" /> };
+    if (type === 'dream') return { translation: t('dreamInterpretationType'), icon: <BrainCircuit className="h-5 w-5 mr-2 flex-shrink-0" /> };
+    if (type === 'ogham') return { translation: t('oghamReadingType'), icon: <OghamIcon className="h-5 w-5 mr-2 flex-shrink-0" /> };
+    return { translation: 'Leitura', icon: <BookMarked className="h-5 w-5 mr-2 flex-shrink-0" /> };
   }
 
   const currentStreak = userProfile?.dailyRewardStreak || 0;
@@ -352,35 +352,38 @@ export default function DashboardPage() {
                 </div>
               ) : recentReadings.length > 0 ? (
                 <ul className="space-y-6">
-                  {recentReadings.map(reading => (
-                    <li key={reading.id} className="border-b border-border/50 pb-4 last:border-b-0 last:pb-0">
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
-                        <div className="flex-grow mb-2 sm:mb-0">
-                            <h3 className="text-lg font-bold text-primary flex items-center">
-                            <BookMarked className="h-5 w-5 mr-2 flex-shrink-0" />
-                            <span className="truncate">
-                                {getReadingTitle(reading)}
-                            </span>
-                            </h3>
-                            <p className="text-sm text-muted-foreground mt-1 ml-7 font-medium">
-                              {getReadingTypeTranslation(reading.type)}
-                            </p>
-                        </div>
-                        <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 w-full sm:w-auto">
-                            <span className="text-xs text-muted-foreground whitespace-nowrap self-end sm:self-center">
-                                {typeof reading.interpretationTimestamp === 'number' ? formatDistanceToNow(new Date(reading.interpretationTimestamp), { addSuffix: true, locale: dateFnsLocale }) : 'Recent'}
-                            </span>
-                            <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
-                                <Link href={`/reading/${reading.id}`}>
-                                    <span className="inline-flex items-center">
-                                        <Eye className="mr-2 h-4 w-4" /> {t('viewReadingButton')}
-                                    </span>
-                                </Link>
-                            </Button>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
+                  {recentReadings.map(reading => {
+                    const typeInfo = getReadingTypeInfo(reading.type);
+                    return (
+                        <li key={reading.id} className="border-b border-border/50 pb-4 last:border-b-0 last:pb-0">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                            <div className="flex-grow mb-2 sm:mb-0">
+                                <h3 className="text-lg font-bold text-primary flex items-center">
+                                {typeInfo.icon}
+                                <span className="truncate">
+                                    {getReadingTitle(reading)}
+                                </span>
+                                </h3>
+                                <p className="text-sm text-muted-foreground mt-1 ml-7 font-medium">
+                                  {typeInfo.translation}
+                                </p>
+                            </div>
+                            <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 w-full sm:w-auto">
+                                <span className="text-xs text-muted-foreground whitespace-nowrap self-end sm:self-center">
+                                    {typeof reading.interpretationTimestamp === 'number' ? formatDistanceToNow(new Date(reading.interpretationTimestamp), { addSuffix: true, locale: dateFnsLocale }) : 'Recent'}
+                                </span>
+                                <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
+                                    <Link href={`/reading/${reading.id}`}>
+                                        <span className="inline-flex items-center">
+                                            <Eye className="mr-2 h-4 w-4" /> {t('viewReadingButton')}
+                                        </span>
+                                    </Link>
+                                </Button>
+                            </div>
+                          </div>
+                        </li>
+                    )
+                  })}
                 </ul>
               ) : (
                 <div className="flex flex-col items-center justify-center text-center text-muted-foreground py-8">
