@@ -188,7 +188,7 @@ export default function OghamPage() {
                         {/* Owl Body */}
                         <div className="relative z-20">
                             <Image
-                                src="https://placehold.co/120x150.png"
+                                src="/img/coruja.png"
                                 alt="Coruja de madeira"
                                 data-ai-hint="stylized wooden owl face"
                                 width={120}
@@ -258,9 +258,17 @@ export default function OghamPage() {
                   <BookOpenText className="h-7 w-7 mr-3 text-accent" />
                   {t('oghamInterpretationTitle')}
                 </CardTitle>
-                <CardDescription className="text-lg text-accent font-semibold font-celtic">
-                  {t('oghamYourChosenLetter')}: {interpretationResult.oghamLetter} ({interpretationResult.oghamSymbol})
-                </CardDescription>
+                 <div className="flex flex-col items-center justify-center my-4">
+                    <p className="font-celtic text-lg mb-2">{t('oghamYourChosenLetter', { letter: '', symbol: '' })}</p>
+                    <div className="relative w-28 h-28 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-br from-amber-600 to-amber-900 rounded-full shadow-inner"></div>
+                        <div className="absolute inset-1 bg-gradient-to-br from-amber-500 to-amber-800 rounded-full"></div>
+                        <div className="relative z-10 text-center text-amber-100">
+                            <div className="font-celtic text-xl font-bold">{interpretationResult.oghamLetter}</div>
+                            <div className="font-sans text-4xl font-black">{interpretationResult.oghamSymbol}</div>
+                        </div>
+                    </div>
+                </div>
               </CardHeader>
               <CardContent className="space-y-6">
                 {interpretationResult.treeImageUri && (
@@ -307,12 +315,11 @@ export default function OghamPage() {
           </div>
         )}
 
-        <div className="relative mt-8 mx-auto w-fit">
-            <LeafyBackground />
-            <div className="relative z-10">
-                 <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
-            </div>
-            <VineFrame />
+        <div className="relative mt-8 mx-auto w-fit p-2">
+          <div className="relative z-10">
+            <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg" />
+          </div>
+          <VineFrame />
         </div>
       </div>
     </div>
