@@ -9,13 +9,14 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { generateYidam, type InterpretYidamOutput } from '@/ai/flows/generate-yidams-flow';
 import { yidams, type YidamData } from '@/lib/yidams-data';
-import { Loader2, Sparkles, Hand, BrainCircuit, Flower, Book, Mic2, Pyramid } from 'lucide-react';
+import { Loader2, Sparkles, Hand, BrainCircuit, Flower, Book, Mic2, Pyramid, BookHeart, Wand2, Star } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
 import { deductCredit } from '@/services/creditService';
 import { saveReading, type ReadingData } from '@/services/readingService';
 import { cn } from '@/lib/utils';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 
 export default function YidamsPage() {
@@ -108,7 +109,7 @@ export default function YidamsPage() {
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       {!result && !error && (
-        <div className="max-w-4xl mx-auto animated-aurora-background rounded-xl mb-4">
+        <div className="max-w-4xl mx-auto animated-aurora-background rounded-xl mb-8">
           <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl overflow-hidden">
             <CardHeader>
               <CardTitle className="text-3xl font-serif flex items-center">
@@ -183,11 +184,6 @@ export default function YidamsPage() {
                           </button>
                         );
                       })}
-
-                      <div className={cn("text-center transition-opacity duration-500 w-40 h-40 flex items-center justify-center", readingStarted ? "opacity-0" : "opacity-100")}>
-                        {/* Placeholder for central element if needed, or leave empty */}
-                      </div>
-
                     </div>
                 </div>
 
@@ -283,6 +279,53 @@ export default function YidamsPage() {
         </div>
       )}
       
+      <div className="max-w-4xl mx-auto mt-12 w-full">
+        <Accordion type="single" collapsible className="w-full animated-aurora-background rounded-xl">
+            <AccordionItem value="item-1" className="border-b-0">
+                <AccordionTrigger className="p-4 sm:p-6 hover:no-underline">
+                  <div className='flex items-center text-lg font-serif'>
+                    <BookHeart className="h-6 w-6 mr-3 text-primary" />
+                    O Caminho dos Yidams: Conheça a filosofia
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="p-4 sm:p-6 pt-0 space-y-6 text-foreground/90 leading-relaxed text-justify">
+                      <h3 className="text-2xl font-bold font-serif text-accent flex items-center justify-center text-center">
+                        <Pyramid className="mr-2 h-6 w-6"/> O Caminho dos Yidams
+                      </h3>
+                      <p className='text-center italic text-muted-foreground'>Uma Jornada Sagrada com as Divindades do Despertar</p>
+                      
+                      <p>Na tradição mística do Budismo Tibetano, existe um portal secreto, um elo entre o visível e o invisível, entre o humano e o divino. Esse portal tem um nome sagrado: <strong>Yidam</strong>.</p>
+                      <p>Yidam é mais do que uma divindade. É uma manifestação viva da mente iluminada, uma forma simbólica do seu eu desperto, um espelho sagrado onde a alma vê refletida a sua natureza búdica. Ao se conectar com um Yidam, você não cultua algo externo — você se reencontra com a sua essência mais pura.</p>
+                      <p>A palavra "Yidam" vem da expressão tibetana <em>yid kyi dam tshig</em>, que significa algo como "voto da mente" ou "compromisso sagrado da consciência". Ao escolher — ou melhor, ao ser escolhido — por um Yidam, você se compromete com uma jornada espiritual profunda, onde meditação, visualização e transformação caminham lado a lado.</p>
+                      
+                      <h4 className="text-xl font-bold font-serif text-primary flex items-center pt-4"><Hand className="mr-2 h-5 w-5"/>Quem são os Yidams?</h4>
+                      <p>São divindades do Vajrayana, a via tântrica do budismo. Podem aparecer como Budas celestiais, Bodhisattvas compassivos, figuras iradas que cortam a ignorância, ou mesmo mestres históricos iluminados. Cada Yidam encarna um aspecto específico da iluminação, como sabedoria, compaixão, coragem, verdade, cura, desapego ou destruição do ego.</p>
+                      <p>Por trás de cada forma — com seus múltiplos braços, cores, símbolos, animais ou gestos — há um mapa interior, um caminho arquetípico de liberação.</p>
+                      
+                      <h4 className="text-xl font-bold font-serif text-primary flex items-center pt-4"><Wand2 className="mr-2 h-5 w-5"/>O que acontece na prática com o Yidam?</h4>
+                      <p>A conexão com o Yidam se dá por meio de uma prática chamada <strong>Sadhana</strong> — uma liturgia meditativa em que o praticante visualiza a divindade, recita mantras e se transforma nela. Esse ritual é como um espelho mágico que dissolve as máscaras do ego e revela o Buda que sempre esteve dentro de você.</p>
+                      <p>O Yidam não é um símbolo de adoração externa, mas um corpo de luz que você veste com a mente, reprogramando sua autoimagem e recriando o mundo como uma mandala de consciência desperta.</p>
+                      
+                      <h4 className="text-xl font-bold font-serif text-primary flex items-center pt-4"><Pyramid className="mr-2 h-5 w-5"/>Como encontrar seu Yidam?</h4>
+                      <p>Não se trata de uma escolha racional. Os mestres dizem que é uma “escolha sem escolha” — o Yidam que te escolhe é aquele que te chama em sonhos, emoções, afinidades, visões. Às vezes, um mestre ou guru o revela. Outras vezes, ele emerge quando você menos espera.</p>
+                      <p>Em algumas tradições, joga-se uma flor sobre uma mandala para que ela revele seu Yidam. Mas, na verdade, qualquer divindade com a qual você se sinta profundamente conectado pode ser seu Yidam do momento — pois o que importa é a transformação interna que ela inspira em você.</p>
+                      
+                      <h4 className="text-xl font-bold font-serif text-primary flex items-center pt-4"><Star className="mr-2 h-5 w-5"/>O Mistério do Silêncio</h4>
+                      <p>Por respeito à sacralidade desse elo, muitos praticantes não revelam publicamente quem é seu Yidam. Isso evita o orgulho espiritual e preserva o poder silencioso da conexão. Afinal, o Yidam é um segredo sagrado entre você e o universo — um juramento da alma com sua origem divina.</p>
+                      <p>O mestre Kalu Rinpoche, perguntado sobre seu Yidam após um retiro de três anos, simplesmente respondeu:</p>
+                      <blockquote className="border-l-2 border-accent pl-4 italic text-muted-foreground">“Eu? Eu faço Mani.”</blockquote>
+                      <p>Revelando que sua prática era apenas — e tão grandiosamente — o mantra da compaixão: <em>Om Mani Padme Hum</em>, ligado a Avalokiteshvara, o Buda do Amor.</p>
+                      
+                      <h4 className="text-xl font-bold font-serif text-primary flex items-center pt-4"><Sparkles className="mr-2 h-5 w-5"/>Aqui, no Oráculo da Coruja Mística...</h4>
+                      <p>Você poderá descobrir qual Yidam está se comunicando com você neste momento. Ao escolher intuitivamente um símbolo sagrado, você acessa um aspecto oculto da sua consciência que deseja se manifestar.</p>
+                      <p>Feche os olhos. Respire fundo. Deixe que sua alma escolha. Pois quem escolhe, no fundo, é o próprio despertar.</p>
+                  </div>
+                </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+      </div>
+
       <div className="flex justify-center mt-12">
         <Image
           src="/img/buda.gif"
