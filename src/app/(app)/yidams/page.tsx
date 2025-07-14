@@ -184,15 +184,8 @@ export default function YidamsPage() {
                         );
                       })}
 
-                      <div className={cn("text-center transition-opacity duration-500 w-40 h-40", readingStarted ? "opacity-0" : "opacity-100")}>
-                         <img
-                            src="/img/luz.gif"
-                            alt="Luz mística central"
-                            data-ai-hint="mystical light animation"
-                            width={160}
-                            height={160}
-                            className="object-contain w-full h-full mix-blend-screen"
-                          />
+                      <div className={cn("text-center transition-opacity duration-500 w-40 h-40 flex items-center justify-center", readingStarted ? "opacity-0" : "opacity-100")}>
+                        {/* Placeholder for central element if needed, or leave empty */}
                       </div>
 
                     </div>
