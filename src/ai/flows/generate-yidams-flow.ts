@@ -53,7 +53,7 @@ const generateYidamPrompt = ai.definePrompt({
     introduction: z.string().describe("Um parágrafo poético de introdução à divindade, sua essência e o que ela representa de forma geral."),
     storyAndElement: z.string().describe("Um parágrafo sobre a história, a mitologia ou o elemento associado a este Yidam (fogo, água, terra, ar, éter). Explique como essa história ou elemento molda sua energia."),
     connectionToQuery: z.string().describe("Um parágrafo que conecta diretamente as qualidades do Yidam à questão específica do consulente, explicando como sua energia pode ajudar a transmutar o problema em sabedoria."),
-    adviceAndMudra: z.string().describe("Um parágrafo final com um conselho prático e a descrição de um mudra (gesto sagrado com as mãos) para meditação e conexão. A descrição do mudra deve ser clara e detalhada, explicando a posição dos dedos e das mãos."),
+    adviceAndMudra: z.string().describe("Um parágrafo final com um conselho prático e a descrição de um mudra (gesto sagrado com as mãos) para meditação e conexão, incluindo seu nome. A descrição do mudra deve ser clara e detalhada, explicando a posição dos dedos e das mãos."),
     mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam.'),
     mantraTranslation: z.string().describe("A tradução do mantra, explicando o significado espiritual e a função de cada componente, em vez de uma tradução literal. Por exemplo, em vez de 'Raiva', explique como 'a energia irada que purifica obstáculos'."),
     mantraPronunciation: z.string().describe("Um guia fonético simples e prático para a pronúncia correta do mantra. Exemplo: para 'Om Ah Hum', a pronúncia é 'Om A Rum'."),
@@ -71,7 +71,7 @@ Com sua visão clara, contemple a essência do Yidam e a pergunta do buscador. R
 1.  **Introdução (Parágrafo 1):** Apresente a divindade de forma poética. Descreva sua essência, o que ela representa em um nível universal.
 2.  **História e Elemento (Parágrafo 2):** Fale sobre a história, a mitologia ou o elemento (Fogo, Água, Terra, Ar, Éter) associado a este Yidam. Como essa origem ou elemento influencia sua energia e seus ensinamentos?
 3.  **Conexão com a Consulta (Parágrafo 3):** Conecte diretamente as qualidades do Yidam **{{yidamName}}** com a questão do consulente ({{{query}}}). Explique como a sabedoria desta divindade pode iluminar o caminho do buscador e ajudá-lo a transmutar seus desafios em sabedoria.
-4.  **Conselho e Mudra (Parágrafo 4):** Ofereça um conselho prático final e descreva um mudra (gesto sagrado com as mãos) que o buscador pode usar para meditar e se conectar com a energia do Yidam. **A descrição do mudra deve ser clara, detalhada e fácil de seguir, explicando a posição exata dos dedos e das mãos.**
+4.  **Conselho e Mudra (Parágrafo 4):** Ofereça um conselho prático final e descreva um mudra (gesto sagrado com as mãos) que o buscador pode usar para meditar e se conectar com a energia do Yidam. **Inclua o nome do mudra no texto.** A descrição deve ser clara, detalhada e fácil de seguir, explicando a posição exata dos dedos e das mãos.
 5.  **Mantra Sagrado:** Forneça um mantra autêntico, sua tradução espiritual e um **guia fonético prático** para a pronúncia correta (por exemplo, "Om Ah Hum" seria pronunciado como "Om A Rum").`,
 });
 
