@@ -56,7 +56,7 @@ const generateYidamPrompt = ai.definePrompt({
     connectionToQuery: z.string().describe("Um parágrafo que conecta diretamente as qualidades do Yidam à questão específica do consulente, explicando como sua energia pode ajudar a transmutar o problema em sabedoria."),
     adviceAndMudra: z.string().describe("Um parágrafo final com um conselho prático e a descrição de um mudra (gesto sagrado com as mãos) para meditação e conexão, incluindo seu nome. A descrição do mudra deve ser clara e detalhada, explicando a posição dos dedos e das mãos."),
     mantra: z.string().describe("Um mantra autêntico e poderoso associado a este Yidam."),
-    mantraTranslation: z.string().describe("A tradução espiritual do mantra, explicando a função de cada componente (ex: em vez de 'Raiva', explique como 'a energia irada que purifica obstáculos')."),
+    mantraTranslation: z.string().describe("A tradução espiritual do mantra, explicando o significado e a função de cada componente separadamente para uma compreensão profunda (ex: em vez de 'Raiva', explique como 'a energia irada que purifica obstáculos')."),
     mantraPronunciation: z.string().describe("Um guia fonético simples e prático para a pronúncia correta do mantra. Por exemplo, para 'OM HRIH HA HUM PHAT', a pronúncia seria 'Om Hri Ra Hum Phet'."),
     mandalaCouncil: z.string().describe("Uma frase de efeito, poética e curta, que sirva como um 'Conselho do Caminho' para meditação, resumindo a lição do Yidam e preparando o buscador para a contemplação da mandala de cura."),
   }) },
@@ -77,7 +77,7 @@ Com sua visão clara, contemple a essência do Yidam e a pergunta do buscador. R
 5.  **Mantra Sagrado:** Forneça as três partes:
     *   **Mantra:** Um mantra autêntico e poderoso associado a este Yidam.
     *   **Pronúncia:** Um guia fonético simples e prático para a pronúncia correta. (Exemplo: para 'OM HRIH HA HUM PHAT', a pronúncia seria 'Om Hri Ra Hum Phet').
-    *   **Tradução Espiritual:** A tradução espiritual, explicando a função de cada componente (ex: em vez de 'Raiva', explique como 'a energia irada que purifica obstáculos').
+    *   **Tradução Espiritual:** Uma explicação completa e profunda do significado de cada componente do mantra. Em vez de uma tradução literal, explique a função espiritual de cada palavra ou sílaba. Por exemplo, em vez de 'OM = som primordial', explique 'OM: a vibração que unifica mente, corpo e espírito, abrindo o canal para a consciência divina'. A tradução deve ser bonita e inspiradora.
 6.  **Conselho para Mandala:** Crie uma frase de efeito, poética e curta, que sirva como um "Conselho do Caminho" para meditação, resumindo a lição do Yidam e preparando o buscador para a contemplação da mandala de cura.`,
 });
 
