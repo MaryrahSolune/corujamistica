@@ -56,29 +56,20 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans; /* Ensure font-sans is default for body */
+    @apply bg-background text-foreground font-sans;
     position: relative;
   }
-  /* Removed body::before rule for sacred geometry pattern */
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-celtic; /* Use Celtic font for all headings */
+  .home-bg {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%,hsl(var(--primary) / 0.3), transparent),
+                radial-gradient(ellipse 80% 50% at 50% 120%,hsl(var(--accent) / 0.3), transparent),
+                hsl(var(--background));
   }
-
-  @keyframes float-on-moon {
-    0%, 100% {
-      transform: translateY(0) rotate(-0.5deg);
-    }
-    50% {
-      transform: translateY(-15px) rotate(0.5deg);
-    }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-celtic;
   }
 }
 
 @layer utilities {
-  .animate-float {
-    animation: float-on-moon 8s ease-in-out infinite;
-  }
-
   .animated-aurora-background {
     @apply relative overflow-hidden;
     background:
@@ -94,7 +85,7 @@
   .login-button-aura-wrapper::before {
     content: '';
     @apply absolute top-1/2 left-1/2 -z-[5]; /* Behind the button */
-    width: calc(100% + 12px); /* Aura slightly smaller */
+    width: calc(100% + 12px);
     height: calc(100% + 12px);
     background: conic-gradient(
       hsl(var(--primary) / 0.4) 0deg,
@@ -104,7 +95,7 @@
       hsl(var(--primary) / 0.4) 360deg
     );
     border-radius: calc(var(--radius) + 8px);
-    filter: blur(10px); /* Slightly less blur */
+    filter: blur(10px);
     animation: subtle-breathing-glow 2.5s ease-in-out infinite alternate, spin-aura 12s linear infinite;
     transform: translate(-50%, -50%);
     pointer-events: none;
@@ -113,12 +104,11 @@
 
   .login-btn-custom:hover {
     background-image: none !important;
-    background-color: hsl(var(--accent) / 0.1) !important; /* Lighter gold background */
+    background-color: hsl(var(--accent) / 0.1) !important;
     transform: scale(1.02) !important;
-    box-shadow: 0 0 8px hsl(var(--accent) / 0.3) !important; /* More subtle gold shadow */
-    color: hsl(var(--primary-foreground)) !important; /* Keep text color consistent */
+    box-shadow: 0 0 8px hsl(var(--accent) / 0.3) !important;
+    color: hsl(var(--primary-foreground)) !important;
   }
-
 
   @keyframes subtle-breathing-glow {
     0% {
@@ -142,14 +132,14 @@
 
   .hero-background-section {
       background-image: url('/img/4Q46.gif');
-      background-size: 80% auto; /* Mobile-first: larger on small screens */
+      background-size: 80% auto;
       background-position: center;
       background-repeat: no-repeat;
   }
 
-  @media (min-width: 768px) { /* md breakpoint */
+  @media (min-width: 768px) {
       .hero-background-section {
-          background-size: 40% auto; /* Smaller on larger screens */
+          background-size: 40% auto;
       }
   }
 
@@ -158,20 +148,5 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-  }
-
-  @keyframes fade-in-out-leaf {
-    0%, 100% {
-      opacity: 0;
-      transform: scale(0.95) rotate(var(--tw-rotate, 0deg));
-    }
-    50% {
-      opacity: 0.8; /* Increased opacity to be visible */
-      transform: scale(1.05) rotate(var(--tw-rotate, 0deg));
-    }
-  }
-
-  .animate-leaf-fade {
-    animation: fade-in-out-leaf 8s ease-in-out infinite;
   }
 }

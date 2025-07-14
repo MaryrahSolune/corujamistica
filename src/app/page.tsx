@@ -142,7 +142,7 @@ export default function HomePage() {
   const displayCount = INITIAL_SYMBOLIC_COUNT + (userCount || 0);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col home-bg">
       <header className="py-6 sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center space-x-2">
@@ -186,8 +186,7 @@ export default function HomePage() {
         </section>
 
         {/* Nossos Oráculos Section */}
-        <section className="py-16 sm:py-24 bg-background relative overflow-hidden">
-          <div className="absolute inset-0 -z-10 animated-aurora-background opacity-50"></div>
+        <section className="py-16 sm:py-24 bg-transparent relative overflow-hidden">
           <div className="container mx-auto px-4 relative z-10 text-center">
             <Sparkles className="h-12 w-12 text-primary mx-auto mb-6 animate-subtle-pulse" />
             <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('ourOraclesTitle')}</h2>
@@ -215,7 +214,7 @@ export default function HomePage() {
         <CustomSeparator />
 
         {/* Testimonials Section */}
-        <section className="py-16 sm:py-24 bg-background">
+        <section className="py-16 sm:py-24 bg-transparent">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12 animate-fade-in relative" style={{animationDelay: '0.1s'}}>
               <Users className="h-12 w-12 text-accent mx-auto mb-3" />
@@ -265,7 +264,7 @@ export default function HomePage() {
         <CustomSeparator />
         
         {/* Daily Treasures Section */}
-        <section className="py-16 sm:py-24 bg-background">
+        <section className="py-16 sm:py-24 bg-transparent">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <Gift className="h-12 w-12 text-primary mx-auto mb-6 animate-subtle-pulse" />
