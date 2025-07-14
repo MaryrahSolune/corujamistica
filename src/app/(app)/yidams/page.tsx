@@ -292,8 +292,8 @@ export default function YidamsPage() {
         <Image
           src="/img/buda.gif"
           alt="Animação de Buda meditando"
-          width={200}
-          height={200}
+          width={300}
+          height={300}
           unoptimized={true}
           data-ai-hint="buddha meditation animation"
         />
