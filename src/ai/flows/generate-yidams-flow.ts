@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview Flow for generating a Yidam (tutelary deity) based on a user's choice of symbol.
@@ -10,7 +11,7 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
-export const InterpretYidamInputSchema = z.object({
+const InterpretYidamInputSchema = z.object({
   query: z.string().describe('The user query or context for the Yidam reading.'),
   chosenYidam: z.object({
     name: z.string(),
