@@ -10,12 +10,13 @@ import { getReadingById, type ReadingData } from '@/services/readingService';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, Flower, Hand, Book, Mic2, Pyramid } from 'lucide-react';
+import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, Flower, Hand, Book, Mic2, Pyramid, PlayCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { format } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
 import { AdSlot } from '@/components/AdSlot';
 import { OghamIcon } from '@/components/MysticIcons';
+import { generateAudio, type GenerateAudioInput } from '@/ai/flows/generate-audio-flow';
 
 type ReadingWithId = ReadingData & { id: string };
 
@@ -28,6 +29,10 @@ export default function ViewReadingPage() {
   const [reading, setReading] = useState<ReadingWithId | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
+  const [audioError, setAudioError] = useState<string | null>(null);
 
   const getDateFnsLocale = () => (locale === 'pt-BR' ? ptBR : enUS);
 
@@ -54,6 +59,57 @@ export default function ViewReadingPage() {
         setError(t('mustBeLoggedInToViewReading'));
     }
   }, [currentUser, readingId, t, locale]);
+  
+  const handleGenerateAudio = async () => {
+    if (!reading) return;
+    setIsGeneratingAudio(true);
+    setAudioUrl(null);
+    setAudioError(null);
+
+    let textToNarrate = '';
+
+    switch (reading.type) {
+        case 'tarot':
+            textToNarrate = reading.interpretationText;
+            break;
+        case 'dream':
+            textToNarrate = reading.interpretationSegments.filter(s => s.type === 'text').map(s => s.content).join('\n\n');
+            break;
+        case 'ogham':
+            textToNarrate = reading.interpretationText;
+            break;
+        case 'yidams':
+            textToNarrate = [
+                reading.introduction,
+                reading.storyAndElement,
+                reading.connectionToQuery,
+                reading.adviceAndMudra
+            ].join('\n\n');
+            break;
+    }
+    
+    if (!textToNarrate.trim()) {
+        setAudioError("Não há texto para narrar.");
+        setIsGeneratingAudio(false);
+        return;
+    }
+    
+    try {
+        const input: GenerateAudioInput = { textToNarrate };
+        const result = await generateAudio(input);
+        if(result.audioDataUri){
+            setAudioUrl(result.audioDataUri);
+        } else {
+            throw new Error("A narração não foi gerada corretamente.");
+        }
+    } catch (err) {
+        console.error("Error generating audio:", err);
+        setAudioError("Falha ao gerar o áudio. Tente novamente.");
+    } finally {
+        setIsGeneratingAudio(false);
+    }
+  };
+
 
   if (loading) {
     return (
@@ -144,6 +200,23 @@ export default function ViewReadingPage() {
             )}
           </CardHeader>
           <CardContent className="space-y-8">
+
+            <div className="space-y-4">
+                <Button onClick={handleGenerateAudio} disabled={isGeneratingAudio} className="w-full sm:w-auto">
+                    {isGeneratingAudio ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <PlayCircle className="mr-2 h-4 w-4" />}
+                    {isGeneratingAudio ? "Gerando narração..." : "Ouvir Leitura"}
+                </Button>
+                {audioUrl && (
+                    <div className="mt-4">
+                        <audio controls src={audioUrl} className="w-full">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                )}
+                {audioError && <p className="text-destructive text-sm mt-2">{audioError}</p>}
+            </div>
+
+
             {reading.type === 'tarot' && (
               <>
                 <div>
