@@ -179,14 +179,14 @@ export default function ViewReadingPage() {
                   </div>
                 </div>
 
-                {reading.summaryImageUri && (
+                {reading.mandalaImageUri && (
                     <div className="my-6">
                         <h3 className="text-xl font-bold font-serif mb-3 text-accent flex items-center">
                             <Sparkles className="mr-2 h-5 w-5"/> {t('yourVisualBlessingTitle')}
                         </h3>
                         <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
                             <Image
-                            src={reading.summaryImageUri}
+                            src={reading.mandalaImageUri}
                             alt={t('summaryImageAlt')}
                             data-ai-hint="spiritual guidance orixa blessing"
                             width={512}
@@ -381,3 +381,5 @@ export default function ViewReadingPage() {
     </div>
   );
 }
+
+    

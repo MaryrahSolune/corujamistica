@@ -7,7 +7,7 @@ export interface TarotReadingData {
   query: string;
   cardSpreadImageUri?: string; // Could be a data URI or a GCS path
   interpretationText: string;
-  summaryImageUri?: string; // Could be a data URI or a GCS path
+  mandalaImageUri?: string; // Could be a data URI or a GCS path
   interpretationTimestamp: number | object;
 }
 
@@ -68,7 +68,7 @@ export async function saveReading(uid: string, readingData: Omit<ReadingData, 'i
 
   if (dataToSave.type === 'tarot') {
     if (dataToSave.cardSpreadImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).cardSpreadImageUri;
-    if (dataToSave.summaryImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).summaryImageUri;
+    if (dataToSave.mandalaImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).mandalaImageUri;
   }
   
   if (dataToSave.type === 'yidams') {
@@ -120,3 +120,5 @@ export async function getReadingById(uid: string, readingId: string): Promise<(R
     throw error;
   }
 }
+
+    

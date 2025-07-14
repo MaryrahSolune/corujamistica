@@ -18,16 +18,12 @@ import { saveReading, type TarotReadingData } from '@/services/readingService';
 import { cn } from '@/lib/utils';
 import { AdSlot } from '@/components/AdSlot';
 
-interface ExtendedGenerateReadingOutput extends GenerateReadingInterpretationOutput {
-  summaryImageUri?: string;
-}
-
 export default function NewReadingPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageDataUri, setImageDataUri] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [query, setQuery] = useState<string>('');
-  const [interpretationResult, setInterpretationResult] = useState<ExtendedGenerateReadingOutput | null>(null);
+  const [interpretationResult, setInterpretationResult] = useState<GenerateReadingInterpretationOutput | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
@@ -71,7 +67,7 @@ export default function NewReadingPage() {
         cardSpreadImage: imageDataUri,
         query: query,
       };
-      const result = await generateReadingInterpretation(input) as ExtendedGenerateReadingOutput; // Cast to include potential summaryImageUri
+      const result = await generateReadingInterpretation(input);
       setInterpretationResult(result);
 
       // 3. Save reading to RTDB
@@ -84,8 +80,8 @@ export default function NewReadingPage() {
         if (imageDataUri) {
           readingToSave.cardSpreadImageUri = imageDataUri;
         }
-        if (result.summaryImageUri && typeof result.summaryImageUri === 'string' && result.summaryImageUri.trim() !== '') {
-          readingToSave.summaryImageUri = result.summaryImageUri;
+        if (result.mandalaImageUri) {
+          readingToSave.mandalaImageUri = result.mandalaImageUri;
         }
         
         await saveReading(currentUser.uid, readingToSave as Omit<TarotReadingData, 'interpretationTimestamp'>);
@@ -253,7 +249,7 @@ export default function NewReadingPage() {
         </div>
       )}
 
-      {interpretationResult && interpretationResult.summaryImageUri && (
+      {interpretationResult && interpretationResult.mandalaImageUri && (
         <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
           <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
             <CardHeader>
@@ -264,7 +260,7 @@ export default function NewReadingPage() {
             </CardHeader>
             <CardContent className="flex justify-center">
               <Image
-                src={interpretationResult.summaryImageUri}
+                src={interpretationResult.mandalaImageUri}
                 alt={t('summaryImageAlt')}
                 data-ai-hint="spiritual guidance orixa blessing"
                 width={512}
@@ -296,3 +292,5 @@ export default function NewReadingPage() {
     </div>
   );
 }
+
+    

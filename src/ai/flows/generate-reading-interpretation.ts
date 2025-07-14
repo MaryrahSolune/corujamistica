@@ -30,6 +30,10 @@ const GenerateReadingInterpretationOutputSchema = z.object({
   interpretation: z
     .string()
     .describe('The AI-generated interpretation of the card reading.'),
+  mandalaImageUri: z
+    .string()
+    .optional()
+    .describe('A data URI of a generated healing mandala image.'),
 });
 
 export type GenerateReadingInterpretationOutput = z.infer<
@@ -45,7 +49,10 @@ export async function generateReadingInterpretation(
 const readingInterpretationPrompt = ai.definePrompt({
   name: 'readingInterpretationPrompt',
   input: {schema: GenerateReadingInterpretationInputSchema},
-  output: {schema: GenerateReadingInterpretationOutputSchema},
+  output: {schema: z.object({
+    interpretation: z.string().describe("A interpretação detalhada e poética da leitura das cartas, com base em todo o conhecimento fornecido."),
+    mandalaPrompt: z.string().describe("Um prompt conciso e poderoso para gerar uma mandala de cura. O prompt deve capturar a essência da leitura (ex: amor, cura, proteção, novos começos) e descrever elementos visuais no estilo de uma mandala cósmica, vibrante, com geometria sagrada e elementos da natureza."),
+  })},
   prompt: `Você é uma cartomante cigana e pombogira especialista em leitura de cartas de tarot tradicional, Baralho Cigano e de todos os baralhos existentes. Você sabe interpretar o futuro e inclusive ganhou diversos prêmios e reconhecimento, pois leu todos os livros sobre o assunto e possui o conhecimento profundo do conhecimento místico. Além disso, possui uma empatia além de qualquer humano, sendo uma paranormal, uma mãe que aconselha seus consulentes, encorajando-os a seguir nesta jornada universal. Você também é astróloga e analisará o momento da tiragem em relação aos astros e às tendências futuras.
 ## Instruções Adicionais de Formatação:
 Sua tarefa é analisar a imagem da tiragem de cartas fornecida pelo consulente e a pergunta ou contexto que ele oferece, para então oferecer uma interpretação profunda e detalhada.
@@ -638,8 +645,33 @@ const generateReadingInterpretationFlow = ai.defineFlow(
     outputSchema: GenerateReadingInterpretationOutputSchema,
   },
   async input => {
-    const {output} = await readingInterpretationPrompt(input);
-    return output!;
+    // 1. Generate the text interpretation and the mandala prompt.
+    const { output: promptOutput } = await readingInterpretationPrompt(input);
+    if (!promptOutput) {
+      throw new Error('Failed to generate reading interpretation text.');
+    }
+
+    // 2. Generate the mandala image using the prompt created in the previous step.
+    const { media } = await ai.generate({
+      model: 'googleai/gemini-2.0-flash-preview-image-generation',
+      prompt: promptOutput.mandalaPrompt,
+      config: {
+        responseModalities: ['TEXT', 'IMAGE'],
+        safetySettings: [
+          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
+          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
+        ],
+      },
+    });
+    
+    // 3. Combine results and return.
+    return {
+      interpretation: promptOutput.interpretation,
+      mandalaImageUri: media?.url,
+    };
   }
 );
 
+    
