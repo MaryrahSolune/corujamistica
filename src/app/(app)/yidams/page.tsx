@@ -101,10 +101,53 @@ export default function YidamsPage() {
     setSelectedSymbol(null);
   };
   
-  const boardRadius = 220;
-  const numCards = shuffledYidams.length;
-  const totalArcDegrees = 270;
-  const startAngleOffset = -135; // Centers the arc at the top
+  const innerSymbols = useMemo(() => shuffledYidams.slice(0, 12), [shuffledYidams]);
+  const middleSymbols = useMemo(() => shuffledYidams.slice(12, 28), [shuffledYidams]);
+  const outerSymbols = useMemo(() => shuffledYidams.slice(28), [shuffledYidams]);
+
+  const renderSymbolRing = (symbols: YidamData[], radius: number, startAngle = 0) => {
+    return symbols.map((symbol, index) => {
+      const angle = startAngle + (index / symbols.length) * 360;
+      const x = radius * Math.cos(angle * (Math.PI / 180));
+      const y = radius * Math.sin(angle * (Math.PI / 180));
+      
+      const isSelected = selectedSymbol?.name === symbol.name;
+      const isRevealed = readingStarted && isSelected;
+
+      return (
+        <button
+          key={symbol.name}
+          onClick={() => handleSymbolClick(symbol)}
+          disabled={readingStarted || isLoading}
+          style={{
+            transform: `translate(${x}px, ${y}px)`,
+            transformOrigin: 'center center',
+            WebkitBackfaceVisibility: 'hidden',
+            backfaceVisibility: 'hidden',
+          }}
+          className={cn(
+            "absolute w-[60px] h-[80px] flex items-center justify-center transition-all duration-700 ease-in-out group",
+            !readingStarted && "hover:scale-125 hover:shadow-lg hover:shadow-accent/50 hover:z-20 cursor-pointer",
+            readingStarted && !isSelected && "opacity-0 scale-90",
+            isSelected && "scale-[1.75] shadow-lg shadow-accent/50 z-30"
+          )}
+          aria-label={`Escolher símbolo oculto ${symbol.name}`}
+        >
+          <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isRevealed && "[transform:rotateY(180deg)]")}>
+            {/* Back of the card (hidden) */}
+            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-primary via-secondary to-accent/80 shadow-md rounded-md flex items-center justify-center border-2 border-primary-foreground/20 group-hover:animate-subtle-pulse">
+               <Sparkles className="w-6 h-6 text-primary-foreground/70" />
+            </div>
+            {/* Front of the card (revealed) */}
+            <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-background/80 to-background shadow-lg border-2 border-accent/80 rounded-md flex flex-col items-center justify-center p-1 text-center">
+                <p className="font-sans text-[9px] leading-tight font-bold text-accent whitespace-nowrap">{symbol.symbolicRepresentation}</p>
+            </div>
+          </div>
+        </button>
+      );
+    });
+  };
+
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -137,53 +180,14 @@ export default function YidamsPage() {
               <div>
                 <Label className="text-lg mb-4 block text-center">Escolha um símbolo para revelar seu Yidam</Label>
                 
-                <div className="relative flex justify-center items-center w-full min-h-[500px]">
+                <div className="relative flex justify-center items-center w-full min-h-[550px]">
                    <div 
-                      className="relative w-[480px] h-[480px] flex items-center justify-center transition-all duration-500 ease-in-out"
+                      className="relative w-full h-full max-w-[500px] max-h-[500px] flex items-center justify-center transition-all duration-500 ease-in-out animate-pulse_slow"
                       style={{ perspective: '1000px' }}
                     >
-                       <div className="absolute inset-20 rounded-full border border-dashed border-primary/20"></div>
-                       
-                      {shuffledYidams.map((symbol, index) => {
-                        const angle = startAngleOffset + (index / (numCards -1)) * totalArcDegrees;
-                        const x = boardRadius * Math.cos(angle * (Math.PI / 180));
-                        const y = boardRadius * Math.sin(angle * (Math.PI / 180));
-                        
-                        const isSelected = selectedSymbol?.name === symbol.name;
-                        const isRevealed = readingStarted && isSelected;
-
-                        return (
-                          <button
-                            key={symbol.name}
-                            onClick={() => handleSymbolClick(symbol)}
-                            disabled={readingStarted || isLoading}
-                            style={{
-                              transform: `translate(${x}px, ${y}px) rotate(${angle + 90}deg)`,
-                              transformOrigin: 'center center',
-                              WebkitBackfaceVisibility: 'hidden',
-                              backfaceVisibility: 'hidden',
-                            }}
-                             className={cn(
-                              "absolute w-[70px] h-[90px] flex items-center justify-center transition-all duration-700 ease-in-out",
-                              !readingStarted && "hover:scale-110 hover:shadow-lg hover:shadow-accent/50 cursor-pointer",
-                              readingStarted && !isSelected && "opacity-0 scale-90",
-                              isSelected && "scale-150 shadow-lg shadow-accent/50 z-10 -translate-y-4"
-                            )}
-                            aria-label={`Escolher símbolo oculto ${index + 1}`}
-                          >
-                            <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isRevealed && "[transform:rotateY(180deg)]")}>
-                              {/* Back of the card (hidden) */}
-                              <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-primary via-secondary to-accent/80 shadow-md rounded-md flex items-center justify-center border-2 border-primary-foreground/20">
-                                 <Sparkles className="w-6 h-6 text-primary-foreground/70" />
-                              </div>
-                              {/* Front of the card (revealed) */}
-                              <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-background/80 to-background shadow-lg border-2 border-accent/80 rounded-md flex flex-col items-center justify-center p-1 text-center">
-                                  <p className="font-sans text-[10px] leading-tight font-bold text-accent whitespace-nowrap">{symbol.symbolicRepresentation}</p>
-                              </div>
-                            </div>
-                          </button>
-                        );
-                      })}
+                      {renderSymbolRing(outerSymbols, 220, 0)}
+                      {renderSymbolRing(middleSymbols, 150, 11.25)}
+                      {renderSymbolRing(innerSymbols, 80, 0)}
                     </div>
                 </div>
 
