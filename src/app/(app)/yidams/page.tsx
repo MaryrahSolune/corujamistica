@@ -196,6 +196,17 @@ export default function YidamsPage() {
                       </div>
                   </div>
 
+                  <div className="mt-4 flex justify-center">
+                    <Image 
+                      src="/delicate.gif"
+                      alt="Animação delicada de partículas"
+                      width={200}
+                      height={100}
+                      unoptimized={true}
+                      data-ai-hint="delicate particle animation"
+                    />
+                  </div>
+
                     {isLoading && (
                         <div className="flex items-center justify-center text-primary mt-4">
                             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
