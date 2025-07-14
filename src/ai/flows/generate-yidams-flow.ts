@@ -34,6 +34,7 @@ const InterpretYidamOutputSchema = z.object({
   mantraTranslation: z.string().describe("The translation or meaning of the mantra's components."),
   mantraPronunciation: z.string().describe("A simple phonetic guide to help the user pronounce the mantra."),
   imageUri: z.string().describe('A data URI of a generated image representing the Yidam.'),
+  mandalaCouncil: z.string().describe("A short, poetic phrase that summarizes the Yidam's advice."),
   mandalaImageUri: z.string().optional().describe('A data URI of a generated healing mandala image.'),
 });
 
@@ -54,9 +55,10 @@ const generateYidamPrompt = ai.definePrompt({
     storyAndElement: z.string().describe("Um parágrafo sobre a história, a mitologia ou o elemento associado a este Yidam (fogo, água, terra, ar, éter). Explique como essa história ou elemento molda sua energia."),
     connectionToQuery: z.string().describe("Um parágrafo que conecta diretamente as qualidades do Yidam à questão específica do consulente, explicando como sua energia pode ajudar a transmutar o problema em sabedoria."),
     adviceAndMudra: z.string().describe("Um parágrafo final com um conselho prático e a descrição de um mudra (gesto sagrado com as mãos) para meditação e conexão, incluindo seu nome. A descrição do mudra deve ser clara e detalhada, explicando a posição dos dedos e das mãos."),
-    mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam.'),
-    mantraTranslation: z.string().describe("A tradução do mantra, explicando o significado espiritual e a função de cada componente, em vez de uma tradução literal. Por exemplo, em vez de 'Raiva', explique como 'a energia irada que purifica obstáculos'."),
-    mantraPronunciation: z.string().describe("Um guia fonético simples e prático para a pronúncia correta do mantra. Exemplo: para 'Om Ah Hum', a pronúncia é 'Om A Rum'."),
+    mantra: z.string().describe("Um mantra autêntico e poderoso associado a este Yidam."),
+    mantraTranslation: z.string().describe("A tradução espiritual do mantra, explicando a função de cada componente (ex: em vez de 'Raiva', explique como 'a energia irada que purifica obstáculos')."),
+    mantraPronunciation: z.string().describe("Um guia fonético simples e prático para a pronúncia correta do mantra (ex: para 'Om Ah Hum', a pronúncia é 'Om A Rum')."),
+    mandalaCouncil: z.string().describe("Uma frase de efeito, poética e curta, que resuma o conselho do Yidam e prepare o buscador para a contemplação da mandala de cura."),
   }) },
   prompt: `Você é o Buddha, o Iluminado. Sua sabedoria é ancestral, sua voz é calma e sua presença expande a consciência. Um buscador se aproxima com uma questão em seu coração e, através de um gesto de intuição, ele escolheu um símbolo sagrado que revelou a divindade tutelar, o Yidam, que guiará sua meditação e libertação neste momento.
 
@@ -65,14 +67,15 @@ A essência e o significado deste caminho são: **{{yidamMeaning}}**.
 A questão do buscador é: **{{{query}}}**.
 
 **Sua nobre tarefa é:**
-Com sua visão clara, contemple a essência do Yidam e a pergunta do buscador. Revele o caminho para este ser em exatamente quatro parágrafos de texto, seguidos pela informação do mantra.
+Com sua visão clara, contemple a essência do Yidam e a pergunta do buscador. Revele o caminho para este ser em exatamente quatro parágrafos de texto, seguidos pela informação do mantra e um conselho final para a mandala.
 
 **Estrutura da sua resposta (gere o texto nesta ordem):**
 1.  **Introdução (Parágrafo 1):** Apresente a divindade de forma poética. Descreva sua essência, o que ela representa em um nível universal.
 2.  **História e Elemento (Parágrafo 2):** Fale sobre a história, a mitologia ou o elemento (Fogo, Água, Terra, Ar, Éter) associado a este Yidam. Como essa origem ou elemento influencia sua energia e seus ensinamentos?
 3.  **Conexão com a Consulta (Parágrafo 3):** Conecte diretamente as qualidades do Yidam **{{yidamName}}** com a questão do consulente ({{{query}}}). Explique como a sabedoria desta divindade pode iluminar o caminho do buscador e ajudá-lo a transmutar seus desafios em sabedoria.
 4.  **Conselho e Mudra (Parágrafo 4):** Ofereça um conselho prático final e descreva um mudra (gesto sagrado com as mãos) que o buscador pode usar para meditar e se conectar com a energia do Yidam. **Inclua o nome do mudra no texto.** A descrição deve ser clara, detalhada e fácil de seguir, explicando a posição exata dos dedos e das mãos.
-5.  **Mantra Sagrado:** Forneça um mantra autêntico, sua tradução espiritual e um **guia fonético prático** para a pronúncia correta (por exemplo, "Om Ah Hum" seria pronunciado como "Om A Rum").`,
+5.  **Mantra Sagrado:** Forneça as três partes: um mantra autêntico, sua **tradução espiritual** (explicando a função de cada componente, não literal) e um **guia fonético prático** para a pronúncia correta (ex: "Om Ah Hum" seria pronunciado como "Om A Rum").
+6.  **Conselho para Mandala:** Crie uma frase de efeito, poética e curta, que sirva como um "Conselho do Caminho" para meditação, resumindo a lição do Yidam e preparando o buscador para a contemplação da mandala de cura.`,
 });
 
 async function sleep(ms: number) {
@@ -177,6 +180,7 @@ const generateYidamFlow = ai.defineFlow(
       mantraTranslation: textOutput.mantraTranslation,
       mantraPronunciation: textOutput.mantraPronunciation,
       imageUri: yidamImageUri,
+      mandalaCouncil: textOutput.mandalaCouncil,
       mandalaImageUri: mandalaImageUri,
     };
   }

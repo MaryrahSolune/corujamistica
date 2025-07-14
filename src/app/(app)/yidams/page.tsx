@@ -110,6 +110,7 @@ export default function YidamsPage() {
         mantraTranslation: yidamResult.mantraTranslation,
         mantraPronunciation: yidamResult.mantraPronunciation,
         yidamImageUri: yidamResult.imageUri,
+        mandalaCouncil: yidamResult.mandalaCouncil,
         mandalaImageUri: yidamResult.mandalaImageUri,
       };
       await saveReading(currentUser.uid, readingToSave);
@@ -305,6 +306,11 @@ export default function YidamsPage() {
                       <h3 className="text-xl font-bold font-serif mb-3 text-accent flex items-center justify-center">
                           <Sparkles className="mr-2 h-5 w-5"/> Mandala de Cura
                       </h3>
+                      {result.mandalaCouncil && (
+                         <blockquote className="text-center italic text-muted-foreground border-none p-4 mb-4">
+                          "{result.mandalaCouncil}"
+                        </blockquote>
+                      )}
                       <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
                           <Image
                           src={result.mandalaImageUri}
