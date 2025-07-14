@@ -50,7 +50,7 @@ const generateYidamPrompt = ai.definePrompt({
   }) },
   output: { schema: z.object({
     introduction: z.string().describe("Um parágrafo poético de introdução à divindade, sua essência e o que ela representa de forma geral."),
-    storyAndElement: z.string().describe("Um parágrafo sobre a história, mitologia ou o elemento associado a este Yidam (fogo, água, terra, ar, éter). Explique como essa história ou elemento molda sua energia."),
+    storyAndElement: z.string().describe("Um parágrafo sobre a história, a mitologia ou o elemento associado a este Yidam (fogo, água, terra, ar, éter). Explique como essa história ou elemento molda sua energia."),
     connectionToQuery: z.string().describe("Um parágrafo que conecta diretamente as qualidades do Yidam à questão específica do consulente, explicando como sua energia pode ajudar a transmutar o problema em sabedoria."),
     adviceAndMudra: z.string().describe("Um parágrafo final com um conselho prático e a descrição de um mudra (gesto sagrado com as mãos) para meditação e conexão."),
     mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam.'),
@@ -74,6 +74,10 @@ Com sua visão clara, contemple a essência do Yidam e a pergunta do buscador. R
 5.  **Mantra Sagrado:** Forneça um mantra autêntico, sua tradução e um guia fonético para a pronúncia.`,
 });
 
+async function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const generateYidamFlow = ai.defineFlow(
   {
     name: 'generateYidamFlow',
@@ -83,14 +87,33 @@ const generateYidamFlow = ai.defineFlow(
   async (input) => {
     const { chosenYidam, query } = input;
 
-    // 1. Generate the textual details.
-    const { output: textOutput } = await generateYidamPrompt({
-      query,
-      yidamName: chosenYidam.name,
-      yidamMeaning: chosenYidam.symbolicMeaning,
-    });
+    // 1. Generate the textual details with a retry mechanism.
+    let textOutput;
+    const maxRetries = 3;
+    let attempt = 0;
+    while (attempt < maxRetries) {
+      try {
+        const { output } = await generateYidamPrompt({
+          query,
+          yidamName: chosenYidam.name,
+          yidamMeaning: chosenYidam.symbolicMeaning,
+        });
+        textOutput = output;
+        break; // Success, exit loop
+      } catch (error: any) {
+        attempt++;
+        if (attempt >= maxRetries || !error.message?.includes('503')) {
+          // If it's the last attempt OR not a 503 error, re-throw the error
+          console.error(`Failed to generate Yidam text after ${attempt} attempts.`, error);
+          throw error;
+        }
+        console.warn(`Attempt ${attempt} failed with 503. Retrying in ${attempt}s...`);
+        await sleep(attempt * 1000); // Wait 1s, then 2s
+      }
+    }
+
     if (!textOutput) {
-      throw new Error('Failed to generate Yidam textual details.');
+      throw new Error('Failed to generate Yidam textual details after multiple retries.');
     }
 
     // 2. Create the image prompt based on the Yidam's symbolic image.
