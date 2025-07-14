@@ -142,7 +142,7 @@ export default function HomePage() {
   const displayCount = INITIAL_SYMBOLIC_COUNT + (userCount || 0);
 
   return (
-    <div className="flex min-h-screen flex-col home-bg">
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-background to-[hsl(var(--primary)/0.15)]">
       <header className="py-6 sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center space-x-2">

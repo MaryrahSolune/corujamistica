@@ -57,8 +57,7 @@ export default function RootLayout({
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
           fontSans.variable,
-          fontCeltic.variable,
-          'bg-gradient-to-br from-background to-[hsl(var(--primary)/0.15)]' // Apply subtle gradient background here
+          fontCeltic.variable
         )}
       >
         <AuthProvider>
