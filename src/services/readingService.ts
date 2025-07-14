@@ -43,6 +43,7 @@ export interface YidamsReadingData {
   mantraTranslation: string;
   mantraPronunciation: string;
   yidamImageUri: string;
+  mandalaImageUri?: string;
   interpretationTimestamp: number | object;
 }
 
@@ -76,6 +77,7 @@ export async function saveReading(uid: string, readingData: Omit<ReadingData, 'i
   
   if (dataToSave.type === 'yidams') {
     if (dataToSave.yidamImageUri === undefined) delete (dataToSave as Partial<YidamsReadingData>).yidamImageUri;
+    if (dataToSave.mandalaImageUri === undefined) delete (dataToSave as Partial<YidamsReadingData>).mandalaImageUri;
   }
 
 

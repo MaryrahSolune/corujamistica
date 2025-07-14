@@ -34,6 +34,7 @@ const InterpretYidamOutputSchema = z.object({
   mantraTranslation: z.string().describe("The translation or meaning of the mantra's components."),
   mantraPronunciation: z.string().describe("A simple phonetic guide to help the user pronounce the mantra."),
   imageUri: z.string().describe('A data URI of a generated image representing the Yidam.'),
+  mandalaImageUri: z.string().optional().describe('A data URI of a generated healing mandala image.'),
 });
 
 
@@ -116,27 +117,54 @@ const generateYidamFlow = ai.defineFlow(
       throw new Error('Failed to generate Yidam textual details after multiple retries.');
     }
 
-    // 2. Create the image prompt based on the Yidam's symbolic image.
-    const imagePrompt = `Uma bela representação do Yidam **${chosenYidam.name}**, no estilo de uma pintura Thangka tradicional. A imagem deve capturar a essência de "${chosenYidam.symbolicImage}". Use cores vibrantes, simbolismo rico e um fundo sagrado e etéreo.`;
+    // 2. Create image prompts
+    const yidamImagePrompt = `Uma bela representação do Yidam **${chosenYidam.name}**, no estilo de uma pintura Thangka tradicional. A imagem deve capturar a essência de "${chosenYidam.symbolicImage}". Use cores vibrantes, simbolismo rico e um fundo sagrado e etéreo.`;
+    const mandalaPrompt = `Uma mandala de cura vibrante e cósmica inspirada na energia do Yidam ${chosenYidam.name}. Incorpore elementos de ${chosenYidam.symbolicImage} e a essência da consulta do usuário: "${query.substring(0, 50)}...". Use geometria sagrada, cores luminosas e um sentimento de paz e poder.`;
 
-    // 3. Generate the image.
-    const { media } = await ai.generate({
-      model: 'googleai/gemini-2.0-flash-preview-image-generation',
-      prompt: imagePrompt,
-      config: {
-        responseModalities: ['TEXT', 'IMAGE'],
-        safetySettings: [
-          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
-          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
-          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
-        ],
-      },
-    });
 
-    if (!media?.url) {
+    // 3. Generate both images in parallel.
+    const [yidamImageResult, mandalaImageResult] = await Promise.allSettled([
+      ai.generate({
+        model: 'googleai/gemini-2.0-flash-preview-image-generation',
+        prompt: yidamImagePrompt,
+        config: {
+          responseModalities: ['TEXT', 'IMAGE'],
+          safetySettings: [
+            { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+            { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
+            { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+            { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
+          ],
+        },
+      }),
+      ai.generate({
+        model: 'googleai/gemini-2.0-flash-preview-image-generation',
+        prompt: mandalaPrompt,
+        config: {
+          responseModalities: ['TEXT', 'IMAGE'],
+          safetySettings: [
+            { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+            { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
+            { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+            { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
+          ],
+        },
+      })
+    ]);
+
+    const yidamImageUri = (yidamImageResult.status === 'fulfilled' && yidamImageResult.value.media?.url) ? yidamImageResult.value.media.url : null;
+    const mandalaImageUri = (mandalaImageResult.status === 'fulfilled' && mandalaImageResult.value.media?.url) ? mandalaImageResult.value.media.url : undefined;
+
+    if (!yidamImageUri) {
       throw new Error('Failed to generate Yidam image.');
     }
+    if (yidamImageResult.status === 'rejected') {
+      console.error("Error generating Yidam image: ", yidamImageResult.reason);
+    }
+    if (mandalaImageResult.status === 'rejected') {
+      console.error("Error generating Mandala image: ", mandalaImageResult.reason);
+    }
+
 
     // 4. Combine all results into the final output.
     return {
@@ -148,7 +176,8 @@ const generateYidamFlow = ai.defineFlow(
       mantra: textOutput.mantra,
       mantraTranslation: textOutput.mantraTranslation,
       mantraPronunciation: textOutput.mantraPronunciation,
-      imageUri: media.url,
+      imageUri: yidamImageUri,
+      mandalaImageUri: mandalaImageUri,
     };
   }
 );

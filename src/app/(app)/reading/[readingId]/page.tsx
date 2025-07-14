@@ -342,6 +342,24 @@ export default function ViewReadingPage() {
                     {reading.adviceAndMudra && <p>{reading.adviceAndMudra}</p>}
                 </div>
 
+                {reading.mandalaImageUri && (
+                  <div className="my-6">
+                      <h3 className="text-xl font-bold font-serif mb-3 text-accent flex items-center justify-center">
+                          <Sparkles className="mr-2 h-5 w-5"/> Mandala de Cura
+                      </h3>
+                      <div className="animated-aurora-background rounded-lg overflow-hidden shadow-lg">
+                          <Image
+                          src={reading.mandalaImageUri}
+                          alt="Mandala de cura gerada para a leitura"
+                          data-ai-hint="healing energy mandala"
+                          width={512}
+                          height={512}
+                          className="w-full h-auto object-contain relative z-10 bg-black/10"
+                          />
+                      </div>
+                  </div>
+                )}
+
                 <div className="space-y-4 pt-4">
                     <h3 className="text-xl font-bold font-serif text-accent flex items-center"><Mic2 className="mr-2 h-5 w-5"/>{t('yidamsMantraLabel')}</h3>
                     <blockquote className="border-l-4 border-accent pl-4 text-foreground/90">
