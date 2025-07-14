@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -9,7 +10,7 @@ import { getReadingById, type ReadingData } from '@/services/readingService';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, Flower, Hand, Book, Mic2 } from 'lucide-react';
+import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, Flower, Hand, Book, Mic2, Pyramid } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { format } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
@@ -309,6 +310,13 @@ export default function ViewReadingPage() {
             )}
              {reading.type === 'yidams' && (
               <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yourQuestionLabel')}</h3>
+                  <blockquote className="mt-2 border-l-4 border-accent pl-4 italic text-foreground/80 whitespace-pre-wrap">
+                    {reading.query}
+                  </blockquote>
+                </div>
+
                 <div className="text-center">
                   <p className="text-muted-foreground">{t('yidamsYourDeityIs')}</p>
                   <p className="text-3xl font-bold text-primary font-serif">{reading.deityName}</p>
@@ -327,47 +335,29 @@ export default function ViewReadingPage() {
                   </div>
                 )}
                 
-                <div className="space-y-4">
-                  <h3 className="text-xl font-bold font-serif text-accent">{t('yidamsMantraLabel')}</h3>
-                  <blockquote className="border-l-4 border-accent pl-4 text-foreground/90">
-                    <p className="text-lg italic">{reading.mantra}</p>
+                 <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify space-y-4">
+                    {reading.introduction && <p>{reading.introduction}</p>}
+                    {reading.storyAndElement && <p>{reading.storyAndElement}</p>}
+                    {reading.connectionToQuery && <p>{reading.connectionToQuery}</p>}
+                    {reading.adviceAndMudra && <p>{reading.adviceAndMudra}</p>}
+                </div>
+
+                <div className="space-y-4 pt-4">
+                    <h3 className="text-xl font-bold font-serif text-accent flex items-center"><Mic2 className="mr-2 h-5 w-5"/>{t('yidamsMantraLabel')}</h3>
+                    <blockquote className="border-l-4 border-accent pl-4 text-foreground/90">
+                    <p className="text-lg italic font-semibold">{reading.mantra}</p>
                     {reading.mantraPronunciation && (
-                      <div className="mt-3 flex items-start text-sm text-muted-foreground">
-                        <Mic2 className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <strong>Pronúncia:</strong> {reading.mantraPronunciation}
+                        <div className="mt-3 flex items-start text-sm text-muted-foreground">
+                        <strong>Pronúncia:</strong>&nbsp;{reading.mantraPronunciation}
                         </div>
-                      </div>
                     )}
                     {reading.mantraTranslation && (
-                      <div className="mt-2 flex items-start text-sm text-muted-foreground">
-                        <Book className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <strong>Tradução:</strong> {reading.mantraTranslation}
+                        <div className="mt-2 flex items-start text-sm text-muted-foreground">
+                        <strong>Tradução:</strong>&nbsp;{reading.mantraTranslation}
                         </div>
-                      </div>
                     )}
-                  </blockquote>
+                    </blockquote>
                 </div>
-                
-                <div>
-                  <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yidamsCharacteristicsLabel')}</h3>
-                  <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                    {reading.characteristics}
-                  </div>
-                </div>
-
-                {reading.mudra && (
-                    <div>
-                        <h3 className="text-xl font-bold font-serif mb-2 text-accent flex items-center">
-                        <Hand className="mr-2 h-5 w-5" /> Mudra de Conexão
-                        </h3>
-                        <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                        {reading.mudra}
-                        </div>
-                    </div>
-                )}
-
               </div>
             )}
             
@@ -381,5 +371,3 @@ export default function ViewReadingPage() {
     </div>
   );
 }
-
-    

@@ -1,3 +1,4 @@
+
 import { rtdb } from '@/lib/firebase';
 import { ref, push, set, get, serverTimestamp, query, orderByChild, limitToLast } from 'firebase/database';
 import type { ProcessedStorySegment } from '@/ai/flows/interpret-dream-flow';
@@ -32,13 +33,15 @@ export interface OghamReadingData {
 
 export interface YidamsReadingData {
   type: 'yidams';
-  query: string; // Will store "Yidam for DD/MM/YYYY"
+  query: string;
   deityName: string;
+  introduction: string;
+  storyAndElement: string;
+  connectionToQuery: string;
+  adviceAndMudra: string;
   mantra: string;
   mantraTranslation: string;
   mantraPronunciation: string;
-  characteristics: string;
-  mudra: string;
   yidamImageUri: string;
   interpretationTimestamp: number | object;
 }
@@ -120,5 +123,3 @@ export async function getReadingById(uid: string, readingId: string): Promise<(R
     throw error;
   }
 }
-
-    

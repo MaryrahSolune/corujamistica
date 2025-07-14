@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { generateYidam, type InterpretYidamOutput } from '@/ai/flows/generate-yidams-flow';
 import { yidams, type YidamData } from '@/lib/yidams-data';
-import { Loader2, Sparkles, Hand, BrainCircuit, Flower, Book, Mic2 } from 'lucide-react';
+import { Loader2, Sparkles, Hand, BrainCircuit, Flower, Book, Mic2, Pyramid } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -70,11 +70,13 @@ export default function YidamsPage() {
         type: 'yidams',
         query,
         deityName: yidamResult.deityName,
+        introduction: yidamResult.introduction,
+        storyAndElement: yidamResult.storyAndElement,
+        connectionToQuery: yidamResult.connectionToQuery,
+        adviceAndMudra: yidamResult.adviceAndMudra,
         mantra: yidamResult.mantra,
         mantraTranslation: yidamResult.mantraTranslation,
         mantraPronunciation: yidamResult.mantraPronunciation,
-        characteristics: yidamResult.characteristics,
-        mudra: yidamResult.mudra,
         yidamImageUri: yidamResult.imageUri,
       };
       await saveReading(currentUser.uid, readingToSave);
@@ -255,43 +257,28 @@ export default function YidamsPage() {
                 </div>
               )}
               
-              <div className="space-y-4">
-                <h3 className="text-xl font-bold font-serif text-accent">{t('yidamsMantraLabel')}</h3>
+              <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify space-y-4">
+                <p>{result.introduction}</p>
+                <p>{result.storyAndElement}</p>
+                <p>{result.connectionToQuery}</p>
+                <p>{result.adviceAndMudra}</p>
+              </div>
+
+              <div className="space-y-4 pt-4">
+                <h3 className="text-xl font-bold font-serif text-accent flex items-center"><Mic2 className="mr-2 h-5 w-5"/>{t('yidamsMantraLabel')}</h3>
                 <blockquote className="border-l-4 border-accent pl-4 text-foreground/90">
-                  <p className="text-lg italic">{result.mantra}</p>
+                  <p className="text-lg italic font-semibold">{result.mantra}</p>
                   {result.mantraPronunciation && (
                     <div className="mt-3 flex items-start text-sm text-muted-foreground">
-                      <Mic2 className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <strong>Pronúncia:</strong> {result.mantraPronunciation}
-                      </div>
+                       <strong>Pronúncia:</strong>&nbsp;{result.mantraPronunciation}
                     </div>
                   )}
                   {result.mantraTranslation && (
                     <div className="mt-2 flex items-start text-sm text-muted-foreground">
-                      <Book className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <strong>Tradução:</strong> {result.mantraTranslation}
-                      </div>
+                       <strong>Tradução:</strong>&nbsp;{result.mantraTranslation}
                     </div>
                   )}
                 </blockquote>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yidamsCharacteristicsLabel')}</h3>
-                <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                  {result.characteristics}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold font-serif mb-2 text-accent flex items-center">
-                  <Hand className="mr-2 h-5 w-5" /> Mudra de Conexão
-                </h3>
-                <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                  {result.mudra}
-                </div>
               </div>
 
             </CardContent>

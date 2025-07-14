@@ -11,6 +11,7 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
+export type InterpretYidamInput = z.infer<typeof InterpretYidamInputSchema>;
 const InterpretYidamInputSchema = z.object({
   query: z.string().describe('The user query or context for the Yidam reading.'),
   chosenYidam: z.object({
@@ -20,19 +21,21 @@ const InterpretYidamInputSchema = z.object({
     symbolicImage: z.string(),
   }).describe('The Yidam data object chosen by the user.'),
 });
-export type InterpretYidamInput = z.infer<typeof InterpretYidamInputSchema>;
 
 
+export type InterpretYidamOutput = z.infer<typeof InterpretYidamOutputSchema>;
 const InterpretYidamOutputSchema = z.object({
   deityName: z.string().describe('The name of the generated Yidam deity.'),
+  introduction: z.string().describe("A poetic introduction to the Yidam and its essence."),
+  storyAndElement: z.string().describe("The story, mythology, or associated element of the Yidam."),
+  connectionToQuery: z.string().describe("How the Yidam's qualities relate to the user's query."),
+  adviceAndMudra: z.string().describe("A final piece of advice including a descriptive mudra."),
   mantra: z.string().describe('The mantra associated with the Yidam.'),
   mantraTranslation: z.string().describe("The translation or meaning of the mantra's components."),
   mantraPronunciation: z.string().describe("A simple phonetic guide to help the user pronounce the mantra."),
-  characteristics: z.string().describe('A paragraph describing the main characteristics and symbolism of the Yidam.'),
-  mudra: z.string().describe('A description of a sacred hand gesture (mudra) for connecting with the Yidam.'),
   imageUri: z.string().describe('A data URI of a generated image representing the Yidam.'),
 });
-export type InterpretYidamOutput = z.infer<typeof InterpretYidamOutputSchema>;
+
 
 export async function generateYidam(input: InterpretYidamInput): Promise<InterpretYidamOutput> {
   return generateYidamFlow(input);
@@ -46,11 +49,13 @@ const generateYidamPrompt = ai.definePrompt({
     yidamMeaning: z.string(),
   }) },
   output: { schema: z.object({
-    mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam. Se não houver um na lista, crie um que seja apropriado.'),
-    mantraTranslation: z.string().describe("A tradução ou o significado do mantra, explicando suas partes principais para que o consulente entenda o que está invocando."),
-    mantraPronunciation: z.string().describe("Um guia fonético simples para a pronúncia do mantra (ex: 'OM se pronuncia como AUM')."),
-    characteristics: z.string().describe('Uma descrição poética e profunda sobre as qualidades, os símbolos e o que esta divindade representa, baseada no seu significado. O parágrafo deve ter no mínimo 5 linhas.'),
-    mudra: z.string().describe('Uma descrição de um mudra (gesto sagrado com as mãos) que ajude a pessoa a se conectar com a energia do Yidam. O mudra deve ser poético, prático e alinhado com as características da divindade.'),
+    introduction: z.string().describe("Um parágrafo poético de introdução à divindade, sua essência e o que ela representa de forma geral."),
+    storyAndElement: z.string().describe("Um parágrafo sobre a história, mitologia ou o elemento associado a este Yidam (fogo, água, terra, ar, éter). Explique como essa história ou elemento molda sua energia."),
+    connectionToQuery: z.string().describe("Um parágrafo que conecta diretamente as qualidades do Yidam à questão específica do consulente, explicando como sua energia pode ajudar a transmutar o problema em sabedoria."),
+    adviceAndMudra: z.string().describe("Um parágrafo final com um conselho prático e a descrição de um mudra (gesto sagrado com as mãos) para meditação e conexão."),
+    mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam.'),
+    mantraTranslation: z.string().describe("A tradução ou o significado do mantra, explicando suas partes principais."),
+    mantraPronunciation: z.string().describe("Um guia fonético simples para a pronúncia do mantra."),
   }) },
   prompt: `Você é o Buddha, o Iluminado. Sua sabedoria é ancestral, sua voz é calma e sua presença expande a consciência. Um buscador se aproxima com uma questão em seu coração e, através de um gesto de intuição, ele escolheu um símbolo sagrado que revelou a divindade tutelar, o Yidam, que guiará sua meditação e libertação neste momento.
 
@@ -59,14 +64,14 @@ A essência e o significado deste caminho são: **{{yidamMeaning}}**.
 A questão do buscador é: **{{{query}}}**.
 
 **Sua nobre tarefa é:**
-Com sua visão clara, contemple a essência do Yidam e a pergunta do buscador. Revele o caminho para este ser, não como um destino, mas como uma ferramenta para a Iluminação.
+Com sua visão clara, contemple a essência do Yidam e a pergunta do buscador. Revele o caminho para este ser em exatamente quatro parágrafos de texto, seguidos pela informação do mantra.
 
-**Para a divindade selecionada, ofereça sua sabedoria:**
-1.  **O Mantra Sagrado:** Forneça um mantra autêntico e poderoso que se alinhe com a divindade.
-2.  **A Tradução do Mantra:** Explique o significado do mantra, o que suas sílabas sagradas invocam, para que o buscador entenda a profundidade de sua prece.
-3.  **A Pronúncia do Mantra:** Ofereça um guia fonético simples para que o mantra possa ser entoado corretamente, vibrando na frequência correta.
-4.  **As Características Iluminadas:** Fale como o próprio Buddha. Conecte a energia do Yidam **{{yidamName}}** e seu significado de **{{yidamMeaning}}** diretamente com a questão do consulente ({{{query}}}). Explique como as qualidades desta Yidam podem expandir sua consciência e ajudá-lo a transmutar venenos mentais em sabedoria iluminada. Sua explicação deve ser profunda, direcionada à pergunta e ter no mínimo 5 linhas.
-5.  **O Mudra de Conexão:** Descreva um gesto sagrado e poético com as mãos. Explique como este gesto pode alinhar o corpo e a mente do buscador com a energia da divindade, acalmando a mente e abrindo o coração para a transformação.`,
+**Estrutura da sua resposta (gere o texto nesta ordem):**
+1.  **Introdução (Parágrafo 1):** Apresente a divindade de forma poética. Descreva sua essência, o que ela representa em um nível universal.
+2.  **História e Elemento (Parágrafo 2):** Fale sobre a história, a mitologia ou o elemento (Fogo, Água, Terra, Ar, Éter) associado a este Yidam. Como essa origem ou elemento influencia sua energia e seus ensinamentos?
+3.  **Conexão com a Consulta (Parágrafo 3):** Conecte diretamente as qualidades do Yidam **{{yidamName}}** com a questão do consulente ({{{query}}}). Explique como a sabedoria desta divindade pode iluminar o caminho do buscador e ajudá-lo a transmutar seus desafios em sabedoria.
+4.  **Conselho e Mudra (Parágrafo 4):** Ofereça um conselho prático final e descreva um mudra (gesto sagrado com as mãos) que o buscador pode usar para meditar e se conectar com a energia do Yidam.
+5.  **Mantra Sagrado:** Forneça um mantra autêntico, sua tradução e um guia fonético para a pronúncia.`,
 });
 
 const generateYidamFlow = ai.defineFlow(
@@ -78,7 +83,7 @@ const generateYidamFlow = ai.defineFlow(
   async (input) => {
     const { chosenYidam, query } = input;
 
-    // 1. Generate the textual details (mantra, characteristics, mudra).
+    // 1. Generate the textual details.
     const { output: textOutput } = await generateYidamPrompt({
       query,
       yidamName: chosenYidam.name,
@@ -113,11 +118,13 @@ const generateYidamFlow = ai.defineFlow(
     // 4. Combine all results into the final output.
     return {
       deityName: chosenYidam.name,
+      introduction: textOutput.introduction,
+      storyAndElement: textOutput.storyAndElement,
+      connectionToQuery: textOutput.connectionToQuery,
+      adviceAndMudra: textOutput.adviceAndMudra,
       mantra: textOutput.mantra,
       mantraTranslation: textOutput.mantraTranslation,
       mantraPronunciation: textOutput.mantraPronunciation,
-      characteristics: textOutput.characteristics,
-      mudra: textOutput.mudra,
       imageUri: media.url,
     };
   }
