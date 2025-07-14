@@ -105,7 +105,7 @@ export default function YidamsPage() {
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      {!result && (
+      {!result && !error && (
         <div className="max-w-4xl mx-auto animated-aurora-background rounded-xl mb-4">
           <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl overflow-hidden">
             <CardHeader>
@@ -287,7 +287,7 @@ export default function YidamsPage() {
           </Card>
         </div>
       )}
-
+      
       <div className="flex justify-center mt-12">
         <Image
           src="/img/delicate.gif"
