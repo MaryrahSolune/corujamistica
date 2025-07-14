@@ -290,12 +290,12 @@ export default function YidamsPage() {
       
       <div className="flex justify-center mt-12">
         <Image
-          src="/img/delicate.gif"
-          alt="Animação delicada de partículas"
+          src="/img/buda.gif"
+          alt="Animação de Buda meditando"
           width={200}
-          height={100}
+          height={200}
           unoptimized={true}
-          data-ai-hint="delicate particle animation"
+          data-ai-hint="buddha meditation animation"
         />
       </div>
     </div>
