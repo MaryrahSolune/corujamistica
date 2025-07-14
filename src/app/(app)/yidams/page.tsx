@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { generateYidam, type InterpretYidamOutput } from '@/ai/flows/generate-yidams-flow';
 import { yidams, type YidamData } from '@/lib/yidams-data';
-import { Loader2, Sparkles, Hand, BrainCircuit, Flower, Book, Mic2, Pyramid, BookHeart, Wand2, Star } from 'lucide-react';
+import { Loader2, Sparkles, Hand, BrainCircuit, Flower, Book, Mic2, Pyramid, BookHeart, Wand2, Star, RefreshCw } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -27,29 +27,43 @@ export default function YidamsPage() {
   const [readingStarted, setReadingStarted] = useState(false);
   const [selectedSymbol, setSelectedSymbol] = useState<YidamData | null>(null);
   const [visibleSymbols, setVisibleSymbols] = useState<YidamData[]>([]);
+  const [shuffleCount, setShuffleCount] = useState(0);
   
   const { toast } = useToast();
   const { t } = useLanguage();
   const { currentUser, userCredits, refreshCredits } = useAuth();
 
   const shuffledYidams = useMemo(() => {
+    // This will re-run every time shuffleCount changes
     return [...yidams].sort(() => 0.5 - Math.random());
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shuffleCount]);
   
+  const startAnimation = useCallback(() => {
+    setVisibleSymbols([]);
+    const interval = setInterval(() => {
+      setVisibleSymbols(prev => {
+        if (prev.length < shuffledYidams.length) {
+          return [...prev, shuffledYidams[prev.length]];
+        }
+        clearInterval(interval);
+        return prev;
+      });
+    }, 100);
+    return () => clearInterval(interval);
+  }, [shuffledYidams]);
+
   useEffect(() => {
     if (!readingStarted) {
-      const interval = setInterval(() => {
-        setVisibleSymbols(prev => {
-          if (prev.length < shuffledYidams.length) {
-            return [...prev, shuffledYidams[prev.length]];
-          }
-          clearInterval(interval);
-          return prev;
-        });
-      }, 100); // Adjust speed of appearance (in ms)
-      return () => clearInterval(interval);
+      const cleanup = startAnimation();
+      return cleanup;
     }
-  }, [shuffledYidams, readingStarted]);
+  }, [readingStarted, startAnimation]);
+
+  const handleShuffleClick = () => {
+    if (isLoading || readingStarted) return;
+    setShuffleCount(prev => prev + 1);
+  };
 
 
   const handleSymbolClick = async (symbol: YidamData) => {
@@ -116,7 +130,7 @@ export default function YidamsPage() {
     setError(null);
     setReadingStarted(false);
     setSelectedSymbol(null);
-    setVisibleSymbols([]); // Reset visibility for re-animation
+    setShuffleCount(prev => prev + 1); // Also reshuffle on reset
   };
   
   const renderSymbolRing = (symbols: YidamData[], radius: number, startAngle = 0) => {
@@ -196,7 +210,7 @@ export default function YidamsPage() {
                 />
               </div>
 
-              <div>
+              <div className="relative">
                 <Label className="text-lg mb-4 block text-center">Escolha um símbolo para revelar seu Yidam</Label>
                 
                 <div className="relative flex justify-center items-center w-full min-h-[550px]">
@@ -209,6 +223,16 @@ export default function YidamsPage() {
                       {renderSymbolRing(innerSymbols, 80, 0)}
                     </div>
                 </div>
+                <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={handleShuffleClick}
+                    disabled={readingStarted || isLoading}
+                    className="absolute bottom-4 right-4 rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm"
+                    aria-label="Embaralhar símbolos"
+                >
+                    <RefreshCw className="h-5 w-5 text-primary-foreground" />
+                </Button>
 
                 {isLoading && (
                     <div className="flex items-center justify-center text-primary mt-4">
