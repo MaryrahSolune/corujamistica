@@ -100,8 +100,10 @@ export default function YidamsPage() {
     setSelectedSymbol(null);
   };
   
-  const boardRadius = 220; // in pixels for the main circle of cards
+  const boardRadius = 220;
   const numCards = shuffledYidams.length;
+  const totalArcDegrees = 270;
+  const startAngleOffset = -135; // Centers the arc at the top
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -136,15 +138,15 @@ export default function YidamsPage() {
                 
                 <div className="relative flex justify-center items-center w-full min-h-[500px]">
                    <div 
-                      className="relative w-[480px] h-[480px] rounded-full flex items-center justify-center transition-all duration-500 ease-in-out"
+                      className="relative w-[480px] h-[480px] flex items-center justify-center transition-all duration-500 ease-in-out"
                       style={{ perspective: '1000px' }}
                     >
                        <div className="absolute inset-20 rounded-full border border-dashed border-primary/20"></div>
                        
                       {shuffledYidams.map((symbol, index) => {
-                        const angle = (index / numCards) * 360;
-                        const x = boardRadius * Math.cos((angle - 90) * (Math.PI / 180));
-                        const y = boardRadius * Math.sin((angle - 90) * (Math.PI / 180));
+                        const angle = startAngleOffset + (index / (numCards -1)) * totalArcDegrees;
+                        const x = boardRadius * Math.cos(angle * (Math.PI / 180));
+                        const y = boardRadius * Math.sin(angle * (Math.PI / 180));
                         
                         const isSelected = selectedSymbol?.name === symbol.name;
                         const isRevealed = readingStarted && isSelected;
@@ -155,7 +157,7 @@ export default function YidamsPage() {
                             onClick={() => handleSymbolClick(symbol)}
                             disabled={readingStarted || isLoading}
                             style={{
-                              transform: `translate(${x}px, ${y}px) rotate(${angle}deg)`,
+                              transform: `translate(${x}px, ${y}px) rotate(${angle + 90}deg)`,
                               transformOrigin: 'center center',
                               WebkitBackfaceVisibility: 'hidden',
                               backfaceVisibility: 'hidden',
