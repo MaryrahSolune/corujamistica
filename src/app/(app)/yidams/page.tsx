@@ -135,7 +135,7 @@ export default function YidamsPage() {
         >
           <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isRevealed && "[transform:rotateY(180deg)]")}>
             {/* Back of the card (hidden) */}
-            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-primary via-secondary to-accent/80 shadow-md rounded-md flex items-center justify-center border-2 border-primary-foreground/20 group-hover:animate-subtle-pulse">
+            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-primary/70 via-secondary/80 to-accent/70 shadow-md rounded-md flex items-center justify-center border-2 border-primary-foreground/20 transition-all duration-300 group-hover:from-primary group-hover:via-secondary group-hover:to-accent group-hover:brightness-125 group-hover:animate-subtle-pulse">
                <Sparkles className="w-6 h-6 text-primary-foreground/70" />
             </div>
             {/* Front of the card (revealed) */}
