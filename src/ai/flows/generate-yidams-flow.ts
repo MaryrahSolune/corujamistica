@@ -55,7 +55,7 @@ const generateYidamPrompt = ai.definePrompt({
     connectionToQuery: z.string().describe("Um parágrafo que conecta diretamente as qualidades do Yidam à questão específica do consulente, explicando como sua energia pode ajudar a transmutar o problema em sabedoria."),
     adviceAndMudra: z.string().describe("Um parágrafo final com um conselho prático e a descrição de um mudra (gesto sagrado com as mãos) para meditação e conexão."),
     mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam.'),
-    mantraTranslation: z.string().describe("A tradução ou o significado do mantra, explicando suas partes principais."),
+    mantraTranslation: z.string().describe("A tradução do mantra, explicando o significado espiritual e a função de cada componente, em vez de uma tradução literal. Por exemplo, em vez de 'Raiva', explique como 'a energia irada que purifica obstáculos'."),
     mantraPronunciation: z.string().describe("Um guia fonético simples para a pronúncia do mantra."),
   }) },
   prompt: `Você é o Buddha, o Iluminado. Sua sabedoria é ancestral, sua voz é calma e sua presença expande a consciência. Um buscador se aproxima com uma questão em seu coração e, através de um gesto de intuição, ele escolheu um símbolo sagrado que revelou a divindade tutelar, o Yidam, que guiará sua meditação e libertação neste momento.
