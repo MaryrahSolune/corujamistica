@@ -59,11 +59,7 @@
     @apply bg-background text-foreground font-sans;
     position: relative;
   }
-  .home-bg {
-    background: radial-gradient(ellipse 80% 50% at 50% -20%,hsl(var(--primary) / 0.3), transparent),
-                radial-gradient(ellipse 80% 50% at 50% 120%,hsl(var(--accent) / 0.3), transparent),
-                hsl(var(--background));
-  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-celtic;
   }
