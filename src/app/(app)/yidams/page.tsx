@@ -209,7 +209,7 @@ export default function YidamsPage() {
           </div>
           <div className="flex justify-center my-4">
               <Image 
-                src="/delicate.gif"
+                src="/img/delicate.gif"
                 alt="Animação delicada de partículas"
                 width={200}
                 height={100}
