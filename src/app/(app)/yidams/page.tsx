@@ -206,13 +206,13 @@ export default function YidamsPage() {
                       data-ai-hint="delicate particle animation"
                     />
                   </div>
-
-                    {isLoading && (
-                        <div className="flex items-center justify-center text-primary mt-4">
-                            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                            <span>Revelando seu caminho...</span>
-                        </div>
-                    )}
+                  
+                  {isLoading && (
+                      <div className="flex items-center justify-center text-primary mt-4">
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          <span>Revelando seu caminho...</span>
+                      </div>
+                  )}
                 </div>
               </CardContent>
           )}
