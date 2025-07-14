@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -26,6 +26,7 @@ export default function YidamsPage() {
   const [error, setError] = useState<string | null>(null);
   const [readingStarted, setReadingStarted] = useState(false);
   const [selectedSymbol, setSelectedSymbol] = useState<YidamData | null>(null);
+  const [visibleSymbols, setVisibleSymbols] = useState<YidamData[]>([]);
   
   const { toast } = useToast();
   const { t } = useLanguage();
@@ -34,6 +35,22 @@ export default function YidamsPage() {
   const shuffledYidams = useMemo(() => {
     return [...yidams].sort(() => 0.5 - Math.random());
   }, []);
+  
+  useEffect(() => {
+    if (!readingStarted) {
+      const interval = setInterval(() => {
+        setVisibleSymbols(prev => {
+          if (prev.length < shuffledYidams.length) {
+            return [...prev, shuffledYidams[prev.length]];
+          }
+          clearInterval(interval);
+          return prev;
+        });
+      }, 100); // Adjust speed of appearance (in ms)
+      return () => clearInterval(interval);
+    }
+  }, [shuffledYidams, readingStarted]);
+
 
   const handleSymbolClick = async (symbol: YidamData) => {
     if (isLoading || readingStarted) return;
@@ -99,20 +116,19 @@ export default function YidamsPage() {
     setError(null);
     setReadingStarted(false);
     setSelectedSymbol(null);
+    setVisibleSymbols([]); // Reset visibility for re-animation
   };
   
-  const innerSymbols = useMemo(() => shuffledYidams.slice(0, 12), [shuffledYidams]);
-  const middleSymbols = useMemo(() => shuffledYidams.slice(12, 28), [shuffledYidams]);
-  const outerSymbols = useMemo(() => shuffledYidams.slice(28), [shuffledYidams]);
-
   const renderSymbolRing = (symbols: YidamData[], radius: number, startAngle = 0) => {
     return symbols.map((symbol, index) => {
+      const isVisible = visibleSymbols.some(s => s.name === symbol.name);
+      if (!isVisible) return null;
+
       const angle = startAngle + (index / symbols.length) * 360;
       const x = radius * Math.cos(angle * (Math.PI / 180));
       const y = radius * Math.sin(angle * (Math.PI / 180));
       
       const isSelected = selectedSymbol?.name === symbol.name;
-      const isRevealed = readingStarted && isSelected;
 
       return (
         <button
@@ -126,16 +142,16 @@ export default function YidamsPage() {
             backfaceVisibility: 'hidden',
           }}
           className={cn(
-            "absolute w-[60px] h-[80px] flex items-center justify-center transition-all duration-700 ease-in-out group",
+            "absolute w-[60px] h-[80px] flex items-center justify-center transition-all duration-700 ease-in-out group animate-fade-in",
             !readingStarted && "hover:scale-125 hover:shadow-lg hover:shadow-accent/50 hover:z-20 cursor-pointer",
             readingStarted && !isSelected && "opacity-0 scale-90",
             isSelected && "scale-[1.75] shadow-lg shadow-accent/50 z-30"
           )}
           aria-label={`Escolher símbolo oculto ${symbol.name}`}
         >
-          <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isRevealed && "[transform:rotateY(180deg)]")}>
+          <div className={cn("relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700", isSelected && "[transform:rotateY(180deg)]")}>
             {/* Back of the card (hidden) */}
-            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-primary/70 via-secondary/80 to-accent/70 shadow-md rounded-md flex items-center justify-center border-2 border-primary-foreground/20 transition-all duration-300 group-hover:from-primary group-hover:via-secondary group-hover:to-accent group-hover:brightness-125 group-hover:animate-subtle-pulse">
+            <div className="absolute w-full h-full [backface-visibility:hidden] bg-gradient-to-br from-primary/90 via-secondary to-accent/80 shadow-md rounded-md flex items-center justify-center border-2 border-primary-foreground/20 transition-all duration-300 group-hover:from-primary group-hover:via-secondary group-hover:to-accent group-hover:brightness-125">
                <Sparkles className="w-6 h-6 text-primary-foreground/70" />
             </div>
             {/* Front of the card (revealed) */}
@@ -147,7 +163,10 @@ export default function YidamsPage() {
       );
     });
   };
-
+  
+  const innerSymbols = useMemo(() => shuffledYidams.slice(0, 12), [shuffledYidams]);
+  const middleSymbols = useMemo(() => shuffledYidams.slice(12, 28), [shuffledYidams]);
+  const outerSymbols = useMemo(() => shuffledYidams.slice(28), [shuffledYidams]);
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -182,7 +201,7 @@ export default function YidamsPage() {
                 
                 <div className="relative flex justify-center items-center w-full min-h-[550px]">
                    <div 
-                      className="relative w-full h-full max-w-[500px] max-h-[500px] flex items-center justify-center transition-all duration-500 ease-in-out animate-pulse_slow"
+                      className="relative w-full h-full max-w-[500px] max-h-[500px] flex items-center justify-center"
                       style={{ perspective: '1000px' }}
                     >
                       {renderSymbolRing(outerSymbols, 220, 0)}
