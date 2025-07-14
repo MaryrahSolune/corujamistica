@@ -268,14 +268,8 @@ export default function YidamsPage() {
 
       {result && !isLoading && (
         <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
-          <Card className="shadow-2xl bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10">
-            <CardHeader>
-              <CardTitle className="text-2xl font-serif flex items-center">
-                <Sparkles className="h-7 w-7 mr-3 text-accent" />
-                {t('yidamsResultTitle')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
+          <Card className="shadow-2xl bg-gradient-to-br from-primary/20 via-transparent to-accent/20 backdrop-blur-md relative z-10 p-6">
+            <CardContent className="space-y-6 pt-6">
               <div className="text-center">
                 <p className="text-muted-foreground">{t('yidamsYourDeityIs')}</p>
                 <p className="text-3xl font-bold text-primary font-serif">{result.deityName}</p>

@@ -350,7 +350,6 @@ export type TranslationKey =
   | 'yidamsBirthDatePlaceholder'
   | 'yidamsRevealButton'
   | 'yidamsRevealingButton'
-  | 'yidamsResultTitle'
   | 'yidamsYourDeityIs'
   | 'yidamsMantraLabel'
   | 'yidamsCharacteristicsLabel'
@@ -708,7 +707,6 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     yidamsBirthDatePlaceholder: 'DD/MM/YYYY',
     yidamsRevealButton: 'Reveal my Yidam (1 Credit)',
     yidamsRevealingButton: 'Revealing...',
-    yidamsResultTitle: 'The Yidam that Guides You',
     yidamsYourDeityIs: 'Your deity is',
     yidamsMantraLabel: 'Mantra',
     yidamsCharacteristicsLabel: 'Characteristics',
@@ -1058,7 +1056,6 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     yidamsBirthDatePlaceholder: 'DD/MM/AAAA',
     yidamsRevealButton: 'Revelar meu Yidam (1 Crédito)',
     yidamsRevealingButton: 'Revelando...',
-    yidamsResultTitle: 'O Yidam que te Guia',
     yidamsYourDeityIs: 'Sua divindade é',
     yidamsMantraLabel: 'Mantra',
     yidamsCharacteristicsLabel: 'Características',
