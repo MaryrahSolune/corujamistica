@@ -9,7 +9,7 @@ import { getReadingById, type ReadingData } from '@/services/readingService';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, Flower, Hand } from 'lucide-react';
+import { Loader2, BookOpenText, VenetianMask, BrainCircuit, ArrowLeft, Sparkles, Image as ImageIcon, Library, Flower, Hand, Book, Mic2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { format } from 'date-fns';
 import { ptBR, enUS } from 'date-fns/locale';
@@ -327,10 +327,26 @@ export default function ViewReadingPage() {
                   </div>
                 )}
                 
-                <div>
-                  <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yidamsMantraLabel')}</h3>
-                  <blockquote className="border-l-4 border-accent pl-4 italic text-foreground/80 text-lg">
-                    {reading.mantra}
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold font-serif text-accent">{t('yidamsMantraLabel')}</h3>
+                  <blockquote className="border-l-4 border-accent pl-4 text-foreground/90">
+                    <p className="text-lg italic">{reading.mantra}</p>
+                    {reading.mantraPronunciation && (
+                      <div className="mt-3 flex items-start text-sm text-muted-foreground">
+                        <Mic2 className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <strong>Pronúncia:</strong> {reading.mantraPronunciation}
+                        </div>
+                      </div>
+                    )}
+                    {reading.mantraTranslation && (
+                      <div className="mt-2 flex items-start text-sm text-muted-foreground">
+                        <Book className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <strong>Tradução:</strong> {reading.mantraTranslation}
+                        </div>
+                      </div>
+                    )}
                   </blockquote>
                 </div>
                 

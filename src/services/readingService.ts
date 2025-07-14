@@ -35,6 +35,8 @@ export interface YidamsReadingData {
   query: string; // Will store "Yidam for DD/MM/YYYY"
   deityName: string;
   mantra: string;
+  mantraTranslation: string;
+  mantraPronunciation: string;
   characteristics: string;
   mudra: string;
   yidamImageUri: string;

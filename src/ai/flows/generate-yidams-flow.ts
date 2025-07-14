@@ -9,10 +9,8 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import type { YidamData } from '@/lib/yidams-data';
 
-
-const InterpretYidamInputSchema = z.object({
+export const InterpretYidamInputSchema = z.object({
   query: z.string().describe('The user query or context for the Yidam reading.'),
   chosenYidam: z.object({
     name: z.string(),
@@ -27,6 +25,8 @@ export type InterpretYidamInput = z.infer<typeof InterpretYidamInputSchema>;
 const InterpretYidamOutputSchema = z.object({
   deityName: z.string().describe('The name of the generated Yidam deity.'),
   mantra: z.string().describe('The mantra associated with the Yidam.'),
+  mantraTranslation: z.string().describe("The translation or meaning of the mantra's components."),
+  mantraPronunciation: z.string().describe("A simple phonetic guide to help the user pronounce the mantra."),
   characteristics: z.string().describe('A paragraph describing the main characteristics and symbolism of the Yidam.'),
   mudra: z.string().describe('A description of a sacred hand gesture (mudra) for connecting with the Yidam.'),
   imageUri: z.string().describe('A data URI of a generated image representing the Yidam.'),
@@ -46,6 +46,8 @@ const generateYidamPrompt = ai.definePrompt({
   }) },
   output: { schema: z.object({
     mantra: z.string().describe('Um mantra autêntico e poderoso associado a este Yidam. Se não houver um na lista, crie um que seja apropriado.'),
+    mantraTranslation: z.string().describe("A tradução ou o significado do mantra, explicando suas partes principais para que o consulente entenda o que está invocando."),
+    mantraPronunciation: z.string().describe("Um guia fonético simples para a pronúncia do mantra (ex: 'OM se pronuncia como AUM')."),
     characteristics: z.string().describe('Uma descrição poética e profunda sobre as qualidades, os símbolos e o que esta divindade representa, baseada no seu significado. O parágrafo deve ter no mínimo 5 linhas.'),
     mudra: z.string().describe('Uma descrição de um mudra (gesto sagrado com as mãos) que ajude a pessoa a se conectar com a energia do Yidam. O mudra deve ser poético, prático e alinhado com as características da divindade.'),
   }) },
@@ -59,9 +61,11 @@ A questão do buscador é: **{{{query}}}**.
 Com sua visão clara, contemple a essência do Yidam e a pergunta do buscador. Revele o caminho para este ser, não como um destino, mas como uma ferramenta para a Iluminação.
 
 **Para a divindade selecionada, ofereça sua sabedoria:**
-1.  **Mantra:** Um mantra autêntico e poderoso que se alinhe com a divindade.
-2.  **Características:** Fale como o próprio Buddha. Conecte a energia do Yidam **{{yidamName}}** e seu significado de **{{yidamMeaning}}** diretamente com a questão do consulente ({{{query}}}). Explique como as qualidades desta Yidam podem expandir sua consciência e ajudá-lo a transmutar venenos mentais em sabedoria iluminada. Sua explicação deve ser profunda, direcionada à pergunta e ter no mínimo 5 linhas.
-3.  **Mudra:** Descreva um gesto sagrado e poético com as mãos. Explique como este gesto pode alinhar o corpo e a mente do buscador com a energia da divindade, acalmando a mente e abrindo o coração para a transformação.`,
+1.  **O Mantra Sagrado:** Forneça um mantra autêntico e poderoso que se alinhe com a divindade.
+2.  **A Tradução do Mantra:** Explique o significado do mantra, o que suas sílabas sagradas invocam, para que o buscador entenda a profundidade de sua prece.
+3.  **A Pronúncia do Mantra:** Ofereça um guia fonético simples para que o mantra possa ser entoado corretamente, vibrando na frequência correta.
+4.  **As Características Iluminadas:** Fale como o próprio Buddha. Conecte a energia do Yidam **{{yidamName}}** e seu significado de **{{yidamMeaning}}** diretamente com a questão do consulente ({{{query}}}). Explique como as qualidades desta Yidam podem expandir sua consciência e ajudá-lo a transmutar venenos mentais em sabedoria iluminada. Sua explicação deve ser profunda, direcionada à pergunta e ter no mínimo 5 linhas.
+5.  **O Mudra de Conexão:** Descreva um gesto sagrado e poético com as mãos. Explique como este gesto pode alinhar o corpo e a mente do buscador com a energia da divindade, acalmando a mente e abrindo o coração para a transformação.`,
 });
 
 const generateYidamFlow = ai.defineFlow(
@@ -109,6 +113,8 @@ const generateYidamFlow = ai.defineFlow(
     return {
       deityName: chosenYidam.name,
       mantra: textOutput.mantra,
+      mantraTranslation: textOutput.mantraTranslation,
+      mantraPronunciation: textOutput.mantraPronunciation,
       characteristics: textOutput.characteristics,
       mudra: textOutput.mudra,
       imageUri: media.url,

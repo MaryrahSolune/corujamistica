@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { generateYidam, type InterpretYidamOutput } from '@/ai/flows/generate-yidams-flow';
 import { yidams, type YidamData } from '@/lib/yidams-data';
-import { Loader2, Sparkles, Hand, BrainCircuit, Flower } from 'lucide-react';
+import { Loader2, Sparkles, Hand, BrainCircuit, Flower, Book, Mic2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -71,6 +71,8 @@ export default function YidamsPage() {
         query,
         deityName: yidamResult.deityName,
         mantra: yidamResult.mantra,
+        mantraTranslation: yidamResult.mantraTranslation,
+        mantraPronunciation: yidamResult.mantraPronunciation,
         characteristics: yidamResult.characteristics,
         mudra: yidamResult.mudra,
         yidamImageUri: yidamResult.imageUri,
@@ -253,10 +255,26 @@ export default function YidamsPage() {
                 </div>
               )}
               
-              <div>
-                <h3 className="text-xl font-bold font-serif mb-2 text-accent">{t('yidamsMantraLabel')}</h3>
-                <blockquote className="border-l-4 border-accent pl-4 italic text-foreground/80 text-lg">
-                  {result.mantra}
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold font-serif text-accent">{t('yidamsMantraLabel')}</h3>
+                <blockquote className="border-l-4 border-accent pl-4 text-foreground/90">
+                  <p className="text-lg italic">{result.mantra}</p>
+                  {result.mantraPronunciation && (
+                    <div className="mt-3 flex items-start text-sm text-muted-foreground">
+                      <Mic2 className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <strong>Pronúncia:</strong> {result.mantraPronunciation}
+                      </div>
+                    </div>
+                  )}
+                  {result.mantraTranslation && (
+                    <div className="mt-2 flex items-start text-sm text-muted-foreground">
+                      <Book className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <strong>Tradução:</strong> {result.mantraTranslation}
+                      </div>
+                    </div>
+                  )}
                 </blockquote>
               </div>
               
