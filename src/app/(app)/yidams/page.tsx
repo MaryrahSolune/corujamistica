@@ -208,7 +208,6 @@ export default function YidamsPage() {
         </div>
       )}
 
-
       {error && (
         <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
           <Card className="relative z-10 bg-destructive/80 dark:bg-destructive/70 backdrop-blur-md shadow-lg border-destructive">
@@ -218,6 +217,11 @@ export default function YidamsPage() {
             <CardContent>
               <p className="text-destructive-foreground">{error}</p>
             </CardContent>
+            <CardFooter>
+              <Button onClick={handleReset} variant="outline" className="w-full">
+                Tentar novamente
+              </Button>
+            </CardFooter>
           </Card>
         </div>
       )}
