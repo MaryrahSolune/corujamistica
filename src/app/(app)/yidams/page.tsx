@@ -287,6 +287,7 @@ export default function YidamsPage() {
           </Card>
         </div>
       )}
+
       <div className="flex justify-center mt-12">
         <Image
           src="/img/delicate.gif"
