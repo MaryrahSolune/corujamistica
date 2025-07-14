@@ -263,10 +263,10 @@ export default function YidamsPage() {
               )}
               
               <div className="prose-base lg:prose-lg dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify space-y-4">
-                <p>{result.introduction}</p>
-                <p>{result.storyAndElement}</p>
-                <p>{result.connectionToQuery}</p>
-                <p>{result.adviceAndMudra}</p>
+                {result.introduction && <p>{result.introduction}</p>}
+                {result.storyAndElement && <p>{result.storyAndElement}</p>}
+                {result.connectionToQuery && <p>{result.connectionToQuery}</p>}
+                {result.adviceAndMudra && <p>{result.adviceAndMudra}</p>}
               </div>
 
               <div className="space-y-4 pt-4">
