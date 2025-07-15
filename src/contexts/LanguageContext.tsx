@@ -342,7 +342,6 @@ export type TranslationKey =
   | 'oghamMysticalTreeAlt'
   | 'yidamsPath'
   | 'yidamsPathTitle'
-  | 'yidamsPathDescription'
   | 'discoverYourYidamButton'
   | 'yidamsPageTitle'
   | 'yidamsPageDescription'
@@ -699,7 +698,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     oghamMysticalTreeAlt: "Mystical tree",
     yidamsPath: 'Yidams Path',
     yidamsPathTitle: 'Path of the Yidams',
-    yidamsPathDescription: 'Discover the deity that guides your journey based on your birth.',
+    yidamsPathDescription: 'Choose a sacred symbol to discover the deity that guides your journey.',
     discoverYourYidamButton: 'Discover your Yidam',
     yidamsPageTitle: 'Path of the Yidams',
     yidamsPageDescription: 'Write your question and choose a sacred symbol to reveal the spiritual deity that resonates with your essence. This costs 1 credit.',
@@ -1048,7 +1047,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     oghamMysticalTreeAlt: "Árvore mística",
     yidamsPath: 'Caminho dos Yidams',
     yidamsPathTitle: 'Caminho dos Yidams',
-    yidamsPathDescription: 'Descubra a divindade que guia sua jornada com base no seu nascimento.',
+    yidamsPathDescription: 'Escolha um símbolo sagrado para descobrir a divindade que guia sua jornada.',
     discoverYourYidamButton: 'Descobrir seu Yidam',
     yidamsPageTitle: 'Caminho dos Yidams',
     yidamsPageDescription: 'Escreva sua pergunta e escolha um símbolo sagrado para revelar a divindade espiritual que ressoa com sua essência. Custo: 1 crédito.',
