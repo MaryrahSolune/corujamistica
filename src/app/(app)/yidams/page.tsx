@@ -225,16 +225,21 @@ export default function YidamsPage() {
                       {renderSymbolRing(innerSymbols, 80, 0)}
                     </div>
                 </div>
-                <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    onClick={handleShuffleClick}
-                    disabled={readingStarted || isLoading}
-                    className="absolute bottom-4 right-4 rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm"
-                    aria-label="Embaralhar símbolos"
-                >
-                    <RefreshCw className="h-5 w-5 text-primary-foreground" />
-                </Button>
+
+                <div className="absolute bottom-4 right-4 flex flex-col items-center gap-1">
+                  <span className="text-xs text-muted-foreground font-semibold">Embaralhar</span>
+                  <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={handleShuffleClick}
+                      disabled={readingStarted || isLoading}
+                      className="rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm"
+                      aria-label="Embaralhar símbolos"
+                  >
+                      <RefreshCw className="h-5 w-5 text-primary-foreground" />
+                  </Button>
+                </div>
+
 
                 {isLoading && (
                     <div className="flex items-center justify-center text-primary mt-4">
