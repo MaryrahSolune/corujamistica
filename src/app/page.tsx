@@ -144,9 +144,9 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-background to-[hsl(var(--primary)/0.15)]">
       <header className="py-6 sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex justify-between items-center px-4 h-52">
+        <div className="container mx-auto flex justify-between items-center px-4 h-32">
           <div className="flex items-center space-x-2">
-            <Image src="/img/cjm.jpg" alt="Coruja Mística Logo" width={200} height={200} />
+            <Image src="/img/cjm.jpg" alt="Coruja Mística Logo" width={100} height={100} />
           </div>
           <nav className="flex items-center space-x-1 sm:space-x-2">
             <LanguageSwitcher />

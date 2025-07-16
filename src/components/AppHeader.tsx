@@ -101,9 +101,9 @@ export default function AppHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-52 max-w-screen-2xl items-center">
+      <div className="container flex h-32 max-w-screen-2xl items-center">
         <Link href={logoLink} className="mr-6 flex items-center space-x-2">
-          <Image src="/img/cjm.jpg" alt="Coruja Mística Logo" width={200} height={200} />
+          <Image src="/img/cjm.jpg" alt="Coruja Mística Logo" width={100} height={100} />
         </Link>
 
         {!isAuthPage && !isLandingPage && currentUser && (
