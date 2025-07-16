@@ -147,7 +147,7 @@ export default function HomePage() {
         <div className="container mx-auto flex justify-between items-center px-4 h-36">
           <Link href="/" className="flex items-center space-x-4">
             <Image src="/img/simples.png" alt="Coruja Mística Logo" width={120} height={120} />
-            <span className="text-3xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">
+            <span className="hidden sm:inline-block text-3xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">
               {t('mysticInsights')}
             </span>
           </Link>
@@ -190,7 +190,14 @@ export default function HomePage() {
         {/* Nossos Oráculos Section */}
         <section className="py-16 sm:py-24 bg-transparent relative overflow-hidden">
           <div className="container mx-auto px-4 relative z-10 text-center">
-            <Sparkles className="h-12 w-12 text-primary mx-auto mb-6 animate-subtle-pulse" />
+            <Image 
+              src="/img/simples.png"
+              alt="Ícone Coruja Mística"
+              width={64}
+              height={64}
+              className="mx-auto mb-6"
+              unoptimized={true}
+            />
             <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('ourOraclesTitle')}</h2>
             <p className="text-lg font-bold text-muted-foreground mb-12 max-w-2xl mx-auto">{t('ourOraclesSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
