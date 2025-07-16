@@ -179,7 +179,7 @@ export default {
         'float-quad': 'float-quad 30s linear infinite alternate',
         'leaf-fade': 'fade-in-out-leaf 8s ease-in-out infinite',
         'fall-and-fade': 'fall-and-fade linear infinite',
-        'gentle-rotate': 'gentle-rotate 25s linear infinite',
+        'gentle-rotate': 'gentle-rotate 5s ease-out',
   		}
   	}
   },

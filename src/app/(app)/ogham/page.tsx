@@ -69,8 +69,7 @@ export default function OghamPage() {
   const [readingStarted, setReadingStarted] = useState(false);
   const [selectedStick, setSelectedStick] = useState<OghamLetterData | null>(null);
   const [shuffleCount, setShuffleCount] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [rotationStyle, setRotationStyle] = useState({});
+  const [isShuffling, setIsShuffling] = useState(false);
   const boardRef = useRef<HTMLDivElement>(null);
 
   const shuffledOghams = useMemo(() => {
@@ -79,11 +78,10 @@ export default function OghamPage() {
   }, [shuffleCount]);
 
   const handleStickClick = async (stick: OghamLetterData) => {
-    if (isLoading || readingStarted) return;
+    if (isLoading || readingStarted || isShuffling) return;
     
-    // Stop any ongoing animation before starting the reading
-    if (isAnimating) {
-        setIsAnimating(false);
+    if (isShuffling) {
+        setIsShuffling(false);
     }
 
     if (!currentUser) {
@@ -145,30 +143,19 @@ export default function OghamPage() {
     setError(null);
     setReadingStarted(false);
     setSelectedStick(null);
-    setIsAnimating(false);
-    setRotationStyle({});
-    setShuffleCount(prev => prev + 1); // Also reshuffle on reset
+    setIsShuffling(false);
+    setShuffleCount(prev => prev + 1);
   };
   
   const handleShuffleClick = () => {
-    if (readingStarted) return;
+    if (readingStarted || isLoading || isShuffling) return;
   
-    if (isAnimating) {
-      // Logic to stop smoothly
-      if (boardRef.current) {
-        const computedStyle = window.getComputedStyle(boardRef.current);
-        const transform = computedStyle.transform;
-        
-        // This sets the current rotation as a static style, so it doesn't snap back.
-        setRotationStyle({ transform }); 
-      }
-      setIsAnimating(false); // Remove the animation class
-      setShuffleCount(prev => prev + 1); // Final shuffle
-    } else {
-      // Logic to start
-      setRotationStyle({}); // Clear any static transform
-      setIsAnimating(true);
-    }
+    setIsShuffling(true);
+    setShuffleCount(prev => prev + 1); // Get a new layout of sticks
+
+    setTimeout(() => {
+      setIsShuffling(false);
+    }, 5000); // Animation duration
   };
 
 
@@ -206,13 +193,23 @@ export default function OghamPage() {
                 <Label className="text-lg mb-4 block text-center">{t('chooseOghamStickLabel')}</Label>
                 
                 <div className="relative flex justify-center items-center w-full min-h-[450px]">
+                  {/* Static central element */}
+                  <div className={cn("absolute text-center transition-opacity duration-500 w-40 h-40", readingStarted ? "opacity-0" : "opacity-100", "z-20")}>
+                       <img
+                          src="/img/luz.gif"
+                          alt="Luz mística central"
+                          data-ai-hint="mystical light animation"
+                          width={160}
+                          height={160}
+                          className="object-contain w-full h-full"
+                        />
+                  </div>
                   {/* The circular board */}
                   <div 
                     ref={boardRef}
-                    style={rotationStyle}
                     className={cn(
-                        "relative w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-black border-2 border-amber-700/50 shadow-inner transition-transform duration-700 ease-out", // Added transition
-                        isAnimating && "animate-gentle-rotate"
+                        "absolute w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-transparent border-2 border-amber-700/50 shadow-inner",
+                        isShuffling && "animate-gentle-rotate"
                     )}
                   >
                      <div className="absolute inset-4 rounded-full border border-dashed border-amber-800/30"></div>
@@ -230,7 +227,7 @@ export default function OghamPage() {
                         <button
                           key={`${shuffleCount}-${stick.letter}`}
                           onClick={() => handleStickClick(stick)}
-                          disabled={readingStarted || isLoading}
+                          disabled={readingStarted || isLoading || isShuffling}
                           style={{
                             transform: `translate(${x}px, ${y}px) rotate(${angle}deg)`,
                             transformOrigin: 'center center',
@@ -256,30 +253,19 @@ export default function OghamPage() {
                         </button>
                       );
                     })}
-
-                    <div className={cn("text-center transition-opacity duration-500 w-40 h-40", readingStarted ? "opacity-0" : "opacity-100")}>
-                       <img
-                          src="/img/luz.gif"
-                          alt="Luz mística central"
-                          data-ai-hint="mystical light animation"
-                          width={160}
-                          height={160}
-                          className="object-contain w-full h-full"
-                        />
-                    </div>
                   </div>
                   <div className="absolute bottom-4 left-4 flex flex-col items-center gap-1">
                      <Button 
                         variant="ghost" 
                         size="icon" 
                         onClick={handleShuffleClick}
-                        disabled={readingStarted || isLoading}
+                        disabled={readingStarted || isLoading || isShuffling}
                         className="rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm"
                         aria-label="Embaralhar galhos"
                     >
-                        {isAnimating ? <Hand className="h-5 w-5 text-primary-foreground" /> : <RefreshCw className="h-5 w-5 text-primary-foreground" />}
+                        <RefreshCw className="h-5 w-5 text-primary-foreground" />
                     </Button>
-                    <span className="text-xs text-muted-foreground font-semibold">{isAnimating ? 'Parar' : 'Embaralhar'}</span>
+                    <span className="text-xs text-muted-foreground font-semibold">Embaralhar</span>
                   </div>
                 </div>
 
