@@ -101,9 +101,9 @@ export default function AppHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-32 max-w-screen-2xl items-center">
+      <div className="container flex h-20 max-w-screen-2xl items-center">
         <Link href={logoLink} className="mr-6 flex items-center space-x-2">
-          <Image src="/img/simples.png" alt="Coruja Mística Logo" width={100} height={100} />
+          <Image src="/img/simples.png" alt="Coruja Mística Logo" width={60} height={60} />
           <span className="hidden sm:inline-block text-2xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">
             {t('mysticInsights')}
           </span>
