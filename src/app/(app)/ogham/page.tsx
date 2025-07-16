@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -70,6 +70,8 @@ export default function OghamPage() {
   const [selectedStick, setSelectedStick] = useState<OghamLetterData | null>(null);
   const [shuffleCount, setShuffleCount] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [rotationStyle, setRotationStyle] = useState({});
+  const boardRef = useRef<HTMLDivElement>(null);
 
   const shuffledOghams = useMemo(() => {
     return [...oghamLetters].sort(() => 0.5 - Math.random());
@@ -144,19 +146,28 @@ export default function OghamPage() {
     setReadingStarted(false);
     setSelectedStick(null);
     setIsAnimating(false);
+    setRotationStyle({});
     setShuffleCount(prev => prev + 1); // Also reshuffle on reset
   };
   
   const handleShuffleClick = () => {
     if (readingStarted) return;
-
+  
     if (isAnimating) {
-        // Stop animating and trigger a final shuffle
-        setIsAnimating(false);
-        setShuffleCount(prev => prev + 1);
+      // Logic to stop smoothly
+      if (boardRef.current) {
+        const computedStyle = window.getComputedStyle(boardRef.current);
+        const transform = computedStyle.transform;
+        
+        // This sets the current rotation as a static style, so it doesn't snap back.
+        setRotationStyle({ transform }); 
+      }
+      setIsAnimating(false); // Remove the animation class
+      setShuffleCount(prev => prev + 1); // Final shuffle
     } else {
-        // Start animating
-        setIsAnimating(true);
+      // Logic to start
+      setRotationStyle({}); // Clear any static transform
+      setIsAnimating(true);
     }
   };
 
@@ -197,8 +208,10 @@ export default function OghamPage() {
                 <div className="relative flex justify-center items-center w-full min-h-[450px]">
                   {/* The circular board */}
                   <div 
+                    ref={boardRef}
+                    style={rotationStyle}
                     className={cn(
-                        "relative w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-black border-2 border-amber-700/50 shadow-inner transition-transform duration-300",
+                        "relative w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-black border-2 border-amber-700/50 shadow-inner transition-transform duration-700 ease-out", // Added transition
                         isAnimating && "animate-gentle-rotate"
                     )}
                   >
@@ -431,3 +444,5 @@ export default function OghamPage() {
       </div>
   );
 }
+
+    
