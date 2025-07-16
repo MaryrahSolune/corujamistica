@@ -20,8 +20,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <Image 
           src="/img/simples.png" 
           alt="Coruja Mística Logo" 
-          width={120} 
-          height={120} 
+          width={180} 
+          height={180} 
           className="mb-4" 
           data-ai-hint="mystical owl logo"
         />
