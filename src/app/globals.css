@@ -57,6 +57,7 @@
   }
   body {
     @apply bg-background text-foreground font-sans;
+    background: linear-gradient(to bottom, hsl(var(--primary) / 0.15), hsl(var(--background)));
     position: relative;
   }
 

@@ -142,16 +142,19 @@ export default function HomePage() {
   const displayCount = INITIAL_SYMBOLIC_COUNT + (userCount || 0);
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-background to-[hsl(var(--primary)/0.15)]">
+    <div className="flex min-h-screen flex-col">
       <header className="py-6 sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex justify-between items-center px-4 h-48">
-          <Link href="/" className="flex items-center space-x-2">
-            <Image src="/img/simples.png" alt="Coruja Mística Logo" width={170} height={170} />
-            <span className="hidden sm:inline-block text-2xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">
-              {t('mysticInsights')}
-            </span>
-          </Link>
-          <nav className="flex items-center space-x-1 sm:space-x-2">
+          <div className="w-1/3"></div>
+          <div className="w-1/3 flex justify-center">
+            <Link href="/" className="flex flex-col items-center space-y-2">
+              <Image src="/img/simples.png" alt="Coruja Mística Logo" width={170} height={170} />
+              <span className="text-4xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">
+                {t('mysticInsights')}
+              </span>
+            </Link>
+          </div>
+          <nav className="w-1/3 flex justify-end items-center space-x-1 sm:space-x-2">
             <LanguageSwitcher />
             <Button variant="ghost" asChild>
               <Link href="/login">
