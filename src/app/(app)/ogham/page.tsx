@@ -236,7 +236,6 @@ export default function OghamPage() {
                           className="object-contain w-full h-full"
                         />
                     </div>
-
                   </div>
                   <div className="absolute bottom-4 left-4 flex flex-col items-center gap-1">
                      <Button 
@@ -250,7 +249,7 @@ export default function OghamPage() {
                         <RefreshCw className="h-5 w-5 text-primary-foreground" />
                     </Button>
                     <span className="text-xs text-muted-foreground font-semibold">Embaralhar</span>
-                </div>
+                  </div>
                 </div>
 
                 {isLoading && (
@@ -414,4 +413,3 @@ export default function OghamPage() {
       </div>
   );
 }
-
