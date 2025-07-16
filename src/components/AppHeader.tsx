@@ -104,6 +104,9 @@ export default function AppHeader() {
       <div className="container flex h-48 max-w-screen-2xl items-center">
         <Link href={logoLink} className="mr-6 flex items-center space-x-2">
           <Image src="/img/cjm.jpg" alt="Coruja Mística Logo" width={185} height={185} />
+          <span className="hidden sm:inline-block text-2xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">
+            {t('mysticInsights')}
+          </span>
         </Link>
 
         {!isAuthPage && !isLandingPage && currentUser && (
