@@ -146,7 +146,7 @@ export default function HomePage() {
       <header className="py-6 sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex justify-between items-center px-4 h-20">
           <div className="flex items-center space-x-2">
-            <Image src="/img/logo.png" alt="Coruja Mística Logo" width={64} height={64} />
+            <Image src="/img/logo.png" alt="Coruja Mística Logo" width={200} height={200} />
             <span className="text-2xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">{t('mysticInsights')}</span>
           </div>
           <nav className="flex items-center space-x-1 sm:space-x-2">
