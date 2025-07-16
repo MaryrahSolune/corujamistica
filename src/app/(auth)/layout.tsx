@@ -2,7 +2,7 @@
 "use client"; // Added to make this a Client Component
 
 import type { ReactNode } from 'react';
-import { Sparkles } from 'lucide-react';
+import Image from 'next/image';
 import { LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext'; // Import useLanguage
 
@@ -17,7 +17,14 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       </div>
 
       <div className="flex flex-col items-center text-center z-10 mb-8">
-        <Sparkles className="h-16 w-16 sm:h-20 sm:w-20 text-primary mb-4 animate-subtle-pulse" />
+        <Image 
+          src="/img/simples.png" 
+          alt="Coruja Mística Logo" 
+          width={120} 
+          height={120} 
+          className="mb-4" 
+          data-ai-hint="mystical owl logo"
+        />
         <h1 className="text-4xl sm:text-5xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">
           {t('mysticInsights')}
         </h1>
