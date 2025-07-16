@@ -197,7 +197,7 @@ export default function OghamPage() {
 
                       return (
                         <button
-                          key={stick.letter}
+                          key={`${shuffleCount}-${stick.letter}`}
                           onClick={() => handleStickClick(stick)}
                           disabled={readingStarted || isLoading}
                           style={{
@@ -415,4 +415,3 @@ export default function OghamPage() {
   );
 }
 
-    
