@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { interpretOghamReading, type InterpretOghamReadingOutput } from '@/ai/flows/interpret-ogham-reading';
 import { oghamLetters, type OghamLetterData } from '@/lib/ogham-data';
-import { Loader2, BookOpenText, Leaf, Sparkles, BookHeart, TreeDeciduous } from 'lucide-react';
+import { Loader2, BookOpenText, Leaf, Sparkles, BookHeart, TreeDeciduous, RefreshCw } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -68,10 +68,12 @@ export default function OghamPage() {
   
   const [readingStarted, setReadingStarted] = useState(false);
   const [selectedStick, setSelectedStick] = useState<OghamLetterData | null>(null);
+  const [shuffleCount, setShuffleCount] = useState(0);
 
   const shuffledOghams = useMemo(() => {
     return [...oghamLetters].sort(() => 0.5 - Math.random());
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shuffleCount]);
 
   const handleStickClick = async (stick: OghamLetterData) => {
     if (isLoading || readingStarted) return;
@@ -135,7 +137,14 @@ export default function OghamPage() {
     setError(null);
     setReadingStarted(false);
     setSelectedStick(null);
+    setShuffleCount(prev => prev + 1); // Also reshuffle on reset
   };
+  
+  const handleShuffleClick = () => {
+    if (isLoading || readingStarted) return;
+    setShuffleCount(prev => prev + 1);
+  };
+
 
   const boardRadius = 200; // in pixels
 
@@ -196,7 +205,7 @@ export default function OghamPage() {
                             transformOrigin: 'center center',
                           }}
                            className={cn(
-                            "absolute w-[105px] h-[31.5px] flex items-center justify-center rounded-md transition-all duration-500 ease-in-out",
+                            "absolute w-[105px] h-[31.5px] flex items-center justify-center rounded-md transition-all duration-500 ease-in-out animate-fade-in",
                             !readingStarted && "hover:scale-110 hover:shadow-lg hover:shadow-accent/50 cursor-pointer",
                             readingStarted && !isSelected && "opacity-20 blur-sm scale-90",
                             isSelected && "scale-125 shadow-lg shadow-accent/50 z-10"
@@ -229,6 +238,19 @@ export default function OghamPage() {
                     </div>
 
                   </div>
+                  <div className="absolute bottom-4 left-4 flex flex-col items-center gap-1">
+                     <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        onClick={handleShuffleClick}
+                        disabled={readingStarted || isLoading}
+                        className="rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm"
+                        aria-label="Embaralhar galhos"
+                    >
+                        <RefreshCw className="h-5 w-5 text-primary-foreground" />
+                    </Button>
+                    <span className="text-xs text-muted-foreground font-semibold">Embaralhar</span>
+                </div>
                 </div>
 
                 {isLoading && (
@@ -392,3 +414,5 @@ export default function OghamPage() {
       </div>
   );
 }
+
+    
