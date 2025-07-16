@@ -158,6 +158,10 @@ export default {
             transform: 'translateY(20px) rotate(70deg) scale(1)',
           },
         },
+        'gentle-rotate': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        }
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
@@ -175,6 +179,7 @@ export default {
         'float-quad': 'float-quad 30s linear infinite alternate',
         'leaf-fade': 'fade-in-out-leaf 8s ease-in-out infinite',
         'fall-and-fade': 'fall-and-fade linear infinite',
+        'gentle-rotate': 'gentle-rotate 25s linear infinite',
   		}
   	}
   },

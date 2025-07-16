@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { interpretOghamReading, type InterpretOghamReadingOutput } from '@/ai/flows/interpret-ogham-reading';
 import { oghamLetters, type OghamLetterData } from '@/lib/ogham-data';
-import { Loader2, BookOpenText, Leaf, Sparkles, BookHeart, TreeDeciduous, RefreshCw } from 'lucide-react';
+import { Loader2, BookOpenText, Leaf, Sparkles, BookHeart, TreeDeciduous, RefreshCw, Hand } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -69,6 +69,7 @@ export default function OghamPage() {
   const [readingStarted, setReadingStarted] = useState(false);
   const [selectedStick, setSelectedStick] = useState<OghamLetterData | null>(null);
   const [shuffleCount, setShuffleCount] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const shuffledOghams = useMemo(() => {
     return [...oghamLetters].sort(() => 0.5 - Math.random());
@@ -77,6 +78,11 @@ export default function OghamPage() {
 
   const handleStickClick = async (stick: OghamLetterData) => {
     if (isLoading || readingStarted) return;
+    
+    // Stop any ongoing animation before starting the reading
+    if (isAnimating) {
+        setIsAnimating(false);
+    }
 
     if (!currentUser) {
       toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToRead'), variant: 'destructive' });
@@ -137,12 +143,21 @@ export default function OghamPage() {
     setError(null);
     setReadingStarted(false);
     setSelectedStick(null);
+    setIsAnimating(false);
     setShuffleCount(prev => prev + 1); // Also reshuffle on reset
   };
   
   const handleShuffleClick = () => {
-    if (isLoading || readingStarted) return;
-    setShuffleCount(prev => prev + 1);
+    if (readingStarted) return;
+
+    if (isAnimating) {
+        // Stop animating and trigger a final shuffle
+        setIsAnimating(false);
+        setShuffleCount(prev => prev + 1);
+    } else {
+        // Start animating
+        setIsAnimating(true);
+    }
   };
 
 
@@ -182,7 +197,10 @@ export default function OghamPage() {
                 <div className="relative flex justify-center items-center w-full min-h-[450px]">
                   {/* The circular board */}
                   <div 
-                    className="relative w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-black border-2 border-amber-700/50 shadow-inner"
+                    className={cn(
+                        "relative w-[400px] h-[400px] sm:w-[450px] sm:h-[450px] rounded-full flex items-center justify-center bg-black border-2 border-amber-700/50 shadow-inner transition-transform duration-300",
+                        isAnimating && "animate-gentle-rotate"
+                    )}
                   >
                      <div className="absolute inset-4 rounded-full border border-dashed border-amber-800/30"></div>
                      <div className="absolute inset-16 rounded-full border border-dashed border-amber-800/30"></div>
@@ -246,9 +264,9 @@ export default function OghamPage() {
                         className="rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm"
                         aria-label="Embaralhar galhos"
                     >
-                        <RefreshCw className="h-5 w-5 text-primary-foreground" />
+                        {isAnimating ? <Hand className="h-5 w-5 text-primary-foreground" /> : <RefreshCw className="h-5 w-5 text-primary-foreground" />}
                     </Button>
-                    <span className="text-xs text-muted-foreground font-semibold">Embaralhar</span>
+                    <span className="text-xs text-muted-foreground font-semibold">{isAnimating ? 'Parar' : 'Embaralhar'}</span>
                   </div>
                 </div>
 
@@ -396,7 +414,7 @@ export default function OghamPage() {
 
 
         {(isLoading || interpretationResult) && (
-          <div className="max-w-4xl mx-auto mt-8">
+          <div className="max-w-2xl mx-auto mt-8">
               <AdSlot id="ad-ogham-bottom" />
           </div>
         )}
