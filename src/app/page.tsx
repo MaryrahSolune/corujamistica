@@ -144,10 +144,10 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex justify-between items-center px-4 h-20">
+        <div className="container mx-auto flex justify-between items-center px-4 h-16">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/img/simples.png" alt="Coruja Mística Logo" width={60} height={60} />
-            <span className="text-2xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">
+            <Image src="/img/simples.png" alt="Coruja Mística Logo" width={40} height={40} />
+            <span className="text-xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_auto] animate-text-gradient-flow">
               {t('mysticInsights')}
             </span>
           </Link>
