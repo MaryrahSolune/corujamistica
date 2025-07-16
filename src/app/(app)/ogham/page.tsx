@@ -63,7 +63,7 @@ export default function OghamPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const { currentUser, userCredits, refreshCredits } = useAuth();
   
   const [readingStarted, setReadingStarted] = useState(false);
@@ -112,7 +112,7 @@ export default function OghamPage() {
       }
       refreshCredits();
 
-      const result = await interpretOghamReading({ query, chosenLetter: stick });
+      const result = await interpretOghamReading({ query, chosenLetter: stick, locale });
       setInterpretationResult(result);
 
       if (result && result.interpretation) {
@@ -444,5 +444,3 @@ export default function OghamPage() {
       </div>
   );
 }
-
-    

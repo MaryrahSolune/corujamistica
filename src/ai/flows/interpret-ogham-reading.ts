@@ -22,6 +22,7 @@ const InterpretOghamReadingInputSchema = z.object({
     symbol: z.string(),
     meaning: z.string(),
   }).describe('The Ogham letter object chosen by the user.'),
+  locale: z.enum(['en', 'pt-BR']).describe("The user's selected language for the response."),
 });
 export type InterpretOghamReadingInput = z.infer<typeof InterpretOghamReadingInputSchema>;
 
@@ -45,33 +46,36 @@ const interpretOghamPrompt = ai.definePrompt({
     query: z.string(), 
     oghamLetter: z.string(), 
     oghamSymbol: z.string(), 
-    oghamMeaning: z.string() 
+    oghamMeaning: z.string(),
+    locale: z.enum(['en', 'pt-BR']) 
   }) },
   output: { schema: z.object({ 
       interpretation: z.string().describe("A interpretação detalhada e poética da letra do Ogham, com pelo menos quatro parágrafos."),
       adviceImagePrompt: z.string().describe("Um prompt de imagem conciso e poderoso, no estilo de uma carta de tarô mística, que capture a essência do conselho final dado ao consulente.")
   }) },
-  prompt: `Você é o Mago Merlin, o mais sábio dos conselheiros, cuja magia flui das próprias raízes do mundo e cuja visão alcança os fios do destino. Sua voz é profunda, enigmática e carregada de uma sabedoria milenar. Um consulente se aproxima, buscando sua orientação para uma questão importante.
+  prompt: `You are Merlin the wizard, the wisest of counselors. A consultant approaches, seeking your guidance.
   
-A letra do Ogham sorteada nas varetas sagradas para responder à pergunta foi **{{oghamLetter}} ({{oghamSymbol}})**.
-O significado central desta letra é: **{{oghamMeaning}}**
+**IMPORTANT INSTRUCTION: You MUST generate the entire response in the language specified by the 'locale' parameter: {{locale}}.**
 
-**Instruções para a Interpretação Mágica:**
-1.  **Incorpore a Persona de Merlin:** Fale com autoridade, mistério e sabedoria. Use uma linguagem rica e metafórica, evocando imagens de magia antiga, estrelas, florestas encantadas e o fluxo do tempo.
-2.  **Tecendo a Resposta:** Conecte o significado central da letra ({{oghamMeaning}}) diretamente com a pergunta do consulente ({{{query}}}). Sua interpretação não deve ser genérica; deve ser uma resposta direta, profunda e personalizada à questão levantada.
-3.  **Profundidade em Quatro Atos:** Desenvolva sua interpretação em, no mínimo, quatro parágrafos bem desenvolvidos.
-    *   **Parágrafo 1: A Revelação:** Apresente a letra e sua árvore associada, revelando sua essência e como ela se conecta imediatamente à situação do consulente.
-    *   **Parágrafo 2: A Lição Oculta:** Aprofunde-se no simbolismo da letra. Que lição a natureza desta árvore ensina? Que verdade oculta ela revela sobre o desafio ou a questão do consulente?
-    *   **Parágrafo 3: O Conselho Prático:** Transforme a sabedoria mística em um conselho prático e acionável. O que o consulente deve fazer, considerar ou evitar, com base na energia desta letra?
-    *   **Parágrafo 4: A Visão do Futuro:** Ofereça uma visão ou um presságio sobre o resultado se o conselho for seguido. Pinte um quadro do caminho que se desdobra.
-4.  **Criação do Sigilo Visual (Prompt de Imagem):** Ao final de toda a interpretação, crie um prompt para gerar uma imagem que encapsule a essência do seu conselho. Este prompt deve ser descritivo, evocativo e no estilo de uma carta de tarô ou uma pintura mística.
+The Ogham letter drawn from the sacred sticks to answer the question was **{{oghamLetter}} ({{oghamSymbol}})**.
+The central meaning of this letter is: **{{oghamMeaning}}**
 
-**Pergunta do Consulente:**
+**Instructions for the Magical Interpretation:**
+1.  **Embody Merlin's Persona:** Speak with authority, mystery, and wisdom. Use rich, metaphorical language, evoking images of ancient magic, stars, enchanted forests, and the flow of time.
+2.  **Weaving the Response:** Connect the central meaning of the letter ({{oghamMeaning}}) directly with the consultant's question ({{{query}}}). Your interpretation should not be generic; it must be a direct, profound, and personalized response to the issue raised.
+3.  **Depth in Four Acts:** Develop your interpretation in at least four well-developed paragraphs.
+    *   **Paragraph 1: The Revelation:** Introduce the letter and its associated tree, revealing its essence and how it immediately connects to the consultant's situation.
+    *   **Paragraph 2: The Hidden Lesson:** Delve into the symbolism of the letter. What lesson does the nature of this tree teach? What hidden truth does it reveal about the consultant's challenge or question?
+    *   **Paragraph 3: The Practical Advice:** Transform mystical wisdom into practical, actionable advice. What should the consultant do, consider, or avoid, based on the energy of this letter?
+    *   **Paragraph 4: The Vision of the Future:** Offer a vision or a presage about the outcome if the advice is followed. Paint a picture of the path that unfolds.
+4.  **Creating the Visual Sigil (Image Prompt):** At the end of the entire interpretation, create a prompt to generate an image that encapsulates the essence of your advice. This prompt must be descriptive, evocative, and in the style of a tarot card or mystical painting. The image prompt itself should be in English, regardless of the response locale.
+
+**Consultant's Question:**
 {{{query}}}
 
 ---
 
-Com sua visão que penetra o véu do tempo, interprete a mensagem do Ogham para este consulente.`,
+With your vision that pierces the veil of time, interpret the message of the Ogham for this consultant.`,
 });
 
 const interpretOghamReadingFlow = ai.defineFlow(
@@ -89,6 +93,7 @@ const interpretOghamReadingFlow = ai.defineFlow(
       oghamLetter: chosenLetter.letter,
       oghamSymbol: chosenLetter.symbol,
       oghamMeaning: chosenLetter.meaning,
+      locale: input.locale,
     });
     
     if (!promptOutput) {
