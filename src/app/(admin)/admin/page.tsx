@@ -99,7 +99,7 @@ export default function AdminDashboardPage() {
   const fetchDictionaryEntry = useCallback(async (letter: string) => {
     setIsLoadingDictionary(true);
     try {
-      let content = await getDreamDictionaryEntry(letter);
+      const content = await getDreamDictionaryEntry(letter);
       setDictionaryContent(content);
     } catch (error) {
       toast({ title: t('errorGenericTitle'), description: t('dictionaryFetchError'), variant: 'destructive' });
