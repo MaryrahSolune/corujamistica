@@ -514,7 +514,7 @@ SAL - Comer sal: Sorte, muita sorte, em tudo. Ver alguém comer sal: Um amigo, c
 SANFONA - Tocar uma: Dificuldades superadas. Ver alguém tocar uma: Amor correspondido.
 SANGUE - Ver o sangue de alguém: Morte de um amigo. Ver o próprio sangue: Morte na família.
 SAPATO - Sonho bastante favorável, indicador de prosperidade econômica, ascensão social, em especial para o chefe da casa; talvez uma viagem longa, por navio, para tratar de negócios.
-SAPO - Ver um sapo vivo, numa lagoa, num lago: Notícias otimistas, amigos sinceros prontos a ajudar. Ver um sapo morto: Falsos amigos.
+SAPO - Ver um sapo vivo, numa lagoa, num lago: Notícias otimistas, amigos fiéis prontos a ajudar. Ver um sapo morto: Falsos amigos.
 SEIOS - Se for homem quem sonha: Furioso desejo sexual, com sinais de dependência psicológica. Se for mulher: Anseios maternais, frustração sexual.
 SELVA - Ver uma selva: Dificuldades à vista, mas que serão logo superadas. Estar numa selva: Problemas graves, de difícil solução.
 SINO - Ver um sino parado: Melhoras consideráveis em alguém muito doente. Ver um sino tocando: Casamento em breve; talvez desavenças com um parente.
@@ -636,7 +636,10 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
 
   normalizedKeywords.forEach(keyword => {
     for (const line of dictionaryLines) {
-        const lineStartOriginal = line.split(' - ')[0];
+        const lineParts = line.split(' - ');
+        if (lineParts.length < 2) continue; // Skip malformed lines
+
+        const lineStartOriginal = lineParts[0];
         const lineStartNormalized = normalizeString(lineStartOriginal);
         
         // This is a more robust check. It verifies if the normalized line starts with the normalized keyword.
@@ -678,5 +681,3 @@ export async function updateDreamDictionaryEntry(letter: string, content: string
     return { success: false, message: error.message || 'An unknown error occurred.' };
   }
 }
-
-    
