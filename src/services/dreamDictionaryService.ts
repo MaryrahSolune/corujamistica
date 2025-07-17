@@ -234,7 +234,7 @@ DIABO - Péssimo sonho, sob todos os aspectos. Deve-se fazer muitas orações a 
 DIAMANTE - Por ser uma jóia, é um sonho não muito propício. Mas, por outro lado, por ele brilhar, irradiar luz, sugere sempre alegria e felicidade.
 DINHEIRO - Bom sonho, pois representa melhoras financeiras, boas perspectivas no trabalho e nos negócios e sorte no jogo. Estar recebendo dinheiro: Grande sorte no jogo, aumento de salário.
 DIVÃ - Estar deitado num: Doença na família. Ver alguém deitado num: Alguma má notícia a caminho. Ver um divã vazio: Mudança de residência.
-DOCE - Doce lembra criança e criança sempre representa amor, alegria, beleza. Bom sonho, principalmente para os casais com muitos filhos.
+DOCE - Doce lembra criança e criança só pode ser coisa boa: dinheiro, amor, alegria. Bom sonho, principalmente para os casais com muitos filhos.
 DRAGÃO - Não é muito bom sonho, em especial se o dragão estiver cuspindo fogo. Satisfação dos desejos, algumas dificuldades sem muita importância.
 DUELO - Estar assistindo a um: Aventura sentimental sem maiores consequências. Estar participando de um: Reconciliação com ente querido.
 DUETO - Estar ouvindo um dueto: Ameaça de enfermidade mental em algum parente. Estar cantando em dueto: Triunfo sobre os inimigos, os falsos amigos.
@@ -282,7 +282,7 @@ FAXINA - Estar fazendo faxina na casa: Excelente sonho, os maus fluidos estão s
 FAZENDA - Maquinações de inimigos ou falsos amigos, mas que serão, cedo ou tarde, desmascarados. Muita cautela com documentos e com o que se fala da própria vida.
 FECHADURA - Funcionando bem: Ótimas perspectivas de vida, sobretudo com relação a dinheiro, pagamentos atrasados. Emperrada: Sucessos amorosos.
 FEIJÃO - Cru: Casamento ou noivado próximos. Preparado: Trabalho bem feito. Quanto mais elaborado o prato com feijão, pior o trabalho feito.
-FEIRA - Ver uma feira: Intrigas desmascaradas, falsos amigos descobertos, calúnias esclarecidas. Estar fazendo feira: Dinheiro a caminho, alimentação farta, promoção no emprego e muita sorte nos negócios.
+FEIRA - Ver uma feira: Intrigas desmascaradas, falsos amigos descobertos, calúnias esclarecidas. Estar fazendo feira: Dinheiro à vista, alimentação farta, promoção no emprego e muita sorte nos negócios.
 FEITIÇO - Não há motivos para preocupações, pois geralmente esse sonho é de bom presságio. Se vir alguma bruxa lançando o feitiço: Sorte no jogo.
 FEL - Complicações sentimentais, atritos entre namorados, noivos ou cônjuges. Alguns problemas financeiros envolvendo empréstimos bancários.
 FERA - Sorte no amor, no jogo; um grande ideal, mais cedo ou mais tarde, será alcançado, para a felicidade de todos. Casamento em breve.
@@ -396,7 +396,7 @@ MOEDA - Vendo-se a parte da frente: Viagem longa, por motivos agradáveis. Vendo
 MOINHO - Ver um moinho por fora: Atraso na vida. Ver um moinho por dentro: Discórdia entre amigos. Normalmente, o moinho pode representar alguma doença não muito grave na família, em especial com os velhos.
 MONTANHA - Estar subindo uma montanha: Grande prosperidade, ascensão social, promoção no emprego. Estar descendo: Problemas graves pela frente.
 MORDAÇA - Estar amordaçado: Problemas na família e com dinheiro. Cuidado com documentos. Estar amordaçando alguém: Boas notícias que virão de longe.
-MORTE - Normalmente, não é bom presságio, sobretudo se virmos a morte (uma caveira, a foice, a capa longa). Se for um cadáver: Sérios problemas na casa.
+MORTE - Sonhar com a própria morte simboliza mudanças, transformações, descobertas e desenvolvimento positivo que estão ocorrendo dentro de você ou em sua vida. Embora o sonho com a própria morte possa provocar sentimentos de medo e ansiedade não é nenhuma causa para alarme e é considerado freqüentemente um símbolo positivo. Sonhar com sua própria morte é sinal de que grandes mudanças estão à sua frente. Você está passando um recomeço e deixando para trás o passado. Estas mudanças serão para melhor. Este sonho também simboliza a morte de velhos hábitos. Morte, pode não significar uma morte física, mas um fim de ciclo ou período. Este sonho também ocorre quando você está muito preocupado com alguém acometido por doença grave ou terminal. Ver alguém morrendo em seu sonho significa que seus sentimentos em relação a ela estão mortos ou que uma perda significante está acontecendo em sua relação com aquela pessoa.
 MOSCA - Matar uma mosca pode significar sorte nos negócios ou azar no jogo. Capturar uma mosca: Ótimo sonho, pois representa casamento feliz.
 MUDANÇA - Assistir a uma mudança: Um falso amigo cometerá uma traição. Se a mudança estiver saindo de casa de quem sonha: Problemas com a casa, dívidas.
 MURO - Estar pulando um muro: Grandes problemas sendo resolvidos dentro de muito pouco tempo. Estar barrado por um muro: Dificuldades muito sérias pela frente e de difícil resolução. Geralmente, pode ser sorte no amor.`;
@@ -506,7 +506,7 @@ RELÓGIO - Funcionando: Esperanças de melhoras. Quebrado: Péssimo agouro, gran
 REMÉDIO - Cautela com as crianças e as pessoas mais idosas, sobretudo as da família. Risco de alguma enfermidade dentro e fora do lar.
 RIO - Ver um rio manso, tranquilo: Paz e confiança no futuro, muita tranquilidade a caminho. Rio caudaloso: Problemas pequenos e graves pela frente.
 ROCHEDO - Ver o mar batendo forte num rochedo: Proteção divina, muita força interior. Ver o mar quebrando um rochedo: Maus fluidos na casa, que enfraquecem a todos.
-ROSÁRIO - Muito bom presságio, pois indica várias coisas boas: um casamento próximo, um pedido de matrimônio, uma gravidez benvinda e feliz, sorte no jogo e nos negócios, boas notícias há muito esperadas.`;
+ROSÁRIO - Muito bom presságio, pois indica várias coisas boas: um casamento próximo, um pedido de casamento, uma gravidez benvinda e feliz, sorte no jogo e nos negócios, boas notícias há muito esperadas.`;
 
 const contentForS = `SACO - Vazio: Partida para uma viagem de um amigo muito querido. Cheio: Dinheiro à vista, seja através dos negócios, seja através do jogo.
 SAIA - Branca: Casamento muito próximo. De cor: Alegrias inesperadas na família. Escura: Talvez alguma morte, dentro ou fora do lar.
