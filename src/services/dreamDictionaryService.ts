@@ -6,7 +6,10 @@ import { ref, get, set } from 'firebase/database';
 
 const contentForA = `A - Escrever ou ler a letra A: Boas notícias, novidades ótimas que virão de longe, através de pessoa muito querida.
 ABACATE - Maduro: Esperança, dias melhores. Verde: Alguma tristeza na família, talvez uma discussão ou briga.
+ABACATEIRO - Sonhar com abacateiro mostra que as coisas poderão fluir melhor e mais rápido por agora. Assim como o abacateiro que, em comparação a muitas árvores, cresce bem rápido e possui um grande porte, ele no sonho deixa bem representado este seu crescimento. O que já vem acontecendo de forma gradativa, mas que agora será percebido por você e pelas pessoas a sua volta. Afinal, é preciso ter solidez e segurança para assim se manter firme e não cair depois conforme sua jornada. Confiança e força de vontade o levam a lugares melhores, e se por acaso fraquejar ou até se acomodar, as coisas certamente podem voltar ao começo, onde o caminho é mais longo e difícil.
 ABACAXI - Força e esperança no futuro. Grandes melhoras para todos. Para as jovens solteiras, um casamento à vista.
+ABADÁ - Sonhar com abadá mostra que você está à procura do seu lugar. Quando se compra um abadá, você quer ter acesso e saber que terá o seu lugar e participará da festa. O abadá no sonho indica mais ou menos isso: você se vê preparado para alcançar e ocupar o lugar que sempre almejou e que agora pode estar mais próximo. Por isso, procure continuar seu trajeto, fazendo o necessário para alcançar seus objetivos. Isso continuará lhe conduzindo ao seu objetivo final e assim conseguirá o seu lugar, aquele que deseja e quer conquistar.
+ABAJUR - Sonhar com abajur indica que deve ter cuidado com novas aventuras. Outro significado para o sonho com abajur é que pode ocorrer alguma mudança importante no relacionamento. Abajur aceso sinaliza o desejo de conquistar um novo amor. Abajur apagado ou quebrado simboliza insatisfação no relacionamento atual.
 ABELHA - Mel, açúcar: Adoçar a vida, melhorar, afastar os problemas. Logo, motivos para grandes alegrias.
 ABISMO - Possível preocupação, uma queda no amor ou nos negócios, mas com melhoras imediatas. Pensamento positivo e fé.
 ABÓBORA - Fartura, boa alimentação, dinheiro entrando. Felicidade conjugal.
@@ -486,7 +489,6 @@ QUEIMAR - Inveja de falsos amigos, inimigos preparando ciladas perigosas. Maiore
 QUIABO - Cru: Sonho auspicioso. Cozido: Problemas referentes a dinheiro e a documentos. Frito: Trabalho desfeito, calúnia desmentida.
 QUIBE - Geralmente, indica bom presságio, principalmente para a pessoa que sonha. Essa sorte pode estender-se para as pessoas mais íntimas daquela que sonha.
 QUIOSQUE - Ver um quiosque: Amor correspondido. Fazer compras num quiosque: Alimentação farta, mesa farta, saúde para crianças e pessoas idosas.
-QUIROMANTE - Ver uma quiromante: Azar no jogo e nos negócios. Consultar-se com uma quiromante: Bom sonho, e é quase certo que as previsões no sonho se realizem.
 QUITANDA - Ver uma quitanda: Amor correspondido. Fazer compras numa quitanda: Problemas financeiros passageiros, podendo ser resolvidos com a ajuda de um velho amigo ou um parente distante.`;
 
 const contentForR = `RAIO - Ver um raio no céu: Intrigas de velhos inimigos. Ser atingido por um raio: Graves dificuldades pela frente, com sérias consequências.
@@ -681,3 +683,4 @@ export async function updateDreamDictionaryEntry(letter: string, content: string
     return { success: false, message: error.message || 'An unknown error occurred.' };
   }
 }
+
