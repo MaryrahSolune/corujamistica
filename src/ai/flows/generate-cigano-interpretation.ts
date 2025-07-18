@@ -556,14 +556,40 @@ Ao final de sua interpretação, inclua uma saudação respeitosa a Exu, como po
   },
 });
 
-const analyzeCardReadingFlow = ai.defineFlow(
+const generateCiganoInterpretationFlow = ai.defineFlow(
   {
-    name: 'analyzeCardReadingFlow',
-    inputSchema: AnalyzeCardReadingInputSchema,
-    outputSchema: AnalyzeCardReadingOutputSchema,
+    name: 'generateCiganoInterpretationFlow',
+    inputSchema: GenerateCiganoInterpretationInputSchema,
+    outputSchema: GenerateCiganoInterpretationOutputSchema,
   },
-  async input => {
-    const {output} = await analyzeCardReadingPrompt(input);
-    return output!;
+  async (input) => {
+    // 1. Generate the text interpretation and the mandala prompt.
+    const { output: promptOutput } = await ciganoInterpretationPrompt(input);
+    if (!promptOutput) {
+      throw new Error('Failed to generate reading interpretation text.');
+    }
+
+    // 2. Generate the mandala image using the prompt created in the previous step.
+    const { media } = await ai.generate({
+      model: 'googleai/gemini-2.0-flash-preview-image-generation',
+      prompt: promptOutput.mandalaPrompt,
+      config: {
+        responseModalities: ['TEXT', 'IMAGE'],
+        safetySettings: [
+          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
+          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
+        ],
+      },
+    });
+    
+    // 3. Combine results and return.
+    return {
+      interpretation: promptOutput.interpretation,
+      mandalaImageUri: media?.url,
+    };
   }
 );
+
+    
