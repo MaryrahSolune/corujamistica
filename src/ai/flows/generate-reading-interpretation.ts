@@ -129,7 +129,7 @@ Nuvens (6): Iansã (transformação), Gêmeos.
 Serpente (7): Oxumaré/Maria Padilha/Nanã/Hécate (mistério), Escorpião.
 Caixão (8): Omulu (renascimento), Plutão.
 Buquê (9): Nanã (sabedoria ancestral), Vênus.
-Foice (10): Oxóssi (caçador), Malandros (jogo da vida), Marte.
+Foice (10): Oxóssi (caçador), Marte.
 Chicote (11): Boiadeiros (força bruta), Saturno.
 Pássaros (12): Baianos (alegria popular), Mercúrio.
 Criança (13): Erês (pureza), Leão.
@@ -248,3 +248,5 @@ const generateReadingInterpretationFlow = ai.defineFlow(
     };
   }
 );
+
+    
