@@ -13,7 +13,6 @@ import Image from 'next/image';
 import { Loader2, UploadCloud, Wand2, VenetianMask, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
-import { deductCredit } from '@/services/creditService';
 import { saveReading, type TarotReadingData } from '@/services/readingService';
 import { cn } from '@/lib/utils';
 import { AdSlot } from '@/components/AdSlot';
@@ -28,17 +27,13 @@ export default function NewReadingPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const { t } = useLanguage();
-  const { currentUser, userCredits, refreshCredits } = useAuth();
+  const { currentUser } = useAuth();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     if (!currentUser) {
       toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToRead'), variant: 'destructive' }); 
-      return;
-    }
-    if (!userCredits || userCredits.balance < 1) {
-      toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsDescription'), variant: 'destructive' }); 
       return;
     }
     if (!imageDataUri) {
@@ -55,14 +50,6 @@ export default function NewReadingPage() {
     setError(null);
 
     try {
-      // 1. Deduct credit first
-      const deductResult = await deductCredit(currentUser.uid);
-      if (!deductResult.success) {
-        throw new Error(deductResult.message || t('creditDeductionFailedError')); 
-      }
-      refreshCredits(); 
-
-      // 2. Generate interpretation
       const input: GenerateReadingInterpretationInput = {
         cardSpreadImage: imageDataUri,
         query: query,
@@ -70,7 +57,6 @@ export default function NewReadingPage() {
       const result = await generateReadingInterpretation(input);
       setInterpretationResult(result);
 
-      // 3. Save reading to RTDB
       if (result.interpretation) {
         const readingToSave: Partial<Omit<TarotReadingData, 'interpretationTimestamp'>> & Pick<TarotReadingData, 'type' | 'query' | 'interpretationText'> = {
           type: 'tarot',
@@ -137,7 +123,7 @@ export default function NewReadingPage() {
               </span>
             </CardTitle>
             <CardDescription>
-              {t('newCardReadingDescription')} {userCredits && t('creditsAvailable', {count: userCredits.balance})}
+              {t('newCardReadingDescription')}
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
@@ -199,7 +185,7 @@ export default function NewReadingPage() {
               <Button 
                 type="submit" 
                 className="w-full text-lg py-6" 
-                disabled={isLoading || !imageDataUri || !query.trim() || (userCredits && userCredits.balance < 1)}
+                disabled={isLoading || !imageDataUri || !query.trim()}
               >
                 {isLoading ? (
                   <>
@@ -292,5 +278,3 @@ export default function NewReadingPage() {
     </div>
   );
 }
-
-    

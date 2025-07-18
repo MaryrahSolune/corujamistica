@@ -13,7 +13,6 @@ import { Loader2, BookOpenText, Leaf, Sparkles, BookHeart, TreeDeciduous, Refres
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
-import { deductCredit } from '@/services/creditService';
 import { saveReading, type ReadingData } from '@/services/readingService';
 import { OghamIcon } from '@/components/MysticIcons';
 import { AdSlot } from '@/components/AdSlot';
@@ -64,7 +63,7 @@ export default function OghamPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const { t, locale } = useLanguage();
-  const { currentUser, userCredits, refreshCredits } = useAuth();
+  const { currentUser } = useAuth();
   
   const [readingStarted, setReadingStarted] = useState(false);
   const [selectedStick, setSelectedStick] = useState<OghamLetterData | null>(null);
@@ -88,10 +87,6 @@ export default function OghamPage() {
       toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToRead'), variant: 'destructive' });
       return;
     }
-    if (!userCredits || userCredits.balance < 1) {
-      toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsDescription'), variant: 'destructive' });
-      return;
-    }
     if (!query.trim()) {
       toast({ title: t('noQueryErrorTitle'), description: t('noQueryErrorDescription'), variant: 'destructive' });
       return;
@@ -104,12 +99,6 @@ export default function OghamPage() {
     setError(null);
 
     try {
-      const deductResult = await deductCredit(currentUser.uid);
-      if (!deductResult.success) {
-        throw new Error(deductResult.message || t('creditDeductionFailedError'));
-      }
-      refreshCredits();
-
       const result = await interpretOghamReading({ query, chosenLetter: stick, locale });
       setInterpretationResult(result);
 
@@ -172,7 +161,7 @@ export default function OghamPage() {
                 {t('oghamOraclePageTitle')}
               </CardTitle>
               <CardDescription>
-                {t('oghamOraclePageDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
+                {t('oghamOraclePageDescription')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">

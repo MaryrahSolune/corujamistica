@@ -13,7 +13,6 @@ import { Loader2, Sparkles, Hand, BrainCircuit, Flower, Book, Mic2, Pyramid, Boo
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
-import { deductCredit } from '@/services/creditService';
 import { saveReading, type ReadingData } from '@/services/readingService';
 import { cn } from '@/lib/utils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -31,7 +30,7 @@ export default function YidamsPage() {
   
   const { toast } = useToast();
   const { t } = useLanguage();
-  const { currentUser, userCredits, refreshCredits } = useAuth();
+  const { currentUser } = useAuth();
 
   const shuffledYidams = useMemo(() => {
     // This will re-run every time shuffleCount changes
@@ -73,10 +72,6 @@ export default function YidamsPage() {
       toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToRead'), variant: 'destructive' });
       return;
     }
-    if (!userCredits || userCredits.balance < 1) {
-      toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsDescription'), variant: 'destructive' });
-      return;
-    }
     if (!query.trim()) {
       toast({ title: t('noQueryErrorTitle'), description: t('noQueryErrorDescription'), variant: 'destructive' });
       return;
@@ -89,12 +84,6 @@ export default function YidamsPage() {
     setError(null);
 
     try {
-      const deductResult = await deductCredit(currentUser.uid);
-      if (!deductResult.success) {
-        throw new Error(deductResult.message || t('creditDeductionFailedError'));
-      }
-      refreshCredits();
-
       const yidamResult = await generateYidam({ query, chosenYidam: symbol });
       setResult(yidamResult);
 
@@ -195,7 +184,7 @@ export default function YidamsPage() {
                 {t('yidamsPageTitle')}
               </CardTitle>
               <CardDescription>
-                {t('yidamsPageDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
+                {t('yidamsPageDescription')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">

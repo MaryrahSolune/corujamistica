@@ -13,7 +13,6 @@ import { Loader2, MessageCircleQuestion, BookOpenText, BrainCircuit, Library } f
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
-import { deductCredit } from '@/services/creditService';
 import { saveReading, type DreamInterpretationData } from '@/services/readingService';
 import { getDreamDictionaryEntry } from '@/services/dreamDictionaryService';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -31,7 +30,7 @@ export default function DreamInterpretationPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const { t } = useLanguage();
-  const { currentUser, userCredits, refreshCredits } = useAuth();
+  const { currentUser } = useAuth();
 
   // State for manual dictionary lookup
   const [selectedLetter, setSelectedLetter] = useState('A');
@@ -63,10 +62,6 @@ export default function DreamInterpretationPage() {
       toast({ title: t('authErrorTitle'), description: t('mustBeLoggedInToInterpret'), variant: 'destructive' });
       return;
     }
-    if (!userCredits || userCredits.balance < 1) {
-      toast({ title: t('insufficientCreditsTitle'), description: t('insufficientCreditsForDreamDescription'), variant: 'destructive' });
-      return;
-    }
     if (!dreamDescription.trim()) {
       toast({ title: t('noDreamErrorTitle'), description: t('noDreamErrorDescription'), variant: 'destructive' });
       return;
@@ -81,18 +76,11 @@ export default function DreamInterpretationPage() {
     setError(null);
 
     try {
-      // 1. Deduct credit
-      const deductResult = await deductCredit(currentUser.uid);
-      if (!deductResult.success) {
-        throw new Error(deductResult.message || t('creditDeductionFailedError'));
-      }
-      refreshCredits();
-
-      // 2. Interpret dream. The flow now returns both parts of the interpretation.
+      // Interpret dream. The flow now returns both parts of the interpretation.
       const result = await interpretDream({ dreamDescription });
       setInterpretationResult(result);
 
-      // 3. Save dream interpretation to DB
+      // Save dream interpretation to DB
       if (result && (result.storySegments.length > 0 || result.dictionaryInterpretation)) {
         const dreamToSave: Omit<DreamInterpretationData, 'interpretationTimestamp'> = {
           type: 'dream',
@@ -109,7 +97,6 @@ export default function DreamInterpretationPage() {
       const errorMessage = err.message || t('errorGeneratingInterpretationDescription');
       setError(errorMessage);
       toast({ title: t('errorGenericTitle'), description: errorMessage, variant: 'destructive' });
-      // TODO: Consider refunding credit if interpretation fails after deduction.
     } finally {
       setIsLoading(false);
     }
@@ -126,7 +113,7 @@ export default function DreamInterpretationPage() {
               {t('dreamInterpretationTitle')}
             </CardTitle>
             <CardDescription>
-              {t('dreamInterpretationDescription')} {userCredits && t('creditsAvailable', { count: userCredits.balance })}
+              {t('dreamInterpretationDescription')}
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
@@ -151,8 +138,7 @@ export default function DreamInterpretationPage() {
                 disabled={
                   isLoading ||
                   !dreamDescription.trim() || 
-                  dreamDescription.trim().length < 10 || 
-                  (userCredits && userCredits.balance < 1)
+                  dreamDescription.trim().length < 10
                 }
               >
                 {isLoading ? (
@@ -272,7 +258,7 @@ export default function DreamInterpretationPage() {
                           </SelectTrigger>
                           <SelectContent>
                             {alphabet.map(letter => (
-                              <SelectItem key={letter} value={letter}>Letra {letter}</SelectItem>
+                              <SelectItem key={letter} value={letter}>{`Letra ${letter}`}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
