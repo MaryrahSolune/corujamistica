@@ -16,14 +16,33 @@ const GIFT_COOLDOWN_MILLISECONDS = 24 * 60 * 60 * 1000; // 24 hours
 
 export async function initializeUserCredits(uid: string): Promise<void> {
   const creditsRef = ref(rtdb, `users/${uid}/credits`);
+  
+  // Custom temporary logic to grant credits to a specific user
+  const userProfileRef = ref(rtdb, `users/${uid}/profile`);
+  let specialCredits = INITIAL_CREDITS;
+  try {
+    const profileSnapshot = await get(userProfileRef);
+    if (profileSnapshot.exists()) {
+      const profileData = profileSnapshot.val() as UserProfileData;
+      if (profileData.email === 'varnierecrema@gmail.com') {
+        specialCredits = 500;
+      }
+    }
+  } catch (e) {
+    // Ignore error, proceed with default credits
+  }
+
   const initialData: UserCreditsData = {
-    balance: INITIAL_CREDITS,
+    balance: specialCredits,
     freeCreditClaimed: false,
   };
   try {
     const snapshot = await get(creditsRef);
     if (!snapshot.exists()) {
       await set(creditsRef, initialData);
+    } else if (specialCredits > INITIAL_CREDITS && snapshot.val().balance < specialCredits) {
+      // If user exists but needs the credit top-up
+      await update(creditsRef, { balance: specialCredits });
     }
   } catch (error) {
     console.error("Error initializing user credits in RTDB:", error);
