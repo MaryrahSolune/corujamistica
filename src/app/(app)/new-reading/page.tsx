@@ -8,7 +8,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { generateReadingInterpretation, type GenerateReadingInterpretationInput, type GenerateReadingInterpretationOutput } from '@/ai/flows/generate-reading-interpretation';
+import { generateTarotInterpretation, type GenerateTarotInterpretationInput, type GenerateTarotInterpretationOutput } from '@/ai/flows/generate-tarot-interpretation';
+import { generateCiganoInterpretation, type GenerateCiganoInterpretationInput, type GenerateCiganoInterpretationOutput } from '@/ai/flows/generate-cigano-interpretation';
+import { generateMesaRealInterpretation, type GenerateMesaRealInterpretationInput, type GenerateMesaRealInterpretationOutput } from '@/ai/flows/generate-mesareal-interpretation';
 import Image from 'next/image';
 import { Loader2, UploadCloud, Wand2, VenetianMask, Sparkles, BookHeart, Grid3x3 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -17,26 +19,36 @@ import { saveReading, type TarotReadingData } from '@/services/readingService';
 import { cn } from '@/lib/utils';
 import { AdSlot } from '@/components/AdSlot';
 
+type ReadingType = 'tarot' | 'cigano' | 'mesaReal';
+type InterpretationResult = GenerateTarotInterpretationOutput | GenerateCiganoInterpretationOutput | GenerateMesaRealInterpretationOutput;
+
 export default function NewReadingPage() {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [imageDataUri, setImageDataUri] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
-  const [query, setQuery] = useState<string>('');
+  // State for Tarot form
+  const [tarotImagePreview, setTarotImagePreview] = useState<string | null>(null);
+  const [tarotImageDataUri, setTarotImageDataUri] = useState<string | null>(null);
+  const [tarotFileName, setTarotFileName] = useState<string | null>(null);
+  const [tarotQuery, setTarotQuery] = useState<string>('');
+
+  // State for Cigano (Free) form
+  const [ciganoImagePreview, setCiganoImagePreview] = useState<string | null>(null);
+  const [ciganoImageDataUri, setCiganoImageDataUri] = useState<string | null>(null);
+  const [ciganoFileName, setCiganoFileName] = useState<string | null>(null);
+  const [ciganoQuery, setCiganoQuery] = useState<string>('');
   
+  // State for Mesa Real form
   const [mesaRealImagePreview, setMesaRealImagePreview] = useState<string | null>(null);
   const [mesaRealImageDataUri, setMesaRealImageDataUri] = useState<string | null>(null);
   const [mesaRealFileName, setMesaRealFileName] = useState<string | null>(null);
   const [mesaRealQuery, setMesaRealQuery] = useState<string>('');
 
-
-  const [interpretationResult, setInterpretationResult] = useState<GenerateReadingInterpretationOutput | null>(null);
+  const [interpretationResult, setInterpretationResult] = useState<InterpretationResult | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const { t } = useLanguage();
   const { currentUser } = useAuth();
 
-  const handleSubmit = async (event: FormEvent, readingType: 'common' | 'mesaReal') => {
+  const handleSubmit = async (event: FormEvent, readingType: ReadingType) => {
     event.preventDefault();
 
     if (!currentUser) {
@@ -44,8 +56,27 @@ export default function NewReadingPage() {
       return;
     }
     
-    const currentImageDataUri = readingType === 'mesaReal' ? mesaRealImageDataUri : imageDataUri;
-    const currentQuery = readingType === 'mesaReal' ? mesaRealQuery : query;
+    let currentImageDataUri: string | null = null;
+    let currentQuery: string = '';
+    let apiCall: (input: any) => Promise<any>;
+
+    switch (readingType) {
+        case 'tarot':
+            currentImageDataUri = tarotImageDataUri;
+            currentQuery = tarotQuery;
+            apiCall = generateTarotInterpretation;
+            break;
+        case 'cigano':
+            currentImageDataUri = ciganoImageDataUri;
+            currentQuery = ciganoQuery;
+            apiCall = generateCiganoInterpretation;
+            break;
+        case 'mesaReal':
+            currentImageDataUri = mesaRealImageDataUri;
+            currentQuery = mesaRealQuery;
+            apiCall = generateMesaRealInterpretation;
+            break;
+    }
 
     if (!currentImageDataUri) {
       toast({ title: t('noImageErrorTitle'), description: t('noImageErrorDescription'), variant: 'destructive' });
@@ -61,16 +92,16 @@ export default function NewReadingPage() {
     setError(null);
 
     try {
-      const input: GenerateReadingInterpretationInput = {
+      const input = {
         cardSpreadImage: currentImageDataUri,
         query: currentQuery,
       };
-      const result = await generateReadingInterpretation(input);
+      const result = await apiCall(input);
       setInterpretationResult(result);
 
       if (result.interpretation) {
         const readingToSave: Partial<Omit<TarotReadingData, 'interpretationTimestamp'>> & Pick<TarotReadingData, 'type' | 'query' | 'interpretationText'> = {
-          type: 'tarot', // Still saving as 'tarot' for now, can be specified later
+          type: 'tarot', // Using a generic type for saving for now
           query: currentQuery,
           interpretationText: result.interpretation,
         };
@@ -95,7 +126,7 @@ export default function NewReadingPage() {
     }
   };
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>, readingType: 'common' | 'mesaReal') => {
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>, readingType: ReadingType) => {
     const file = event.target.files?.[0];
     if (file) {
       if (file.size > 4 * 1024 * 1024) { // 4MB limit
@@ -109,35 +140,33 @@ export default function NewReadingPage() {
       const reader = new FileReader();
       reader.onloadend = () => {
         const dataUri = reader.result as string;
-        if (readingType === 'mesaReal') {
-            setMesaRealFileName(file.name);
-            setMesaRealImagePreview(dataUri);
-            setMesaRealImageDataUri(dataUri);
-        } else {
-            setFileName(file.name);
-            setImagePreview(dataUri);
-            setImageDataUri(dataUri);
+        switch (readingType) {
+            case 'tarot':
+                setTarotFileName(file.name);
+                setTarotImagePreview(dataUri);
+                setTarotImageDataUri(dataUri);
+                break;
+            case 'cigano':
+                setCiganoFileName(file.name);
+                setCiganoImagePreview(dataUri);
+                setCiganoImageDataUri(dataUri);
+                break;
+            case 'mesaReal':
+                setMesaRealFileName(file.name);
+                setMesaRealImagePreview(dataUri);
+                setMesaRealImageDataUri(dataUri);
+                break;
         }
       };
       reader.readAsDataURL(file);
       setInterpretationResult(null); 
       setError(null);
-    } else {
-      if (readingType === 'mesaReal') {
-        setMesaRealFileName(null);
-        setMesaRealImagePreview(null);
-        setMesaRealImageDataUri(null);
-      } else {
-        setFileName(null);
-        setImagePreview(null);
-        setImageDataUri(null);
-      }
     }
   };
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 space-y-12">
-      {/* Common Spread Section */}
+      {/* Tarot Section */}
       <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl">
         <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
           <CardHeader>
@@ -148,81 +177,117 @@ export default function NewReadingPage() {
               </span>
             </CardTitle>
             <CardDescription>
-              {t('newCardReadingDescription')}
+              Para leituras com Tarô de Marselha e outros oráculos de 22 arcanos maiores.
             </CardDescription>
           </CardHeader>
-          <form onSubmit={(e) => handleSubmit(e, 'common')}>
+          <form onSubmit={(e) => handleSubmit(e, 'tarot')}>
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label className="text-lg">{t('uploadCardSpreadImageLabel')}</Label>
                 <div className="flex items-center gap-4">
                     <Input
-                      id="card-image"
+                      id="tarot-image"
                       type="file"
                       accept="image/png, image/jpeg, image/webp"
-                      onChange={(e) => handleImageChange(e, 'common')}
+                      onChange={(e) => handleImageChange(e, 'tarot')}
                       className="hidden"
                       disabled={isLoading}
                     />
                     <Label
-                      htmlFor="card-image"
-                      className={cn(
-                          buttonVariants({ variant: 'outline' }),
-                          'cursor-pointer',
-                          isLoading && 'cursor-not-allowed opacity-50'
-                      )}
+                      htmlFor="tarot-image"
+                      className={cn(buttonVariants({ variant: 'outline' }), 'cursor-pointer', isLoading && 'cursor-not-allowed opacity-50')}
                     >
                       <UploadCloud className="mr-2 h-4 w-4" />
                       {t('chooseFileButton')}
                     </Label>
                     <span className="text-sm text-muted-foreground truncate">
-                      {fileName || t('noFileChosenText')}
+                      {tarotFileName || t('noFileChosenText')}
                     </span>
                 </div>
-                {imagePreview && (
+                {tarotImagePreview && (
                   <div className="mt-4 border rounded-lg p-2 bg-muted/50 flex justify-center">
                     <Image
-                      src={imagePreview}
-                      alt={t('cardSpreadPreviewAlt')} 
-                      data-ai-hint="tarot card spread user upload"
-                      width={400}
-                      height={300}
-                      className="rounded-md object-contain max-h-[300px]"
+                      src={tarotImagePreview} alt={t('cardSpreadPreviewAlt')} data-ai-hint="tarot card spread user upload"
+                      width={400} height={300} className="rounded-md object-contain max-h-[300px]"
                     />
                   </div>
                 )}
               </div>
-
               <div className="space-y-2">
-                <Label htmlFor="query" className="text-lg">{t('yourQuestionLabel')}</Label>
+                <Label htmlFor="tarot-query" className="text-lg">{t('yourQuestionLabel')}</Label>
                 <Textarea
-                  id="query"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder={t('questionPlaceholder')}
-                  rows={4}
-                  className="resize-none"
-                  disabled={isLoading}
+                  id="tarot-query" value={tarotQuery} onChange={(e) => setTarotQuery(e.target.value)}
+                  placeholder={t('questionPlaceholder')} rows={4} className="resize-none" disabled={isLoading}
                 />
               </div>
             </CardContent>
             <CardFooter>
-              <Button 
-                type="submit" 
-                className="w-full text-lg py-6" 
-                disabled={isLoading || !imageDataUri || !query.trim()}
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {t('generatingInterpretationButton')}
-                  </>
-                ) : (
-                  <>
-                    <BookHeart className="mr-2 h-5 w-5" />
-                    {t('getYourReadingButton')}
-                  </>
+              <Button type="submit" className="w-full text-lg py-6" disabled={isLoading || !tarotImageDataUri || !tarotQuery.trim()}>
+                {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />{t('generatingInterpretationButton')}</> : <><BookHeart className="mr-2 h-5 w-5" />{t('getYourReadingButton')}</>}
+              </Button>
+            </CardFooter>
+          </form>
+        </Card>
+      </div>
+
+      {/* Cigano (Free) Section */}
+      <div className="max-w-2xl mx-auto animated-aurora-background rounded-xl">
+        <Card className="relative z-10 bg-card/90 dark:bg-card/80 backdrop-blur-sm shadow-xl">
+          <CardHeader>
+            <CardTitle className="text-3xl font-serif flex items-center">
+              <VenetianMask className="h-8 w-8 mr-3 text-primary" />
+              <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent bg-[length:200%_auto] animate-text-gradient-flow">
+                Baralho Cigano (Tiragem Livre)
+              </span>
+            </CardTitle>
+            <CardDescription>
+              Para leituras com Baralho Cigano em tiragens livres. A análise será feita da esquerda para a direita.
+            </CardDescription>
+          </CardHeader>
+          <form onSubmit={(e) => handleSubmit(e, 'cigano')}>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <Label className="text-lg">{t('uploadCardSpreadImageLabel')}</Label>
+                <div className="flex items-center gap-4">
+                    <Input
+                      id="cigano-image"
+                      type="file"
+                      accept="image/png, image/jpeg, image/webp"
+                      onChange={(e) => handleImageChange(e, 'cigano')}
+                      className="hidden"
+                      disabled={isLoading}
+                    />
+                    <Label
+                      htmlFor="cigano-image"
+                      className={cn(buttonVariants({ variant: 'outline' }), 'cursor-pointer', isLoading && 'cursor-not-allowed opacity-50')}
+                    >
+                      <UploadCloud className="mr-2 h-4 w-4" />
+                      {t('chooseFileButton')}
+                    </Label>
+                    <span className="text-sm text-muted-foreground truncate">
+                      {ciganoFileName || t('noFileChosenText')}
+                    </span>
+                </div>
+                {ciganoImagePreview && (
+                  <div className="mt-4 border rounded-lg p-2 bg-muted/50 flex justify-center">
+                    <Image
+                      src={ciganoImagePreview} alt="Prévia da Tiragem Cigana" data-ai-hint="lenormand card spread user upload"
+                      width={400} height={300} className="rounded-md object-contain max-h-[300px]"
+                    />
+                  </div>
                 )}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="cigano-query" className="text-lg">{t('yourQuestionLabel')}</Label>
+                <Textarea
+                  id="cigano-query" value={ciganoQuery} onChange={(e) => setCiganoQuery(e.target.value)}
+                  placeholder={t('questionPlaceholder')} rows={4} className="resize-none" disabled={isLoading}
+                />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button type="submit" className="w-full text-lg py-6" disabled={isLoading || !ciganoImageDataUri || !ciganoQuery.trim()}>
+                {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />{t('generatingInterpretationButton')}</> : <><BookHeart className="mr-2 h-5 w-5" />Interpretar Baralho Cigano</>}
               </Button>
             </CardFooter>
           </form>
@@ -240,7 +305,7 @@ export default function NewReadingPage() {
               </span>
             </CardTitle>
             <CardDescription>
-              Carregue a imagem da sua Mesa Real completa para uma análise profunda e detalhada de todas as áreas da sua vida.
+              Carregue a imagem da sua Mesa Real completa (36 cartas) para uma análise profunda e detalhada de todas as áreas da sua vida.
             </CardDescription>
           </CardHeader>
           <form onSubmit={(e) => handleSubmit(e, 'mesaReal')}>
@@ -258,14 +323,10 @@ export default function NewReadingPage() {
                     />
                     <Label
                       htmlFor="mesa-real-image"
-                      className={cn(
-                          buttonVariants({ variant: 'outline' }),
-                          'cursor-pointer',
-                          isLoading && 'cursor-not-allowed opacity-50'
-                      )}
+                      className={cn(buttonVariants({ variant: 'outline' }), 'cursor-pointer', isLoading && 'cursor-not-allowed opacity-50')}
                     >
                       <UploadCloud className="mr-2 h-4 w-4" />
-                      Carregar Tiragem
+                      {t('chooseFileButton')}
                     </Label>
                     <span className="text-sm text-muted-foreground truncate">
                       {mesaRealFileName || t('noFileChosenText')}
@@ -284,7 +345,6 @@ export default function NewReadingPage() {
                   </div>
                 )}
               </div>
-
               <div className="space-y-2">
                 <Label htmlFor="mesa-real-query" className="text-lg">{t('yourQuestionLabel')}</Label>
                 <Textarea
@@ -299,28 +359,13 @@ export default function NewReadingPage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button 
-                type="submit" 
-                className="w-full text-lg py-6" 
-                disabled={isLoading || !mesaRealImageDataUri || !mesaRealQuery.trim()}
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {t('generatingInterpretationButton')}
-                  </>
-                ) : (
-                  <>
-                    <BookHeart className="mr-2 h-5 w-5" />
-                    Interpretar Mesa Real
-                  </>
-                )}
+              <Button type="submit" className="w-full text-lg py-6" disabled={isLoading || !mesaRealImageDataUri || !mesaRealQuery.trim()}>
+                {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />{t('generatingInterpretationButton')}</> : <><BookHeart className="mr-2 h-5 w-5" />Interpretar Mesa Real</>}
               </Button>
             </CardFooter>
           </form>
         </Card>
       </div>
-
 
       {error && (
          <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
@@ -353,7 +398,7 @@ export default function NewReadingPage() {
         </div>
       )}
 
-      {interpretationResult && interpretationResult.mandalaImageUri && (
+      {interpretationResult && (interpretationResult as any).mandalaImageUri && (
         <div className="max-w-2xl mx-auto mt-8 animated-aurora-background rounded-lg">
           <Card className="shadow-2xl bg-gradient-to-br from-accent/20 via-transparent to-secondary/20 backdrop-blur-md relative z-10">
             <CardHeader>
@@ -364,7 +409,7 @@ export default function NewReadingPage() {
             </CardHeader>
             <CardContent className="flex justify-center">
               <Image
-                src={interpretationResult.mandalaImageUri}
+                src={(interpretationResult as any).mandalaImageUri}
                 alt={t('summaryImageAlt')}
                 data-ai-hint="spiritual guidance orixa blessing"
                 width={512}
