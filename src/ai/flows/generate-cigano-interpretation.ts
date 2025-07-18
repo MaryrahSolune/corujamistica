@@ -501,36 +501,11 @@ O Chicote (11) + O Peixe (34) = pensamentos voltados ao dinheiro.
 O Chicote (11) + A Âncora (35) = falta de estabilidade.
 O Chicote (11) + A Cruz (36) = fim de desafios e dificuldades.
 
-🌟 **Arcanos Maiores do Tarot com Correspondência aos Orixás e Influência Astrológica** 🌟
-(A lista que você forneceu permanece aqui, inalterada)
-0 - O Louco: Exu, Urano/Ar
-I - O Mago: Ogum, Mercúrio
-II - A Sacerdotisa: Iansã, Lua
-III - A Imperatriz: Oxum, Vênus
-IV - O Imperador: Xangô, Áries
-V - O Hierofante: Oxalá, Touro
-VI - Os Amantes: Oxalufã (Yemanjá), Gêmeos
-VII - O Carro: Ogum, Câncer
-VIII - A Justiça: Obaluaiê, Libra
-IX - O Eremita: Nanã, Virgem
-X - A Roda da Fortuna: Oxumaré, Júpiter
-XI - A Força: Iansã, Leão
-XII - O Enforcado: Oxóssi, Netuno
-XIII - A Morte: Iemanjá, Escorpião
-XIV - A Temperança: Oxalá, Sagitário
-XV - O Diabo: Omolu/Obaluaiê, Capricórnio
-XVI - A Torre: Exu, Marte
-XVII - A Estrela: Oxum, Aquário
-XVIII - A Lua: Iansã, Peixes
-XIX - O Sol: Oxalá, Sol
-XX - O Julgamento: Omolu/Obaluaiê, Plutão
-XXI - O Mundo: Oxalá, Saturno
-
 ---
 
 Interprete a seguinte tiragem de cartas, seguindo rigorosamente todas as instruções e integrando todos os seus conhecimentos:
 
-{{media url=photoDataUri}}
+{{media url=cardSpreadImage}}
 
 Ao final de sua interpretação, inclua uma saudação respeitosa a Exu, como por exemplo: "Laroyê Exu! Salve o Guardião desta página e de toda a humanidade!"
 `,
@@ -592,4 +567,4 @@ const generateCiganoInterpretationFlow = ai.defineFlow(
   }
 );
 
-    
+      

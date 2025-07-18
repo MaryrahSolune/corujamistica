@@ -572,15 +572,15 @@ Ao final de sua interpretação, inclua uma saudação respeitosa a Exu, como po
   },
 });
 
-const generateCiganoInterpretationFlow = ai.defineFlow(
+const generateMesaRealInterpretationFlow = ai.defineFlow(
   {
-    name: 'generateCiganoInterpretationFlow',
-    inputSchema: GenerateCiganoInterpretationInputSchema,
-    outputSchema: GenerateCiganoInterpretationOutputSchema,
+    name: 'generateMesaRealInterpretationFlow',
+    inputSchema: GenerateMesaRealInterpretationInputSchema,
+    outputSchema: GenerateMesaRealInterpretationOutputSchema,
   },
-  async input => {
+  async (input) => {
     // 1. Generate the text interpretation and the mandala prompt.
-    const { output: promptOutput } = await ciganoInterpretationPrompt(input);
+    const { output: promptOutput } = await mesaRealInterpretationPrompt(input);
     if (!promptOutput) {
       throw new Error('Failed to generate reading interpretation text.');
     }
@@ -607,3 +607,5 @@ const generateCiganoInterpretationFlow = ai.defineFlow(
     };
   }
 );
+
+      
