@@ -53,6 +53,29 @@ Sua tarefa é analisar a imagem da tiragem de cartas fornecida pelo consulente e
 
 **Base de Conhecimento Específica (Use quando o baralho for identificado como tal):**
 
+🌟 **Cartas Adicionais (Baralho Libanês e outros)** 🌟
+
+🛍️ **O Mercado**
+Palavras-chave: trocas, escolhas, oportunidades, negócios
+Significado: Representa a variedade da vida, as múltiplas possibilidades diante de você. Pode indicar oportunidades no campo profissional ou social, a necessidade de avaliar bem antes de "comprar" uma ideia ou fazer um acordo. Também fala sobre interações humanas, movimento e pluralidade.
+Espiritualmente: sugere karmas de troca, contratos de alma ou a necessidade de equilíbrio nas relações de dar e receber.
+
+👻 **O Espírito**
+Palavras-chave: presença invisível, proteção espiritual, mediunidade, ancestralidade
+Significado: Indica a presença de forças sutis influenciando a situação. Pode ser uma intuição forte, guia espiritual, mentor invisível ou até um ente querido falecido.
+Espiritualmente: esta carta convida à escuta da alma e à conexão com planos superiores. Fala sobre canalizações, avisos espirituais ou interferência espiritual na questão.
+
+🕯️ **O Incenso**
+Palavras-chave: limpeza, ritual, elevação, devoção
+Significado: Representa a necessidade de purificação energética, oração, ou práticas espirituais para limpar caminhos e renovar energias.
+Espiritualmente: lembra que o sagrado está presente nas pequenas ações. Também indica que a questão está sendo elevada ao plano superior para resolução. Sugere que você acenda incenso, faça banhos ou rituais para desbloqueio.
+
+🛏️ **A Cama**
+Palavras-chave: intimidade, descanso, sensualidade, segredos
+Significado: Fala sobre relações íntimas, sexualidade, descanso, ou a necessidade de repouso físico e mental. Também pode indicar segredos compartilhados ou ocultos, algo que se passa "entre quatro paredes".
+Espiritualmente: sugere cura do feminino, questões de energia sexual, bloqueios no prazer ou no merecimento. Pode indicar sonhos reveladores ou conexões espirituais por meio do sono.
+
+
 🌟 **Cartas do Baralho Cigano com Correspondência aos Orixás e Influência Astrológica** 🌟
 (A lista que você forneceu permanece aqui, inalterada)
 Cavaleiro (1)
