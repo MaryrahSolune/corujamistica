@@ -4,7 +4,8 @@
 import { rtdb } from '@/lib/firebase';
 import { ref, get, set } from 'firebase/database';
 
-const contentForA = `Abacate - Sonhar com abacate mostra que as coisas poderão fluir melhor e mais rápido por agora. Assim como o abacateiro que em comparação a muitas árvores, cresce bem rápido e possui um grande porte, ele no sonho deixa bem representado este seu crescimento. O que já vem acontecendo de forma gradativa, mas que agora será percebido por você e pelas pessoas a sua volta. Afinal é preciso ter solidez e segurança para assim se manter firme e não cair depois conforme sua jornada. Confiança e força de vontade o levam a lugares melhores, e se por acaso fraquejar ou até se acomodar as coisas certamente podem voltar ao começo, onde o caminho é mais longo e difícil.
+const dictionaryData: Record<string, string> = {
+    'A': `Abacate - Sonhar com abacate mostra que as coisas poderão fluir melhor e mais rápido por agora. Assim como o abacateiro que em comparação a muitas árvores, cresce bem rápido e possui um grande porte, ele no sonho deixa bem representado este seu crescimento. O que já vem acontecendo de forma gradativa, mas que agora será percebido por você e pelas pessoas a sua volta. Afinal é preciso ter solidez e segurança para assim se manter firme e não cair depois conforme sua jornada. Confiança e força de vontade o levam a lugares melhores, e se por acaso fraquejar ou até se acomodar as coisas certamente podem voltar ao começo, onde o caminho é mais longo e difícil.
 Abacateiro - Sonhar com abacateiro mostra que as coisas poderão fluir melhor e mais rápido por agora. Assim como o abacateiro que em comparação a muitas árvores, cresce bem rápido e possui um grande porte, ele no sonho deixa bem representado este seu crescimento. O que já vem acontecendo de forma gradativa, mas que agora será percebido por você e pelas pessoas a sua volta. Afinal é preciso ter solidez e segurança para assim se manter firme e não cair depois conforme sua jornada. Confiança e força de vontade o levam a lugares melhores, e se por acaso fraquejar ou até se acomodar as coisas certamente podem voltar ao começo, onde o caminho é mais longo e difícil.
 Abacaxi - Ver um abacaxi em seu sonho significa que você precisa ser menos dependente dos outros. Se você está comendo abacaxi em seu sonho, então o sonho representa o sucesso em seus empreendimentos.
 Abadá - Sonhar com abadá mostra que você está à procura do seu lugar. Quando se compra um abadá você quer ter acesso e saber que terá o seu lugar e participará da festa. A abadá no sonho indica mais ou menos isso, você se vê preparado para alcançar e o ocupar o lugar que sempre almejou e que agora pode estar mais próximo. Por isso procure continuar seu trajeto, fazendo o necessário para alcançar seus objetivos, isso continuará lhe conduzindo ao seu objetivo final e assim conseguirá o seu lugar, aquele que deseja e quer conquistar.
@@ -13,7 +14,6 @@ Abajur - Sonhar com abajur indica que deve ter cuidado com novas aventuras. Outr
 Abanador - Sonhar com abanador simboliza que está se sentindo oprimido e busca por mais liberdade representada pela necessidade de conseguir mais ar para respirar. O sonho com abanador também pode significar que gostaria se sentir mais livre e esquecer de vez as lembranças negativas.
 Abandono - Sonhar que você é abandonado sugere que está na hora de deixar para trás sentimentos passados e características que estão impedindo seu crescimento. Renove velhas atitudes. Uma interpretação mais direta e literal deste sonho é que você tem medo de ficar sozinho, abandonado ou até mesmo ser traído. O sonho com abandono pode se originar de uma perda recente ou pelo medo de perder um amor. O medo de abandono pode se manifestar em seu sonho como parte do processo de recuperação pelo fim de um relacionamento. Também pode se originar de sentimentos não resolvidos ou problemas de infância. Alternativamente, o sonho indica que você está se sentindo negligenciado ou que seus sentimentos estão sendo ignorados. Abandonar outros em seu sonho sugere que você está sendo subjugado pelos problemas e decisões em sua vida.
 Abastecer - Sonhar com abastecer mostra a reposição de algo. Você pode tentar perceber o que precisa ser reposto, seja sua saúde, trabalho, qualidade de vida, há algo que está faltando e você precisa ver o que é. Isso fará com que as coisas caminhem melhor e você vai perceber que tudo irá fluir muito bem, depois que conseguir se abastecer. Isso pode ser para tudo, boas energias, fazer coisa prazerosas a você, sair, se distrair, ou até trabalhar, colocar coisas em ordem, se analisar vai ajudar a saber o que lhe faz falta no momento, e isso vai fazer com que se recomponha e se sinta cada vez melhor.
-Abelha - Ser picado por abelha indica que você será recompensado pelo seu esforço. Ver abelhas trabalhando em uma colméia simboliza que terá sucesso no trabalho. Abelha voando ao seu redor significa felicidade no amor.
 Abertura - Sonhar com abertura mostra sair de sua rotina. A vida, tarefas, obrigações do dia a dia precisam em algum momento, mudar, ter uma abertura para coisas novas e talvez incorporar ao que será feito depois. Você precisa ser mais flexível, é isso que o sonho com abertura quer lhe mostrar. Pense de forma mais leve, e de relevância a opinião de pessoas que são importantes para você, estás podem lhe ajudar muito a ter um novo olhar, uma nova jornada.
 Abeto - Sonhar com abeto mostra dois extremos. Sim, se você sonhou que cortou ou viu alguém cortar um abeto, as coisas poderão ficar bem difíceis por agora, tanto para você, se foi quem cortou a planta em sonho, ou para alguém próximo, mas não necessariamente quem o cortou em sonho. Mas se você estava vendo, ou plantando o abeto, isso indica muita fartura, e coisas boas se multiplicando, as coisas caminharão muito bem, e você viverá ótimos momentos logo, logo, caso ainda não tenha começado a viver isso.
 Abismo - Possível preocupação, uma queda no amor ou nos negócios, mas com melhoras imediatas. Pensamento positivo e fé.
@@ -25,7 +25,6 @@ Aborígine - Ver um aborígine em seu sonho representa seu lado puro, selvagem. 
 Aborrecimento - Ter a sensação de aborrecimento durante o sonho simboliza que deve ficar atento a pequenos detalhes que poderão de fato lhe trazer algum aborrecimento na vida real. Normalmente durante o sonho o aborrecimento é causado por algum outro evento e na maioria das vezes este deve ser o significado a ser buscado.
 Aborto - Sonhar com aborto mostra certa insegurança de sua parte. Medos e angustias podem estar martelando sua cabeça, algo lhe aflige e isto não é nada bom. Tente relaxar e observar as coisas de forma mais prática, para então poder resolver estas situações e assim ficar melhor consigo mesmo. Caso não consiga pensar em nada, peça ajuda, converse com alguém, isto pode ajudar a esclarecer pensamentos e ideias.
 Abotoadura - Sonhar com abotoadura demonstra seu jeito de ser. Detalhista e perfeccionista está deve ser sua personalidade, mas caso seja totalmente o oposto a abotoadura no sonho esclarece então que você deve ser mais atento aos detalhes e precisa melhorar sua atenção, principalmente aos detalhes. Muitas vezes não damos a devida importância aos detalhes, afinal podem ser tão pequenos. Mas são estes que fazem toda a diferença principalmente no trabalho, por isso fique mais atento a isso.
-Abotoar - Sonhar que está abotoando uma roupa significa que precisa organizar melhor suas idéias. Abotoar a roupa de outra pessoa significa que irá ajudar alguém a colocar ordem na vida.
 Abraçar - Abraçar alguém durante o sonho ou ser abraçado simboliza reencontro com alguém querido que não vê há muito tempo. Abraçar também significa reconciliação com seu amor ou com um amigo. O significado deste sonho também pode ser entendido com um novo começo para um relacionamento ou para uma amizade sincera. Abraçar sempre está relacionado a alguém que é importante e querido por você.
 Abraço - Visita de parente distante, novas amizades, boas notícias, reconciliação com amigos, parentes ou com o ser amado.
 Abridor de lata - Ver um abridor de lata em seu sonho simboliza sua busca por novas idéias e conceitos. Usar um abridor de latas significa confiança e modo afirmativo de pensar.
@@ -33,11 +32,10 @@ Abrigo - Proteção, aconchego, defesa contra o mal e a intriga.
 Abrir - Novos horizontes se abrindo, felicidade a caminho, perspectivas de promoção no emprego ou negócios.
 Abscesso - Sonhar com abscesso simboliza que você guarda algo que não lhe faz bem. Você pode ter alguma mágoa que por agora pode vir a tona, por isso o abscesso no sonho, ele quer lhe mostrar que uma hora as coisas devem ser resolvidas, você precisa fazer algo, não haverá mais como guardar isso para si. Por isso se você tem uma questão que lhe incomoda e que estava esquecida até agora, o faça, resolva. Conversar, dedicar tempo e atenção a isso pode não ser agradável, mas será um alívio e uma libertação para que possa fazer e viver as coisas de forma diferente. Tudo ficará mais leve e você será outra pessoa, acredite, não guarde nada de ruim dentro de si.
 Absinto - Sonhar com absinto mostra um sentimento muito forte chegando a você. Este sentimento chega de maneira forte e arrebatadora, principalmente em seus relacionamentos pessoais. Por isso viva este momento ele é necessário, sempre podemos aprender muito com estes momentos. Aproveite ao máximo as coisas boas que a vida está lhe trazendo. Proporcionar coisas boas a você e quem você ama, faz parte dos cuidados de seus sentimentos e do outro. Não fique parado, este desanimo não combina com sentimentos fortes e felizes.
-Absoluto - Sonhar com algo absoluto mostra uma certeza. Este sonho quer deixar bem claro que você não precisa mais se preocupar, pois esta certeza já deve ser o suficiente para você se sentir mais seguro e não se sentir tão ansioso em relação ao que pode acontecer.
 Absolver - Sonhar com absolver mostra um período de adaptação. Sim, você vai precisar se adaptar de forma rápida, para que as coisas consigam continuar caminhando da forma que você planejou. E o absolver indica, que você deve ter maior compreensão diante das decisões dos outros, sim, a sua adaptação, pode depender da ação de outros, e muitas vezes este não pode ou até não quer fazer isso, e você deve saber que todos temos momentos e vivências, e você não deve se deixar aborrecer por coisas assim.
 Absolvido - Sonhar que você é absolvido de um crime significa que precisa tirar uma valiosa lição de algum acontecimento recente. Ver outros absolvidos em seu sonho indica que você precisa equilibrar seu tempo dedicado ao trabalho com tempo disponível para diversão e lazer.
 Absorvente - Mulher: fase de muita tensão no plano emocional, que você deve levar com muito cuidado e compreensão. Homem: fantasias eróticas reprimidas.
-Absorver - Sonhar com absorver indica que você se retém a coisas e problemas de outras pessoas. Neste momento você não deve absorver coisas que não são suas, podem sim fazer parte de você por estarem diretamente ligadas a alguém bem próximo, mas veja, não são coisas que você deve resolver ou se preocupar. Uma ajuda ou opinião sempre existirão claro, mas tente não absorver tudo para si, isso o está deixando muito cansado e sobrecarregado, com coisas que poderiam ser mais leves a você.
+Absorver - Sonhar com absorver indica que você se retém a coisas e problemas de outras pessoas. Neste momento você deve absorver coisas que não são suas, podem sim fazer parte de você por estarem diretamente ligadas a alguém bem próximo, mas veja, não são coisas que você deve resolver ou se preocupar. Uma ajuda ou opinião sempre existirão claro, mas tente não absorver tudo para si, isso o está deixando muito cansado e sobrecarregado, com coisas que poderiam ser mais leves a você.
 Abstinência - Sonhar com abstinência simboliza algo no sentido contrário. Veja, se você se absteve de algo de forma radical, tenha atenção para não exagerar em alguma coisa, talvez você queira algo de imediato, e fazer isso desta forma, rápida sem pensar, pode lhe prejudicar ou não lhe trazer o melhor resultado, ou o exagero pode acontecer em ações de sua parte, tenha atenção a isso, tudo que é muito, pode ser ruim, saber dosar as coisas por agora, será muito importante.
 Abundância - Bom período para o trabalho e/ou negócios, grandes realizações à vista. No amor grandes emoções. Não jogue.
 Abusar - Sonhar com abusar simboliza um abuso seu. Agora resta a você perceber onde você pode estar abusando, pois isso pode ser muito difícil de ser percebido por aquele que o está fazendo, é preciso um olhar um pouco mais empático para que assim possa perceber o que faz e o quanto pode estar sendo abusivo de sua parte. Por isso reveja algumas atitudes e falas de sua parte e se por acaso perceber que pode sim estar abusando de alguém, pare, converse, peça desculpas e tente organizar as coisas de forma mais leve e que posam ser feitas sim, mas de maneira mais leve.
@@ -640,11 +638,7 @@ Azeviche - Sonhar com azeviche mostra que é preciso ter cuidado com as pedras.
 Azia - Sonhar com azia mostra que é preciso ter cuidado com a saúde.
 Azul - Sonho excelente. Felicidade. Escuro: Boas notícias. Claro: Casamento.
 Azulão - Felicidade à vista, bom casamento.
-Azulejo - Branco: Felicidade. Colorido: Novo amor. Escuro: Cuidado com a inveja.
-`;
-
-const dictionaryData: Record<string, string> = {
-    'A': contentForA,
+Azulejo - Branco: Felicidade. Colorido: Novo amor. Escuro: Cuidado com a inveja.`
 };
 
 // Function to get the dictionary entry for a specific letter
@@ -687,13 +681,11 @@ export async function updateDreamDictionaryEntry(letter: string, content: string
 }
 
 // Function for the AI flow to get meanings for specific keywords.
-// This is now more robust.
 export async function getDictionaryEntriesForKeywords(keywords: string[]): Promise<string> {
   if (!keywords || keywords.length === 0) {
     return "Nenhum símbolo principal foi identificado no sonho para consulta no dicionário.";
   }
 
-  // Normalize keywords from the dream for comparison (lowercase, no accents)
   const normalizeText = (text: string) =>
     text
       .toLowerCase()
@@ -703,49 +695,47 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
   const normalizedKeywords = keywords.map(normalizeText);
 
   // Get the full dictionary content for the first letter of the first keyword.
-  // This is an approximation; a more complex system might check all relevant letters.
   const firstLetter = keywords[0][0].toUpperCase();
   const fullContent = await getDreamDictionaryEntry(firstLetter);
 
-  // Split the dictionary content into entries.
-  // This assumes entries are separated by a newline and start with a capital letter word.
-  const entries = fullContent.split('\n').filter(line => line.trim() !== '');
+  // Split the dictionary content into lines.
+  const lines = fullContent.split('\\n');
   
   const foundMeanings: string[] = [];
-  const processedDictionaryWords = new Set<string>();
 
-  entries.forEach(line => {
-    // Match words that start a line, are in uppercase, and may contain spaces (like 'ÁGUA SANITÁRIA').
-    const match = line.match(/^([A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s-]+)\s*-/);
-    if (match) {
+  for (const keyword of normalizedKeywords) {
+    // Find the line where the keyword is defined.
+    const entryLineIndex = lines.findIndex(line => {
+      const match = line.match(/^([A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s-]+)\s*-/);
+      if (match) {
         const dictWord = match[1].trim();
-        const normalizedDictWord = normalizeText(dictWord);
+        return normalizeText(dictWord) === keyword;
+      }
+      return false;
+    });
 
-        // Avoid reprocessing the same dictionary word
-        if (processedDictionaryWords.has(normalizedDictWord)) {
-            return;
-        }
+    if (entryLineIndex !== -1) {
+      // Found the keyword. Now, extract its full definition.
+      let entryContent = lines[entryLineIndex];
+      let nextLineIndex = entryLineIndex + 1;
 
-        // Check if any of the dream's keywords match this dictionary entry
-        if (normalizedKeywords.some(kw => kw === normalizedDictWord)) {
-            // Find the full entry for this word
-            let entryContent = line;
-            let nextLineIndex = entries.indexOf(line) + 1;
-            while (nextLineIndex < entries.length && !/^[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s-]+ \s*-/.test(entries[nextLineIndex])) {
-                entryContent += '\n' + entries[nextLineIndex];
-                nextLineIndex++;
-            }
-            foundMeanings.push(entryContent);
-            processedDictionaryWords.add(normalizedDictWord);
-        }
+      // Keep adding lines until we hit the next keyword definition or the end.
+      while (nextLineIndex < lines.length && !/^[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s-]+ \s*-/.test(lines[nextLineIndex])) {
+          entryContent += '\\n' + lines[nextLineIndex];
+          nextLineIndex++;
+      }
+      
+      // Avoid adding duplicate entries if multiple keywords point to the same definition
+      if (!foundMeanings.includes(entryContent)) {
+          foundMeanings.push(entryContent);
+      }
     }
-  });
+  }
+
 
   if (foundMeanings.length > 0) {
-    return foundMeanings.join('\n\n');
+    return foundMeanings.join('\\n\\n');
   }
 
   return `Nenhum significado específico foi encontrado no dicionário para os símbolos: ${keywords.join(', ')}. A interpretação será baseada no conhecimento geral do Profeta.`;
 }
-
-    
