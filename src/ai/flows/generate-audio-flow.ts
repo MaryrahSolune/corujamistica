@@ -12,15 +12,15 @@ import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import wav from 'wav';
 
-export const GenerateAudioInputSchema = z.object({
-  textToNarrate: z.string().min(1).describe('The text to be converted to speech.'),
-});
-export type GenerateAudioInput = z.infer<typeof GenerateAudioInputSchema>;
+// Input and Output types are defined here for use in the function signatures.
+// The Zod schemas themselves are defined inline within the flow to comply with 'use server'.
+export type GenerateAudioInput = {
+  textToNarrate: string;
+};
 
-export const GenerateAudioOutputSchema = z.object({
-  audioDataUri: z.string().describe("A data URI of the generated audio in WAV format. Format: 'data:audio/wav;base64,<encoded_data>'."),
-});
-export type GenerateAudioOutput = z.infer<typeof GenerateAudioOutputSchema>;
+export type GenerateAudioOutput = {
+  audioDataUri: string;
+};
 
 /**
  * Converts a buffer of raw PCM audio data to a Base64-encoded WAV string.
@@ -60,8 +60,12 @@ async function toWav(
 const generateAudioFlow = ai.defineFlow(
   {
     name: 'generateAudioFlow',
-    inputSchema: GenerateAudioInputSchema,
-    outputSchema: GenerateAudioOutputSchema,
+    inputSchema: z.object({
+      textToNarrate: z.string().min(1).describe('The text to be converted to speech.'),
+    }),
+    outputSchema: z.object({
+      audioDataUri: z.string().describe("A data URI of the generated audio in WAV format. Format: 'data:audio/wav;base64,<encoded_data>'."),
+    }),
   },
   async ({ textToNarrate }) => {
     const { media } = await ai.generate({
