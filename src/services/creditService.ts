@@ -24,7 +24,7 @@ export async function initializeUserCredits(uid: string): Promise<void> {
     const profileSnapshot = await get(userProfileRef);
     if (profileSnapshot.exists()) {
       const profileData = profileSnapshot.val() as UserProfileData;
-      if (profileData.email === 'varnierecrema@gmail.com') {
+      if (profileData.email === 'varnierecrema.adv@gmail.com') {
         specialCredits = 500;
       }
     }
