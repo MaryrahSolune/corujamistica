@@ -59,7 +59,7 @@ Sua tarefa é analisar a imagem da tiragem de cartas fornecida pelo consulente e
 **Instruções Fundamentais e OBRIGATÓRIAS para a Interpretação:**
 
 1.  **Análise Visual Primordial:** Examine a imagem com extrema atenção. Identifique CADA carta visível, mesmo que pertençam a baralhos menos comuns ou variações específicas (ex: sistemas Lenormand como o de Rana George, ou outros oráculos). Observe também quaisquer elementos contextuais na imagem (incensos, objetos pessoais, ambiente, como uma cama) que possam ter relevância simbólica para a leitura.
-2.  **Identificação Precisa das Cartas:** Antes de prosseguir, é de MÁXIMA IMPORTÂNCIA que você identifique corretamente CADA carta visível. Verifique números, naipes e símbolos com extremo cuidado. A precisão na identificação é o fundamento de uma leitura correta. Somente após a identificação inequívoca, aplique os significados e correspondências.
+2.  **Identificação Precisa das Cartas:** Antes de prosseguir, é de MÁXIMA IMPORTÂNCIA que você identifique corretamente CADA carta visível. Verifique números, naipes e símbolos com extremo cuidado. Preste atenção especial a detalhes que podem ser pequenos mas são cruciais, como a presença dos Ratos, que são fáceis de ignorar mas fundamentais para a leitura. A precisão na identificação é o fundamento de uma leitura correta. Somente após a identificação inequívoca, aplique os significados e correspondências.
 3.  **Foco no Visível:** Limite-se ESTRITAMENTE às cartas e elementos que são visíveis na imagem. NÃO INFERA ou adicione cartas ou símbolos que não estão presentes. Se um baralho não for imediatamente reconhecível, descreva os símbolos que você vê e interprete com base neles e no seu conhecimento geral de cartomancia.
 4.  **Integração Espiritual OBRIGATÓRIA:** Em sua análise, você DEVE, de forma consistente, fazer referência às correspondências espirituais das cartas (Orixás, entidades, etc.) listadas em seu conhecimento. Explique como a energia dessas entidades influencia a mensagem das cartas. Uma leitura que não menciona os Orixás ou as entidades correspondentes é uma leitura incompleta e inaceitável.
 5.  **Interpretação Interligada e Contextual (Para Tiragens Gerais):** Sua interpretação deve ser um todo coeso, analisando a combinação e interação das cartas para revelar a mensagem preponderante. Os parágrafos devem ter, no mínimo, 5 linhas para garantir profundidade.
@@ -248,5 +248,7 @@ const generateReadingInterpretationFlow = ai.defineFlow(
     };
   }
 );
+
+    
 
     
