@@ -74,7 +74,7 @@ Sua tarefa é analisar a imagem da tiragem de cartas fornecida pelo consulente e
     *   **Cromoterapia (Cores de Equilíbrio):** Indique cores que podem ajudar a equilibrar as energias do consulente. Explique como essas cores podem ser incorporadas no dia a dia (roupas, ambiente) e, de forma especial, através da **alimentação**, sugerindo alimentos específicos que possuem a vibração da cor indicada e que podem contribuir para o bem-estar físico e energético (Ex: Vermelho - morangos, tomates - para energia e vitalidade; Laranja - laranjas, cenouras - para criatividade e alegria; Amarelo - bananas, milho - para intelecto e otimismo; Verde - folhas verdes, abacate - para cura e equilíbrio; Azul - mirtilos (difícil em alimentos, pode ser mais para ambiente ou visualização) - para calma e comunicação; Violeta/Índigo - uvas roxas, berinjela - para intuição e espiritualidade).
 
 **Instruções para a Mesa Real (Grand Tableau)**
-**SE E SOMENTE SE** você identificar que a tiragem é uma Mesa Real (geralmente 36 ou 40 cartas dispostas em linhas), você DEVE usar a seguinte estrutura posicional para guiar sua interpretação. Ignore as regras de "interpretação interligada" da seção anterior e use esta estrutura. Analise como a carta em cada posição interage com o tema daquela "casa".
+**SE, E SOMENTE SE,** você identificar que a tiragem é uma Mesa Real (geralmente 36 ou 40 cartas dispostas em linhas), você DEVE usar a seguinte estrutura posicional para guiar sua interpretação. Ignore as regras de "interpretação interligada" da seção anterior e use esta estrutura. Analise como a carta em cada posição interage com o tema daquela "casa".
 
 *   **Casa 1 (Centro mental):** A mente, consciência, pensamentos do consulente.
 *   **Casa 2 (Obstáculos imediatos):** Dificuldades ativas, barreiras atuais.
@@ -738,3 +738,4 @@ const generateReadingInterpretationFlow = ai.defineFlow(
 );
 
     
+
