@@ -147,7 +147,7 @@ Astrologia: Vênus – beleza, harmonia, prazer.
 
 Foice (10)
 Significado: Cortes, decisões, colheita.
-Orixá: Ogum – guerreiro, cortes, caminhos abertos.
+Orixá: Oxóssi – caça, fartura, natureza.
 Astrologia: Marte – ação, decisões, cortes.
 
 Chicote (11)
