@@ -154,6 +154,78 @@ Peixes (34): Exu do Ouro (prosperidade), Júpiter.
 Âncora (35): Ogum/Marinheiros (firmeza e fluidez), Touro.
 Cruz (36): Povo das Almas (missão espiritual), (não fornecido).
 
+🌟 **Combinações do Baralho Cigano (Base de Conhecimento)** 🌟
+O Cavaleiro (1) + O Trevo (2) = problemas passageiros e fáceis de superar logo surgirão em seu caminho.
+Trevo (2) + O Cavaleiro (1) = qualquer que seja a questão, essa combinação simboliza resposta ou solução rápida.
+O Cavaleiro (1) + O Navio (3) = transformações em sua vida chegarão em breve.
+Navio (3) + O Cavaleiro (1) = você precisa de autoconhecimento e de mudanças no seu interior.
+O Cavaleiro (1) + A Casa (4) = alguém com influência em sua vida surgirá.
+Casa (4) + O Cavaleiro (1) = alguém com influência em sua vida partirá.
+O Cavaleiro (1) + A Árvore (5) = é necessário pensar e realizar com mais agilidade para ter estabilidade.
+Árvore (5) + O Cavaleiro (1) = seus objetivos se concluirão sem problemas, e com segurança.
+O Cavaleiro (1) + As Nuvens (6) = obstáculos que se solucionarão rapidamente.
+Nuvens (6) + O Cavaleiro (1) = encontrará em breve as respostas que busca para seus problemas.
+O Cavaleiro (1) + A Serpente (7) = neste momento o único interesse é de cunho sexual.
+Serpente (7) + O Cavaleiro (1) = todas as traições ocultas virão à tona.
+O Cavaleiro (1) + O Caixão (8) = melhor hora de se transformar por dentro e por fora.
+Caixão (8) + O Cavaleiro (1) = as transformações gerarão frutos.
+O Cavaleiro (1) + O Buquê (9) = as metas serão alcançadas.
+Buquê (9) + O Cavaleiro (1) = harmonia na vida.
+O Cavaleiro (1) + A Foice (10) = vasculhe o que quer, pois encontrará o que procura.
+Foice (10) + O Cavaleiro (1) = chegarão as respostas para o que você desejava.
+O Cavaleiro (1) + O Chicote (11) = por dar novamente os mesmos passos, você se deparará em breve com as mesmas situações do passado.
+Chicote (11) + O Cavaleiro (1) = alguém ou alguma coisa que ficou para trás em sua vida, retornará.
+O Cavaleiro (1) + Os Pássaros (12) = boas novidades acontecerão.
+Pássaros (12) + O Cavaleiro (1) = o seu forte neste momento é o diálogo, ele lhe trará bons resultados independente qual seja a questão.
+O Cavaleiro (1) + A Criança (13) = boas transformações e novidades.
+Criança (13) + O Cavaleiro (1) = a infantilidade está presente neste momento.
+O Cavaleiro (1) + A Raposa (14) = seja esperto e alcançará o que deseja.
+Raposa (14) + O Cavaleiro (1) = alguém ou alguma situação se apresentará como armadilha em sua vida. Seja esperto e livre-se rapidamente dela.
+O Cavaleiro (1) + O Urso (15) = cuidado com as pessoas cheias de inveja, afaste-se delas.
+Urso (15) + O Cavaleiro (1) = um momento sufocante no qual você se sentia preso, passará.
+O Cavaleiro (1) + A Estrela (16) = o seu lado espiritual te ajudará a alcançar o seu objetivo.
+Estrela (16) + O Cavaleiro (1) = aposte em sua intuição que logo tudo se esclarecerá.
+O Cavaleiro (1) + A Cegonha (17) = muita fertilidade, provavelmente uma gravidez.
+Cegonha (17) + O Cavaleiro (1) = se você buscar mudanças, as soluções aparecerão.
+O Cavaleiro (1) + O Cachorro (18) = haverão mudanças em sua vida conquistadas com a ajuda de bons amigos.
+Cachorro (18) + O Cavaleiro (1) = para qualquer questão, procure ajuda dos amigos leais.
+O Cavaleiro (1) + A Torre (19) = o momento ruim acabará em breve.
+Torre (19) + O Cavaleiro (1) = esse é um período em que você precisa meditar e encontrar as respostas que necessita.
+O Cavaleiro (1) + O Jardim (20) = os sonhos realizarão trazendo harmonia.
+Jardim (20) + O Cavaleiro (1) = saia mais de sua casa, procure amigos, família, comunique-se.
+O Cavaleiro (1) + A Montanha (21) = encare os desafios que surgirão.
+Montanha (21) + O Cavaleiro (1) = por mais exaustante que seja os obstáculos, saiba que o esforço para solucioná-los valerá à pena.
+O Cavaleiro (1) + O Caminho (22) = estude bem qual caminho seguirá.
+Caminho (22) + O Cavaleiro (1) = suas boas escolhas renderão bons frutos.
+O Cavaleiro (1) + O Rato (23) = afaste do que esgota sua energia.
+Rato (23) + O Cavaleiro (1) = o que parecia ruim logo mais transformará em novidades.
+O Cavaleiro (1) + O Coração (24) = notícias trarão um momento de paz e harmonia.
+Coração (24) + O Cavaleiro (1) = os sentimentos e emoções se renovarão.
+O Cavaleiro (1) + O Anel (25) = tire proveito das parcerias e uniões em todos setores.
+Anel (25) + O Cavaleiro (1) = uniões estabelecidas anteriormente lhe trarão um momento de paz e harmonia.
+O Cavaleiro (1) + Os Livros (26) = você e deparará com oportunidades, não abra mão delas.
+Livros (26) + O Cavaleiro (1) = não confie em ninguém, guarde para si o que é importante.
+O Cavaleiro (1) + A Carta (27) = tenha paciência pois logo boas notícias mudarão a sua vida.
+Carta (27) + O Cavaleiro (1) = use todo seu conhecimento e experiência para tomar novos rumos em sua vida.
+O Cavaleiro (1) + O Cigano (28) = a figura de um homem persuasivo e corajoso mexerá com sua vida (pode ser você ou alguém próximo).
+Cigano (28) + O Cavaleiro (1) = há um homem que sempre está próximo a você que te influenciará.
+O Cavaleiro (1) + A Cigana (29) = figura de uma mulher forte e que controla seu próprio destino (pode ser você ou alguém próximo.
+Cigana (29) + O Cavaleiro (1) = há uma mulher próxima a você que te influenciará.
+O Cavaleiro (1) + Os Lírios (30) = as emoções estarão mais seguras pois esse é um momento de harmonia.
+Lírios (30) + O Cavaleiro (1) = não deixe as emoções dominarem neste momento, você precisa ser racional para encontrar as melhores respostas.
+O Cavaleiro (1) + O Sol (31) = os sonhos se realizarão.
+Sol (31) + O Cavaleiro (1) = não tenha medo do destino, seja corajoso.
+O Cavaleiro (1) + A Lua (32) = use a intuição para encontrar respostas.
+Lua (32) + O Cavaleiro (1) = o seu poder interior será a principal arma para encontrar tudo que deseja de forma rápida.
+O Cavaleiro (1) + A Chave (33) = momento de mudar o foco para encontrar respostas.
+Chave (33) + O Cavaleiro (1) = não há mais nada para ser descoberto, portanto determine à partir daqui os seus planos.
+O Cavaleiro (1) + O Peixe (34) = momento de focar nos bens materiais e profissionais.
+Peixe (34) + O Cavaleiro (1) = a prosperidade entrará em sua vida.
+O Cavaleiro (1) + A Âncora (35) = você precisa demonstrar atitude para que o novo surja.
+Âncora (35) + O Cavaleiro (1) = momento de paz e principalmente segurança.
+O Cavaleiro (1) + A Cruz (36) = você pode e precisa superar os momentos de dor e angústia.
+Cruz (36) + O Cavaleiro (1) = o que era ruim se foi, agora um momento de paz e alegria surgirá.
+
 ---
 
 Interprete a seguinte Mesa Real, seguindo rigorosamente a estrutura e todas as instruções:
@@ -220,5 +292,7 @@ const generateMesaRealInterpretationFlow = ai.defineFlow(
     };
   }
 );
+
+    
 
     
