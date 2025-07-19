@@ -110,7 +110,6 @@ const generateYidamFlow = ai.defineFlow(
       } catch (error: any) {
         attempt++;
         if (attempt >= maxRetries || !error.message?.includes('503')) {
-          // If it's the last attempt OR not a 503 error, re-throw the error
           console.error(`Failed to generate Yidam text after ${attempt} attempts.`, error);
           throw error;
         }
