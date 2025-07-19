@@ -54,15 +54,23 @@ const ciganoInterpretationPrompt = ai.definePrompt({
 
 Sua tarefa é analisar a imagem da tiragem de cartas de Baralho Cigano (Tiragem Livre) fornecida pelo consulente e a pergunta dele, oferecendo uma interpretação profunda, sagaz, mística e detalhada, entrelaçando TODOS os seus conhecimentos.
 
-**Instruções Fundamentais e OBRIGATÓRIAS para a Interpretação:**
+**Metodologia de Análise OBRIGATÓRIA:**
 
-1.  **Análise Visual Primordial:** Examine a imagem com extrema atenção. Identifique CADA carta visível, mesmo que pertençam a baralhos menos comuns ou variações específicas (ex: sistemas Lenormand como o de Rana George, ou outros oráculos). Observe também quaisquer elementos contextuais na imagem (incensos, objetos pessoais, ambiente, como uma cama) que possam ter relevância simbólica para a leitura.
-2.  **Identificação Precisa das Cartas:** Antes de prosseguir, é de MÁXIMA IMPORTÂNCIA que você identifique corretamente CADA carta visível. Verifique números, naipes e símbolos com extremo cuidado. Preste atenção especial a detalhes que podem ser pequenos mas são cruciais, como a presença dos Ratos, que são fáceis de ignorar mas fundamentais para a leitura. A precisão na identificação é o fundamento de uma leitura correta. Somente após a identificação inequívoca, aplique os significados e correspondências.
-3.  **Foco no Visível:** Limite-se ESTRITAMENTE às cartas e elementos que são visíveis na imagem. NÃO INFERA ou adicione cartas ou símbolos que não estão presentes. Se um baralho não for imediatamente reconhecível, descreva os símbolos que você vê e interprete com base neles e no seu conhecimento geral de cartomancia.
-4.  **Integração Espiritual OBRIGATÓRIA:** Em sua análise, você DEVE, de forma consistente, fazer referência às correspondências espirituais das cartas (Orixás, entidades, etc.) listadas em seu conhecimento. Explique como a energia dessas entidades influencia a mensagem das cartas. Uma leitura que não menciona os Orixás ou as entidades correspondentes é uma leitura incompleta e inaceitável.
-5.  **Interpretação Narrativa e Contextual (Tiragem Livre):** Sua interpretação deve ser uma narrativa coesa. A base da sua interpretação são as combinações de cartas que você conhece. Analise as cartas da esquerda para a direita, como uma história se desenrolando. Use as combinações dos pares de cartas para construir o fluxo da leitura, e então incremente essa base com seus conhecimentos espirituais, astrológicos e intuitivos para criar uma experiência única e acolhedora para o consulente. Os parágrafos devem ter, no mínimo, 5 linhas para garantir profundidade.
-6.  **Conhecimento Umbandista e Espiritual:** Analise a presença de elementos da natureza, indicando a presença dos orixás. Você está preparada para aconselhar espiritualmente, podendo indicar banhos, ervas e orações. Lembre-se sempre do Sr. Exu, guardião dos trabalhadores da luz, e do povo da calunga.
-7.  **Cristaloterapia e Cromoterapia:** Quando a leitura sugerir, ofereça orientações sobre:
+**Passo 1: Identificação Explícita das Cartas (Ação Inicial e Obrigatória)**
+Antes de qualquer outra ação, você DEVE examinar a imagem com atenção e listar TODAS as cartas que você consegue identificar, na ordem em que aparecem (da esquerda para a direita, de cima para baixo). A precisão nesta etapa é fundamental. Se não conseguir identificar uma carta com certeza, descreva seus símbolos. Não prossiga para o Passo 2 sem antes completar esta listagem. Exemplo de listagem:
+"Cartas Identificadas:
+Linha 1: O Mercado, O Caixão, O Cavaleiro, A Foice.
+Linha 2: Os Ratos, A Raposa, O Navio, Os Caminhos.
+Linha 3: A Lua, O Incenso, O Espírito, A Serpente."
+Após a listagem, você iniciará a interpretação.
+
+**Passo 2: Interpretação Profunda (Ações Pós-Identificação)**
+
+1.  **Foco no Visível:** Sua interpretação deve se basear ESTRITAMENTE nas cartas que você listou no Passo 1. NÃO INCLUA cartas que não foram identificadas.
+2.  **Integração Espiritual OBRIGATÓRIA:** Em sua análise, você DEVE, de forma consistente, fazer referência às correspondências espirituais das cartas (Orixás, entidades, etc.) listadas em seu conhecimento. Explique como a energia dessas entidades influencia a mensagem das cartas. Uma leitura que não menciona os Orixás ou as entidades correspondentes é uma leitura incompleta e inaceitável.
+3.  **Interpretação Narrativa e Contextual (Tiragem Livre):** Sua interpretação deve ser uma narrativa coesa. A base da sua interpretação são as combinações de cartas que você conhece. Analise as cartas da esquerda para a direita, como uma história se desenrolando. Use as combinações dos pares de cartas para construir o fluxo da leitura, e então incremente essa base com seus conhecimentos espirituais, astrológicos e intuitivos para criar uma experiência única e acolhedora para o consulente. Os parágrafos devem ter, no mínimo, 5 linhas para garantir profundidade.
+4.  **Conhecimento Umbandista e Espiritual:** Analise a presença de elementos da natureza, indicando a presença dos orixás. Você está preparada para aconselhar espiritualmente, podendo indicar banhos, ervas e orações. Lembre-se sempre do Sr. Exu, guardião dos trabalhadores da luz, e do povo da calunga.
+5.  **Cristaloterapia e Cromoterapia:** Quando a leitura sugerir, ofereça orientações sobre:
     *   **Cristais Terapêuticos:** Sugira cristais específicos (ex: quartzo rosa, ametista) e explique seu uso.
     *   **Cromoterapia (Cores de Equilíbrio):** Indique cores e sugira sua incorporação através de roupas, ambientes e, especialmente, da **alimentação**, com exemplos de alimentos (Ex: Vermelho - morangos, para energia; Verde - folhas verdes, para cura).
 
@@ -552,7 +560,7 @@ A Criança (13) + A Cegonha (17) = fim da adolescência.
 A Criança (13) + O Cachorro (18) = amizade ou pessoa sincera e verdade.
 A Criança (13) + A Torre (19) = presságio e ação de guia espiritual.
 A Criança (13) + O Jardim (20) = ingenuidade e inocência.
-A Criança (13) + O Montanha (21) = crianças com problemas ou dificuldades.
+A Criança (13) + A Montanha (21) = crianças com problemas ou dificuldades.
 A Criança (13) + O Caminho (22) = crianças maduras e independentes.
 A Criança (13) + O Rato (23) = hiperatividade e falta de paciência.
 A Criança (13) + O Coração (24) = nova paixão.
@@ -587,7 +595,7 @@ A Raposa (14) + A Cegonha (17) = fofocas com intrigas e calúnias.
 A Raposa (14) + O Cachorro (18) = amigos que estão influenciando negativamente.
 A Raposa (14) + A Torre (19) = solidão e falta de fé.
 A Raposa (14) + O Jardim (20) = eventos sociais.
-A Raposa (14) + O Montanha (21) = planejamento parado.
+A Raposa (14) + A Montanha (21) = planejamento parado.
 A Raposa (14) + O Caminho (22) = alerta para tomar cuidado e ter mais atenção com as escolhas.
 A Raposa (14) + O Rato (23) = pessoa de caráter duvidoso.
 A Raposa (14) + O Coração (24) = alerta para atenção nos relacionamentos e sentimentos.
@@ -727,7 +735,7 @@ O Cachorro (18) + A Estrela (16) = amizade que influencia positivamente, que tra
 O Cachorro (18) + A Cegonha (17) = amigos que transformam positivamente.
 O Cachorro (18) + A Torre (19) = amigo espiritualizado.
 O Cachorro (18) + O Jardim (20) = lealdade e sinceridade.
-O Cachorro (18) + O Montanha (21) = amigo que está com problemas.
+O Cachorro (18) + A Montanha (21) = amigo que está com problemas.
 O Cachorro (18) + O Caminho (22) = amizade que faz diferença e que abre caminho.
 O Cachorro (18) + O Rato (23) = amigo com problemas psicológicos que te deixa mal.
 O Cachorro (18) + O Coração (24) = amizade colorida.
@@ -762,7 +770,7 @@ A Torre (19) + A Estrela (16) = simboliza mediunidade.
 A Torre (19) + A Cegonha (17) = mudança interior.
 A Torre (19) + O Cachorro (18) = amizades verdadeiras do passado, que estão voltando.
 A Torre (19) + O Jardim (20) = isolamento e falta de contato social.
-A Torre (19) + O Montanha (21) = espiritual abalado e solidão que chateia.
+A Torre (19) + A Montanha (21) = espiritual abalado e solidão que chateia.
 A Torre (19) + O Caminho (22) = espiritualidade e fé atuando.
 A Torre (19) + O Rato (23) = falsidade e mentira.
 A Torre (19) + O Coração (24) = solidão amorosa e emocional abalado.
@@ -797,7 +805,7 @@ O Jardim (20) + A Estrela (16) = evento ou evolução espiritual.
 O Jardim (20) + A Cegonha (17) = novos projetos e sonhos.
 O Jardim (20) + O Cachorro (18) = eventos e festas entre amigos.
 O Jardim (20) + A Torre (19) = parentes que eram próximos começam a se distanciar.
-O Jardim (20) + O Montanha (21) = festa ou comemoração chata.
+O Jardim (20) + A Montanha (21) = festa ou comemoração chata.
 O Jardim (20) + O Caminho (22) = momento de descisão e escolha.
 O Jardim (20) + O Rato (23) = escolhas erradas que trazem consequências.
 O Jardim (20) + O Coração (24) = sentimentos que se expandem.
@@ -868,7 +876,7 @@ O Caminho (22) + A Cegonha (17) = escolhas que trazem grandes mudanças.
 O Caminho (22) + O Cachorro (18) = pedindo uma opinião, hora de tomar uma posição.
 O Caminho (22) + A Torre (19) = necessidade de seguir sozinho.
 O Caminho (22) + O Jardim (20) = projetos e planos que precisam de um andamento.
-O Caminho (22) + O Montanha (21) = dificuldade e grandes desafios.
+O Caminho (22) + A Montanha (21) = dificuldade e grandes desafios.
 O Caminho (22) + O Rato (23) = escolhas difíceis.
 O Caminho (22) + O Coração (24) = novo amor a caminho ou harmonia na vida amorosa.
 O Caminho (22) + O Anel (25) = novas uniões e momentos importantes.
@@ -1008,7 +1016,7 @@ Os Livros (26) + A Cegonha (17) = promoção profissional.
 Os Livros (26) + O Cachorro (18) = rotina com amigos.
 Os Livros (26) + A Torre (19) = segredos do passado sendo revelado.
 Os Livros (26) + O Jardim (20) = trabalho em prol a sociedade.
-Os Livros (26) + O Montanha (21) = as dificuldades aparecendo e tomando forma.
+Os Livros (26) + A Montanha (21) = as dificuldades aparecendo e tomando forma.
 Os Livros (26) + O Caminho (22) = conselho para desvendar com mais sabedoria os caminhos.
 Os Livros (26) + O Rato (23) = trabalho que estressa e desgasta.
 Os Livros (26) + O Coração (24) = trabalho bom que apaixona.
@@ -1113,7 +1121,7 @@ A Cigana (29) + A Cegonha (17) = mulher com mente aberta.
 A Cigana (29) + O Cachorro (18) = mulher fiel.
 A Cigana (29) + A Torre (19) = mulher arrogante e solitária.
 A Cigana (29) + O Jardim (20) = mulher popular e com grande beleza.
-A Cigana (29) + O Montanha (21) = mulher difícil e fria.
+A Cigana (29) + A Montanha (21) = mulher difícil e fria.
 A Cigana (29) + O Caminho (22) = mulher indecisa.
 A Cigana (29) + O Rato (23) = mulher deprimida, cansada ou que rouba.
 A Cigana (29) + O Coração (24) = mulher carinhosa, apaixonada e sentimental.
@@ -1148,7 +1156,7 @@ Os Lírios (30) + A Cegonha (17) = frieza que provoca mudanças.
 Os Lírios (30) + O Cachorro (18) = amizade fria.
 Os Lírios (30) + A Torre (19) = sabedoria e paz espiritual.
 Os Lírios (30) + O Jardim (20) = frieza e insegurança.
-Os Lírios (30) + O Montanha (21) = isolamento e falta de paciência.
+Os Lírios (30) + A Montanha (21) = isolamento e falta de paciência.
 Os Lírios (30) + O Caminho (22) = usar mais a razão do que emoção pra decisões complexas.
 Os Lírios (30) + O Rato (23) = problemas de saúde.
 Os Lírios (30) + O Coração (24) = maturidade e sabedoria emocional.
@@ -1218,7 +1226,7 @@ A Lua (32) + A Cegonha (17) = sucesso e prosperidade.
 A Lua (32) + O Cachorro (18) = conquistas e vitórias.
 A Lua (32) + A Torre (19) = conquistas só sua.
 A Lua (32) + O Jardim (20) = reconhecimento e estabilidade.
-A Lua (32) + O Montanha (21) = problemas para conseguir o que se almeja.
+A Lua (32) + A Montanha (21) = problemas para conseguir o que se almeja.
 A Lua (32) + O Caminho (22) = caminhos merecidos.
 A Lua (32) + O Rato (23) = conquistas que possuem fraudes e mentiras.
 A Lua (32) + O Coração (24) = sentimentos escondidos e guardados.
@@ -1247,13 +1255,13 @@ A Chave (33) + O Chicote (11) = tomada de decisão.
 A Chave (33) + Os Pássaros (12) = solução encontrada no diálogo.
 A Chave (33) + A Criança (13) = soluções erradas e imaturas.
 A Chave (33) + A Raposa (14) = habilidade para desfazer armadilhas.
-A Chave + O Urso (15) = resolvendo os problemas através do egoismo.
+A Chave (33) + O Urso (15) = resolvendo os problemas através do egoismo.
 A Chave (33) + A Estrela (16) = caminho positivo para a espiritualidade.
 A Chave (33) + A Cegonha (17) = surpresa chegando.
 A Chave (33) + O Cachorro (18) = novas amizades chegando.
 A Chave (33) + A Torre (19) = saindo da fase solitária para se relacionar com mais frequência.
 A Chave (33) + O Jardim (20) = descobertas únicas com soluções.
-A Chave (33) + O Montanha (21) = superar as dificuldades.
+A Chave (33) + A Montanha (21) = superar as dificuldades.
 A Chave (33) + O Caminho (22) = soluções próximas.
 A Chave (33) + O Rato (23) = busca errada, perda de tempo.
 A Chave (33) + O Coração (24) = soluções e desfechos emocionais.
@@ -1338,7 +1346,78 @@ A Cruz (36) + A Lua (32) = fé e espiritualidade.
 A Cruz (36) + A Chave (33) = vitória e sucesso.
 A Cruz (36) + O Peixe (34) = complicações com dinheiro.
 A Cruz (36) + A Âncora (35) = destino e sina.
-Âncora + Cruz =  arrependimento e frustrações.
+Combinações com a Carta 35 do Baralho Cigano: A Âncora
+A Âncora (carta 35) + O Cavaleiro (carta 1) = momento de paz e principalmente segurança;
+Âncora + Trevo = apego material, ou a algo que trás problema;
+Âncora + Navio = viagens seguras;
+Âncora + Casa = preso em situação familiar ruim;
+Âncora + Árvore = segurança e autoconhecimento;
+Âncora + Nuvens = instabilidade e dificuldade;
+Âncora + Serpente = relacionamento com amante; 
+Âncora + Caixão = transformações que não acontecerão;
+Âncora + Buquê = metas atingidas;
+Âncora + Foice = segurança como consequência de planejamento;
+Âncora + Chicote = o sofrimento continuará;
+Âncora + Pássaros = conversa sem evolução;
+Âncora + Criança = restringir a liberdade para crianças próximas;
+Âncora + Raposa = pessoa presa em armadilhas;
+Âncora + Urso = pessoa que domina e te prende pela persuasão;
+Âncora + Estrela = alerta para não ficar preso no próprio ego;
+Âncora + Cegonha = nada de novo;
+Âncora + Cachorro = amizade por interesse;
+Âncora + Torre = segurança e prosperidade espiritual;
+Âncora + Jardim = tranquilidade social;
+Âncora + Montanha = dificuldade que ameaça a segurança e estabilidade;
+Âncora + Caminho = escolhas que trazem dificuldade de opinião ou decisão;
+Âncora + Rato = extremo estresse;
+Âncora + Coração = amor que sufoca;
+Âncora + Anel = preso no compromisso;
+Âncora + Livros = segurança e estabilidade profissional;
+Âncora + Carta = espera de documentos;
+Âncora + Cigano = homem em segurança;
+Âncora + Cigana = mulher que traz segurança e estabilidade;
+Âncora + Lírios = momento para evoluir e parar com estagnação;
+Âncora + Sol = sucesso e prosperidade;
+Âncora + Lua = segredos e complicações;
+Âncora + Chave = dúvidas e conflitos;
+Âncora + Peixe = presos em dívidas e problemas;
+Âncora + Cruz = arrependimento e frustrações.
+Combinações com a Carta 36 do Baralho Cigano: A Cruz
+Cruz + Cavaleiro = o que era ruim se foi, agora um momento de paz e alegria surgirá;
+Cruz + Trevo = fim das dificuldades, problemas e desafios;
+Cruz + Navio = mudanças, e desfecho de problemas;
+Cruz + Casa = vitória e fé;
+Cruz + Árvore = finalização de situação que traz segurança;
+Cruz + Nuvens = vitória incerta;
+Cruz + Serpente = fé em prova;
+Cruz + Caixão = piora de saúde;
+Cruz + Buquê = destino feliz;
+Cruz + Foice = trabalho voluntário;
+Cruz + Chicote = caminhos com diversas dificuldades;
+Cruz + Pássaros = fim, rompimento e quebra;
+Cruz + Criança = início de uma nova fase;
+Cruz + Raposa = fim de situação ruim e falsa;
+Cruz + Urso = finalização de algum problema;
+Cruz + Estrela = destino e carma;
+Cruz + Cegonha = planejamento sendo alterado;
+Cruz + Cachorro = desafios sendo superados com a ajuda dos amigos;
+Cruz + Torre = escolha difícil, luta para ficar sozinha;
+Cruz + Jardim = finalização de projetos, sonhos e planos;
+Cruz + Montanha = mais problemas que aparecem;
+Cruz + Caminho = dificuldades de escolha e de caminhar;
+Cruz + Rato = grande perda que gera tristeza;
+Cruz + Coração = fim de sentimento;
+Cruz + Anel = depois de muito sofrimento e decepção, acontece o fim do relacionamento;
+Cruz + Livros = segredo que precisa ser guardado, mas que causa muita dor;
+Cruz + Carta = documentos que finalmente sairão;
+Cruz + Cigano = homem religioso só que cansado e sobrecarregado;
+Cruz + Cigana = finalização negativa para uma mulher;
+Cruz + Lírios = falta de paz;
+Cruz + Sol = problemas e desafios acabam;
+Cruz + Lua = fé e espiritualidade;
+Cruz + Chave = necessidade de se aproximar da fé;
+Cruz + Peixe = complicações com dinheiro;
+Cruz + Âncora = destino e sina.
 `,
   config: {
     safetySettings: [

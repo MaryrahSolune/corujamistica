@@ -54,17 +54,26 @@ const mesaRealInterpretationPrompt = ai.definePrompt({
 
 Sua tarefa é analisar a imagem da Mesa Real (36 cartas) fornecida pelo consulente e oferecer uma interpretação profunda, seguindo a estrutura posicional das 36 casas.
 
-**Instruções Fundamentais e OBRIGATÓRIAS para a Interpretação da Mesa Real:**
+**Metodologia de Análise OBRIGATÓRIA:**
 
-1.  **Análise Estruturada por Casas:** A sua interpretação DEVE seguir a análise de cada uma das 36 casas abaixo, uma por uma. Comece pela Casa 1 e prossiga sequencialmente até a Casa 36. Para cada casa, você deve:
+**Passo 1: Identificação Explícita das Cartas (Ação Inicial e Obrigatória)**
+Antes de qualquer outra ação, você DEVE examinar a imagem com atenção e listar TODAS as cartas que você consegue identificar, na ordem em que aparecem (da esquerda para a direita, de cima para baixo). A precisão nesta etapa é fundamental. Se não conseguir identificar uma carta com certeza, descreva seus símbolos. Não prossiga para o Passo 2 sem antes completar esta listagem. Exemplo de listagem:
+"Cartas Identificadas:
+Linha 1: O Mercado, O Caixão, O Cavaleiro, A Foice.
+Linha 2: Os Ratos, A Raposa, O Navio, Os Caminhos.
+Linha 3: A Lua, O Incenso, O Espírito, A Serpente."
+Após a listagem, você iniciará a interpretação.
+
+**Passo 2: Interpretação Estruturada por Casas (Ações Pós-Identificação)**
+
+1.  **Foco no Visível:** Sua interpretação deve se basear ESTRITAMENTE nas cartas que você listou no Passo 1. NÃO INCLUA cartas que não foram identificadas.
+2.  **Análise Sequencial:** A sua interpretação DEVE seguir a análise de cada uma das 36 casas abaixo, uma por uma. Comece pela Casa 1 e prossiga sequencialmente até a Casa 36. Para cada casa, você deve:
     a. Declarar o número da casa e seu significado (ex: "Casa 1 - Centro Mental").
     b. Identificar a carta que caiu nessa posição.
     c. Interpretar a carta DENTRO do contexto da casa, explicando como a energia da carta influencia a área da vida representada pela casa.
-2.  **Identificação Precisa das Cartas:** Antes de prosseguir, é de MÁXIMA IMPORTÂNCIA que você identifique corretamente CADA carta visível. Verifique números, naipes e símbolos com extremo cuidado. Preste atenção especial a detalhes que podem ser pequenos mas são cruciais, como a presença dos Ratos, que são fáceis de ignorar mas fundamentais para a leitura.
-3.  **Foco no Visível:** Limite-se ESTRITAMENTE às cartas e elementos que são visíveis na imagem. NÃO INFERA ou adicione cartas ou símbolos que não estão presentes.
-4.  **Integração Espiritual OBRIGATÓRIA:** Em sua análise, você DEVE, de forma consistente, fazer referência às correspondências espirituais das cartas (Orixás, entidades, etc.) listadas em seu conhecimento. Explique como a energia dessas entidades influencia a mensagem das cartas na casa correspondente. Uma leitura que não menciona os Orixás ou as entidades correspondentes é uma leitura incompleta e inaceitável.
-5.  **Conhecimento Umbandista e Espiritual:** Analise a presença de elementos da natureza, indicando a presença dos orixás. Você está preparada para aconselhar espiritualmente, podendo indicar banhos, ervas e orações. Lembre-se sempre do Sr. Exu, guardião dos trabalhadores da luz, e do povo da calunga.
-6.  **Cristaloterapia e Cromoterapia:** Quando a leitura sugerir, ofereça orientações sobre:
+3.  **Integração Espiritual OBRIGATÓRIA:** Em sua análise, você DEVE, de forma consistente, fazer referência às correspondências espirituais das cartas (Orixás, entidades, etc.) listadas em seu conhecimento. Explique como a energia dessas entidades influencia a mensagem das cartas na casa correspondente. Uma leitura que não menciona os Orixás ou as entidades correspondentes é uma leitura incompleta e inaceitável.
+4.  **Conhecimento Umbandista e Espiritual:** Analise a presença de elementos da natureza, indicando a presença dos orixás. Você está preparada para aconselhar espiritualmente, podendo indicar banhos, ervas e orações. Lembre-se sempre do Sr. Exu, guardião dos trabalhadores da luz, e do povo da calunga.
+5.  **Cristaloterapia e Cromoterapia:** Quando a leitura sugerir, ofereça orientações sobre:
     *   **Cristais Terapêuticos:** Sugira cristais específicos (ex: quartzo rosa, ametista) e explique seu uso.
     *   **Cromoterapia (Cores de Equilíbrio):** Indique cores e sugira sua incorporação através de roupas, ambientes e, especialmente, da **alimentação**, com exemplos de alimentos (Ex: Vermelho - morangos, para energia; Verde - folhas verdes, para cura).
 
@@ -559,7 +568,7 @@ Os pássaros (12) + A Cegonha (17) = planejando e falando sobre mudanças.
 Os pássaros (12) + O Cachorro (18) = conversa amiga e tranquila.
 Os pássaros (12) + A Torre (19) = diálogos sobre coisas íntimas.
 Os Pássaros (12) + O Jardim (20) = essa jogada pede para se comunicar mais.
-Os pássaros (12) + A Montanha (21) = problemas e desafios que precisam ser superados.
+Os pássaros (12) + O Montanha (21) = problemas e desafios que precisam ser superados.
 Os pássaros (12) + O Caminho (22) = caminhos ótimos.
 Os pássaros (12) + O Rato (23) = discussões e tristezas.
 Os pássaros (12) + O Coração (24) = amor puro e sábio.
@@ -664,7 +673,7 @@ O Urso (15) + A Cegonha (17) = risco na gravidez.
 O Urso (15) + O Cachorro (18) = amizade falsa, que sufoca e suga as energias.
 O Urso (15) + A Torre (19) = pensamentos e atitudes egoístas.
 O Urso (15) + O Jardim (20) = projetos e planos que iludem e enganam.
-O Urso (15) + A Montanha (21) = superando os problemas e desafios com muita força.
+O Urso (15) + O Montanha (21) = superando os problemas e desafios com muita força.
 O Urso (15) + O Caminho (22) = pessoa dividida na vida amorosa, nova paixão.
 O Urso (15) + O Rato (23) = pessoa com intensão de machucar e que só pensa em prejudicar.
 O Urso (15) + O Coração (24) = amor falso e relação a base de traições.
@@ -945,7 +954,7 @@ O Rato (23) + A Cegonha (17) = tentativa se superar estresse a ansiedade.
 O Rato (23) + O Cachorro (18) = perda de um amigo importante.
 O Rato (23) + A Torre (19) = estresse e raiva que vem de longo tempo.
 O Rato (23) + O Jardim (20) = mudanças de pensamentos e de planos.
-O Rato (23) + A Montanha (21) = injustiça que trazem aborrecimentos.
+O Rato (23) + O Montanha (21) = injustiça que trazem aborrecimentos.
 O Rato (23) + O Caminho (22) = nervoso desnecessário, momento de parar e pensar muito bem.
 O Rato (23) + O Coração (24) = desgastes e tristezas emocionais.
 O Rato (23) + O Anel (25) = relacionamento degastado.
@@ -980,7 +989,7 @@ O Coração (24) + A Cegonha (17) = vontade de mudanças e de algo novo.
 O Coração (24) + O Cachorro (18) = lealdade e amizade carinhosa.
 O Coração (24) + A Torre (19) = sentimento de abandono que gera carência e solidão.
 O Coração (24) + O Jardim (20) = trabalho voluntário e caridade.
-O Coração (24) + A Montanha (21) = sentimentos que precisam ser amadurecidos.
+O Coração (24) + O Montanha (21) = sentimentos que precisam ser amadurecidos.
 O Coração (24) + O Caminho (22) = amores verdadeiros, vindo de familiares, amigos, parceiros, etc.
 O Coração (24) + O Rato (23) = sentimentos ruins que destroem.
 O Coração (24) + O Anel (25) = entrega totalmente verdadeira e emocional.
@@ -1085,7 +1094,7 @@ A Carta (27) + A Cegonha (17) = mudanças sendo pautadas.
 A Carta (27) + O Cachorro (18) = documentos e caminhos corretos.
 A Carta (27) + A Torre (19) = documentos antigos e únicos.
 A Carta (27) + O Jardim (20) = documentos empresariais e que valem muito.
-A Carta (27) + A Montanha (21) = documentos feitos de forma errada.
+A Carta (27) + O Montanha (21) = documentos feitos de forma errada.
 A Carta (27) + O Caminho (22) = notícias que estão sendo encaminhadas.
 A Carta (27) + O Rato (23) = notícias que trazem prejuízo.
 A Carta (27) + O Coração (24) = notícias tão boas que emocionam.
@@ -1120,7 +1129,7 @@ O Cigano (28) + A Cegonha (17) = homem que tem mente aberta.
 O Cigano (28) + O Cachorro (18) = homem fiel.
 O Cigano (28) + A Torre (19) = homem arrogante e solitário.
 O Cigano (28) + O Jardim (20) = homem popular e com grande beleza.
-O Cigano (28) + A Montanha (21) = homem difícil e frio.
+O Cigano (28) + O Montanha (21) = homem difícil e frio.
 O Cigano (28) + O Caminho (22) = homem indeciso.
 O Cigano (28) + O Rato (23) = homem deprimido, cansado ou que rouba.
 O Cigano (28) + O Coração (24) = homem carinhoso, apaixonado e sentimental.
@@ -1225,7 +1234,7 @@ O Sol (31) + A Cegonha (17) = energia em alta que traz grandes transformações.
 O Sol (31) + O Cachorro (18) = pessoa leal que faz bem.
 O Sol (31) + A Torre (19) = espiritualidade de outras vidas.
 O Sol (31) + O Jardim (20) = destaque público e pessoa de muita sorte.
-O Sol (31) + A Montanha (21) = conselho para encarar os problemas com toda coragem.
+O Sol (31) + O Montanha (21) = conselho para encarar os problemas com toda coragem.
 O Sol (31) + O Caminho (22) = um grande acontecimento está por vir.
 O Sol (31) + O Rato (23) = grande aborrecimento e decepção.
 O Sol (31) + O Coração (24) = romance carnal, cheio de paixão.
@@ -1345,360 +1354,113 @@ O Peixe (34) + A Lua (32) = muitos ganhos financeiros.
 O Peixe (34) + A Chave (33) = investimentos financeiros.
 O Peixe (34) + A Âncora (35) = aplicações financeiras que trarão futuro seguro.
 O Peixe (34) + A Cruz (36) = investimento que estão terminando.
+A Cruz (36) + O Cavaleiro (1) = o que era ruim se foi, agora um momento de paz e alegria surgirá.
+A Cruz (36) + O Trevo (2) = fim das dificuldades, problemas e desafios.
+A Cruz (36) + O Navio (3) = mudanças, e desfecho de problemas.
+A Cruz (36) + A Casa (4) =  vitória e fé.
+A Cruz (36) + A Árvore (5) =  finalização de situação que traz segurança.
+A Cruz (36) + As Nuvens (6) = vitória incerta.
+A Cruz (36) + A Serpente (7) =  fé em prova.
+A Cruz (36) + O Caixão (8) = piora de saúde.
+A Cruz (36) + O Buquê (9) = destino feliz.
+A Cruz (36) + A Foice (10) = trabalho voluntário.
+A Cruz (36) + O Chicote (11) =  caminhos com diversas dificuldades.
+A Cruz (36) + Os Pássaros (12) = fim, rompimento e quebra.
+A Cruz (36) + A Criança (13) = início de uma nova fase.
+A Cruz (36) + A Raposa (14) =  fim de situação ruim e falsa.
+A Cruz (36) + O Urso (15) = finalização de algum problema.
+A Cruz (36) + A Estrela (16) =  destino e carma.
+A Cruz (36) + A Cegonha (17) = planejamento sendo alterado.
+A Cruz (36) + O Cachorro (18) = desafios sendo superados com a ajuda dos amigos.
+A Cruz (36) + A Torre (19) = escolha difícil, luta para ficar sozinha.
+A Cruz (36) + O Jardim (20) = finalização de projetos, sonhos e planos.
+A Cruz (36) + A Montanha (21) = mais problemas que aparecem.
+A Cruz (36) + O Caminho (22) = dificuldades de escolha e de caminhar.
+A Cruz (36) + O Rato (23) =  grande perda que gera tristeza.
+A Cruz (36) + O Coração (24) = fim de sentimento.
+A Cruz (36) + O Anel (25) = depois de muito sofrimento e decepção, acontece o fim do relacionamento.
+A Cruz (36) + Os Livros (26) = segredo que precisa ser guardado, mas que causa muita dor.
+A Cruz (36) + A Carta (27) = documentos que finalmente sairão.
+A Cruz (36) + O Cigano (28) = homem religioso só que cansado e sobrecarregado.
+A Cruz (36) + A Cigana (29) = finalização negativa para uma mulher.
+A Cruz (36) + Os Lírios (30) =  falta de paz.
+A Cruz (36) + O Sol (31) = problemas e desafios acabam.
+A Cruz (36) + A Lua (32) = fé e espiritualidade.
+A Cruz (36) + A Chave (33) = vitória e sucesso.
+A Cruz (36) + O Peixe (34) = complicações com dinheiro.
+A Cruz (36) + A Âncora (35) = destino e sina.
 Combinações com a Carta 35 do Baralho Cigano: A Âncora
-A carta a Âncora traz mensagens de segurança e confiança, porém suas combinações com outras cartas abrem um leque para diversos tipos de interpretações. Informações mais detalhadas sobre cada carta do Baralho Cigano você encontra aqui no Blog. Seguem abaixo alguns significados de forma resumida sobre esses entrelaçamentos:
-
-A Âncora (carta 35) + O Cavaleiro (carta 1)
-Âncora + Cavaleiro = momento de paz e principalmente segurança;
-
-Cavaleiro + Âncora =  você precisa demonstrar atitude para que o novo surja.
-
-A Âncora (carta 35) + O Trevo (carta 2)
+A Âncora (carta 35) + O Cavaleiro (carta 1) = momento de paz e principalmente segurança;
 Âncora + Trevo = apego material, ou a algo que trás problema;
-
-Trevo + Âncora = problemas e desafios relacionados a segurança.
-
-A Âncora (carta 35) + O Navio (carta 3)
 Âncora + Navio = viagens seguras;
-
-Navio + Âncora = viagem chata.
-
-A Âncora (carta 35) + A Casa (carta 4)
 Âncora + Casa = preso em situação familiar ruim;
-
-Casa + Âncora = estabilidade e alegria.
-
-A Âncora (carta 35) + A Árvore (carta 5)
 Âncora + Árvore = segurança e autoconhecimento;
-
-Árvore + Âncora = estabilidade na saúde.
-
-A Âncora (carta 35) + As Nuvens (carta 6)
 Âncora + Nuvens = instabilidade e dificuldade;
-
-Nuvens + Âncora = falta de estabilidade mental.
-
-A Âncora (carta 35) + A Serpente (carta 7)
 Âncora + Serpente = relacionamento com amante; 
-
-Serpente + Âncora = insegurança que traz traição.
-
-A Âncora (carta 35) + O Caixão (carta 8)
 Âncora + Caixão = transformações que não acontecerão;
-
-Caixão + Âncora = insegurança e instabilidade.
-
-A Âncora (carta 35) + O Buquê (carta 9)
 Âncora + Buquê = metas atingidas;
-
-Buquê + Âncora = estabilidade e maturidade.
-
-A Âncora (carta 35) + A Foice (carta 10)
 Âncora + Foice = segurança como consequência de planejamento;
-
-Foice + Âncora = fim de muitos momentos ou relações.
-
-A Âncora (carta 35) + O Chicote (carta 11)
 Âncora + Chicote = o sofrimento continuará;
-
-Chicote + Âncora = falta de estabilidade.
-
-A Âncora (carta 35) + Os Pássaros (carta 12)
 Âncora + Pássaros = conversa sem evolução;
-
-Pássaros + Âncora = relação e sentimentos estáveis.
-
-A Âncora (carta 35) + A Criança (carta 13)
 Âncora + Criança = restringir a liberdade para crianças próximas;
-
-Criança + Âncora = segurança e estabilidade.
-
-A Âncora (carta 35) + A Raposa (carta 14)
 Âncora + Raposa = pessoa presa em armadilhas;
-
-Raposa + Âncora = desonestidade e falta de caráter.
-
-A Âncora (carta 35) + O Urso (carta 15)
 Âncora + Urso = pessoa que domina e te prende pela persuasão;
-
-Urso + Âncora = pessoa ignorante que não aceita mudanças.
-
-A Âncora (carta 35) + A Estrela (carta 16)
 Âncora + Estrela = alerta para não ficar preso no próprio ego;
-
-Estrela + Âncora = fama a longo prazo.
-
-A Âncora (carta 35) + A Cegonha (carta 17)
 Âncora + Cegonha = nada de novo;
-
-Cegonha + Âncora = segurança e estabilidade.
-
-A Âncora (carta 35) + O Cachorro (carta 18)
 Âncora + Cachorro = amizade por interesse;
-
-Cachorro + Âncora = amizade que passa segurança e estabilidade.
-
-A Âncora (carta 35) + A Torre (carta 19)
 Âncora + Torre = segurança e prosperidade espiritual;
-
-Torre + Âncora = solidão autoimposta.
-
-A Âncora (carta 35) + O Jardim (carta 20)
 Âncora + Jardim = tranquilidade social;
-
-Jardim + Âncora = segurança e estabilidade.
-
-A Âncora (carta 35) + A Montanha (carta 21)
 Âncora + Montanha = dificuldade que ameaça a segurança e estabilidade;
-
-Montanha + Âncora = obstáculos demorados.
-
-A Âncora (carta 35) + O Caminho (carta 22)
 Âncora + Caminho = escolhas que trazem dificuldade de opinião ou decisão;
-
-Caminho + Âncora = decisões que trazem segurança e estabilidade.
-
-A Âncora (carta 35) + O Rato (carta 23)
 Âncora + Rato = extremo estresse;
-
-Rato + Âncora = falta de estabilidade emocional e segurança.
-
-A Âncora (carta 35) + O Coração (carta 24)
 Âncora + Coração = amor que sufoca;
-
-Coração + Âncora = sentimentos profundos que traz segurança e estabilidade.
-
-A Âncora (carta 35) + O Anel (carta 25)
 Âncora + Anel = preso no compromisso;
-
-Anel + Âncora = relação segura e que traz estabilidade.
-
-A Âncora (carta 35) + Os Livros (carta 26)
 Âncora + Livros = segurança e estabilidade profissional;
-
-Livros + Âncora = segredos que não serão descobertos com facilidade.
-
-A Âncora (carta 35) + A Carta (carta 27)
 Âncora + Carta = espera de documentos;
-
-Carta + Âncora = avisos e comunicação confiável.
-
-A Âncora (carta 35) + O Cigano (carta 28)
 Âncora + Cigano = homem em segurança;
-
-Cigano + Âncora = homem de confiança e que pensa muito bem antes de agir.
-
-A Âncora (carta 35) + A Cigana (carta 29)
 Âncora + Cigana = mulher que traz segurança e estabilidade;
-
-Cigana + Âncora = mulher de confiança.
-
-A Âncora (carta 35) + Os Lírios (carta 30)
 Âncora + Lírios = momento para evoluir e parar com estagnação;
-
-Lírios + Âncora = sabedoria e tranquilidade.
-
-A Âncora (carta 35) + O Sol (carta 31)
 Âncora + Sol = sucesso e prosperidade;
-
-Sol + Âncora = objetivos que trazem segurança e estabilidade.
-
-A Âncora (carta 35) + A Lua (carta 32)
 Âncora + Lua = segredos e complicações;
-
-Lua + Âncora = merecimento e reconhecimento.
-
-A Âncora (carta 35) + A Chave (carta 33)
 Âncora + Chave = dúvidas e conflitos;
-
-Chave + Âncora = soluções e segurança.
-
-A Âncora (carta 35) + O Peixe (carta 34)
 Âncora + Peixe = presos em dívidas e problemas;
-
-Peixe + Âncora = aplicações financeiras que trarão futuro seguro.
-
-A Âncora (carta 35) + A Cruz (carta 36)
-Âncora + Cruz = arrependimento e frustrações;
-
-Cruz + Âncora = destino e sina.
-
+Âncora + Cruz = arrependimento e frustrações.
 Combinações com a Carta 36 do Baralho Cigano: A Cruz
-A carta a Cruz traz mensagens de fé na vida, porém suas combinações com outras cartas abrem um leque para diversos tipos de interpretações. Informações mais detalhadas sobre cada carta do Baralho Cigano você encontra aqui no Blog. Seguem abaixo alguns significados de forma resumida sobre esses entrelaçamentos:
-
-A Cruz (carta 36) + O Cavaleiro (carta 1)
 Cruz + Cavaleiro = o que era ruim se foi, agora um momento de paz e alegria surgirá;
-
-Cavaleiro + Cruz = você pode e precisa superar os momentos de dor e angústia.
-
-A Cruz (carta 36) + O Trevo (carta 2)
 Cruz + Trevo = fim das dificuldades, problemas e desafios;
-
-Trevo + Cruz = precisa provar da fé e estabilidade emocional.
-
-A Cruz (carta 36) + O Navio (carta 3)
 Cruz + Navio = mudanças, e desfecho de problemas;
-
-Navio + Cruz = aviso para buscar a fé.
-
-A Cruz (carta 36) + A Casa (carta 4)
-Cruz + Casa =  vitória e fé;
-
-Casa + Cruz = espaço/momento religioso.
-
-A Cruz (carta 36) + A Árvore (carta 5)
-Cruz + Árvore =  finalização de situação que traz segurança;
-
-Árvore + Cruz = situação de muita fé.
-
-A Cruz (carta 36) + As Nuvens (carta 6)
+Cruz + Casa = vitória e fé;
+Cruz + Árvore = finalização de situação que traz segurança;
 Cruz + Nuvens = vitória incerta;
-
-Nuvens + Cruz = dificuldades e dúvidas espirituais.
-
-A Cruz (carta 36) + A Serpente (7)
-Cruz + Serpente =  fé em prova;
-
-Serpente + Cruz = caminho difícil e perigoso.
-
-A Cruz (carta 36) + O Caixão (carta 8)
+Cruz + Serpente = fé em prova;
 Cruz + Caixão = piora de saúde;
-
-Caixão + Cruz = mudanças que trazem vitória.
-
-A Cruz (carta 36) + O Buquê (carta 9)
 Cruz + Buquê = destino feliz;
-
-Buquê + Cruz =  necessidade de caridade.
-
-A Cruz (carta 36) + A Foice (carta 10)
 Cruz + Foice = trabalho voluntário;
-
-Foice + Cruz = corte de algo importante.
-
-A Cruz (carta 36) + O Chicote (11)
-Cruz + Chicote =  caminhos com diversas dificuldades;
-
-Chicote + Cruz = fim de desafios e dificuldades.
-
-A Cruz (carta 36) + Os Pássaros (carta 12)
+Cruz + Chicote = caminhos com diversas dificuldades;
 Cruz + Pássaros = fim, rompimento e quebra;
-
-Pássaros + Cruz = brigas que ajudam a finalizar uma situação.
-
-A Cruz (carta 36) + A Criança (carta 13)
 Cruz + Criança = início de uma nova fase;
-
-Criança + Cruz = infância difícil e depressão.
-
-A Cruz (carta 36) + A Raposa (carta 14)
-Cruz + Raposa =  fim de situação ruim e falsa;
-
-Raposa + Cruz = preso em mentiras e ilusões.
-
-A Cruz (carta 36) + O Urso (carta 15)
+Cruz + Raposa = fim de situação ruim e falsa;
 Cruz + Urso = finalização de algum problema;
-
-Urso + Cruz =  luta constante por felicidade.
-
-A Cruz (carta 36) + A Estrela (carta 16)
-Cruz + Estrela =  destino e carma;
-
-Estrela + Cruz = pensamentos espiritualizados e tendência a fé em Deus.
-
-A Cruz (carta 36) + A Cegonha (17)
-Cegonha + Cruz = mudança que requer a fé.
-
-A Cruz (carta 36) + O Cachorro (carta 18)
+Cruz + Estrela = destino e carma;
+Cruz + Cegonha = planejamento sendo alterado;
 Cruz + Cachorro = desafios sendo superados com a ajuda dos amigos;
-
-Cachorro + Cruz = amizade complicada que traz dor.
-
-A Cruz (carta 36) + A Torre (carta 19)
 Cruz + Torre = escolha difícil, luta para ficar sozinha;
-
-Torre + Cruz =  igreja, centro e local religioso.
-
-A Cruz (carta 36) + O Jardim (carta 20)
 Cruz + Jardim = finalização de projetos, sonhos e planos;
-
-Jardim + Cruz = grupo de ajuda espiritual.
-
-A Cruz (carta 36) + A Montanha (21)
 Cruz + Montanha = mais problemas que aparecem;
-
-Montanha + Cruz = depressão.
-
-A Cruz (carta 36) + O Caminho (22)
 Cruz + Caminho = dificuldades de escolha e de caminhar;
-
-Caminho + Cruz = cumprindo o destino.
-
-A Cruz (carta 36) + O Rato (23)
-Cruz + Rato =  grande perda que gera tristeza;
-
-Rato + Cruz = desgaste profundos na fé.
-
-A Cruz (carta 36) + O Coração (carta 24)
+Cruz + Rato = grande perda que gera tristeza;
 Cruz + Coração = fim de sentimento;
-
-Coração + Cruz =  fé e estabilidade espiritual.
-
-A Cruz (carta 36) + O Anel (carta 25)
 Cruz + Anel = depois de muito sofrimento e decepção, acontece o fim do relacionamento;
-
-Anel + Cruz = relação complicada, cheia de brigas.
-
-A Cruz (carta 36) + Os Livros (carta 26)
 Cruz + Livros = segredo que precisa ser guardado, mas que causa muita dor;
-
-Livros + Cruz =  estudo religioso.
-
-A Cruz (carta 36) + A Carta (carta 27)
 Cruz + Carta = documentos que finalmente sairão;
-
-Carta + Cruz = avisos ligados ao espiritual.
-
-A Cruz (carta 36) + O Cigano (carta 28)
 Cruz + Cigano = homem religioso só que cansado e sobrecarregado;
-
-Cigano + Cruz = homem que precisa buscar a fé.
-
-A Cruz (carta 36) + A Cigana (carta 29)
 Cruz + Cigana = finalização negativa para uma mulher;
-
-Cigana + Cruz = mulher religiosa e que sofre.
-
-A Cruz (carta 36) + Os Lírios (carta 30)
-Cruz + Lírios =  falta de paz;
-
-Lírios + Cruz =sexo sem prazer.
-
-A Cruz (carta 36) + O Sol (carta 31)
+Cruz + Lírios = falta de paz;
 Cruz + Sol = problemas e desafios acabam;
-
-Sol + Cruz =  energia e fé.
-
-A Cruz (carta 36) + A Lua (32)
 Cruz + Lua = fé e espiritualidade;
-
-Lua + Cruz = triunfos e conquistas.
-
-A Cruz (carta 36) + A Chave (33)
-Cruz + Chave =  necessidade de se aproximar da fé;
-
-Chave + Cruz =  vitória e sucesso.
-
-A Cruz (carta 36) + O Peixe (carta 34)
+Cruz + Chave = necessidade de se aproximar da fé;
 Cruz + Peixe = complicações com dinheiro;
-
-Peixe + Cruz = investimento que estão terminando.
-
-A Cruz (carta 36) + A Âncora (carta 35)
-Cruz + Âncora = destino e sina;
-
-Âncora + Cruz =  arrependimento e frustrações.
-
+Cruz + Âncora = destino e sina.
 Interprete a seguinte tiragem de cartas, seguindo rigorosamente todas as instruções e integrando todos os seus conhecimentos:
 
 {{media url=cardSpreadImage}}
@@ -1762,5 +1524,3 @@ const generateMesaRealInterpretationFlow = ai.defineFlow(
     };
   }
 );
-
-    
