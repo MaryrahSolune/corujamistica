@@ -683,7 +683,7 @@ O Urso (15) + A Carta (27) = necessidade de guardar todas as informações que s
 O Urso (15) + O Cigano (28) = Sucesso vindo de um homem.
 O Urso (15) + A Cigana (29) = sucesso vindo de uma mulher.
 O Urso (15) + Os Lírios (30) = prosperidade e sabedoria adquirida durante a vida.
-O Urso (15) + O Sol (31) = maldade visível.
+O Urso (15) + O Sol (31) = maldade evidente.
 O Urso (15) + A Lua (32) = sabedoria em se proteger.
 O Urso (15) + A Chave (33) = dominando o próprio caminho.
 O Urso (15) + O Peixe (34) = força para conseguir vencer os obstáculos financeiras.
@@ -708,7 +708,7 @@ A Estrela (16) + A Cegonha (17) = pensamentos que mudam sempre.
 A Estrela (16) + O Cachorro (18) = grande lealdade e amizade.
 A Estrela (16) + A Torre (19) = mentores espirituais com mensagens e opções.
 A Estrela (16) + O Jardim (20) = brilho próprio que estimula as outras pessoas.
-A Estrela (16) + A Montanha (21) = sonhos desfeitos que trazem tristezas e mágoas.
+A Estrela (16) + O Montanha (21) = sonhos desfeitos que trazem tristezas e mágoas.
 A Estrela (16) + O Caminho (22) = escolhas sábias que trazem realização.
 A Estrela (16) + O Rato (23) = perda de respeito e consequentemente má fama.
 A Estrela (16) + O Coração (24) = grande paixão e amor.
@@ -1185,7 +1185,7 @@ Os Lírios (30) + O Navio (3) = distanciamento que causa tristeza.
 Os Lírios (30) + A Casa (4) = buscar apoio e sabedoria nas relações familiares.
 Os Lírios (30) + A Árvore (5) = sabedoria e frieza que causam crescimento.
 Os Lírios (30) + As Nuvens (6) = falta de sabedoria e autoconhecimento.
-Os Lírios (30) + A Serpente (7) = sexo intenso.
+Os Lírios (30) + O Serpente (7) = sexo intenso.
 Os Lírios (30) + O Caixão (8) = tranquilidade e harmonia.
 Os Lírios (30) + O Buquê (9) = felicidade completa.
 Os Lírios (30) + A Foice (10) = maturidade e segurança.
@@ -1339,7 +1339,7 @@ O Peixe (34) + A Cegonha (17) = novidade chegando.
 O Peixe (34) + O Cachorro (18) = amizade por interesse financeiro.
 O Peixe (34) + A Torre (19) = solidão e tristeza.
 O Peixe (34) + O Jardim (20) = crescimento e ampliação.
-O Peixe (34) + A Montanha (21) = busca por uma prosperidade que nunca chega.
+O Peixe (34) + O Montanha (21) = busca por uma prosperidade que nunca chega.
 O Peixe (34) + O Caminho (22) = dinheiro entrando.
 O Peixe (34) + O Rato (23) = dinheiro conquistado de forma errada, através da falsidade e mentiras.
 O Peixe (34) + O Coração (24) = situação materialista, pessoa apegada ao dinheiro.
@@ -1388,7 +1388,7 @@ A Cruz (36) + O Sol (31) = problemas e desafios acabam.
 A Cruz (36) + A Lua (32) = fé e espiritualidade.
 A Cruz (36) + A Chave (33) = vitória e sucesso.
 A Cruz (36) + O Peixe (34) = complicações com dinheiro.
-A Cruz (36) + A Âncora (35) = destino e sina.
+A Cruz (36) + A Âncora (35) = destino e sina;
 Combinações com a Carta 35 do Baralho Cigano: A Âncora
 A Âncora (carta 35) + O Cavaleiro (carta 1) = momento de paz e principalmente segurança;
 Âncora + Trevo = apego material, ou a algo que trás problema;
@@ -1460,7 +1460,7 @@ Cruz + Sol = problemas e desafios acabam;
 Cruz + Lua = fé e espiritualidade;
 Cruz + Chave = necessidade de se aproximar da fé;
 Cruz + Peixe = complicações com dinheiro;
-Cruz + Âncora = destino e sina.
+Cruz + Âncora = destino e sina;
 Interprete a seguinte tiragem de cartas, seguindo rigorosamente todas as instruções e integrando todos os seus conhecimentos:
 
 {{media url=cardSpreadImage}}
@@ -1489,6 +1489,10 @@ Ao final de sua interpretação, inclua uma saudação respeitosa a Exu, como po
   },
 });
 
+async function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const generateMesaRealInterpretationFlow = ai.defineFlow(
   {
     name: 'generateMesaRealInterpretationFlow',
@@ -1496,10 +1500,28 @@ const generateMesaRealInterpretationFlow = ai.defineFlow(
     outputSchema: GenerateMesaRealInterpretationOutputSchema,
   },
   async (input) => {
-    // 1. Generate the text interpretation and the mandala prompt.
-    const { output: promptOutput } = await mesaRealInterpretationPrompt(input);
+    // 1. Generate the text interpretation and the mandala prompt with retry logic.
+    let promptOutput;
+    const maxRetries = 3;
+    let attempt = 0;
+    while (attempt < maxRetries) {
+      try {
+        const { output } = await mesaRealInterpretationPrompt(input);
+        promptOutput = output;
+        break; // Success, exit loop
+      } catch (error: any) {
+        attempt++;
+        if (attempt >= maxRetries || !error.message?.includes('503')) {
+          console.error(`Failed to generate Mesa Real text after ${attempt} attempts.`, error);
+          throw error;
+        }
+        console.warn(`Attempt ${attempt} failed with 503. Retrying in ${attempt}s...`);
+        await sleep(attempt * 1000); // Wait 1s, then 2s
+      }
+    }
+    
     if (!promptOutput) {
-      throw new Error('Failed to generate reading interpretation text.');
+      throw new Error('Failed to generate reading interpretation text after multiple retries.');
     }
 
     // 2. Generate the mandala image using the prompt created in the previous step.

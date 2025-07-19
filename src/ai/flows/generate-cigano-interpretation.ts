@@ -189,7 +189,7 @@ O Trevo (2) + A Cegonha (17) = Aviso que os problemas fazem você mudar seus pla
 O Trevo (2) + O Cachorro (18) = Muito cuidado com os problemas de amizades.
 O Trevo (2) + A Torre (19) = Distanciamento da fé e do autoconhecimento.
 O Trevo (2) + O Jardim (20) = Desafios nos relacionamentos sociais.
-O Trevo (2) + O Montanha (21) = Diversos obstáculos a serem superados.
+O Trevo (2) + A Montanha (21) = Diversos obstáculos a serem superados.
 O Trevo (2) + O Caminho (22) = Dificuldades em decisão.
 O Trevo (2) + O Rato (23) = Muito estresse mental.
 O Trevo (2) + O Coração (24) = Problemas emocionais.
@@ -1156,7 +1156,7 @@ Os Lírios (30) + O Navio (3) = distanciamento que causa tristeza.
 Os Lírios (30) + A Casa (4) = buscar apoio e sabedoria nas relações familiares.
 Os Lírios (30) + A Árvore (5) = sabedoria e frieza que causam crescimento.
 Os Lírios (30) + As Nuvens (6) = falta de sabedoria e autoconhecimento.
-Os Lírios (30) + A Serpente (7) = sexo intenso.
+Os Lírios (30) + O Serpente (7) = sexo intenso.
 Os Lírios (30) + O Caixão (8) = tranquilidade e harmonia.
 Os Lírios (30) + O Buquê (9) = felicidade completa.
 Os Lírios (30) + A Foice (10) = maturidade e segurança.
@@ -1275,7 +1275,7 @@ A Chave (33) + A Cegonha (17) = surpresa chegando.
 A Chave (33) + O Cachorro (18) = novas amizades chegando.
 A Chave (33) + A Torre (19) = saindo da fase solitária para se relacionar com mais frequência.
 A Chave (33) + O Jardim (20) = descobertas únicas com soluções.
-A Chave (33) + O Montanha (21) = superar as dificuldades.
+A Chave (33) + A Montanha (21) = superar as dificuldades.
 A Chave (33) + O Caminho (22) = soluções próximas.
 A Chave (33) + O Rato (23) = busca errada, perda de tempo.
 A Chave (33) + O Coração (24) = soluções e desfechos emocionais.
@@ -1359,7 +1359,7 @@ A Cruz (36) + O Sol (31) = problemas e desafios acabam.
 A Cruz (36) + A Lua (32) = fé e espiritualidade.
 A Cruz (36) + A Chave (33) = vitória e sucesso.
 A Cruz (36) + O Peixe (34) = complicações com dinheiro.
-A Cruz (36) + A Âncora (35) = destino e sina.
+A Cruz (36) + A Âncora (35) = destino e sina;
 Combinações com a Carta 35 do Baralho Cigano: A Âncora
 A Âncora (carta 35) + O Cavaleiro (carta 1) = momento de paz e principalmente segurança;
 Âncora + Trevo = apego material, ou a algo que trás problema;
@@ -1455,6 +1455,10 @@ Cruz + Âncora = destino e sina;
   },
 });
 
+async function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const generateCiganoInterpretationFlow = ai.defineFlow(
   {
     name: 'generateCiganoInterpretationFlow',
@@ -1462,10 +1466,28 @@ const generateCiganoInterpretationFlow = ai.defineFlow(
     outputSchema: GenerateCiganoInterpretationOutputSchema,
   },
   async (input) => {
-    // 1. Generate the text interpretation and the mandala prompt.
-    const { output: promptOutput } = await ciganoInterpretationPrompt(input);
+    // 1. Generate the text interpretation and the mandala prompt with retry logic.
+    let promptOutput;
+    const maxRetries = 3;
+    let attempt = 0;
+    while (attempt < maxRetries) {
+      try {
+        const { output } = await ciganoInterpretationPrompt(input);
+        promptOutput = output;
+        break; // Success, exit loop
+      } catch (error: any) {
+        attempt++;
+        if (attempt >= maxRetries || !error.message?.includes('503')) {
+          console.error(`Failed to generate Cigano text after ${attempt} attempts.`, error);
+          throw error;
+        }
+        console.warn(`Attempt ${attempt} failed with 503. Retrying in ${attempt}s...`);
+        await sleep(attempt * 1000); // Wait 1s, then 2s
+      }
+    }
+    
     if (!promptOutput) {
-      throw new Error('Failed to generate reading interpretation text.');
+      throw new Error('Failed to generate reading interpretation text after multiple retries.');
     }
 
     // 2. Generate the mandala image using the prompt created in the previous step.

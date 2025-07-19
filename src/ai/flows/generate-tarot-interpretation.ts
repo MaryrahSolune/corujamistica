@@ -119,6 +119,10 @@ Pergunta do Consulente: {{{query}}}
   },
 });
 
+async function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const generateTarotInterpretationFlow = ai.defineFlow(
   {
     name: 'generateTarotInterpretationFlow',
@@ -126,10 +130,28 @@ const generateTarotInterpretationFlow = ai.defineFlow(
     outputSchema: GenerateTarotInterpretationOutputSchema,
   },
   async input => {
-    // 1. Generate the text interpretation and the mandala prompt.
-    const { output: promptOutput } = await tarotInterpretationPrompt(input);
+    // 1. Generate the text interpretation and the mandala prompt with retry logic.
+    let promptOutput;
+    const maxRetries = 3;
+    let attempt = 0;
+    while (attempt < maxRetries) {
+      try {
+        const { output } = await tarotInterpretationPrompt(input);
+        promptOutput = output;
+        break; // Success, exit loop
+      } catch (error: any) {
+        attempt++;
+        if (attempt >= maxRetries || !error.message?.includes('503')) {
+          console.error(`Failed to generate Tarot text after ${attempt} attempts.`, error);
+          throw error;
+        }
+        console.warn(`Attempt ${attempt} failed with 503. Retrying in ${attempt}s...`);
+        await sleep(attempt * 1000); // Wait 1s, then 2s
+      }
+    }
+
     if (!promptOutput) {
-      throw new Error('Failed to generate reading interpretation text.');
+      throw new Error('Failed to generate reading interpretation text after multiple retries.');
     }
 
     // 2. Generate the mandala image using the prompt created in the previous step.
