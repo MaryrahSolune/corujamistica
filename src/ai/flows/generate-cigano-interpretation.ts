@@ -102,8 +102,8 @@ Sua tarefa é analisar a imagem da tiragem de cartas de Baralho Cigano (Tiragem 
 25. **O Anel**: **Sem Orixá** (espíritos em transição), Libra. Desencarnados em busca, neutros.
 26. **Os Livros**: **Pretos-Velhos** (humildade), Mercúrio. Cura, perdão, aconselhamento, limpeza ancestral.
 27. **A Carta**: **Pomba-Gira** (comunicação), Gêmeos. Magia feminina, libertação, revelação.
-28. **O Homem**: **Ciganos** (liberdade), Sol. Espíritos livres, viajantes, oráculo, música.
-29. **A Mulher**: **Ciganas** (encanto), Lua. Mestras do encanto, sensualidade, intuição, mistérios.
+28. **O Cigano**: **Ciganos** (liberdade), Sol. Espíritos livres, viajantes, oráculo, música.
+29. **A Cigana**: **Ciganas** (encanto), Lua. Mestras do encanto, sensualidade, intuição, mistérios.
 30. **Os Lírios**: **Oxum** (amor), Peixes. Rainha da água doce, beleza, fertilidade, diplomacia.
 31. **O Sol**: **Oxum/Oxalá** (amor e fé), Sol. Cura emocional profunda, propósito com ternura.
 32. **A Lua**: **Iemanjá** (maternidade), Lua. Domínio da maternidade universal, força emocional.
@@ -375,7 +375,7 @@ O Caixão (8) + O Urso (15) = perdas e tristeza.
 O Caixão (8) + A Estrela (16) = transformações.
 O Caixão (8) + A Cegonha (17) = mudanças na forma de agir e pensar.
 O Caixão (8) + O Cachorro (18) = amizade nova.
-O Caixão (8) + A Torre (19) = corre riscos de morte.
+O Caixão (8) + A Torre (19) = novas companhias.
 O Caixão (8) + O Jardim (20) = relação social com desafios e dificuldades.
 O Caixão (8) + A Montanha (21) = mudanças injustas.
 O Caixão (8) + O Caminho (22) = escolhas, mudança a ser feita.
@@ -632,7 +632,7 @@ O Urso (15) + A Carta (27) = necessidade de guardar todas as informações que s
 O Urso (15) + O Cigano (28) = Sucesso vindo de um homem.
 O Urso (15) + A Cigana (29) = sucesso vindo de uma mulher.
 O Urso (15) + Os Lírios (30) = prosperidade e sabedoria adquirida durante a vida.
-O Urso (15) + O Sol (31) = maldade visível.
+O Urso (15) + O Sol (31) = maldade evidente.
 O Urso (15) + A Lua (32) = sabedoria em se proteger.
 O Urso (15) + A Chave (33) = dominando o próprio caminho.
 O Urso (15) + O Peixe (34) = força para conseguir vencer os obstáculos financeiras.
@@ -1183,16 +1183,16 @@ O Sol (31) + A Cegonha (17) = energia em alta que traz grandes transformações.
 O Sol (31) + O Cachorro (18) = pessoa leal que faz bem.
 O Sol (31) + A Torre (19) = espiritualidade de outras vidas.
 O Sol (31) + O Jardim (20) = destaque público e pessoa de muita sorte.
-O Sol (31) + A Montanha (21) = conselho para encarar os problemas com toda coragem.
 O Sol (31) + O Caminho (22) = um grande acontecimento está por vir.
+O Sol (31) + A Montanha (21) = conselho para encarar os problemas com toda coragem.
 O Sol (31) + O Rato (23) = grande aborrecimento e decepção.
 O Sol (31) + O Coração (24) = romance carnal, cheio de paixão.
 O Sol (31) + O Anel (25) = momento de assumir relação.
 O Sol (31) + Os Livros (26) = segredos que são descobertos.
 O Sol (31) + A Carta (27) = grandes notícias.
 O Sol (31) + O Cigano (28) = sucesso em todas as áreas na vida de um homem.
-O Sol (31) + A Cigana (29) = mulher madura de muito sucesso.
-O Sol (31) + Os Lírios (30) = paz, prosperidade e progresso.
+O Sol (31) + A Cigana (29) = sucesso em todas as áreas da vida de uma mulher.
+O Sol (31) + Os Lírios (30) = sucesso e sorte.
 O Sol (31) + A Lua (32) = sucesso e muita criatividade.
 O Sol (31) + A Chave (33) = sucesso e crescimento.
 O Sol (31) + O Peixe (34) = dinheiro chegando.
@@ -1480,7 +1480,6 @@ A Âncora (carta 35) + A Cruz (carta 36)
 Âncora + Cruz = arrependimento e frustrações;
 
 Cruz + Âncora = destino e sina.
-
 Combinações com a Carta 36 do Baralho Cigano: A Cruz
 A carta a Cruz traz mensagens de fé na vida, porém suas combinações com outras cartas abrem um leque para diversos tipos de interpretações. Informações mais detalhadas sobre cada carta do Baralho Cigano você encontra aqui no Blog. Seguem abaixo alguns significados de forma resumida sobre esses entrelaçamentos:
 
@@ -1565,8 +1564,6 @@ Cruz + Estrela =  destino e carma;
 Estrela + Cruz = pensamentos espiritualizados e tendência a fé em Deus.
 
 A Cruz (carta 36) + A Cegonha (carta 17)
-Cruz + Cegonha = planejamento sendo alterado;
-
 Cegonha + Cruz = mudança que requer a fé.
 
 A Cruz (carta 36) + O Cachorro (carta 18)
@@ -1639,12 +1636,12 @@ Cruz + Sol = problemas e desafios acabam;
 
 Sol + Cruz =  energia e fé.
 
-A Cruz (carta 36) + A Lua (32)
+A Cruz (carta 36) + A Lua (carta 32)
 Cruz + Lua = fé e espiritualidade;
 
 Lua + Cruz = triunfos e conquistas.
 
-A Cruz (carta 36) + A Chave (33)
+A Cruz (carta 36) + A Chave (carta 33)
 Cruz + Chave =  necessidade de se aproximar da fé;
 
 Chave + Cruz =  vitória e sucesso.
@@ -1658,3 +1655,63 @@ A Cruz (carta 36) + A Âncora (carta 35)
 Cruz + Âncora = destino e sina;
 
 Âncora + Cruz =  arrependimento e frustrações.
+`,
+  config: {
+    safetySettings: [
+      {
+        category: 'HARM_CATEGORY_HATE_SPEECH',
+        threshold: 'BLOCK_ONLY_HIGH',
+      },
+      {
+        category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+        threshold: 'BLOCK_NONE',
+      },
+      {
+        category: 'HARM_CATEGORY_HARASSMENT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+      {
+        category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+        threshold: 'BLOCK_LOW_AND_ABOVE',
+      },
+    ],
+  },
+});
+
+const generateCiganoInterpretationFlow = ai.defineFlow(
+  {
+    name: 'generateCiganoInterpretationFlow',
+    inputSchema: GenerateCiganoInterpretationInputSchema,
+    outputSchema: GenerateCiganoInterpretationOutputSchema,
+  },
+  async (input) => {
+    // 1. Generate the text interpretation and the mandala prompt.
+    const { output: promptOutput } = await ciganoInterpretationPrompt(input);
+    if (!promptOutput) {
+      throw new Error('Failed to generate reading interpretation text.');
+    }
+
+    // 2. Generate the mandala image using the prompt created in the previous step.
+    const { media } = await ai.generate({
+      model: 'googleai/gemini-2.0-flash-preview-image-generation',
+      prompt: promptOutput.mandalaPrompt,
+      config: {
+        responseModalities: ['TEXT', 'IMAGE'],
+        safetySettings: [
+          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
+          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
+        ],
+      },
+    });
+    
+    // 3. Combine results and return.
+    return {
+      interpretation: promptOutput.interpretation,
+      mandalaImageUri: media?.url,
+    };
+  }
+);
+
+    
