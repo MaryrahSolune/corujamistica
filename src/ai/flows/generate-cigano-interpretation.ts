@@ -189,7 +189,7 @@ O Trevo (2) + A Cegonha (17) = Aviso que os problemas fazem você mudar seus pla
 O Trevo (2) + O Cachorro (18) = Muito cuidado com os problemas de amizades.
 O Trevo (2) + A Torre (19) = Distanciamento da fé e do autoconhecimento.
 O Trevo (2) + O Jardim (20) = Desafios nos relacionamentos sociais.
-O Trevo (2) + A Montanha (21) = Diversos obstáculos a serem superados.
+O Trevo (2) + O Montanha (21) = Diversos obstáculos a serem superados.
 O Trevo (2) + O Caminho (22) = Dificuldades em decisão.
 O Trevo (2) + O Rato (23) = Muito estresse mental.
 O Trevo (2) + O Coração (24) = Problemas emocionais.
@@ -1310,7 +1310,7 @@ O Peixe (34) + A Cegonha (17) = novidade chegando.
 O Peixe (34) + O Cachorro (18) = amizade por interesse financeiro.
 O Peixe (34) + A Torre (19) = solidão e tristeza.
 O Peixe (34) + O Jardim (20) = crescimento e ampliação.
-O Peixe (34) + A Montanha (21) = busca por uma prosperidade que nunca chega.
+O Peixe (34) + O Montanha (21) = busca por uma prosperidade que nunca chega.
 O Peixe (34) + O Caminho (22) = dinheiro entrando.
 O Peixe (34) + O Rato (23) = dinheiro conquistado de forma errada, através da falsidade e mentiras.
 O Peixe (34) + O Coração (24) = situação materialista, pessoa apegada ao dinheiro.
@@ -1431,7 +1431,7 @@ Cruz + Sol = problemas e desafios acabam;
 Cruz + Lua = fé e espiritualidade;
 Cruz + Chave = necessidade de se aproximar da fé;
 Cruz + Peixe = complicações com dinheiro;
-Cruz + Âncora = destino e sina.
+Cruz + Âncora = destino e sina;
 `,
   config: {
     safetySettings: [
