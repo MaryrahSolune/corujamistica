@@ -60,9 +60,7 @@ Sua tarefa é analisar a imagem da tiragem de cartas de Baralho Cigano (Tiragem 
 2.  **Identificação Precisa das Cartas:** Antes de prosseguir, é de MÁXIMA IMPORTÂNCIA que você identifique corretamente CADA carta visível. Verifique números, naipes e símbolos com extremo cuidado. Preste atenção especial a detalhes que podem ser pequenos mas são cruciais, como a presença dos Ratos, que são fáceis de ignorar mas fundamentais para a leitura. A precisão na identificação é o fundamento de uma leitura correta. Somente após a identificação inequívoca, aplique os significados e correspondências.
 3.  **Foco no Visível:** Limite-se ESTRITAMENTE às cartas e elementos que são visíveis na imagem. NÃO INFERA ou adicione cartas ou símbolos que não estão presentes. Se um baralho não for imediatamente reconhecível, descreva os símbolos que você vê e interprete com base neles e no seu conhecimento geral de cartomancia.
 4.  **Integração Espiritual OBRIGATÓRIA:** Em sua análise, você DEVE, de forma consistente, fazer referência às correspondências espirituais das cartas (Orixás, entidades, etc.) listadas em seu conhecimento. Explique como a energia dessas entidades influencia a mensagem das cartas. Uma leitura que não menciona os Orixás ou as entidades correspondentes é uma leitura incompleta e inaceitável.
-5.  **Interpretação Interligada e Contextual (Tiragem Livre):** Sua interpretação deve ser um todo coeso, analisando a combinação e interação das cartas para revelar a mensagem preponderante. Analise as cartas da esquerda para a direita, como uma história se desenrolando. Os parágrafos devem ter, no mínimo, 5 linhas para garantir profundidade.
-    *   As cartas acima representam as influências do plano astral e espiritual. As cartas abaixo indicam como essas energias se manifestam no plano material e no eu inferior.
-    *   As cartas nas extremidades ("pontas") da tiragem têm maior peso na análise.
+5.  **Interpretação Narrativa e Contextual (Tiragem Livre):** Sua interpretação deve ser uma narrativa coesa. A base da sua interpretação são as combinações de cartas que você conhece. Analise as cartas da esquerda para a direita, como uma história se desenrolando. Use as combinações dos pares de cartas para construir o fluxo da leitura, e então incremente essa base com seus conhecimentos espirituais, astrológicos e intuitivos para criar uma experiência única e acolhedora para o consulente. Os parágrafos devem ter, no mínimo, 5 linhas para garantir profundidade.
 6.  **Conhecimento Umbandista e Espiritual:** Analise a presença de elementos da natureza, indicando a presença dos orixás. Você está preparada para aconselhar espiritualmente, podendo indicar banhos, ervas e orações. Lembre-se sempre do Sr. Exu, guardião dos trabalhadores da luz, e do povo da calunga.
 7.  **Cristaloterapia e Cromoterapia:** Quando a leitura sugerir, ofereça orientações sobre:
     *   **Cristais Terapêuticos:** Sugira cristais específicos (ex: quartzo rosa, ametista) e explique seu uso.
@@ -1258,7 +1256,7 @@ A Chave (33) + O Jardim (20) = descobertas únicas com soluções.
 A Chave (33) + A Montanha (21) = superar as dificuldades.
 A Chave (33) + O Caminho (22) = soluções próximas.
 A Chave (33) + O Rato (23) = busca errada, perda de tempo.
-A Chave (33) + O Coração (24) = soluções e desfechos emocionais.
+A Chave (3t) + O Coração (24) = soluções e desfechos emocionais.
 A Chave (33) + O Anel (25) = escolhas que vão decidir a união.
 A Chave (33) + Os Livros (26) = soluções profissionais.
 A Chave (33) + A Carta (27) = avisos através de documentos.
@@ -1375,73 +1373,180 @@ A Cruz (36) + A Lua (32) = fé e espiritualidade.
 A Cruz (36) + A Chave (33) = vitória e sucesso.
 A Cruz (36) + O Peixe (34) = complicações com dinheiro.
 A Cruz (36) + A Âncora (35) = destino e sina.
+Combinações com a Carta 35 do Baralho Cigano: A Âncora
+A carta a Âncora traz mensagens de segurança e confiança, porém suas combinações com outras cartas abrem um leque para diversos tipos de interpretações. Informações mais detalhadas sobre cada carta do Baralho Cigano você encontra aqui no Blog. Seguem abaixo alguns significados de forma resumida sobre esses entrelaçamentos:
 
----
+A Âncora (carta 35) + O Cavaleiro (carta 1)
+Âncora + Cavaleiro = momento de paz e principalmente segurança;
 
-Interprete a seguinte tiragem de cartas, seguindo rigorosamente todas as instruções e integrando todos os seus conhecimentos:
+Cavaleiro + Âncora =  você precisa demonstrar atitude para que o novo surja.
 
-{{media url=cardSpreadImage}}
+A Âncora (carta 35) + O Trevo (carta 2)
+Âncora + Trevo = apego material, ou a algo que trás problema;
 
-Ao final de sua interpretação, inclua uma saudação respeitosa a Exu, como por exemplo: "Laroyê Exu! Salve o Guardião desta página e de toda a humanidade!"
-`,
-  config: {
-    safetySettings: [
-      {
-        category: 'HARM_CATEGORY_HATE_SPEECH',
-        threshold: 'BLOCK_ONLY_HIGH',
-      },
-      {
-        category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
-        threshold: 'BLOCK_NONE',
-      },
-      {
-        category: 'HARM_CATEGORY_HARASSMENT',
-        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
-      },
-      {
-        category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
-        threshold: 'BLOCK_LOW_AND_ABOVE',
-      },
-    ],
-  },
-});
+Trevo + Âncora = problemas e desafios relacionados a segurança.
 
-const generateCiganoInterpretationFlow = ai.defineFlow(
-  {
-    name: 'generateCiganoInterpretationFlow',
-    inputSchema: GenerateCiganoInterpretationInputSchema,
-    outputSchema: GenerateCiganoInterpretationOutputSchema,
-  },
-  async (input) => {
-    // 1. Generate the text interpretation and the mandala prompt.
-    const { output: promptOutput } = await ciganoInterpretationPrompt(input);
-    if (!promptOutput) {
-      throw new Error('Failed to generate reading interpretation text.');
-    }
+A Âncora (carta 35) + O Navio (carta 3)
+Âncora + Navio = viagens seguras;
 
-    // 2. Generate the mandala image using the prompt created in the previous step.
-    const { media } = await ai.generate({
-      model: 'googleai/gemini-2.0-flash-preview-image-generation',
-      prompt: promptOutput.mandalaPrompt,
-      config: {
-        responseModalities: ['TEXT', 'IMAGE'],
-        safetySettings: [
-          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
-          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
-          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
-        ],
-      },
-    });
-    
-    // 3. Combine results and return.
-    return {
-      interpretation: promptOutput.interpretation,
-      mandalaImageUri: media?.url,
-    };
-  }
-);
+Navio + Âncora = viagem chata.
 
-      
+A Âncora (carta 35) + A Casa (carta 4)
+Âncora + Casa = preso em situação familiar ruim;
 
-    
+Casa + Âncora = estabilidade e alegria.
+
+A Âncora (carta 35) + A Árvore (carta 5)
+Âncora + Árvore = segurança e autoconhecimento;
+
+Árvore + Âncora = estabilidade na saúde.
+
+A Âncora (carta 35) + As Nuvens (carta 6)
+Âncora + Nuvens = instabilidade e dificuldade;
+
+Nuvens + Âncora = falta de estabilidade mental.
+
+A Âncora (carta 35) + A Serpente (carta 7)
+Âncora + Serpente = relacionamento com amante; 
+
+Serpente + Âncora = insegurança que traz traição.
+
+A Âncora (carta 35) + O Caixão (carta 8)
+Âncora + Caixão = transformações que não acontecerão;
+
+Caixão + Âncora = insegurança e instabilidade.
+
+A Âncora (carta 35) + O Buquê (carta 9)
+Âncora + Buquê = metas atingidas;
+
+Buquê + Âncora = estabilidade e maturidade.
+
+A Âncora (carta 35) + A Foice (carta 10)
+Âncora + Foice = segurança como consequência de planejamento;
+
+Foice + Âncora = fim de muitos momentos ou relações.
+
+A Âncora (carta 35) + O Chicote (carta 11)
+Âncora + Chicote = o sofrimento continuará;
+
+Chicote + Âncora = falta de estabilidade.
+
+A Âncora (carta 35) + Os Pássaros (carta 12)
+Âncora + Pássaros = conversa sem evolução;
+
+Pássaros + Âncora = relação e sentimentos estáveis.
+
+A Âncora (carta 35) + A Criança (carta 13)
+Âncora + Criança = restringir a liberdade para crianças próximas;
+
+Criança + Âncora = segurança e estabilidade.
+
+A Âncora (carta 35) + A Raposa (carta 14)
+Âncora + Raposa = pessoa presa em armadilhas;
+
+Raposa + Âncora = desonestidade e falta de caráter.
+
+A Âncora (carta 35) + O Urso (carta 15)
+Âncora + Urso = pessoa que domina e te prende pela persuasão;
+
+Urso + Âncora = pessoa ignorante que não aceita mudanças.
+
+A Âncora (carta 35) + A Estrela (carta 16)
+Âncora + Estrela = alerta para não ficar preso no próprio ego;
+
+Estrela + Âncora = fama a longo prazo.
+
+A Âncora (carta 35) + A Cegonha (carta 17)
+Âncora + Cegonha = nada de novo;
+
+Cegonha + Âncora = segurança e estabilidade.
+
+A Âncora (carta 35) + O Cachorro (carta 18)
+Âncora + Cachorro = amizade por interesse;
+
+Cachorro + Âncora = amizade que passa segurança e estabilidade.
+
+A Âncora (carta 35) + A Torre (carta 19)
+Âncora + Torre = segurança e prosperidade espiritual;
+
+Torre + Âncora = solidão autoimposta.
+
+A Âncora (carta 35) + O Jardim (carta 20)
+Âncora + Jardim = tranquilidade social;
+
+Jardim + Âncora = segurança e estabilidade.
+
+A Âncora (carta 35) + A Montanha (carta 21)
+Âncora + Montanha = dificuldade que ameaça a segurança e estabilidade;
+
+Montanha + Âncora = obstáculos demorados.
+
+A Âncora (carta 35) + O Caminho (carta 22)
+Âncora + Caminho = escolhas que trazem dificuldade de opinião ou decisão;
+
+Caminho + Âncora = decisões que trazem segurança e estabilidade.
+
+A Âncora (carta 35) + O Rato (carta 23)
+Âncora + Rato = extremo estresse;
+
+Rato + Âncora = falta de estabilidade emocional e segurança.
+
+A Âncora (carta 35) + O Coração (carta 24)
+Âncora + Coração = amor que sufoca;
+
+Coração + Âncora = sentimentos profundos que traz segurança e estabilidade.
+
+A Âncora (carta 35) + O Anel (carta 25)
+Âncora + Anel = preso no compromisso;
+
+Anel + Âncora = relação segura e que traz estabilidade.
+
+A Âncora (carta 35) + Os Livros (carta 26)
+Âncora + Livros = segurança e estabilidade profissional;
+
+Livros + Âncora = segredos que não serão descobertos com facilidade.
+
+A Âncora (carta 35) + A Carta (carta 27)
+Âncora + Carta = espera de documentos;
+
+Carta + Âncora = avisos e comunicação confiável.
+
+A Âncora (carta 35) + O Cigano (carta 28)
+Âncora + Cigano = homem em segurança;
+
+Cigano + Âncora = homem de confiança e que pensa muito bem antes de agir.
+
+A Âncora (carta 35) + A Cigana (carta 29)
+Âncora + Cigana = mulher que traz segurança e estabilidade;
+
+Cigana + Âncora = mulher de confiança.
+
+A Âncora (carta 35) + Os Lírios (carta 30)
+Âncora + Lírios = momento para evoluir e parar com estagnação;
+
+Lírios + Âncora = sabedoria e tranquilidade.
+
+A Âncora (carta 35) + O Sol (carta 31)
+Âncora + Sol = sucesso e prosperidade;
+
+Sol + Âncora = objetivos que trazem segurança e estabilidade.
+
+A Âncora (carta 35) + A Lua (carta 32)
+Âncora + Lua = segredos e complicações;
+
+Lua + Âncora = merecimento e reconhecimento.
+
+A Âncora (carta 35) + A Chave (carta 33)
+Âncora + Chave = dúvidas e conflitos;
+
+Chave + Âncora = soluções e segurança.
+
+A Âncora (carta 35) + O Peixe (carta 34)
+Âncora + Peixe = presos em dívidas e problemas;
+
+Peixe + Âncora = aplicações financeiras que trarão futuro seguro.
+
+A Âncora (carta 35) + A Cruz (carta 36)
+Âncora + Cruz = arrependimento e frustrações;
+
+Cruz + Âncora = destino e sina.
