@@ -377,7 +377,7 @@ O Caixão (8) + A Cegonha (17) = mudanças na forma de agir e pensar.
 O Caixão (8) + O Cachorro (18) = amizade nova.
 O Caixão (8) + A Torre (19) = novas companhias.
 O Caixão (8) + O Jardim (20) = relação social com desafios e dificuldades.
-O Caixão (8) + A Montanha (21) = mudanças injustas.
+O Caixão (8) + O Montanha (21) = mudanças injustas.
 O Caixão (8) + O Caminho (22) = escolhas, mudança a ser feita.
 O Caixão (8) + O Rato (23) = estresse.
 O Caixão (8) + O Coração (24) = sentimento amoroso esgotado.
@@ -412,7 +412,7 @@ O Buquê (9) + A Cegonha (17) = gravidez ou adoção.
 O Buquê (9) + O Cachorro (18) = presente emocional.
 O Buquê (9) + A Torre (19) = necessidade de procurar sabedoria e autoconhecimento para assim estar de bem consigo mesmo.
 O Buquê (9) + O Jardim (20) = felicidade e bons frutos.
-O Buquê (9) + A Montanha (21) = dificuldades que interferem no equilíbrio.
+O Buquê (9) + O Montanha (21) = dificuldades que interferem no equilíbrio.
 O Buquê (9) + O Caminho (22) = boas oportunidades e sorte.
 O Buquê (9) + O Rato (23) = surpresas desagradáveis.
 O Buquê (9) + O Coração (24) = felicidade amorosa.
@@ -447,7 +447,7 @@ A Foice (10) + A Cegonha (17) = mudança de pensamentos e consequentemente de ru
 A Foice (10) + O Cachorro (18) = mentiras e falsidade.
 A Foice (10) + A Torre (19) = fim de isolamento, isto é, início de interações sociais.
 A Foice (10) + O Jardim (20) = corte do que se plantou.
-A Foice (10) + A Montanha (21) = sorte e fim das dificuldades.
+A Foice (10) + O Montanha (21) = sorte e fim das dificuldades.
 A Foice (10) + O Caminho (22) = confusão e o sentimento de perdido, sem rumo.
 A Foice (10) + O Rato (23) = fim de preocupações e desafios que tiram a tranquilidade.
 A Foice (10) + O Coração (24) = sentimentos cortados e decepções.
@@ -482,7 +482,7 @@ O Chicote (11) + A Cegonha (17) = persistir em mudanças positivas.
 O Chicote (11) + O Cachorro (18) = desavenças com amigo.
 O Chicote (11) + A Torre (19) = momento sensitivo e místico.
 O Chicote (11) + O Jardim (20) = a vida social no ápice.
-O Chicote (11) + A Montanha (21) = conselho para procurar o seu “eu” e assim resolver questões.
+O Chicote (11) + O Montanha (21) = conselho para procurar o seu “eu” e assim resolver questões.
 O Chicote (11) + O Caminho (22) = escolhas que trazem dores.
 O Chicote (11) + O Rato (23) = inveja e magia ruim.
 O Chicote (11) + O Coração (24) = sexo e carinho.
@@ -517,7 +517,7 @@ Os pássaros (12) + A Cegonha (17) = planejando e falando sobre mudanças.
 Os pássaros (12) + O Cachorro (18) = conversa amiga e tranquila.
 Os pássaros (12) + A Torre (19) = diálogos sobre coisas íntimas.
 Os Pássaros (12) + O Jardim (20) = essa jogada pede para se comunicar mais.
-Os pássaros (12) + A Montanha (21) = problemas e desafios que precisam ser superados.
+Os pássaros (12) + O Montanha (21) = problemas e desafios que precisam ser superados.
 Os pássaros (12) + O Caminho (22) = caminhos ótimos.
 Os pássaros (12) + O Rato (23) = discussões e tristezas.
 Os pássaros (12) + O Coração (24) = amor puro e sábio.
@@ -552,7 +552,7 @@ A Criança (13) + A Cegonha (17) = fim da adolescência.
 A Criança (13) + O Cachorro (18) = amizade ou pessoa sincera e verdade.
 A Criança (13) + A Torre (19) = presságio e ação de guia espiritual.
 A Criança (13) + O Jardim (20) = ingenuidade e inocência.
-A Criança (13) + A Montanha (21) = crianças com problemas ou dificuldades.
+A Criança (13) + O Montanha (21) = crianças com problemas ou dificuldades.
 A Criança (13) + O Caminho (22) = crianças maduras e independentes.
 A Criança (13) + O Rato (23) = hiperatividade e falta de paciência.
 A Criança (13) + O Coração (24) = nova paixão.
@@ -587,7 +587,7 @@ A Raposa (14) + A Cegonha (17) = fofocas com intrigas e calúnias.
 A Raposa (14) + O Cachorro (18) = amigos que estão influenciando negativamente.
 A Raposa (14) + A Torre (19) = solidão e falta de fé.
 A Raposa (14) + O Jardim (20) = eventos sociais.
-A Raposa (14) + A Montanha (21) = planejamento parado.
+A Raposa (14) + O Montanha (21) = planejamento parado.
 A Raposa (14) + O Caminho (22) = alerta para tomar cuidado e ter mais atenção com as escolhas.
 A Raposa (14) + O Rato (23) = pessoa de caráter duvidoso.
 A Raposa (14) + O Coração (24) = alerta para atenção nos relacionamentos e sentimentos.
@@ -622,7 +622,7 @@ O Urso (15) + A Cegonha (17) = risco na gravidez.
 O Urso (15) + O Cachorro (18) = amizade falsa, que sufoca e suga as energias.
 O Urso (15) + A Torre (19) = pensamentos e atitudes egoístas.
 O Urso (15) + O Jardim (20) = projetos e planos que iludem e enganam.
-O Urso (15) + A Montanha (21) = superando os problemas e desafios com muita força.
+O Urso (15) + O Montanha (21) = superando os problemas e desafios com muita força.
 O Urso (15) + O Caminho (22) = pessoa dividida na vida amorosa, nova paixão.
 O Urso (15) + O Rato (23) = pessoa com intensão de machucar e que só pensa em prejudicar.
 O Urso (15) + O Coração (24) = amor falso e relação a base de traições.
@@ -657,7 +657,7 @@ A Estrela (16) + A Cegonha (17) = pensamentos que mudam sempre.
 A Estrela (16) + O Cachorro (18) = grande lealdade e amizade.
 A Estrela (16) + A Torre (19) = mentores espirituais com mensagens e opções.
 A Estrela (16) + O Jardim (20) = brilho próprio que estimula as outras pessoas.
-A Estrela (16) + A Montanha (21) = sonhos desfeitos que trazem tristezas e mágoas.
+A Estrela (16) + O Montanha (21) = sonhos desfeitos que trazem tristezas e mágoas.
 A Estrela (16) + O Caminho (22) = escolhas sábias que trazem realização.
 A Estrela (16) + O Rato (23) = perda de respeito e consequentemente má fama.
 A Estrela (16) + O Coração (24) = grande paixão e amor.
@@ -692,7 +692,7 @@ A Cegonha (17) + A Estrela (16) = mudanças que trazem bons resultados.
 A Cegonha (17) + O Cachorro (18) = amizades novas que fazem bem.
 A Cegonha (17) + A Torre (19) = notícias e surpresas do passado.
 A Cegonha (17) + O Jardim (20) = mudanças que levam para longe.
-A Cegonha (17) + A Montanha (21) = mudanças e obstáculos superados.
+A Cegonha (17) + O Montanha (21) = mudanças e obstáculos superados.
 A Cegonha (17) + O Caminho (22) = escolhas diferentes.
 A Cegonha (17) + O Rato (23) = novidades que magoam.
 A Cegonha (17) + O Coração (24) = amor novo com sentimento bom.
@@ -727,7 +727,7 @@ O Cachorro (18) + A Estrela (16) = amizade que influencia positivamente, que tra
 O Cachorro (18) + A Cegonha (17) = amigos que transformam positivamente.
 O Cachorro (18) + A Torre (19) = amigo espiritualizado.
 O Cachorro (18) + O Jardim (20) = lealdade e sinceridade.
-O Cachorro (18) + A Montanha (21) = amigo que está com problemas.
+O Cachorro (18) + O Montanha (21) = amigo que está com problemas.
 O Cachorro (18) + O Caminho (22) = amizade que faz diferença e que abre caminho.
 O Cachorro (18) + O Rato (23) = amigo com problemas psicológicos que te deixa mal.
 O Cachorro (18) + O Coração (24) = amizade colorida.
@@ -762,7 +762,7 @@ A Torre (19) + A Estrela (16) = simboliza mediunidade.
 A Torre (19) + A Cegonha (17) = mudança interior.
 A Torre (19) + O Cachorro (18) = amizades verdadeiras do passado, que estão voltando.
 A Torre (19) + O Jardim (20) = isolamento e falta de contato social.
-A Torre (19) + A Montanha (21) = espiritual abalado e solidão que chateia.
+A Torre (19) + O Montanha (21) = espiritual abalado e solidão que chateia.
 A Torre (19) + O Caminho (22) = espiritualidade e fé atuando.
 A Torre (19) + O Rato (23) = falsidade e mentira.
 A Torre (19) + O Coração (24) = solidão amorosa e emocional abalado.
@@ -797,7 +797,7 @@ O Jardim (20) + A Estrela (16) = evento ou evolução espiritual.
 O Jardim (20) + A Cegonha (17) = novos projetos e sonhos.
 O Jardim (20) + O Cachorro (18) = eventos e festas entre amigos.
 O Jardim (20) + A Torre (19) = parentes que eram próximos começam a se distanciar.
-O Jardim (20) + A Montanha (21) = festa ou comemoração chata.
+O Jardim (20) + O Montanha (21) = festa ou comemoração chata.
 O Jardim (20) + O Caminho (22) = momento de descisão e escolha.
 O Jardim (20) + O Rato (23) = escolhas erradas que trazem consequências.
 O Jardim (20) + O Coração (24) = sentimentos que se expandem.
@@ -868,7 +868,7 @@ O Caminho (22) + A Cegonha (17) = escolhas que trazem grandes mudanças.
 O Caminho (22) + O Cachorro (18) = pedindo uma opinião, hora de tomar uma posição.
 O Caminho (22) + A Torre (19) = necessidade de seguir sozinho.
 O Caminho (22) + O Jardim (20) = projetos e planos que precisam de um andamento.
-O Caminho (22) + A Montanha (21) = dificuldade e grandes desafios.
+O Caminho (22) + O Montanha (21) = dificuldade e grandes desafios.
 O Caminho (22) + O Rato (23) = escolhas difíceis.
 O Caminho (22) + O Coração (24) = novo amor a caminho ou harmonia na vida amorosa.
 O Caminho (22) + O Anel (25) = novas uniões e momentos importantes.
@@ -903,7 +903,7 @@ O Rato (23) + A Cegonha (17) = tentativa se superar estresse a ansiedade.
 O Rato (23) + O Cachorro (18) = perda de um amigo importante.
 O Rato (23) + A Torre (19) = estresse e raiva que vem de longo tempo.
 O Rato (23) + O Jardim (20) = mudanças de pensamentos e de planos.
-O Rato (23) + A Montanha (21) = injustiça que trazem aborrecimentos.
+O Rato (23) + O Montanha (21) = injustiça que trazem aborrecimentos.
 O Rato (23) + O Caminho (22) = nervoso desnecessário, momento de parar e pensar muito bem.
 O Rato (23) + O Coração (24) = desgastes e tristezas emocionais.
 O Rato (23) + O Anel (25) = relacionamento degastado.
@@ -938,7 +938,7 @@ O Coração (24) + A Cegonha (17) = vontade de mudanças e de algo novo.
 O Coração (24) + O Cachorro (18) = lealdade e amizade carinhosa.
 O Coração (24) + A Torre (19) = sentimento de abandono que gera carência e solidão.
 O Coração (24) + O Jardim (20) = trabalho voluntário e caridade.
-O Coração (24) + A Montanha (21) = sentimentos que precisam ser amadurecidos.
+O Coração (24) + O Montanha (21) = sentimentos que precisam ser amadurecidos.
 O Coração (24) + O Caminho (22) = amores verdadeiros, vindo de familiares, amigos, parceiros, etc.
 O Coração (24) + O Rato (23) = sentimentos ruins que destroem.
 O Coração (24) + O Anel (25) = entrega totalmente verdadeira e emocional.
@@ -973,7 +973,7 @@ O Anel (25) + A Cegonha (17) = fim de união.
 O Anel (25) + O Cachorro (18) = namoro ou sociedade formada entre amigos.
 O Anel (25) + A Torre (19) = relacionamento antigo com ligação espiritual.
 O Anel (25) + O Jardim (20) = nova parceria.
-O Anel (25) + A Montanha (21) = relações complicadas e solitárias.
+O Anel (25) + O Montanha (21) = relações complicadas e solitárias.
 O Anel (25) + O Caminho (22) = mais de uma união que traz benefícios.
 O Anel (25) + O Rato (23) = união que traz estresse e desânimo.
 O Anel (25) + O Coração (24) = relacionamentos e uniões bem sucedidas.
@@ -1008,7 +1008,7 @@ Os Livros (26) + A Cegonha (17) = promoção profissional.
 Os Livros (26) + O Cachorro (18) = rotina com amigos.
 Os Livros (26) + A Torre (19) = segredos do passado sendo revelado.
 Os Livros (26) + O Jardim (20) = trabalho em prol a sociedade.
-Os Livros (26) + A Montanha (21) = as dificuldades aparecendo e tomando forma.
+Os Livros (26) + O Montanha (21) = as dificuldades aparecendo e tomando forma.
 Os Livros (26) + O Caminho (22) = conselho para desvendar com mais sabedoria os caminhos.
 Os Livros (26) + O Rato (23) = trabalho que estressa e desgasta.
 Os Livros (26) + O Coração (24) = trabalho bom que apaixona.
@@ -1043,7 +1043,7 @@ A Carta (27) + A Cegonha (17) = mudanças sendo pautadas.
 A Carta (27) + O Cachorro (18) = documentos e caminhos corretos.
 A Carta (27) + A Torre (19) = documentos antigos e únicos.
 A Carta (27) + O Jardim (20) = documentos empresariais e que valem muito.
-A Carta (27) + A Montanha (21) = documentos feitos de forma errada.
+A Carta (27) + O Montanha (21) = documentos feitos de forma errada.
 A Carta (27) + O Caminho (22) = notícias que estão sendo encaminhadas.
 A Carta (27) + O Rato (23) = notícias que trazem prejuízo.
 A Carta (27) + O Coração (24) = notícias tão boas que emocionam.
@@ -1078,7 +1078,7 @@ O Cigano (28) + A Cegonha (17) = homem que tem mente aberta.
 O Cigano (28) + O Cachorro (18) = homem fiel.
 O Cigano (28) + A Torre (19) = homem arrogante e solitário.
 O Cigano (28) + O Jardim (20) = homem popular e com grande beleza.
-O Cigano (28) + A Montanha (21) = homem difícil e frio.
+O Cigano (28) + O Montanha (21) = homem difícil e frio.
 O Cigano (28) + O Caminho (22) = homem indeciso.
 O Cigano (28) + O Rato (23) = homem deprimido, cansado ou que rouba.
 O Cigano (28) + O Coração (24) = homem carinhoso, apaixonado e sentimental.
@@ -1113,7 +1113,7 @@ A Cigana (29) + A Cegonha (17) = mulher com mente aberta.
 A Cigana (29) + O Cachorro (18) = mulher fiel.
 A Cigana (29) + A Torre (19) = mulher arrogante e solitária.
 A Cigana (29) + O Jardim (20) = mulher popular e com grande beleza.
-A Cigana (29) + A Montanha (21) = mulher difícil e fria.
+A Cigana (29) + O Montanha (21) = mulher difícil e fria.
 A Cigana (29) + O Caminho (22) = mulher indecisa.
 A Cigana (29) + O Rato (23) = mulher deprimida, cansada ou que rouba.
 A Cigana (29) + O Coração (24) = mulher carinhosa, apaixonada e sentimental.
@@ -1148,7 +1148,7 @@ Os Lírios (30) + A Cegonha (17) = frieza que provoca mudanças.
 Os Lírios (30) + O Cachorro (18) = amizade fria.
 Os Lírios (30) + A Torre (19) = sabedoria e paz espiritual.
 Os Lírios (30) + O Jardim (20) = frieza e insegurança.
-Os Lírios (30) + A Montanha (21) = isolamento e falta de paciência.
+Os Lírios (30) + O Montanha (21) = isolamento e falta de paciência.
 Os Lírios (30) + O Caminho (22) = usar mais a razão do que emoção pra decisões complexas.
 Os Lírios (30) + O Rato (23) = problemas de saúde.
 Os Lírios (30) + O Coração (24) = maturidade e sabedoria emocional.
@@ -1183,16 +1183,16 @@ O Sol (31) + A Cegonha (17) = energia em alta que traz grandes transformações.
 O Sol (31) + O Cachorro (18) = pessoa leal que faz bem.
 O Sol (31) + A Torre (19) = espiritualidade de outras vidas.
 O Sol (31) + O Jardim (20) = destaque público e pessoa de muita sorte.
+O Sol (31) + O Montanha (21) = conselho para encarar os problemas com toda coragem.
 O Sol (31) + O Caminho (22) = um grande acontecimento está por vir.
-O Sol (31) + A Montanha (21) = conselho para encarar os problemas com toda coragem.
 O Sol (31) + O Rato (23) = grande aborrecimento e decepção.
 O Sol (31) + O Coração (24) = romance carnal, cheio de paixão.
 O Sol (31) + O Anel (25) = momento de assumir relação.
 O Sol (31) + Os Livros (26) = segredos que são descobertos.
 O Sol (31) + A Carta (27) = grandes notícias.
 O Sol (31) + O Cigano (28) = sucesso em todas as áreas na vida de um homem.
-O Sol (31) + A Cigana (29) = sucesso em todas as áreas da vida de uma mulher.
-O Sol (31) + Os Lírios (30) = sucesso e sorte.
+O Sol (31) + A Cigana (29) = mulher madura de muito sucesso.
+O Sol (31) + Os Lírios (30) = paz, prosperidade e progresso.
 O Sol (31) + A Lua (32) = sucesso e muita criatividade.
 O Sol (31) + A Chave (33) = sucesso e crescimento.
 O Sol (31) + O Peixe (34) = dinheiro chegando.
@@ -1218,7 +1218,7 @@ A Lua (32) + A Cegonha (17) = sucesso e prosperidade.
 A Lua (32) + O Cachorro (18) = conquistas e vitórias.
 A Lua (32) + A Torre (19) = conquistas só sua.
 A Lua (32) + O Jardim (20) = reconhecimento e estabilidade.
-A Lua (32) + A Montanha (21) = problemas para conseguir o que se almeja.
+A Lua (32) + O Montanha (21) = problemas para conseguir o que se almeja.
 A Lua (32) + O Caminho (22) = caminhos merecidos.
 A Lua (32) + O Rato (23) = conquistas que possuem fraudes e mentiras.
 A Lua (32) + O Coração (24) = sentimentos escondidos e guardados.
@@ -1247,13 +1247,13 @@ A Chave (33) + O Chicote (11) = tomada de decisão.
 A Chave (33) + Os Pássaros (12) = solução encontrada no diálogo.
 A Chave (33) + A Criança (13) = soluções erradas e imaturas.
 A Chave (33) + A Raposa (14) = habilidade para desfazer armadilhas.
-A Chave (33) + O Urso (15) = resolvendo os problemas através do egoismo.
+A Chave + O Urso (15) = resolvendo os problemas através do egoismo.
 A Chave (33) + A Estrela (16) = caminho positivo para a espiritualidade.
 A Chave (33) + A Cegonha (17) = surpresa chegando.
 A Chave (33) + O Cachorro (18) = novas amizades chegando.
 A Chave (33) + A Torre (19) = saindo da fase solitária para se relacionar com mais frequência.
 A Chave (33) + O Jardim (20) = descobertas únicas com soluções.
-A Chave (33) + A Montanha (21) = superar as dificuldades.
+A Chave (33) + O Montanha (21) = superar as dificuldades.
 A Chave (33) + O Caminho (22) = soluções próximas.
 A Chave (33) + O Rato (23) = busca errada, perda de tempo.
 A Chave (33) + O Coração (24) = soluções e desfechos emocionais.
@@ -1288,7 +1288,7 @@ O Peixe (34) + A Cegonha (17) = novidade chegando.
 O Peixe (34) + O Cachorro (18) = amizade por interesse financeiro.
 O Peixe (34) + A Torre (19) = solidão e tristeza.
 O Peixe (34) + O Jardim (20) = crescimento e ampliação.
-O Peixe (34) + A Montanha (21) = busca por uma prosperidade que nunca chega.
+O Peixe (34) + O Montanha (21) = busca por uma prosperidade que nunca chega.
 O Peixe (34) + O Caminho (22) = dinheiro entrando.
 O Peixe (34) + O Rato (23) = dinheiro conquistado de forma errada, através da falsidade e mentiras.
 O Peixe (34) + O Coração (24) = situação materialista, pessoa apegada ao dinheiro.
@@ -1303,357 +1303,41 @@ O Peixe (34) + A Lua (32) = muitos ganhos financeiros.
 O Peixe (34) + A Chave (33) = investimentos financeiros.
 O Peixe (34) + A Âncora (35) = aplicações financeiras que trarão futuro seguro.
 O Peixe (34) + A Cruz (36) = investimento que estão terminando.
-Combinações com a Carta 35 do Baralho Cigano: A Âncora
-A carta a Âncora traz mensagens de segurança e confiança, porém suas combinações com outras cartas abrem um leque para diversos tipos de interpretações. Informações mais detalhadas sobre cada carta do Baralho Cigano você encontra aqui no Blog. Seguem abaixo alguns significados de forma resumida sobre esses entrelaçamentos:
-
-A Âncora (carta 35) + O Cavaleiro (carta 1)
-Âncora + Cavaleiro = momento de paz e principalmente segurança;
-
-Cavaleiro + Âncora =  você precisa demonstrar atitude para que o novo surja.
-
-A Âncora (carta 35) + O Trevo (carta 2)
-Âncora + Trevo = apego material, ou a algo que trás problema;
-
-Trevo + Âncora = problemas e desafios relacionados a segurança.
-
-A Âncora (carta 35) + O Navio (carta 3)
-Âncora + Navio = viagens seguras;
-
-Navio + Âncora = viagem chata.
-
-A Âncora (carta 35) + A Casa (carta 4)
-Âncora + Casa = preso em situação familiar ruim;
-
-Casa + Âncora = estabilidade e alegria.
-
-A Âncora (carta 35) + A Árvore (carta 5)
-Âncora + Árvore = segurança e autoconhecimento;
-
-Árvore + Âncora = estabilidade na saúde.
-
-A Âncora (carta 35) + As Nuvens (carta 6)
-Âncora + Nuvens = instabilidade e dificuldade;
-
-Nuvens + Âncora = falta de estabilidade mental.
-
-A Âncora (carta 35) + A Serpente (carta 7)
-Âncora + Serpente = relacionamento com amante; 
-
-Serpente + Âncora = insegurança que traz traição.
-
-A Âncora (carta 35) + O Caixão (carta 8)
-Âncora + Caixão = transformações que não acontecerão;
-
-Caixão + Âncora = insegurança e instabilidade.
-
-A Âncora (carta 35) + O Buquê (carta 9)
-Âncora + Buquê = metas atingidas;
-
-Buquê + Âncora = estabilidade e maturidade.
-
-A Âncora (carta 35) + A Foice (carta 10)
-Âncora + Foice = segurança como consequência de planejamento;
-
-Foice + Âncora = fim de muitos momentos ou relações.
-
-A Âncora (carta 35) + O Chicote (carta 11)
-Âncora + Chicote = o sofrimento continuará;
-
-Chicote + Âncora = falta de estabilidade.
-
-A Âncora (carta 35) + Os Pássaros (carta 12)
-Âncora + Pássaros = conversa sem evolução;
-
-Pássaros + Âncora = relação e sentimentos estáveis.
-
-A Âncora (carta 35) + A Criança (carta 13)
-Âncora + Criança = restringir a liberdade para crianças próximas;
-
-Criança + Âncora = segurança e estabilidade.
-
-A Âncora (carta 35) + A Raposa (carta 14)
-Âncora + Raposa = pessoa presa em armadilhas;
-
-Raposa + Âncora = desonestidade e falta de caráter.
-
-A Âncora (carta 35) + O Urso (carta 15)
-Âncora + Urso = pessoa que domina e te prende pela persuasão;
-
-Urso + Âncora = pessoa ignorante que não aceita mudanças.
-
-A Âncora (carta 35) + A Estrela (carta 16)
-Âncora + Estrela = alerta para não ficar preso no próprio ego;
-
-Estrela + Âncora = fama a longo prazo.
-
-A Âncora (carta 35) + A Cegonha (carta 17)
-Âncora + Cegonha = nada de novo;
-
-Cegonha + Âncora = segurança e estabilidade.
-
-A Âncora (carta 35) + O Cachorro (carta 18)
-Âncora + Cachorro = amizade por interesse;
-
-Cachorro + Âncora = amizade que passa segurança e estabilidade.
-
-A Âncora (carta 35) + A Torre (carta 19)
-Âncora + Torre = segurança e prosperidade espiritual;
-
-Torre + Âncora = solidão autoimposta.
-
-A Âncora (carta 35) + O Jardim (carta 20)
-Âncora + Jardim = tranquilidade social;
-
-Jardim + Âncora = segurança e estabilidade.
-
-A Âncora (carta 35) + A Montanha (carta 21)
-Âncora + Montanha = dificuldade que ameaça a segurança e estabilidade;
-
-Montanha + Âncora = obstáculos demorados.
-
-A Âncora (carta 35) + O Caminho (carta 22)
-Âncora + Caminho = escolhas que trazem dificuldade de opinião ou decisão;
-
-Caminho + Âncora = decisões que trazem segurança e estabilidade.
-
-A Âncora (carta 35) + O Rato (carta 23)
-Âncora + Rato = extremo estresse;
-
-Rato + Âncora = falta de estabilidade emocional e segurança.
-
-A Âncora (carta 35) + O Coração (carta 24)
-Âncora + Coração = amor que sufoca;
-
-Coração + Âncora = sentimentos profundos que traz segurança e estabilidade.
-
-A Âncora (carta 35) + O Anel (carta 25)
-Âncora + Anel = preso no compromisso;
-
-Anel + Âncora = relação segura e que traz estabilidade.
-
-A Âncora (carta 35) + Os Livros (carta 26)
-Âncora + Livros = segurança e estabilidade profissional;
-
-Livros + Âncora = segredos que não serão descobertos com facilidade.
-
-A Âncora (carta 35) + A Carta (carta 27)
-Âncora + Carta = espera de documentos;
-
-Carta + Âncora = avisos e comunicação confiável.
-
-A Âncora (carta 35) + O Cigano (carta 28)
-Âncora + Cigano = homem em segurança;
-
-Cigano + Âncora = homem de confiança e que pensa muito bem antes de agir.
-
-A Âncora (carta 35) + A Cigana (carta 29)
-Âncora + Cigana = mulher que traz segurança e estabilidade;
-
-Cigana + Âncora = mulher de confiança.
-
-A Âncora (carta 35) + Os Lírios (carta 30)
-Âncora + Lírios = momento para evoluir e parar com estagnação;
-
-Lírios + Âncora = sabedoria e tranquilidade.
-
-A Âncora (carta 35) + O Sol (carta 31)
-Âncora + Sol = sucesso e prosperidade;
-
-Sol + Âncora = objetivos que trazem segurança e estabilidade.
-
-A Âncora (carta 35) + A Lua (carta 32)
-Âncora + Lua = segredos e complicações;
-
-Lua + Âncora = merecimento e reconhecimento.
-
-A Âncora (carta 35) + A Chave (carta 33)
-Âncora + Chave = dúvidas e conflitos;
-
-Chave + Âncora = soluções e segurança.
-
-A Âncora (carta 35) + O Peixe (carta 34)
-Âncora + Peixe = presos em dívidas e problemas;
-
-Peixe + Âncora = aplicações financeiras que trarão futuro seguro.
-
-A Âncora (carta 35) + A Cruz (carta 36)
-Âncora + Cruz = arrependimento e frustrações;
-
-Cruz + Âncora = destino e sina.
-Combinações com a Carta 36 do Baralho Cigano: A Cruz
-A carta a Cruz traz mensagens de fé na vida, porém suas combinações com outras cartas abrem um leque para diversos tipos de interpretações. Informações mais detalhadas sobre cada carta do Baralho Cigano você encontra aqui no Blog. Seguem abaixo alguns significados de forma resumida sobre esses entrelaçamentos:
-
-A Cruz (carta 36) + O Cavaleiro (carta 1)
-Cruz + Cavaleiro = o que era ruim se foi, agora um momento de paz e alegria surgirá;
-
-Cavaleiro + Cruz = você pode e precisa superar os momentos de dor e angústia.
-
-A Cruz (carta 36) + O Trevo (carta 2)
-Cruz + Trevo = fim das dificuldades, problemas e desafios;
-
-Trevo + Cruz = precisa provar da fé e estabilidade emocional.
-
-A Cruz (carta 36) + O Navio (carta 3)
-Cruz + Navio = mudanças, e desfecho de problemas;
-
-Navio + Cruz = aviso para buscar a fé.
-
-A Cruz (carta 36) + A Casa (carta 4)
-Cruz + Casa =  vitória e fé;
-
-Casa + Cruz = espaço/momento religioso.
-
-A Cruz (carta 36) + A Árvore (carta 5)
-Cruz + Árvore =  finalização de situação que traz segurança;
-
-Árvore + Cruz = situação de muita fé.
-
-A Cruz (carta 36) + As Nuvens (carta 6)
-Cruz + Nuvens = vitória incerta;
-
-Nuvens + Cruz = dificuldades e dúvidas espirituais.
-
-A Cruz (carta 36) + A Serpente (carta 7)
-Cruz + Serpente =  fé em prova;
-
-Serpente + Cruz = caminho difícil e perigoso.
-
-A Cruz (carta 36) + O Caixão (carta 8)
-Cruz + Caixão = piora de saúde;
-
-Caixão + Cruz = mudanças que trazem vitória.
-
-A Cruz (carta 36) + O Buquê (carta 9)
-Cruz + Buquê = destino feliz;
-
-Buquê + Cruz =  necessidade de caridade.
-
-A Cruz (carta 36) + A Foice (carta 10)
-Cruz + Foice = trabalho voluntário;
-
-Foice + Cruz = corte de algo importante.
-
-A Cruz (carta 36) + O Chicote (carta 11)
-Cruz + Chicote =  caminhos com diversas dificuldades;
-
-Chicote + Cruz = fim de desafios e dificuldades.
-
-A Cruz (carta 36) + Os Pássaros (carta 12)
-Cruz + Pássaros = fim, rompimento e quebra;
-
-Pássaros + Cruz = brigas que ajudam a finalizar uma situação.
-
-A Cruz (carta 36) + A Criança (carta 13)
-Cruz + Criança = início de uma nova fase;
-
-Criança + Cruz = infância difícil e depressão.
-
-A Cruz (carta 36) + A Raposa (carta 14)
-Cruz + Raposa =  fim de situação ruim e falsa;
-
-Raposa + Cruz = preso em mentiras e ilusões.
-
-A Cruz (carta 36) + O Urso (carta 15)
-Cruz + Urso = finalização de algum problema;
-
-Urso + Cruz =  luta constante por felicidade.
-
-A Cruz (carta 36) + A Estrela (carta 16)
-Cruz + Estrela =  destino e carma;
-
-Estrela + Cruz = pensamentos espiritualizados e tendência a fé em Deus.
-
-A Cruz (carta 36) + A Cegonha (carta 17)
-Cegonha + Cruz = mudança que requer a fé.
-
-A Cruz (carta 36) + O Cachorro (carta 18)
-Cruz + Cachorro = desafios sendo superados com a ajuda dos amigos;
-
-Cachorro + Cruz = amizade complicada que traz dor.
-
-A Cruz (carta 36) + A Torre (carta 19)
-Cruz + Torre = escolha difícil, luta para ficar sozinha;
-
-Torre + Cruz =  igreja, centro e local religioso.
-
-A Cruz (carta 36) + O Jardim (carta 20)
-Cruz + Jardim = finalização de projetos, sonhos e planos;
-
-Jardim + Cruz = grupo de ajuda espiritual.
-
-A Cruz (carta 36) + A Montanha (carta 21)
-Cruz + Montanha = mais problemas que aparecem;
-
-Montanha + Cruz = depressão.
-
-A Cruz (carta 36) + O Caminho (carta 22)
-Cruz + Caminho = dificuldades de escolha e de caminhar;
-
-Caminho + Cruz = cumprindo o destino.
-
-A Cruz (carta 36) + O Rato (carta 23)
-Cruz + Rato =  grande perda que gera tristeza;
-
-Rato + Cruz = desgaste profundos na fé.
-
-A Cruz (carta 36) + O Coração (carta 24)
-Cruz + Coração = fim de sentimento;
-
-Coração + Cruz =  fé e estabilidade espiritual.
-
-A Cruz (carta 36) + O Anel (carta 25)
-Cruz + Anel = depois de muito sofrimento e decepção, acontece o fim do relacionamento;
-
-Anel + Cruz = relação complicada, cheia de brigas.
-
-A Cruz (carta 36) + Os Livros (carta 26)
-Cruz + Livros = segredo que precisa ser guardado, mas que causa muita dor;
-
-Livros + Cruz =  estudo religioso.
-
-A Cruz (carta 36) + A Carta (carta 27)
-Cruz + Carta = documentos que finalmente sairão;
-
-Carta + Cruz = avisos ligados ao espiritual.
-
-A Cruz (carta 36) + O Cigano (carta 28)
-Cruz + Cigano = homem religioso só que cansado e sobrecarregado;
-
-Cigano + Cruz = homem que precisa buscar a fé.
-
-A Cruz (carta 36) + A Cigana (carta 29)
-Cruz + Cigana = finalização negativa para uma mulher;
-
-Cigana + Cruz = mulher religiosa e que sofre.
-
-A Cruz (carta 36) + Os Lírios (carta 30)
-Cruz + Lírios =  falta de paz;
-
-Lírios + Cruz =sexo sem prazer.
-
-A Cruz (carta 36) + O Sol (carta 31)
-Cruz + Sol = problemas e desafios acabam;
-
-Sol + Cruz =  energia e fé.
-
-A Cruz (carta 36) + A Lua (carta 32)
-Cruz + Lua = fé e espiritualidade;
-
-Lua + Cruz = triunfos e conquistas.
-
-A Cruz (carta 36) + A Chave (carta 33)
-Cruz + Chave =  necessidade de se aproximar da fé;
-
-Chave + Cruz =  vitória e sucesso.
-
-A Cruz (carta 36) + O Peixe (carta 34)
-Cruz + Peixe = complicações com dinheiro;
-
-Peixe + Cruz = investimento que estão terminando.
-
-A Cruz (carta 36) + A Âncora (carta 35)
-Cruz + Âncora = destino e sina;
-
+A Cruz (36) + O Cavaleiro (1) = o que era ruim se foi, agora um momento de paz e alegria surgirá.
+A Cruz (36) + O Trevo (2) = fim das dificuldades, problemas e desafios.
+A Cruz (36) + O Navio (3) = mudanças, e desfecho de problemas.
+A Cruz (36) + A Casa (4) =  vitória e fé.
+A Cruz (36) + A Árvore (5) =  finalização de situação que traz segurança.
+A Cruz (36) + As Nuvens (6) = vitória incerta.
+A Cruz (36) + A Serpente (7) =  fé em prova.
+A Cruz (36) + O Caixão (8) = piora de saúde.
+A Cruz (36) + O Buquê (9) = destino feliz.
+A Cruz (36) + A Foice (10) = trabalho voluntário.
+A Cruz (36) + O Chicote (11) =  caminhos com diversas dificuldades.
+A Cruz (36) + Os Pássaros (12) = fim, rompimento e quebra.
+A Cruz (36) + A Criança (13) = início de uma nova fase.
+A Cruz (36) + A Raposa (14) =  fim de situação ruim e falsa.
+A Cruz (36) + O Urso (15) = finalização de algum problema.
+A Cruz (36) + A Estrela (16) =  destino e carma.
+A Cruz (36) + A Cegonha (17) = planejamento sendo alterado.
+A Cruz (36) + O Cachorro (18) = desafios sendo superados com a ajuda dos amigos.
+A Cruz (36) + A Torre (19) = escolha difícil, luta para ficar sozinha.
+A Cruz (36) + O Jardim (20) = finalização de projetos, sonhos e planos.
+A Cruz (36) + O Montanha (21) = mais problemas que aparecem.
+A Cruz (36) + O Caminho (22) = dificuldades de escolha e de caminhar.
+A Cruz (36) + O Rato (23) =  grande perda que gera tristeza.
+A Cruz (36) + O Coração (24) = fim de sentimento.
+A Cruz (36) + O Anel (25) = depois de muito sofrimento e decepção, acontece o fim do relacionamento.
+A Cruz (36) + Os Livros (26) = segredo que precisa ser guardado, mas que causa muita dor.
+A Cruz (36) + A Carta (27) = documentos que finalmente sairão.
+A Cruz (36) + O Cigano (28) = homem religioso só que cansado e sobrecarregado.
+A Cruz (36) + A Cigana (29) = finalização negativa para uma mulher.
+A Cruz (36) + Os Lírios (30) =  falta de paz.
+A Cruz (36) + O Sol (31) = problemas e desafios acabam.
+A Cruz (36) + A Lua (32) = fé e espiritualidade.
+A Cruz (36) + A Chave (33) = vitória e sucesso.
+A Cruz (36) + O Peixe (34) = complicações com dinheiro.
+A Cruz (36) + A Âncora (35) = destino e sina.
 Âncora + Cruz =  arrependimento e frustrações.
 `,
   config: {
@@ -1713,5 +1397,3 @@ const generateCiganoInterpretationFlow = ai.defineFlow(
     };
   }
 );
-
-    
