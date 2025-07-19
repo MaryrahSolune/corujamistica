@@ -124,8 +124,8 @@ Para a Tiragem Livre, ignore a lógica posicional de casas. A interpretação de
 25. **O Anel**: **Sem Orixá** (espíritos em transição), Libra. Desencarnados em busca, neutros.
 26. **Os Livros**: **Pretos-Velhos** (humildade), Mercúrio. Cura, perdão, aconselhamento, limpeza ancestral.
 27. **A Carta**: **Pomba-Gira** (comunicação), Gêmeos. Magia feminina, libertação, revelação.
-28. **O Cigano**: **Ciganos** (liberdade), Sol. Espíritos livres, viajantes, oráculo, música.
-29. **A Cigana**: **Ciganas** (encanto), Lua. Mestras do encanto, sensualidade, intuição, mistérios.
+28. **O Homem**: **Ciganos** (liberdade), Sol. Espíritos livres, viajantes, oráculo, música.
+29. **A Mulher**: **Ciganas** (encanto), Lua. Mestras do encanto, sensualidade, intuição, mistérios.
 30. **Os Lírios**: **Oxum** (amor), Peixes. Rainha da água doce, beleza, fertilidade, diplomacia.
 31. **O Sol**: **Oxum/Oxalá** (amor e fé), Sol. Cura emocional profunda, propósito com ternura.
 32. **A Lua**: **Iemanjá** (maternidade), Lua. Domínio da maternidade universal, força emocional.
@@ -399,7 +399,7 @@ O Caixão (8) + A Cegonha (17) = mudanças na forma de agir e pensar.
 O Caixão (8) + O Cachorro (18) = amizade nova.
 O Caixão (8) + A Torre (19) = novas companhias.
 O Caixão (8) + O Jardim (20) = relação social com desafios e dificuldades.
-O Caixão (8) + O Montanha (21) = mudanças injustas.
+O Caixão (8) + A Montanha (21) = mudanças injustas.
 O Caixão (8) + O Caminho (22) = escolhas, mudança a ser feita.
 O Caixão (8) + O Rato (23) = estresse.
 O Caixão (8) + O Coração (24) = sentimento amoroso esgotado.
@@ -434,7 +434,7 @@ O Buquê (9) + A Cegonha (17) = gravidez ou adoção.
 O Buquê (9) + O Cachorro (18) = presente emocional.
 O Buquê (9) + A Torre (19) = necessidade de procurar sabedoria e autoconhecimento para assim estar de bem consigo mesmo.
 O Buquê (9) + O Jardim (20) = felicidade e bons frutos.
-O Buquê (9) + O Montanha (21) = dificuldades que interferem no equilíbrio.
+O Buquê (9) + A Montanha (21) = dificuldades que interferem no equilíbrio.
 O Buquê (9) + O Caminho (22) = boas oportunidades e sorte.
 O Buquê (9) + O Rato (23) = surpresas desagradáveis.
 O Buquê (9) + O Coração (24) = felicidade amorosa.
@@ -504,7 +504,7 @@ O Chicote (11) + A Cegonha (17) = persistir em mudanças positivas.
 O Chicote (11) + O Cachorro (18) = desavenças com amigo.
 O Chicote (11) + A Torre (19) = momento sensitivo e místico.
 O Chicote (11) + O Jardim (20) = a vida social no ápice.
-O Chicote (11) + O Montanha (21) = conselho para procurar o seu “eu” e assim resolver questões.
+O Chicote (11) + A Montanha (21) = conselho para procurar o seu “eu” e assim resolver questões.
 O Chicote (11) + O Caminho (22) = escolhas que trazem dores.
 O Chicote (11) + O Rato (23) = inveja e magia ruim.
 O Chicote (11) + O Coração (24) = sexo e carinho.
@@ -621,7 +621,7 @@ A Raposa (14) + A Cigana (29) = alerta sobre uma mulher.
 A Raposa (14) + Os Lírios (30) = personalidade forte e bem definida.
 A Raposa (14) + O Sol (31) = alerta para prestar mais atenção.
 A Raposa (14) + A Lua (32) = pensamento e intenções erradas sobre o espiritual.
-A Raposa (14) + O Chave (33) = usar do planejamento para encontrar soluções.
+A Raposa (14) + A Chave (33) = usar do planejamento para encontrar soluções.
 A Raposa (14) + O Peixe (34) = armadilhas financeiras.
 A Raposa (14) + A Âncora (35) = desonestidade e falta de caráter.
 A Raposa (14) + A Cruz (36) = preso em mentiras e ilusões.
@@ -995,7 +995,7 @@ O Anel (25) + A Cegonha (17) = fim de união.
 O Anel (25) + O Cachorro (18) = namoro ou sociedade formada entre amigos.
 O Anel (25) + A Torre (19) = relacionamento antigo com ligação espiritual.
 O Anel (25) + O Jardim (20) = nova parceria.
-O Anel (25) + O Montanha (21) = relações complicadas e solitárias.
+O Anel (25) + A Montanha (21) = relações complicadas e solitárias.
 O Anel (25) + O Caminho (22) = mais de uma união que traz benefícios.
 O Anel (25) + O Rato (23) = união que traz estresse e desânimo.
 O Anel (25) + O Coração (24) = relacionamentos e uniões bem sucedidas.
@@ -1275,7 +1275,7 @@ A Chave (33) + A Cegonha (17) = surpresa chegando.
 A Chave (33) + O Cachorro (18) = novas amizades chegando.
 A Chave (33) + A Torre (19) = saindo da fase solitária para se relacionar com mais frequência.
 A Chave (33) + O Jardim (20) = descobertas únicas com soluções.
-A Chave (33) + A Montanha (21) = superar as dificuldades.
+A Chave (33) + O Montanha (21) = superar as dificuldades.
 A Chave (33) + O Caminho (22) = soluções próximas.
 A Chave (33) + O Rato (23) = busca errada, perda de tempo.
 A Chave (33) + O Coração (24) = soluções e desfechos emocionais.
@@ -1310,7 +1310,7 @@ O Peixe (34) + A Cegonha (17) = novidade chegando.
 O Peixe (34) + O Cachorro (18) = amizade por interesse financeiro.
 O Peixe (34) + A Torre (19) = solidão e tristeza.
 O Peixe (34) + O Jardim (20) = crescimento e ampliação.
-O Peixe (34) + O Montanha (21) = busca por uma prosperidade que nunca chega.
+O Peixe (34) + A Montanha (21) = busca por uma prosperidade que nunca chega.
 O Peixe (34) + O Caminho (22) = dinheiro entrando.
 O Peixe (34) + O Rato (23) = dinheiro conquistado de forma errada, através da falsidade e mentiras.
 O Peixe (34) + O Coração (24) = situação materialista, pessoa apegada ao dinheiro.
