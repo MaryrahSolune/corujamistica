@@ -190,14 +190,7 @@ export default function HomePage() {
         {/* Nossos Oráculos Section */}
         <section className="py-16 sm:py-24 bg-transparent relative overflow-hidden">
           <div className="container mx-auto px-4 relative z-10 text-center">
-            <Image 
-              src="/img/simples.png"
-              alt="Ícone Coruja Mística"
-              width={64}
-              height={64}
-              className="mx-auto mb-6"
-              unoptimized={true}
-            />
+            <Sparkles className="h-16 w-16 text-primary mx-auto mb-6 animate-subtle-pulse" />
             <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('ourOraclesTitle')}</h2>
             <p className="text-lg font-bold text-muted-foreground mb-12 max-w-2xl mx-auto">{t('ourOraclesSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
