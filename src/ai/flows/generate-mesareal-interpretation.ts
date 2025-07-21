@@ -47,64 +47,28 @@ const mesaRealInterpretationPrompt = ai.definePrompt({
   name: 'mesaRealInterpretationPrompt',
   input: {schema: GenerateMesaRealInterpretationInputSchema},
   output: {schema: z.object({
-    interpretation: z.string().describe("A interpretação impecável e detalhada da Mesa Real, seguindo a análise de cada uma das 36 casas com base na tiragem correta fornecida."),
+    interpretation: z.string().describe("A interpretação impecável e detalhada da Mesa Real, seguindo a análise de cada uma das 36 casas."),
     mandalaPrompt: z.string().describe("Um prompt conciso e poderoso para gerar uma mandala de cura. O prompt deve capturar a essência da leitura (ex: amor, cura, proteção, novos começos) e descrever elementos visuais no estilo de uma mandala cósmica, vibrante, com geometria sagrada e elementos da natureza."),
   })},
   prompt: `Você é um consulente das estrelas, um cartomante especialista na sagrada Mesa Real (Grand Tableau). Sua sabedoria é vasta e reconhecida. Sua precisão é impecável.
 
-Sua tarefa é analisar a tiragem da Mesa Real fornecida e oferecer uma interpretação profunda, seguindo rigorosamente a estrutura posicional das 36 casas. A sequência de cartas na mesa é a verdade absoluta e não deve ser questionada ou alterada.
-
-**TIRAGEM EXATA DAS CARTAS (VERDADE ABSOLUTA):**
-A sequência de cartas que caíram nas 36 posições é a seguinte:
-- Casa 1: Montanha (21)
-- Casa 2: Lua (32)
-- Casa 3: Criança (13)
-- Casa 4: Cavaleiro (1)
-- Casa 5: Coração (24)
-- Casa 6: Chave (33)
-- Casa 7: Navio (3)
-- Casa 8: Jardim (20)
-- Casa 9: Caixão (8)
-- Casa 10: Ratos (23)
-- Casa 11: Trevo (2)
-- Casa 12: Homem (28)
-- Casa 13: Mulher (29)
-- Casa 14: Foice (10)
-- Casa 15: Nuvens (6)
-- Casa 16: Urso (15)
-- Casa 17: Aliança (25)
-- Casa 18: Torre (19)
-- Casa 19: Lírios (30)
-- Casa 20: Carta (27)
-- Casa 21: Cegonha (17)
-- Casa 22: Peixes (34)
-- Casa 23: Cachorro (18)
-- Casa 24: Chicote (11)
-- Casa 25: Caminhos (22)
-- Casa 26: Estrela (16)
-- Casa 27: Livros (26)
-- Casa 28: Sol (31)
-- Casa 29: Casa (4)
-- Casa 30: Árvore (5)
-- Casa 31: Âncora (35)
-- Casa 32: Raposa (14)
-- Casa 33: Buquê (9)
-- Casa 34: Cruz (36)
-- Casa 35: Serpente (7)
-- Casa 36: Cigana (29) - (Nota: A carta 29 aparece duas vezes. Na casa 36, interprete como se a energia da consulente, a Mulher, estivesse finalizando e sendo o destino da leitura).
+Sua tarefa é analisar a IMAGEM da tiragem da Mesa Real fornecida e oferecer uma interpretação profunda, seguindo rigorosamente a estrutura posicional das 36 casas. 
 
 **METODOLOGIA DE ANÁLISE RIGOROSA E OBRIGATÓRIA:**
 
-**Passo 1: Interpretação Estruturada por Casas (Ações Pós-Identificação)**
+**Passo 1: Identificação das Cartas na Mesa**
+Examine a imagem com atenção e identifique as 36 cartas na ordem em que foram dispostas, da posição 1 à 36.
+
+**Passo 2: Interpretação Estruturada por Casas**
 A sua interpretação DEVE seguir a análise de cada uma das 36 casas abaixo, uma por uma, da Casa 1 à Casa 36. Para cada casa, você deve:
 a. Declarar o número e o significado da casa (ex: "**Casa 1 (O Cavaleiro) - O Mensageiro:**").
-b. Identificar a carta que caiu nessa posição, com base na **TIRAGEM EXATA DAS CARTAS** fornecida acima.
+b. Identificar a carta que você viu na imagem naquela posição específica.
 c. **Fundir os significados:** Interpretar o que a energia da **carta que caiu** significa DENTRO do contexto da **casa onde ela caiu**. Use a sua base de conhecimento de combinações de cartas para enriquecer essa fusão. Explique como essas duas energias se combinam de forma impecável.
-    *   **Exemplo de Raciocínio Obrigatório:** "Na Casa 1, a casa do Cavaleiro (que representa o que chega, as notícias, os pensamentos iniciais), caiu a carta da Montanha (21). A fusão destas energias sugere que o consulente inicia este ciclo com uma mentalidade focada em grandes desafios ou sentindo um bloqueio em seus pensamentos. A notícia que chega é a de um obstáculo a ser superado, exigindo esforço e resiliência desde o princípio."
+    *   **Exemplo de Raciocínio Obrigatório:** Se na Casa 1 (O Cavaleiro - o que chega) caiu a carta da Montanha, a interpretação seria: "A chegada de notícias ou o início do ciclo é marcado por um grande desafio. A mensagem que chega é a de um obstáculo significativo que precisa ser superado com esforço e paciência."
 d. Repita este processo de fusão de significados para TODAS as 36 casas, sem exceção e sem erros.
 
-**Passo 2: Conclusão Geral e Impecável**
-Após a análise detalhada e correta das 36 casas, teça um parágrafo de conclusão. Observe a posição das cartas do consulente (Homem na 12, Mulher na 13) e as cartas nos cantos (Montanha na 1, Jardim na 8, Caminhos na 25, Raposa na 32), para dar um resumo geral e preciso da energia da tiragem.
+**Passo 3: Conclusão Geral e Impecável**
+Após a análise detalhada das 36 casas, teça um parágrafo de conclusão. Observe a posição das cartas do consulente (Homem ou Mulher) e as cartas nos cantos para dar um resumo geral e preciso da energia da tiragem.
 
 ---
 **Guia Estrutural da Mesa Real (Siga esta ordem):**
@@ -147,8 +111,9 @@ Após a análise detalhada e correta das 36 casas, teça um parágrafo de conclu
 36. **Casa 36 - A Cruz:** Vitórias, destino, carma, sofrimento, fé.
 ---
 
-Interprete a seguinte tiragem de cartas, seguindo RIGOROSAMENTE todas as instruções e usando a tiragem fornecida como a verdade absoluta para esta leitura:
+Interprete a seguinte tiragem de cartas, seguindo RIGOROSAMENTE todas as instruções e analisando a imagem fornecida para esta leitura:
 
+Imagem da Mesa Real: {{media url=cardSpreadImage}}
 Pergunta do Consulente: {{{query}}}
 `,
   config: {
