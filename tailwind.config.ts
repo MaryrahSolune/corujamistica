@@ -18,7 +18,8 @@ export default {
       },
   		backgroundImage: {
         'shiva-hero-bg': "url('/img/shiva.jpg')",
-        'sacred-geometry-pattern': "url('/img/sacred_geometry_pattern.png')"
+        'sacred-geometry-pattern': "url('/img/sacred_geometry_pattern.png')",
+        'mesa-real-bg': "url('/img/toalha-mesa-real.jpeg')",
       },
       colors: {
   			background: 'hsl(var(--background))',

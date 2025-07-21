@@ -2,110 +2,155 @@
 // src/components/MesaRealBoard.tsx
 'use client';
 
-import { useEffect, useState, useMemo, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { oghamLetters } from '@/lib/ogham-data'; // Reusing ogham data for card info for now
 import { Button } from '@/components/ui/button';
-import { Loader2, Camera } from 'lucide-react';
+import { Loader2, Camera, Wand2 } from 'lucide-react';
 import html2canvas from 'html2canvas';
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
-// Using a subset of Ogham data as placeholder for Cigano cards
-const baralhoCigano = oghamLetters.slice(0, 36).map((card, index) => ({
-  id: index + 1,
-  name: card.letter, // Placeholder name
-  image: `https://placehold.co/100x150?text=${index + 1}`, // Placeholder image
+// Replace with actual card images later
+const placeholderCards = Array.from({ length: 36 }, (_, i) => ({
+  id: i + 1,
+  image: `https://placehold.co/100x150/1a1a1a/f0e6ff?text=${i + 1}`,
 }));
 
-
 export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady: (screenshotDataUrl: string) => void }) {
-  const [shuffledDeck, setShuffledDeck] = useState<typeof baralhoCigano>([]);
-  const [isDealing, setIsDealing] = useState(true);
+  const [deck, setDeck] = useState<typeof placeholderCards>([]);
+  const [placedCards, setPlacedCards] = useState<(typeof placeholderCards[0])[]>([]);
   const [isCapturing, setIsCapturing] = useState(false);
   const boardRef = useRef<HTMLDivElement>(null);
-
+  
   useEffect(() => {
     // Shuffle the deck once on mount
-    setShuffledDeck([...baralhoCigano].sort(() => Math.random() - 0.5));
-    
-    // End dealing animation after a set time
-    const timer = setTimeout(() => {
-      setIsDealing(false);
-    }, 36 * 100 + 1000); // card count * delay + extra buffer
-
-    return () => clearTimeout(timer);
+    setDeck([...placeholderCards].sort(() => Math.random() - 0.5));
   }, []);
+
+  const handlePlaceCard = () => {
+    if (deck.length > 0) {
+      const nextCard = deck[0];
+      setPlacedCards(prev => [...prev, nextCard]);
+      setDeck(prev => prev.slice(1));
+    }
+  };
 
   const handleCaptureAndInterpret = async () => {
     if (!boardRef.current) return;
     setIsCapturing(true);
 
     try {
+      // Temporarily hide the 'Interpret' button for the screenshot
+      const buttonElement = boardRef.current.querySelector('button');
+      if (buttonElement) buttonElement.style.visibility = 'hidden';
+
       const canvas = await html2canvas(boardRef.current, {
-        backgroundColor: '#111', // A background color to avoid transparency issues
+        backgroundColor: '#000000', // Black background to match the theme
         useCORS: true,
+        scale: 2, // Increase resolution for better quality
       });
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
       onInterpretationReady(dataUrl);
+
+      // Show the button again
+      if (buttonElement) buttonElement.style.visibility = 'visible';
+
     } catch (error) {
       console.error('Error capturing board:', error);
-      setIsCapturing(false);
+    } finally {
+        setIsCapturing(false);
     }
-    // isLoading state will be managed by the parent page
   };
 
+  const allCardsPlaced = placedCards.length === 36;
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      <div
-        ref={boardRef}
-        className="relative flex flex-col items-center p-4 rounded-lg bg-black/20"
-        style={{ width: '100%', maxWidth: '900px' }}
-      >
-        {/* Main 8x4 grid */}
-        <div className="grid grid-cols-8 gap-2 w-full mb-2">
-            <AnimatePresence>
-            {shuffledDeck.slice(0, 32).map((card, index) => (
-                <motion.div
-                key={card.id}
-                className="aspect-[2/3] rounded-md overflow-hidden shadow-lg"
-                initial={{ opacity: 0, y: -50, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: index * 0.08, duration: 0.5, ease: 'easeOut' }}
-                >
-                <img
-                    src={card.image}
-                    alt={`Carta ${card.name}`}
-                    className="w-full h-full object-cover"
-                    crossOrigin="anonymous"
-                />
-                </motion.div>
-            ))}
-            </AnimatePresence>
+    <div className="flex flex-col items-center gap-6 w-full max-w-4xl">
+      <div ref={boardRef} className="relative w-full aspect-[4/3] bg-mesa-real-bg bg-cover bg-center rounded-lg p-4 sm:p-6 shadow-2xl">
+        <div className="grid grid-cols-8 gap-1 sm:gap-2 w-full mb-1 sm:mb-2">
+          {placeholderCards.map((_, index) => {
+            const card = placedCards[index];
+            const isPlaced = !!card;
+            
+            if (index >= 32) return null; // Only render the first 32 grid slots here
+
+            return (
+              <div key={`slot-${index + 1}`} className="aspect-[2/3] border border-primary/20 rounded-md flex items-center justify-center relative">
+                <AnimatePresence>
+                {isPlaced && (
+                  <motion.div
+                    className="absolute w-full h-full"
+                    initial={{ opacity: 0, scale: 0.5, y: -200 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                  >
+                    <Image
+                      src={card.image}
+                      alt={`Carta ${card.id}`}
+                      width={100}
+                      height={150}
+                      className="w-full h-full object-cover rounded-md"
+                      crossOrigin="anonymous"
+                      unoptimized
+                    />
+                  </motion.div>
+                )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
         
-        {/* Centered final 4 cards */}
-        <div className="grid grid-cols-4 gap-2">
-             <AnimatePresence>
-            {shuffledDeck.slice(32).map((card, index) => (
-                <motion.div
-                key={card.id}
-                className="aspect-[2/3] rounded-md overflow-hidden shadow-lg"
-                initial={{ opacity: 0, y: -50, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: (index + 32) * 0.08, duration: 0.5, ease: 'easeOut' }}
-                >
-                <img
-                    src={card.image}
-                    alt={`Carta ${card.name}`}
-                    className="w-full h-full object-cover"
-                    crossOrigin="anonymous"
-                />
-                </motion.div>
-            ))}
-             </AnimatePresence>
+        {/* Centered final 4 cards grid */}
+        <div className="grid grid-cols-8 gap-1 sm:gap-2 w-full">
+            <div className="col-span-2"></div>
+            {placeholderCards.slice(32).map((_, index) => {
+                 const cardIndex = 32 + index;
+                 const card = placedCards[cardIndex];
+                 const isPlaced = !!card;
+                 return (
+                    <div key={`slot-${cardIndex + 1}`} className="aspect-[2/3] border border-primary/20 rounded-md flex items-center justify-center relative">
+                       <AnimatePresence>
+                        {isPlaced && (
+                        <motion.div
+                            className="absolute w-full h-full"
+                            initial={{ opacity: 0, scale: 0.5, y: -200 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            transition={{ duration: 0.5, ease: 'easeOut' }}
+                        >
+                            <Image
+                            src={card.image}
+                            alt={`Carta ${card.id}`}
+                            width={100}
+                            height={150}
+                            className="w-full h-full object-cover rounded-md"
+                            crossOrigin="anonymous"
+                            unoptimized
+                            />
+                        </motion.div>
+                        )}
+                        </AnimatePresence>
+                    </div>
+                 )
+            })}
+             <div className="col-span-2"></div>
         </div>
       </div>
-      {!isDealing && (
+      
+      {!allCardsPlaced ? (
+        <motion.div
+            className="flex flex-col items-center gap-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+        >
+          <Button onClick={handlePlaceCard} disabled={deck.length === 0} size="lg" className="text-lg">
+             <Wand2 className="mr-2 h-5 w-5" />
+             Colocar Carta ({deck.length} restantes)
+          </Button>
+          <p className="text-sm text-muted-foreground">Clique para posicionar as cartas no tabuleiro.</p>
+        </motion.div>
+      ) : (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

@@ -127,7 +127,7 @@ export default function MesaRealPage() {
       </div>
 
        {readingStarted && (
-        <div className="mb-8">
+        <div className="mb-8 flex flex-col items-center">
             <MesaRealBoard onInterpretationReady={handleInterpretation} />
         </div>
        )}
