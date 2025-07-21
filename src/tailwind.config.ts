@@ -14,10 +14,12 @@ export default {
       fontFamily: {
         sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
         serif: ['Georgia', 'Times New Roman', 'serif'], // Explicit system serifs
+        celtic: ['var(--font-celtic)', ...defaultTheme.fontFamily.serif],
       },
   		backgroundImage: {
         'shiva-hero-bg': "url('/img/shiva.jpg')",
-        'sacred-geometry-pattern': "url('/img/sacred_geometry_pattern.png')"
+        'sacred-geometry-pattern': "url('/img/sacred_geometry_pattern.png')",
+        'mesa-real-bg': "url('/img/toalha-mesa-real.jpeg')",
       },
       colors: {
   			background: 'hsl(var(--background))',
@@ -113,9 +115,9 @@ export default {
           '0%, 100%': { opacity: '0.1', transform: 'scale(1)' },
           '50%': { opacity: '0.25', transform: 'scale(1.05)' },
         },
-        'spin-gradient': {
-          '0%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
-          '100%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+        'animate-background-pan': {
+          '0%': { backgroundPosition: '0% 0%' },
+          '100%': { backgroundPosition: '100% 100%' },
         },
         'subtle-glow': {
           '0%, 100%': { opacity: '0.5', filter: 'drop-shadow(0 0 5px currentColor) drop-shadow(0 0 2px currentColor)' },
@@ -141,6 +143,26 @@ export default {
           '50%': { transform: 'translate(5px, -5px)' },
           '75%': { transform: 'translate(-5px, 5px)' },
         },
+        'fall-and-fade': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(-20px) rotate(0deg) scale(0.8)',
+          },
+          '20%': {
+            opacity: '0.8',
+          },
+          '80%': {
+            opacity: '0.8',
+          },
+          '100%': {
+            opacity: '0',
+            transform: 'translateY(20px) rotate(70deg) scale(1)',
+          },
+        },
+        'gentle-rotate': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        }
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
@@ -150,14 +172,20 @@ export default {
         'slide-in-up': 'slide-in-up 0.5s ease-out',
         'subtle-pulse': 'subtle-pulse 2s ease-in-out infinite',
         'pulse_slow': 'pulse_slow 6s infinite ease-in-out',
-        'spin-gradient': 'spin-gradient 8s linear infinite',
+        'background-pan': 'animate-background-pan 15s linear infinite alternate',
         'subtle-glow': 'subtle-glow 3.5s ease-in-out infinite',
         'float-up': 'float-up-and-fade 1.5s ease-out forwards',
         'icon-flow': 'icon-color-flow 4s linear infinite',
         'text-gradient-flow': 'text-gradient-flow 4s ease infinite',
         'float-quad': 'float-quad 30s linear infinite alternate',
+        'leaf-fade': 'fade-in-out-leaf 8s ease-in-out infinite',
+        'fall-and-fade': 'fall-and-fade linear infinite',
+        'gentle-rotate': 'gentle-rotate 5s ease-out',
   		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+
+
+    
