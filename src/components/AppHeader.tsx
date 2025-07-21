@@ -17,13 +17,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage, type Locale, type TranslationKey } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
-import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn, MessageCircle, TreeDeciduous, Flower } from 'lucide-react';
+import { LayoutDashboard, ScanLine, UserCircle2, CreditCard, LogOut, Sparkles, Globe, BrainCircuit, ShieldCheck, UserPlus, LogIn, MessageCircle, TreeDeciduous, Flower, Grid3x3 } from 'lucide-react';
 import { IconAvatar } from './IconAvatar';
 import Image from 'next/image';
 
 const navLinksRegularUser: { href: string; labelKey: TranslationKey; icon: React.ReactNode }[] = [
   { href: '/dashboard', labelKey: 'dashboard', icon: <LayoutDashboard className="mr-2 h-4 w-4" /> },
   { href: '/new-reading', labelKey: 'newReading', icon: <ScanLine className="mr-2 h-4 w-4" /> },
+  { href: '/mesa-real', labelKey: 'Mesa Real' as any, icon: <Grid3x3 className="mr-2 h-4 w-4" /> }, // Added Mesa Real
   { href: '/dream-interpretation', labelKey: 'dreamInterpretation', icon: <BrainCircuit className="mr-2 h-4 w-4" /> },
   { href: '/ogham', labelKey: 'oghamOracle', icon: <TreeDeciduous className="mr-2 h-4 w-4" /> },
   { href: '/yidams', labelKey: 'yidamsPath', icon: <Flower className="mr-2 h-4 w-4" /> },
@@ -219,3 +220,4 @@ export default function AppHeader() {
     </header>
   );
 }
+
