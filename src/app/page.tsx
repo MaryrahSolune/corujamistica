@@ -100,6 +100,29 @@ export default function HomePage() {
     },
   ];
 
+  const oracles = [
+    {
+      icon: <Star className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />,
+      titleKey: "missionIntuitionTitle",
+      descriptionKey: "missionIntuitionDescription"
+    },
+    {
+      icon: <Brain className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />,
+      titleKey: "missionPrecisionTitle",
+      descriptionKey: "missionPrecisionDescription"
+    },
+    {
+      icon: <OghamIcon className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />,
+      titleKey: "oghamOracleTitle",
+      descriptionKey: "oghamOracleDescription"
+    },
+    {
+      icon: <Flower className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />,
+      titleKey: "yidamsPathTitle",
+      descriptionKey: "yidamsPathDescription"
+    }
+  ];
+
  if (!isClient) {
     return (
       <div className="flex min-h-screen flex-col bg-background">
@@ -194,26 +217,17 @@ export default function HomePage() {
             <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('ourOraclesTitle')}</h2>
             <p className="text-lg font-bold text-muted-foreground mb-12 max-w-2xl mx-auto">{t('ourOraclesSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
-                <Star className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
-                <h3 className="text-xl font-bold mb-3">{t('missionIntuitionTitle')}</h3>
-                <p className="text-lg font-semibold text-foreground/80">{t('missionIntuitionDescription')}</p>
-              </div>
-              <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
-                <Brain className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
-                <h3 className="text-xl font-bold mb-3">{t('missionPrecisionTitle')}</h3>
-                <p className="text-lg font-semibold text-foreground/80">{t('missionPrecisionDescription')}</p>
-              </div>
-              <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
-                <TreeDeciduous className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
-                <h3 className="text-xl font-bold mb-3">{t('oghamOracleTitle')}</h3>
-                <p className="text-lg font-semibold text-foreground/80">{t('oghamOracleDescription')}</p>
-              </div>
-              <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
-                <Flower className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
-                <h3 className="text-xl font-bold mb-3">Caminho do Yidam</h3>
-                <p className="text-lg font-semibold text-foreground/80">Receba a orientação de seu Mestre Yidam para auxiliar na meditação e no desenvolvimento de qualidades iluminadas.</p>
-              </div>
+              {oracles.map((oracle, index) => (
+                <div key={index} className="group transition-all duration-300 ease-in-out hover:scale-105">
+                  <div className="animated-aurora-background rounded-xl p-0.5 h-full">
+                     <div className="bg-card/80 rounded-[10px] p-6 h-full flex flex-col items-center text-center backdrop-blur-sm transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-primary/30">
+                      {oracle.icon}
+                      <h3 className="text-xl font-bold mb-3">{t(oracle.titleKey as any)}</h3>
+                      <p className="text-lg font-semibold text-foreground/80">{t(oracle.descriptionKey as any)}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
