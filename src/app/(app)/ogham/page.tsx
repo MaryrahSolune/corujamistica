@@ -407,7 +407,7 @@ export default function OghamPage() {
           </div>
         )}
         <div className="relative mt-8 flex justify-center">
-          <div className="relative z-10 p-2 group w-full max-w-2xl h-auto">
+          <div className="relative z-10 p-2 group w-full max-w-4xl h-auto">
             <img src="/img/arvore.gif" alt={t('oghamMysticalTreeAlt')} className="rounded-lg w-full h-auto" />
              {/* Dynamic falling leaves container */}
             <div className="absolute inset-0 pointer-events-none">
