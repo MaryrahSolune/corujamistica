@@ -1,9 +1,9 @@
 // src/lib/cigano-cards-data.ts
 
 export const ciganoCards = [
-    { id: 1, name: "O Cavaleiro", image: "https://placehold.co/200x300.png", keywords: "noticias movimento" },
-    { id: 2, name: "O Trevo", image: "https://placehold.co/200x300.png", keywords: "sorte obstaculos" },
-    { id: 3, name: "O Navio", image: "https://placehold.co/200x300.png", keywords: "viagem mudanca" },
+    { id: 1, name: "O Cavaleiro", image: "https://placehold.co/200x300.png", keywords: "noticias movimento exu" },
+    { id: 2, name: "O Trevo", image: "https://placehold.co/200x300.png", keywords: "sorte obstaculos caboclos" },
+    { id: 3, name: "O Navio", image: "https://placehold.co/200x300.png", keywords: "viagem mudanca iemanja" },
     { id: 4, name: "A Casa", image: "https://placehold.co/200x300.png", keywords: "familia estabilidade" },
     { id: 5, name: "A Árvore", image: "https://placehold.co/200x300.png", keywords: "saude crescimento" },
     { id: 6, name: "As Nuvens", image: "https://placehold.co/200x300.png", keywords: "duvidas confusao" },
