@@ -58,27 +58,52 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
     <div className="flex flex-col items-center gap-6">
       <div
         ref={boardRef}
-        className="relative grid grid-cols-9 grid-rows-4 gap-2 p-4 rounded-lg bg-black/20"
+        className="relative flex flex-col items-center p-4 rounded-lg bg-black/20"
         style={{ width: '100%', maxWidth: '900px' }}
       >
-        <AnimatePresence>
-          {shuffledDeck.map((card, index) => (
-            <motion.div
-              key={card.id}
-              className="aspect-[2/3] rounded-md overflow-hidden shadow-lg"
-              initial={{ opacity: 0, y: -50, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: index * 0.08, duration: 0.5, ease: 'easeOut' }}
-            >
-              <img
-                src={card.image}
-                alt={`Carta ${card.name}`}
-                className="w-full h-full object-cover"
-                crossOrigin="anonymous"
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
+        {/* Main 8x4 grid */}
+        <div className="grid grid-cols-8 gap-2 w-full mb-2">
+            <AnimatePresence>
+            {shuffledDeck.slice(0, 32).map((card, index) => (
+                <motion.div
+                key={card.id}
+                className="aspect-[2/3] rounded-md overflow-hidden shadow-lg"
+                initial={{ opacity: 0, y: -50, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: index * 0.08, duration: 0.5, ease: 'easeOut' }}
+                >
+                <img
+                    src={card.image}
+                    alt={`Carta ${card.name}`}
+                    className="w-full h-full object-cover"
+                    crossOrigin="anonymous"
+                />
+                </motion.div>
+            ))}
+            </AnimatePresence>
+        </div>
+        
+        {/* Centered final 4 cards */}
+        <div className="grid grid-cols-4 gap-2">
+             <AnimatePresence>
+            {shuffledDeck.slice(32).map((card, index) => (
+                <motion.div
+                key={card.id}
+                className="aspect-[2/3] rounded-md overflow-hidden shadow-lg"
+                initial={{ opacity: 0, y: -50, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: (index + 32) * 0.08, duration: 0.5, ease: 'easeOut' }}
+                >
+                <img
+                    src={card.image}
+                    alt={`Carta ${card.name}`}
+                    className="w-full h-full object-cover"
+                    crossOrigin="anonymous"
+                />
+                </motion.div>
+            ))}
+             </AnimatePresence>
+        </div>
       </div>
       {!isDealing && (
         <motion.div
@@ -95,4 +120,3 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
     </div>
   );
 }
-
