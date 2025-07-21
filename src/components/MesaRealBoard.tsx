@@ -8,22 +8,17 @@ import { Loader2, Camera, Wand2 } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-
-// Replace with actual card images later
-const placeholderCards = Array.from({ length: 36 }, (_, i) => ({
-  id: i + 1,
-  image: `https://placehold.co/100x150/1a1a1a/f0e6ff?text=${i + 1}`,
-}));
+import { ciganoCards } from '@/lib/cigano-cards-data';
 
 export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady: (screenshotDataUrl: string) => void }) {
-  const [deck, setDeck] = useState<typeof placeholderCards>([]);
-  const [placedCards, setPlacedCards] = useState<(typeof placeholderCards[0])[]>([]);
+  const [deck, setDeck] = useState<typeof ciganoCards>([]);
+  const [placedCards, setPlacedCards] = useState<(typeof ciganoCards[0])[]>([]);
   const [isCapturing, setIsCapturing] = useState(false);
   const boardRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     // Shuffle the deck once on mount
-    setDeck([...placeholderCards].sort(() => Math.random() - 0.5));
+    setDeck([...ciganoCards].sort(() => Math.random() - 0.5));
   }, []);
 
   const handlePlaceCard = () => {
@@ -40,7 +35,7 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
 
     try {
       // Temporarily hide the 'Interpret' button for the screenshot
-      const buttonElement = boardRef.current.querySelector('button');
+      const buttonElement = document.getElementById('interpret-button');
       if (buttonElement) buttonElement.style.visibility = 'hidden';
 
       const canvas = await html2canvas(boardRef.current, {
@@ -65,7 +60,7 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
 
   return (
     <div className="flex flex-col items-center gap-6 w-full max-w-4xl">
-      <div ref={boardRef} className="relative w-full bg-mesa-real-bg bg-cover bg-center rounded-lg p-4 sm:p-6 shadow-2xl">
+      <div ref={boardRef} className={cn("relative w-full rounded-lg p-4 sm:p-6 shadow-2xl bg-card")}>
         {/* Main 4x8 Grid */}
         <div className="grid grid-cols-8 gap-1 sm:gap-2 w-full mb-1 sm:mb-2">
           {Array.from({ length: 32 }).map((_, index) => {
@@ -84,12 +79,13 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
                   >
                     <Image
                       src={card.image}
-                      alt={`Carta ${card.id}`}
+                      alt={card.name}
                       width={100}
                       height={150}
                       className="w-full h-full object-cover rounded-md"
                       crossOrigin="anonymous"
-                      unoptimized
+                      unoptimized={false}
+                      data-ai-hint={card.name}
                     />
                   </motion.div>
                 )}
@@ -118,12 +114,13 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
                         >
                             <Image
                             src={card.image}
-                            alt={`Carta ${card.id}`}
+                            alt={card.name}
                             width={100}
                             height={150}
                             className="w-full h-full object-cover rounded-md"
                             crossOrigin="anonymous"
-                            unoptimized
+                            unoptimized={false}
+                            data-ai-hint={card.name}
                             />
                         </motion.div>
                         )}
@@ -136,20 +133,18 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
       </div>
       
       {!allCardsPlaced ? (
-        <motion.div
-            className="flex flex-col items-center gap-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          <Button onClick={handlePlaceCard} disabled={deck.length === 0} size="lg" className="text-lg">
-             <Wand2 className="mr-2 h-5 w-5" />
-             Colocar Carta ({deck.length} restantes)
-          </Button>
-          <p className="text-sm text-muted-foreground">Clique para posicionar as cartas no tabuleiro.</p>
-        </motion.div>
+         <div className="flex flex-col items-center gap-4">
+            <div className="relative w-24 h-36 cursor-pointer group" onClick={handlePlaceCard}>
+                <div className="absolute w-full h-full bg-gradient-to-br from-primary to-secondary rounded-lg shadow-lg transform transition-transform duration-300 group-hover:scale-105"></div>
+                <div className="absolute w-full h-full flex items-center justify-center">
+                    <Wand2 className="w-8 h-8 text-primary-foreground" />
+                </div>
+            </div>
+            <p className="text-sm text-muted-foreground">Clique no baralho para posicionar as cartas ({deck.length} restantes).</p>
+        </div>
       ) : (
         <motion.div
+            id="interpret-button"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
