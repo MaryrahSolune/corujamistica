@@ -1,4 +1,3 @@
-
 // src/components/MesaRealBoard.tsx
 'use client';
 
@@ -66,14 +65,13 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
 
   return (
     <div className="flex flex-col items-center gap-6 w-full max-w-4xl">
-      <div ref={boardRef} className="relative w-full aspect-[4/3] bg-mesa-real-bg bg-cover bg-center rounded-lg p-4 sm:p-6 shadow-2xl">
+      <div ref={boardRef} className="relative w-full bg-mesa-real-bg bg-cover bg-center rounded-lg p-4 sm:p-6 shadow-2xl">
+        {/* Main 4x8 Grid */}
         <div className="grid grid-cols-8 gap-1 sm:gap-2 w-full mb-1 sm:mb-2">
-          {placeholderCards.map((_, index) => {
+          {Array.from({ length: 32 }).map((_, index) => {
             const card = placedCards[index];
             const isPlaced = !!card;
             
-            if (index >= 32) return null; // Only render the first 32 grid slots here
-
             return (
               <div key={`slot-${index + 1}`} className="aspect-[2/3] border border-primary/20 rounded-md flex items-center justify-center relative">
                 <AnimatePresence>
@@ -101,10 +99,10 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
           })}
         </div>
         
-        {/* Centered final 4 cards grid */}
+        {/* Bottom 4 cards, centered */}
         <div className="grid grid-cols-8 gap-1 sm:gap-2 w-full">
-            <div className="col-span-2"></div>
-            {placeholderCards.slice(32).map((_, index) => {
+            <div className="col-span-2"></div> {/* Spacer */}
+            {Array.from({ length: 4 }).map((_, index) => {
                  const cardIndex = 32 + index;
                  const card = placedCards[cardIndex];
                  const isPlaced = !!card;
@@ -133,7 +131,7 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
                     </div>
                  )
             })}
-             <div className="col-span-2"></div>
+             <div className="col-span-2"></div> {/* Spacer */}
         </div>
       </div>
       
