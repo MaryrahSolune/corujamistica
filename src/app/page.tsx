@@ -4,7 +4,7 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Gift, TreeDeciduous } from 'lucide-react';
+import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Gift, TreeDeciduous, Flower } from 'lucide-react';
 import { LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -193,7 +193,7 @@ export default function HomePage() {
             <Sparkles className="h-16 w-16 text-primary mx-auto mb-6 animate-subtle-pulse" />
             <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('ourOraclesTitle')}</h2>
             <p className="text-lg font-bold text-muted-foreground mb-12 max-w-2xl mx-auto">{t('ourOraclesSubtitle')}</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
                 <Star className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />
                 <h3 className="text-xl font-bold mb-3">{t('missionIntuitionTitle')}</h3>
@@ -208,6 +208,11 @@ export default function HomePage() {
                 <TreeDeciduous className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
                 <h3 className="text-xl font-bold mb-3">{t('oghamOracleTitle')}</h3>
                 <p className="text-lg font-semibold text-foreground/80">{t('oghamOracleDescription')}</p>
+              </div>
+              <div className="group animated-aurora-background rounded-xl p-6 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 flex flex-col items-center text-center">
+                <Flower className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />
+                <h3 className="text-xl font-bold mb-3">Caminho do Yidam</h3>
+                <p className="text-lg font-semibold text-foreground/80">Receba a orientação de seu Mestre Yidam para auxiliar na meditação e no desenvolvimento de qualidades iluminadas.</p>
               </div>
             </div>
           </div>
