@@ -4,7 +4,7 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, LogIn, UserPlus, UploadCloud, Search, Brain, Users, Star, Palette, Film, Gift, TreeDeciduous, Flower } from 'lucide-react';
+import { Sparkles, LogIn, UserPlus, Brain, Users, Star, Gift, Flower } from 'lucide-react';
 import { LanguageSwitcher } from '@/components/AppHeader';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,6 +16,7 @@ import { rtdb } from '@/lib/firebase';
 import { AdSlot } from '@/components/AdSlot';
 import { cn } from '@/lib/utils';
 import { OghamIcon } from '@/components/MysticIcons';
+import { VenetianMask, BookHeart, Grid3x3, Wand2 } from 'lucide-react';
 
 // Custom Separator Component
 const CustomSeparator = () => (
@@ -102,7 +103,7 @@ export default function HomePage() {
 
   const oracles = [
     {
-      icon: <Star className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />,
+      icon: <Wand2 className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:rotate-12" />,
       titleKey: "missionIntuitionTitle",
       descriptionKey: "missionIntuitionDescription"
     },
@@ -218,14 +219,12 @@ export default function HomePage() {
             <p className="text-lg font-bold text-muted-foreground mb-12 max-w-2xl mx-auto">{t('ourOraclesSubtitle')}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {oracles.map((oracle, index) => (
-                <div key={index} className="group transition-all duration-300 ease-in-out hover:scale-105">
-                  <div className="animated-aurora-background rounded-xl p-0.5 h-full">
-                     <div className="bg-card/80 rounded-[10px] p-6 h-full flex flex-col items-center text-center backdrop-blur-sm transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-primary/30">
-                      {oracle.icon}
-                      <h3 className="text-xl font-bold mb-3">{t(oracle.titleKey as any)}</h3>
-                      <p className="text-lg font-semibold text-foreground/80">{t(oracle.descriptionKey as any)}</p>
-                    </div>
-                  </div>
+                <div key={index} className="group">
+                  <Card className="bg-card/80 p-6 h-full flex flex-col items-center text-center backdrop-blur-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-accent/20">
+                    {oracle.icon}
+                    <h3 className="text-xl font-bold mb-3">{t(oracle.titleKey as any)}</h3>
+                    <p className="text-lg font-semibold text-foreground/80">{t(oracle.descriptionKey as any)}</p>
+                  </Card>
                 </div>
               ))}
             </div>
