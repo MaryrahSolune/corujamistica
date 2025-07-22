@@ -125,7 +125,6 @@ Adormecer - Sonhar com adormecer mostra calmaria. Você pode estar em um períod
 Adotar - Ser adotado: pessoas próximas querem o seu bem e o estimam. Adotar uma criança: seus nobres sentimentos serão recompensados. Pense em ser voluntário.
 Adrenalina - Sonhar com adrenalina mostra agitação. E sim mesmo que as coisas já estejam corridas, elas podem se acumular ainda mais e suas tarefas se multiplicarem de uma maneira onde você pode ficar bastante perdido. Por isso tenha prioridades e resolva isso para então depois fazer o que for possível, seja criterioso, caso contrário, isso não vai lhe ajudar a resolver.
 Adubo - Na vida: promessa futura. No amor: conquista. G. 6, 8, 9. D. 22, 32, 30. C. 521, 831, 130. M. 1530.
-Adubo - Sonhar com adubo significa que as experiências vividas por você têm contribuído para que possa ser uma pessoa melhor a cada dia. Atualmente você usa esta bagagem de aprendizado e desenvolvimento pessoal em beneficio das pessoas a seu redor e de você mesmo, naturalmente. Outro significado para sonhar com adubo é sua estreita ligação como símbolo de fertilidade.
 Adulação - Na vida: perdas. No amor: intrigas. G. 1, 3, 14. D. 56, 11, 04. C. 150, 159, 504. M. 1306.
 Adulteração - Sonhar com adulteração simboliza uma mudança. E esta deve ser feita por você, você é quem fará uma adulteração em algo que já vem trabalhando e planejando e isto pode ser tanto para o trabalho como para casa, mas isso provavelmente aconteça por alguma oportunidade percebida por você. E isso o fará pensar se vale a pena ou não a mudança e talvez opte por mudar, já que está pode ser mais vantajosa, principalmente na questão financeira, o que irá pesar muito em sua decisão. Mas veja, talvez mudar seja a melhor alternativa mesmo, mas saiba que se for algo que espera, planeja e deseja de uma determinada forma a muito tempo, talvez seja melhor esperar, ou até investir um pouco mais por aquilo que quer.
 Adultério - Ver alguém conhecido em adultério: Tristeza, intriga, infelicidade. Ver o cônjuge em adultério: Separação, discussão, desunião.
@@ -813,67 +812,62 @@ export async function updateDreamDictionaryEntry(letter: string, content: string
 
 // Function for the AI flow to get meanings for specific keywords.
 export async function getDictionaryEntriesForKeywords(keywords: string[]): Promise<string> {
-  if (!keywords || keywords.length === 0) {
-    return "Nenhum símbolo principal foi identificado no sonho para consulta no dicionário.";
-  }
+    if (!keywords || keywords.length === 0) {
+        return "Nenhum símbolo principal foi identificado no sonho para consulta no dicionário.";
+    }
 
-  const normalizeText = (text: string) =>
-    text
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+    const normalizeText = (text: string) =>
+        text
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
 
-  const normalizedKeywords = keywords.map(normalizeText);
+    const uniqueKeywords = [...new Set(keywords.map(normalizeText))];
+    const foundMeanings: string[] = [];
 
-  // Get the full dictionary content for the first letter of the first keyword.
-  const firstLetter = keywords[0][0].toUpperCase();
-  const fullContent = await getDreamDictionaryEntry(firstLetter);
-  
-  // Split content by newline to process line by line, but handle multiple definitions for the same term.
-  const lines = fullContent.split(/\\n|\n/);
-  
-  const foundMeanings: { [key: string]: string[] } = {};
+    // Group keywords by the first letter to minimize DB calls
+    const keywordsByLetter: { [key: string]: string[] } = {};
+    for (const keyword of uniqueKeywords) {
+        if (keyword) {
+            const firstLetter = keyword[0].toUpperCase();
+            if (!keywordsByLetter[firstLetter]) {
+                keywordsByLetter[firstLetter] = [];
+            }
+            keywordsByLetter[firstLetter].push(keyword);
+        }
+    }
 
-  for (const keyword of normalizedKeywords) {
-    let keywordFound = false;
-    for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
-        // Match lines that start with a word (potentially multi-word, with accents and hyphens) followed by a dash.
-        const match = line.match(/^([A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s-]+?)\s*—/i);
-        if (match) {
-            const entryTerm = normalizeText(match[1].trim());
+    // Process each letter group
+    for (const letter in keywordsByLetter) {
+        const fullContent = await getDreamDictionaryEntry(letter);
+        if (!fullContent) continue;
 
-            if (entryTerm === keyword) {
-                // Found a matching entry. Extract the full definition.
-                let definitionContent = line;
-                let nextLineIndex = i + 1;
-                
-                // Keep adding subsequent lines until we hit the next definition or the end of the file.
-                while (nextLineIndex < lines.length && !/^[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s-]+?\s*—/i.test(lines[nextLineIndex])) {
-                    if (lines[nextLineIndex].trim()) { // Avoid adding empty lines
-                        definitionContent += '\n' + lines[nextLineIndex];
+        // Split the entire content into definitions. Each definition starts with a term followed by " —".
+        const definitions = fullContent.split(/(?=[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ][a-zA-Záéíóúàâêôãõç\s-]*?\s—)/);
+        
+        for (const keyword of keywordsByLetter[letter]) {
+            for (const definition of definitions) {
+                const trimmedDef = definition.trim();
+                if (trimmedDef) {
+                    const match = trimmedDef.match(/^([a-zA-Záéíóúàâêôãõç\s-]+?)\s—/);
+                    if (match) {
+                        const term = normalizeText(match[1].trim());
+                        // Check if the dictionary term matches the keyword exactly.
+                        if (term === keyword) {
+                            foundMeanings.push(trimmedDef);
+                            // As we found a full match, we can break from the inner loop.
+                            break; 
+                        }
                     }
-                    nextLineIndex++;
                 }
-
-                if (!foundMeanings[keyword]) {
-                    foundMeanings[keyword] = [];
-                }
-                foundMeanings[keyword].push(definitionContent);
-                keywordFound = true;
             }
         }
     }
-  }
 
-  if (Object.keys(foundMeanings).length > 0) {
-    // Format the output string
-    let resultString = '';
-    for (const keyword in foundMeanings) {
-        resultString += foundMeanings[keyword].join('\n\n') + '\n\n';
+    if (foundMeanings.length > 0) {
+        return foundMeanings.join('\n\n');
     }
-    return resultString.trim();
-  }
 
-  return `Nenhum significado específico foi encontrado no dicionário para os símbolos: ${keywords.join(', ')}. A interpretação será baseada no conhecimento geral do Profeta.`;
+    return `Nenhum significado específico foi encontrado no dicionário para os símbolos: ${keywords.join(', ')}. A interpretação será baseada no conhecimento geral do Profeta.`;
 }
+
