@@ -128,7 +128,7 @@ export default function MesaRealPage() {
       
       {!readingStarted && (
           <div className="relative flex justify-center -mt-8">
-              <div className="relative w-full max-w-lg h-auto">
+              <div className="relative w-full max-w-2xl h-auto">
                 <img src="/img/rosa.gif" alt="Rosa Mística" className="w-full h-auto" />
                 <div className="absolute inset-0 pointer-events-none overflow-hidden">
                     <FallingPetals />
