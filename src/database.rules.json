@@ -47,7 +47,7 @@
     },
     "dailyRewards": {
       "cycle": {
-        ".read": "auth != null",
+        ".read": true,
         ".write": "auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin'"
       }
     },
