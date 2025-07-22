@@ -77,12 +77,9 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                   >
-                    <Image
+                    <img
                       src={card.image}
                       alt={card.name}
-                      width={100}
-                      height={150}
-                      unoptimized
                       className="w-full h-full object-cover rounded-md"
                     />
                   </motion.div>
@@ -110,12 +107,9 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             transition={{ duration: 0.5, ease: 'easeOut' }}
                         >
-                            <Image
+                            <img
                               src={card.image}
                               alt={card.name}
-                              width={100}
-                              height={150}
-                              unoptimized
                               className="w-full h-full object-cover rounded-md"
                             />
                         </motion.div>
