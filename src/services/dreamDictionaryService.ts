@@ -452,9 +452,9 @@ function findDefinitionsInText(fullContent: string, keywords: string[]): string[
     const normalizeText = (text: string) => 
         text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 
-    // Split the text into entries. This regex looks for a word (potentially with accents, spaces, hyphens)
-    // at the beginning of a line, followed by '—'.
-    // The `(?=...)` is a positive lookahead to split without consuming the delimiter.
+    // This regex looks for a capitalized word at the beginning of a line, followed by '—'.
+    // It's designed to split the text into individual definitions.
+    // The (?=...) is a positive lookahead to split without consuming the delimiter.
     const definitions = fullContent.split(/\r?\n(?=[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ][a-zA-Záéíóúàâêôãõç\s-]*?\s—)/);
     
     const searchKeywords = keywords.map(normalizeText).filter(k => k);
