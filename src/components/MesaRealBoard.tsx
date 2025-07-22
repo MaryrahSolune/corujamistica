@@ -1,3 +1,4 @@
+
 // src/components/MesaRealBoard.tsx
 'use client';
 
@@ -85,7 +86,6 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
                       className="w-full h-full object-cover rounded-md"
                       crossOrigin="anonymous"
                       unoptimized={false}
-                      data-ai-hint={card.keywords}
                     />
                   </motion.div>
                 )}
@@ -120,7 +120,6 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
                             className="w-full h-full object-cover rounded-md"
                             crossOrigin="anonymous"
                             unoptimized={false}
-                            data-ai-hint={card.keywords}
                             />
                         </motion.div>
                         )}
