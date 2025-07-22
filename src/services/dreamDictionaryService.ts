@@ -202,8 +202,8 @@ function findDefinitionsInText(fullContent: string, keywords: string[]): string[
     const normalizeText = (text: string) => 
         text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 
-    // Regex to split entries based on the pattern: "TERM — Definition text..."
-    // This looks for a term (can include spaces and hyphens) followed by a dash.
+    // Regex to split entries. This looks for a newline followed by a word in uppercase (or with accents) and a dash.
+    // This correctly handles multi-line definitions.
     const definitions = fullContent.split(/\n(?=[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ][a-zA-Záéíóúàâêôãõç\s-]*?\s—)/);
 
     for (const keyword of keywords.map(normalizeText)) {
@@ -232,7 +232,7 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
         return "Nenhum símbolo principal foi identificado no sonho para consulta no dicionário.";
     }
 
-    const uniqueKeywords = [...new Set(keywords)];
+    const uniqueKeywords = [...new Set(keywords.map(k => k.toLowerCase()))];
     let allFoundMeanings: string[] = [];
 
     // Group keywords by the first letter to minimize DB calls
