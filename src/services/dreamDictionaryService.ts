@@ -73,7 +73,6 @@ Achar uma foto - Sonhar com achar uma foto mostra um reencontro. Sim, este reenc
 Achocolatado - Sonhar com achocolatado simboliza sua vida amorosa daqui uns dias. Está deve ser cuidada e regada, mas não de forma muito “melada”, você deve fazer isso por querer, ou se até achar exagerado, pense em demonstrações de amor espontâneas, nada forçado. Afinal é preciso cuidar e regar as coisas que se ama, não há como você querer receber apenas, é preciso cuidar também. O amor é doce como chocolate e muito mais doce é o achocolatado que deixa claro que é preciso sim viver mais seu amor, e cuidar do mesmo.
 Acidente - Más notícias. Alguns problemas na família e entre os cônjuges. Pensar antes de falar.
 Acidente - Na vida: contrariedades. No amor: deslealdade. G. 1, 11, 21. D, 19, 41, 84. C. 325, 542, 281. M. 3919.
-Acidente de moto - Sonhar com acidente de moto mostra que você deve repensar seu estilo de vida, o excesso de trabalho e preocupação financeira está fazendo com que o lazer fique totalmente de lado. Se este é o seu caso este é um bom momento para programar merecidas férias. Se o acidente de moto, durante o sonho, ocorreu no seu trabalho fique atento a pessoas próximas que podem desaprovar seu desempenho profissional e causar intrigas.
 Acidificante - Sonhar com acidificante mostra atitudes mais ásperas. Veja, mesmo que você seja uma pessoa mais calma, há momentos em que o outro pode abusar disso, ou até que você não seja está pessoa tão calma, mas que tenta sim, resolver as coisas com paciência, mesmo sendo difícil para você, neste período talvez as coisas mudem um pouco, ou alguém poderá lhe tirar do sério e sim, você pode e deve ser um pouco mais grosseiro e você sabe que está certo e quer o mínimo do outro, que muitas vezes não é feito, algumas pessoas só funcionam assim e você cruzou o caminho de umas delas, então faça acontecer.
 Ácido - Sonhar com ácido mostra atenção as promessas. Sim, é preciso ficar atento a algo que pode ter sido oferecido a você, não que este não será cumprido, mas pode haver ressalvas, e é isso que você deve saber. E ele vale, para caso você, quem tenha prometido algo a alguém, procure se esforçar e fazer exatamente o que foi falado, ou melhor. Seja com você, ou com o outro, isso gera uma expectativa, e decepções nestas horas são bem ruins.
 Ácido fólico - Sonhar com ácido fólico simboliza um cuidado com sua mente. Uma mulher ao saber que esta grávida precisa tomar ácido fólico para um melhor desenvolvimento do sistema nervoso de seu filho e você está precisando cuidar de si. Em sua maioria você olha para os outros e nas coisas que acontece ao redor e vai deixando que a coisas aconteçam com você sem dar a devida atenção. Por isso é hora de tirar e ter momentos para si, se cuidar, fazer algo que gosta, ir a uma consulta necessária a tempos, mas que não vai por outras prioridades. Isso vai refletir em bem-estar e por consequência em todo o resto de você. As coisas irão acontecer de forma mais leve e fluída acredite.
@@ -615,87 +614,6 @@ Artesanato - Sonhar com artesanato mostra que é preciso ter criatividade.
 Artilharia - Sonhar com artilharia mostra que é preciso ter cuidado com as armas.
 Artista - Sonhar com artista mostra que é preciso ter criatividade.
 Artista - Na vida: desejo de realização. No amor: mentira. G. 10, 16, 20. D. 09, 61, 99. C. 709, 061, 355. M. 7199.
-Árvore - Ótimo sonho. Grandes esperanças, a situação vai melhorar.
-Árvore - Na vida: solidez e paz. No amor: estabilidade. G. 15, 14, 19. D. 39, 03, 74. C. 945, 900, 073. M. 5337.
-Árvore de natal - Sonhar com árvore de natal mostra que é preciso ter alegria.
-Ás - Sonhar com ás mostra que é preciso ter sorte.
-Asa - Sonhar com asa mostra que é preciso voar.
-Asa delta - Sonhar com asa delta mostra que é preciso voar.
-Asas - Sonhar com asas mostra que é preciso voar.
-Ascensão - Sonhar com ascensão mostra que é preciso subir na vida.
-Asfalto - Sonhar com asfalto mostra que é preciso ter cuidado com o caminho.
-Asfixia - Sonhar com asfixia mostra que é preciso respirar.
-Asfixia - Na vida: pressões externas. No amor: insatisfação. G. 6, 7, 25. D. 21, 26, 77. C. 922, 727, 085. M. 5422.
-Asilo - Sonhar com asilo mostra que é preciso cuidar dos mais velhos.
-Asilo - Na vida: abandono. No amor: desilusão e solidão. G. 1, 13, 18. D. 56, 49, 72. C. 058, 505, 969. M. 9205.
-Asma - Sonhar com asma mostra que é preciso cuidar da saúde.
-Asma - Na vida: projetos fracassados. No amor: instabilidade. G. 7, 19, 25. D. 27, 70, 85. C. 527, 673, 777. M. 4328.
-Asno - Com insistência e fé, tudo há de se resolver.
-Asno - Na vida: ingenuidade. No amor: traição. G. 7, 10, 18. D. 20, 07, 72. C. 020, 608, 575. M. 7065.
-Aspargos - Sonhar com aspargos mostra que é preciso ter cuidado com a saúde.
-Aspirador de pó - Sonhar com aspirador de pó mostra que é preciso limpar a vida.
-Assadeira - Sonhar com assadeira mostra que é preciso cozinhar.
-Assado - Sonhar com assado mostra que é preciso cozinhar.
-Assado - Na vida: fartura. No amor: realização sexual. G. 9, 11, 18. D. 33, 44, 72. C. 933, 744, 669. M. 6933.
-Assadura - Sonhar com assadura mostra que é preciso ter cuidado com a pele.
-Assaltante - Sonhar com assaltante mostra que é preciso ter cuidado com a violência.
-Assalto - Sonhar com assalto mostra que é preciso ter cuidado.
-Assalto - Na vida: sorte no jogo. No amor: turbulência. G. 2, 3, 7. D. 52, 12, 26. C. 654, 659, 926. M. 5159.
-Assar - Sonhar com assar mostra que é preciso cozinhar.
-Assar no forno - Sonhar com assar no forno mostra que é preciso cozinhar.
-Assassinato - Sonhar com assassinato mostra que é preciso ter cuidado.
-Assassinato - Na vida: perturbações. No amor: fim de caso. G. 1, 3, 6. D. 56, 59, 22. C. 458, 659, 323. M. 6623.
-Assassino - Sonhar com assassino mostra que é preciso ter cuidado.
-Assassino - Na vida: visita inesperada. No amor: rival à vista. G. 7, 10, 19. D. 27, 65, 74. C. 327, 965, 974. M. 3307.
-Assédio - Sonhar com assédio mostra que é preciso ter cuidado.
-Assembléia - Na vida: amizades. No amor: cerimônia. G. 6, 16, 25. D. 22, 64, 79. C. 923, 564, 985. M. 5077.
-Assembléia de condôminos - Sonhar com assembléia de condôminos mostra que é preciso ter cuidado com os vizinhos.
-Assessor - Sonhar com assessor mostra que é preciso ter ajuda.
-Assinatura - Sonhar com assinatura mostra que é preciso ter compromisso.
-Assinatura - Na vida: sucesso. No amor: afirmação. G. 7, 25, 24. D. 21, 77, 94. C. 722, 279, 596. M. 9094.
-Assistência - Sonhar com assistência mostra que é preciso ajudar alguém.
-Assistir televisão - Sonhar com assistir televisão mostra que é preciso se distrair.
-Assoalho - Sonhar com assoalho mostra que é preciso ter cuidado com o chão.
-Assobiar - Alguém chegará de surpresa para ajudar. Novo amor pode acontecer.
-Assobio - Alguém chegará de surpresa para ajudar. Novo amor pode acontecer.
-Assobio - Na vida: mau negócio. No amor: perigo. G. 6, 21, 24. D. 24, 83, 90. C. 824, 882, 996. M. 6290.
-Assombração - Sonhar com assombração mostra que é preciso ter cuidado.
-Assombro - Sonhar com assombro mostra que é preciso ter cuidado.
-Asteroide - Sonhar com asteroide mostra que é preciso ter cuidado.
-Astrologia - Sonhar com astrologia mostra que é preciso ter cuidado com o futuro.
-Astronave - Sonhar com astronave mostra que é preciso ter ambição.
-Astronomia - Sonhar com astronomia mostra que é preciso ter cuidado com o futuro.
-Astrônomo - Sonhar com astrônomo mostra que é preciso ter cuidado com o futuro.
-Ataduras - Sonhar com ataduras mostra que é preciso ter cuidado com a saúde.
-Atalho - Sonhar com atalho mostra que é preciso ter cuidado com o caminho.
-Ataque - Sonhar com ataque mostra que é preciso se defender.
-Ataque - Na vida: doença. No amor: esforço recompensado. G. 19, 25, 21. D. 73, 77, 84. C. 973, 885, 982. M. 5373.
-Ataque aéreo - Sonhar com ataque aéreo mostra que é preciso se defender.
-Ataque do coração - Sonhar com ataque do coração mostra que é preciso ter cuidado com a saúde.
-Ataúde - Sonho de mau agouro. Morte na família ou fora dela.
-Ataúde - Na vida: prejuízos. No amor: vazio. G. 17, 19, 24. D. 68, 70, 96. C. 268, 274, 994. M. 9094.
-Ateliê - Sonhar com ateliê mostra que é preciso ter criatividade.
-Atemoia - Sonhar com atemoia mostra que é preciso ter cuidado com a saúde.
-Atenas - Sonhar com Atenas mostra que é preciso ter cuidado com a história.
-Atenção - Sonhar com atenção mostra que é preciso ter atenção.
-Atencioso - Sonhar com atencioso mostra que é preciso ser gentil.
-Atendimento - Sonhar com atendimento mostra que é preciso ser atendido.
-Atentado - Sonhar com atentado mostra que é preciso ter cuidado com a violência.
-Aterro sanitário - Sonhar com aterro sanitário mostra que é preciso ter cuidado com o lixo.
-Atirador - Sonhar com atirador mostra que é preciso ter cuidado com as armas.
-Atirador de elite - Sonhar com atirador de elite mostra que é preciso ter cuidado com as armas.
-Atirar - Sonhar com atirar mostra que é preciso ter cuidado com as armas.
-Atitude - Sonhar com atitude mostra que é preciso ter atitude.
-Ativação - Sonhar com ativação mostra que é preciso ativar algo.
-Atividade escolar - Sonhar com atividade escolar mostra que é preciso estudar.
-Atividade paranormal - Sonhar com atividade paranormal mostra que é preciso ter cuidado com o sobrenatural.
-Ativismo - Sonhar com ativismo mostra que é preciso lutar por uma causa.
-Atlas - Sonhar com atlas mostra que é preciso conhecer o mundo.
-Atleta - Sonhar com atleta mostra que é preciso ter disciplina.
-Atletismo - Sonhar com atletismo mostra que é preciso ter disciplina.
-Atmosfera - Sonhar com atmosfera mostra que é preciso respirar.
-Ato de heroísmo - Sonhar com ato de heroísmo mostra que é preciso ter coragem.
-Atoleiro - Sonhar com atoleiro mostra que é preciso ter cuidado com o caminho.
 Ator - Na vida: situação embaraçosa. No amor: indefinição. G. 4, 6, 9. D. 13, 21, 33. C. 516, 722, 633. M. 7436.
 Ator-atriz - Sonhar com ator-atriz mostra que é preciso ter criatividade.
 Atrasado - Sonhar com atrasado mostra que é preciso ter pontualidade.
@@ -810,20 +728,52 @@ export async function updateDreamDictionaryEntry(letter: string, content: string
     }
 }
 
+/**
+ * Searches for keyword definitions within a given dictionary text.
+ * @param fullContent The full text of a dictionary letter.
+ * @param keywords An array of keywords to search for.
+ * @returns A string containing all found definitions, or a message if none were found.
+ */
+function findDefinitionsInText(fullContent: string, keywords: string[]): string[] {
+    const foundMeanings: string[] = [];
+    const normalizeText = (text: string) => 
+        text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    // A robust regex to split entries. It looks for a term in uppercase or with an initial capital,
+    // followed by '—' or ' - '. This is more reliable than splitting by newline.
+    const definitions = fullContent.split(/(?=\b[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ][a-zA-Záéíóúàâêôãõç\s-]*?\s—)/);
+
+    for (const keyword of keywords.map(normalizeText)) {
+        if (!keyword) continue;
+
+        for (const definition of definitions) {
+            const trimmedDef = definition.trim();
+            if (trimmedDef) {
+                // Extract the term part of the definition (before the '—')
+                const match = trimmedDef.match(/^([a-zA-ZÁÉÍÓÚÀÂÊÔÃÕÇ][a-zA-Záéíóúàâêôãõç\s-]*?)\s—/);
+                if (match) {
+                    const term = normalizeText(match[1].trim());
+                    // Check if the dictionary term *is exactly* the keyword.
+                    if (term === keyword) {
+                        foundMeanings.push(trimmedDef);
+                        // Found the exact match, no need to check other definitions for this keyword.
+                        break; 
+                    }
+                }
+            }
+        }
+    }
+    return foundMeanings;
+}
+
 // Function for the AI flow to get meanings for specific keywords.
 export async function getDictionaryEntriesForKeywords(keywords: string[]): Promise<string> {
     if (!keywords || keywords.length === 0) {
         return "Nenhum símbolo principal foi identificado no sonho para consulta no dicionário.";
     }
 
-    const normalizeText = (text: string) =>
-        text
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "");
-
-    const uniqueKeywords = [...new Set(keywords.map(normalizeText))];
-    const foundMeanings: string[] = [];
+    const uniqueKeywords = [...new Set(keywords)];
+    let allFoundMeanings: string[] = [];
 
     // Group keywords by the first letter to minimize DB calls
     const keywordsByLetter: { [key: string]: string[] } = {};
@@ -841,32 +791,18 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
     for (const letter in keywordsByLetter) {
         const fullContent = await getDreamDictionaryEntry(letter);
         if (!fullContent) continue;
-
-        // Split the entire content into definitions. Each definition starts with a term followed by " —".
-        const definitions = fullContent.split(/(?=[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ][a-zA-Záéíóúàâêôãõç\s-]*?\s—)/);
         
-        for (const keyword of keywordsByLetter[letter]) {
-            for (const definition of definitions) {
-                const trimmedDef = definition.trim();
-                if (trimmedDef) {
-                    const match = trimmedDef.match(/^([a-zA-Záéíóúàâêôãõç\s-]+?)\s—/);
-                    if (match) {
-                        const term = normalizeText(match[1].trim());
-                        // Check if the dictionary term matches the keyword exactly.
-                        if (term === keyword) {
-                            foundMeanings.push(trimmedDef);
-                            // As we found a full match, we can break from the inner loop.
-                            break; 
-                        }
-                    }
-                }
-            }
-        }
+        const meaningsForLetter = findDefinitionsInText(fullContent, keywordsByLetter[letter]);
+        allFoundMeanings = allFoundMeanings.concat(meaningsForLetter);
     }
+    
+    // Remove duplicate entries that might arise from aliases
+    const uniqueMeanings = [...new Set(allFoundMeanings)];
 
-    if (foundMeanings.length > 0) {
-        return foundMeanings.join('\n\n');
+    if (uniqueMeanings.length > 0) {
+        return uniqueMeanings.join('\n\n');
     }
 
     return `Nenhum significado específico foi encontrado no dicionário para os símbolos: ${keywords.join(', ')}. A interpretação será baseada no conhecimento geral do Profeta.`;
 }
+
