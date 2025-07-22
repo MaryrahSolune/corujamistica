@@ -295,8 +295,8 @@ export default function NewReadingPage() {
           src="/img/coruja.gif"
           alt="Animação Mística Decorativa de Fogueira"
           data-ai-hint="mystical animation bonfire"
-          width={300}
-          height={200}
+          width={420}
+          height={280}
           unoptimized={true}
           className="rounded-lg shadow-lg"
         />
