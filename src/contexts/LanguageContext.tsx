@@ -356,6 +356,10 @@ export type TranslationKey =
   | 'yidamsErrorDate'
   | 'yidamsErrorGenerating'
   | 'yidamsSuccessToast'
+  | 'dreamDictionaryTitle'
+  | 'searchInDictionaryLabel'
+  | 'searchInDictionaryPlaceholder'
+  | 'noResultsFoundForQuery'
   ;
 
 interface LanguageContextType {
@@ -713,6 +717,10 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     yidamsErrorDate: 'Please enter a valid birth date.',
     yidamsErrorGenerating: 'An error occurred while revealing your Yidam.',
     yidamsSuccessToast: 'Your Yidam has been revealed!',
+    dreamDictionaryTitle: 'Dream Dictionary',
+    searchInDictionaryLabel: 'Search for a word',
+    searchInDictionaryPlaceholder: 'Search in letter {letter}...',
+    noResultsFoundForQuery: 'No results found for "{query}".',
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -812,7 +820,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     errorGenericTitle: 'Ocorreu um Erro',
     errorOccurredCardTitle: 'Erro',
     yourPropheticInterpretationTitle: 'Sua Interpretação Profética',
-    dreamInterpretationTitle: 'Interpretação de Sonhos',
+    dreamInterpretationTitle: 'Dicionário de Sonhos',
     dreamInterpretationDescription: 'Descreva seu sonho e deixe o Profeta desvendar seu significado.',
     creditsAvailable: '({count} créditos disponíveis)',
     yourDreamLabel: 'Seu Sonho',
@@ -1040,7 +1048,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     chooseOghamStickLabel: "Escolha um galho de Ogham para revelar seu destino.",
     oghamConsultingTrees: "Consultando as árvores...",
     oghamDoAnotherReading: "Fazer Outra Leitura",
-    oghamYourChosenLetter: "Sua letra sorteada: {letter}",
+    oghamYourChosenLetter: "Sua letra sorteada: {letter} ({symbol})",
     oghamTreeImageAlt: "Imagem da árvore {letter}",
     oghamAdviceVisual: "Um Sigilo Visual para seu Caminho",
     oghamAdviceImageAlt: "Imagem representando o conselho de Merlin",
@@ -1062,6 +1070,10 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     yidamsErrorDate: 'Por favor, insira uma data de nascimento válida.',
     yidamsErrorGenerating: 'Ocorreu um erro ao revelar seu Yidam.',
     yidamsSuccessToast: 'Seu Yidam foi revelado!',
+    dreamDictionaryTitle: 'Dicionário de Sonhos',
+    searchInDictionaryLabel: 'Buscar palavra',
+    searchInDictionaryPlaceholder: 'Buscar na letra {letter}...',
+    noResultsFoundForQuery: 'Nenhum resultado para "{query}".',
   }
 };
 
@@ -1136,3 +1148,5 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
+
+    

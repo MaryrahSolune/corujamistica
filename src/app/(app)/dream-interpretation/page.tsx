@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { interpretDream, type InterpretDreamOutput } from '@/ai/flows/interpret-dream-flow';
-import { Loader2, MessageCircleQuestion, BookOpenText, BrainCircuit, Library } from 'lucide-react';
+import { Loader2, MessageCircleQuestion, BookOpenText, BrainCircuit, Library, Search } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
@@ -20,6 +20,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { AdSlot } from '@/components/AdSlot';
+import { Input } from '@/components/ui/input';
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
 
@@ -36,15 +37,29 @@ export default function DreamInterpretationPage() {
   const [selectedLetter, setSelectedLetter] = useState('A');
   const [dictionaryContent, setDictionaryContent] = useState('');
   const [isLoadingDictionary, setIsLoadingDictionary] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredContent, setFilteredContent] = useState('');
+
+  const normalizeText = (text: string) => {
+    if (!text) return '';
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  };
 
   const fetchDictionaryEntry = useCallback(async (letter: string) => {
     setIsLoadingDictionary(true);
+    setSearchQuery(''); // Reset search on letter change
     try {
-      let content = await getDreamDictionaryEntry(letter);
+      const content = await getDreamDictionaryEntry(letter);
       setDictionaryContent(content);
+      setFilteredContent(content);
     } catch (error) {
       toast({ title: t('errorGenericTitle'), description: t('dictionaryFetchError'), variant: 'destructive' });
-      setDictionaryContent(t('dictionaryFetchError'));
+      const errorMsg = t('dictionaryFetchError');
+      setDictionaryContent(errorMsg);
+      setFilteredContent(errorMsg);
     } finally {
       setIsLoadingDictionary(false);
     }
@@ -53,6 +68,31 @@ export default function DreamInterpretationPage() {
   useEffect(() => {
     fetchDictionaryEntry(selectedLetter);
   }, [selectedLetter, fetchDictionaryEntry]);
+
+  useEffect(() => {
+    if (!searchQuery) {
+      setFilteredContent(dictionaryContent);
+      return;
+    }
+
+    const normalizedQuery = normalizeText(searchQuery);
+    const definitions = dictionaryContent.split(/(?=[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ][a-zA-Záéíóúàâêôãõç\s-]*?\s—)/);
+    
+    const foundDefinitions = definitions.filter(def => {
+      const match = def.trim().match(/^([a-zA-Záéíóúàâêôãõç\s-]+?)\s—/);
+      if (match) {
+        const term = normalizeText(match[1].trim());
+        return term.includes(normalizedQuery);
+      }
+      return false;
+    });
+
+    if (foundDefinitions.length > 0) {
+      setFilteredContent(foundDefinitions.join('\n\n'));
+    } else {
+      setFilteredContent(t('noResultsFoundForQuery', { query: searchQuery }));
+    }
+  }, [searchQuery, dictionaryContent, t]);
 
 
   const handleSubmit = async (event: FormEvent) => {
@@ -244,34 +284,48 @@ export default function DreamInterpretationPage() {
                 <AccordionTrigger>
                   <div className='flex items-center text-lg'>
                     <Library className="h-6 w-6 mr-3 text-primary" />
-                    Dicionário de Sonhos
+                    {t('dreamDictionaryTitle')}
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="p-4 rounded-b-lg bg-card/50">
                     <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="dictionary-letter" className="text-md">{t('selectLetterLabel')}</Label>
-                        <Select value={selectedLetter} onValueChange={setSelectedLetter}>
-                          <SelectTrigger id="dictionary-letter" className="w-[180px] mt-2">
-                            <SelectValue placeholder="Selecione uma letra" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {alphabet.map(letter => (
-                              <SelectItem key={letter} value={letter}>{`Letra ${letter}`}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                      <div className="flex flex-col sm:flex-row gap-4">
+                        <div className="flex-1 space-y-2">
+                          <Label htmlFor="dictionary-letter" className="text-md">{t('selectLetterLabel')}</Label>
+                          <Select value={selectedLetter} onValueChange={setSelectedLetter}>
+                            <SelectTrigger id="dictionary-letter" className="w-full sm:w-[180px]">
+                              <SelectValue placeholder="Selecione uma letra" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {alphabet.map(letter => (
+                                <SelectItem key={letter} value={letter}>{`Letra ${letter}`}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                         <div className="flex-1 space-y-2">
+                            <Label htmlFor="dictionary-search" className="text-md">{t('searchInDictionaryLabel')}</Label>
+                            <div className="relative">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <Input
+                                    id="dictionary-search"
+                                    placeholder={t('searchInDictionaryPlaceholder', { letter: selectedLetter })}
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="pl-10"
+                                />
+                            </div>
+                        </div>
                       </div>
                       
                       <div>
-                        <Label htmlFor="dictionary-content" className="text-md">{t('dictionaryContentLabel', { letter: selectedLetter })}</Label>
                         {isLoadingDictionary ? (
-                          <Skeleton className="h-64 w-full mt-2" />
+                          <Skeleton className="h-72 w-full mt-2" />
                         ) : (
                           <ScrollArea className="h-72 w-full rounded-md border p-4 mt-2 bg-muted/30">
                             <div className="prose-base dark:prose-invert max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed text-justify">
-                              {dictionaryContent || t('dictionaryContentPlaceholder', { letter: selectedLetter })}
+                              {filteredContent || t('dictionaryContentPlaceholder', { letter: selectedLetter })}
                             </div>
                           </ScrollArea>
                         )}
@@ -288,3 +342,5 @@ export default function DreamInterpretationPage() {
     </div>
   );
 }
+
+    
