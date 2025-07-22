@@ -78,6 +78,10 @@ The central meaning of this letter is: **{{oghamMeaning}}**
 With your vision that pierces the veil of time, interpret the message of the Ogham for this consultant.`,
 });
 
+async function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const interpretOghamReadingFlow = ai.defineFlow(
   {
     name: 'interpretOghamReadingFlow',
@@ -87,17 +91,34 @@ const interpretOghamReadingFlow = ai.defineFlow(
   async (input) => {
     const chosenLetter = input.chosenLetter;
     
-    // 1. Generate the interpretation and the advice image prompt simultaneously.
-    const { output: promptOutput } = await interpretOghamPrompt({
-      query: input.query,
-      oghamLetter: chosenLetter.letter,
-      oghamSymbol: chosenLetter.symbol,
-      oghamMeaning: chosenLetter.meaning,
-      locale: input.locale,
-    });
+    // 1. Generate the interpretation and the advice image prompt with retry logic.
+    let promptOutput;
+    const maxRetries = 3;
+    let attempt = 0;
+    while (attempt < maxRetries) {
+      try {
+        const { output } = await interpretOghamPrompt({
+            query: input.query,
+            oghamLetter: chosenLetter.letter,
+            oghamSymbol: chosenLetter.symbol,
+            oghamMeaning: chosenLetter.meaning,
+            locale: input.locale,
+        });
+        promptOutput = output;
+        break; // Success, exit loop
+      } catch (error: any) {
+        attempt++;
+        if (attempt >= maxRetries || !String(error.message || '').includes('503')) {
+          console.error(`Failed to generate Ogham text after ${attempt} attempts.`, error);
+          throw error;
+        }
+        console.warn(`Attempt ${attempt} failed with 503. Retrying in ${attempt}s...`);
+        await sleep(attempt * 1000); // Wait 1s, then 2s
+      }
+    }
     
     if (!promptOutput) {
-      throw new Error('Failed to generate Ogham interpretation text.');
+      throw new Error('Failed to generate Ogham interpretation text after multiple retries.');
     }
 
     // 2. Generate both tree image and advice image in parallel.

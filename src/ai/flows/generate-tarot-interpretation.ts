@@ -141,7 +141,7 @@ const generateTarotInterpretationFlow = ai.defineFlow(
         break; // Success, exit loop
       } catch (error: any) {
         attempt++;
-        if (attempt >= maxRetries || !error.message?.includes('503')) {
+        if (attempt >= maxRetries || !String(error.message || '').includes('503')) {
           console.error(`Failed to generate Tarot text after ${attempt} attempts.`, error);
           throw error;
         }

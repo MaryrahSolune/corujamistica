@@ -116,6 +116,11 @@ const interpretDreamPrompt = ai.definePrompt({
   },
 });
 
+async function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 const interpretDreamFlow = ai.defineFlow(
   {
     name: 'interpretDreamFlow',
@@ -130,13 +135,31 @@ const interpretDreamFlow = ai.defineFlow(
     // 2. Find their definitions in the database
     const specificSymbolMeanings = await getDictionaryEntriesForKeywords(keywords);
     
-    // 3. Generate the textual interpretation with image placeholders
-    const { output: mainOutput } = await interpretDreamPrompt({
-        ...input,
-        specificSymbolMeanings
-    });
+    // 3. Generate the textual interpretation with image placeholders, with retry logic.
+    let mainOutput;
+    const maxRetries = 3;
+    let attempt = 0;
+    while (attempt < maxRetries) {
+      try {
+        const { output } = await interpretDreamPrompt({
+          ...input,
+          specificSymbolMeanings,
+        });
+        mainOutput = output;
+        break; // Success, exit loop
+      } catch (error: any) {
+        attempt++;
+        if (attempt >= maxRetries || !String(error.message || '').includes('503')) {
+          console.error(`Failed to generate dream text after ${attempt} attempts.`, error);
+          throw error;
+        }
+        console.warn(`Attempt ${attempt} failed with 503. Retrying in ${attempt}s...`);
+        await sleep(attempt * 1000); // Wait 1s, then 2s
+      }
+    }
+
     if (!mainOutput?.interpretationWithPlaceholders) {
-      throw new Error('Failed to generate dream interpretation text.');
+      throw new Error('Failed to generate dream interpretation text after multiple retries.');
     }
     const interpretationWithPlaceholders = mainOutput.interpretationWithPlaceholders;
 
