@@ -82,6 +82,7 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
                       alt={card.name}
                       width={100}
                       height={150}
+                      unoptimized // Correct fix for placeholder services
                       className="w-full h-full object-cover rounded-md"
                     />
                   </motion.div>
@@ -110,11 +111,12 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
                             transition={{ duration: 0.5, ease: 'easeOut' }}
                         >
                             <Image
-                            src={card.image}
-                            alt={card.name}
-                            width={100}
-                            height={150}
-                            className="w-full h-full object-cover rounded-md"
+                              src={card.image}
+                              alt={card.name}
+                              width={100}
+                              height={150}
+                              unoptimized // Correct fix for placeholder services
+                              className="w-full h-full object-cover rounded-md"
                             />
                         </motion.div>
                         )}
