@@ -1,4 +1,3 @@
-
 // src/app/(app)/mesa-real/page.tsx
 'use client';
 
@@ -125,6 +124,13 @@ export default function MesaRealPage() {
             )}
         </Card>
       </div>
+      
+      {!readingStarted && (
+          <div className="flex justify-center -mt-4">
+              <img src="/img/rosa.gif" alt="Rosa Mística" className="w-auto h-auto max-w-sm" />
+          </div>
+      )}
+
 
        {readingStarted && (
         <div className="mb-8 flex flex-col items-center">
