@@ -202,27 +202,22 @@ function findDefinitionsInText(fullContent: string, keywords: string[]): string[
     const normalizeText = (text: string) => 
         text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 
-    // Regex to split entries. This looks for a newline followed by a word in uppercase (or with accents) and a dash.
-    // This correctly handles multi-line definitions.
-    const definitions = fullContent.split(/\n(?=[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ][a-zA-Záéíóúàâêôãõç\s-]*?\s—)/);
+    // This regex looks for a term at the beginning of a line (or the string)
+    // followed by '—' or '—'. It's more robust for multiline entries.
+    const definitions = fullContent.split(/(?<!^)\n(?=[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ][a-zA-Záéíóúàâêôãõç\s-]*?\s—)/);
+    
+    const searchKeywords = keywords.map(normalizeText).filter(k => k);
 
-    for (const keyword of keywords.map(normalizeText)) {
-        if (!keyword) continue;
-
-        for (const definition of definitions) {
-            const trimmedDef = definition.trim();
-            // Extract the term part of the definition (before the '—')
-            const match = trimmedDef.match(/^([a-zA-Záéíóúàâêôãõç\s-]+?)\s—/);
-            if (match) {
-                const term = normalizeText(match[1]);
-                // Check if the dictionary term *is exactly* the keyword.
-                if (term === keyword) {
-                    foundMeanings.push(trimmedDef);
-                    break; // Found the exact match, no need to check other definitions for this keyword.
-                }
+    for (const def of definitions) {
+        const match = def.trim().match(/^([a-zA-Záéíóúàâêôãõç\s-]+?)\s—/);
+        if (match) {
+            const term = normalizeText(match[1]);
+            if (searchKeywords.includes(term)) {
+                foundMeanings.push(def.trim());
             }
         }
     }
+
     return foundMeanings;
 }
 
