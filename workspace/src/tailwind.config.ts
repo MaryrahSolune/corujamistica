@@ -162,7 +162,23 @@ export default {
         'gentle-rotate': {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
-        }
+        },
+        'fall-and-fade-petal': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(-20px) rotate(0deg)',
+          },
+          '10%': {
+            opacity: '1',
+          },
+          '90%': {
+            opacity: '1',
+          },
+          '100%': {
+            opacity: '0',
+            transform: 'translateY(120vh) rotate(360deg)',
+          },
+        },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
@@ -181,6 +197,7 @@ export default {
         'leaf-fade': 'fade-in-out-leaf 8s ease-in-out infinite',
         'fall-and-fade': 'fall-and-fade linear infinite',
         'gentle-rotate': 'gentle-rotate 5s ease-out',
+        'fall-and-fade-petal': 'fall-and-fade-petal linear infinite',
   		}
   	}
   },
