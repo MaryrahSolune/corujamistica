@@ -725,7 +725,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     searchInDictionaryPlaceholder: 'Search in letter {letter}...',
     noResultsFoundForQuery: 'No results found for "{query}".',
     mesaRealTitle: "Mesa Real Online",
-    mesaRealDescription: "Todas as áreas da sua vida reveladas em um quadro.",
+    mesaRealDescription: "All areas of your life revealed in the 36-card Gipsy Deck.",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -1080,7 +1080,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     searchInDictionaryPlaceholder: 'Buscar na letra {letter}...',
     noResultsFoundForQuery: 'Nenhum resultado para "{query}".',
     mesaRealTitle: "Mesa Real Online",
-    mesaRealDescription: "Todas as áreas da sua vida reveladas em um quadro.",
+    mesaRealDescription: "Todas as áreas da sua vida reveladas no Baralho Cigano de 36 cartas.",
   }
 };
 
@@ -1157,3 +1157,4 @@ export const useLanguage = (): LanguageContextType => {
 };
 
     
+
