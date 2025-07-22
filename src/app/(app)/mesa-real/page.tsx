@@ -15,6 +15,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { saveReading, type ReadingData } from '@/services/readingService';
 import { MesaRealBoard } from '@/components/MesaRealBoard';
 import { AdSlot } from '@/components/AdSlot';
+import { FallingPetals } from '@/components/FallingPetals';
 
 export default function MesaRealPage() {
   const [query, setQuery] = useState<string>('');
@@ -126,8 +127,13 @@ export default function MesaRealPage() {
       </div>
       
       {!readingStarted && (
-          <div className="flex justify-center -mt-4">
-              <img src="/img/rosa.gif" alt="Rosa Mística" className="w-full max-w-2xl" />
+          <div className="relative flex justify-center -mt-8">
+              <div className="relative w-full max-w-lg h-auto">
+                <img src="/img/rosa.gif" alt="Rosa Mística" className="w-full h-auto" />
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                    <FallingPetals />
+                </div>
+              </div>
           </div>
       )}
 
