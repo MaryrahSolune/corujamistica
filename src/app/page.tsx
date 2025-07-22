@@ -113,6 +113,11 @@ export default function HomePage() {
       descriptionKey: "missionPrecisionDescription"
     },
     {
+      icon: <Grid3x3 className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />,
+      titleKey: "mesaRealTitle",
+      descriptionKey: "mesaRealDescription"
+    },
+    {
       icon: <OghamIcon className="h-10 w-10 text-accent mb-4 transition-transform duration-300 group-hover:-translate-y-1" />,
       titleKey: "oghamOracleTitle",
       descriptionKey: "oghamOracleDescription"
@@ -217,7 +222,7 @@ export default function HomePage() {
             <Sparkles className="h-16 w-16 text-primary mx-auto mb-6 animate-subtle-pulse" />
             <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-4">{t('ourOraclesTitle')}</h2>
             <p className="text-lg font-bold text-muted-foreground mb-12 max-w-2xl mx-auto">{t('ourOraclesSubtitle')}</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
               {oracles.map((oracle, index) => (
                 <div key={index} className="group">
                   <Card className="bg-card/80 p-6 h-full flex flex-col items-center text-center backdrop-blur-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl hover:shadow-accent/20">

@@ -342,6 +342,7 @@ export type TranslationKey =
   | 'oghamMysticalTreeAlt'
   | 'yidamsPath'
   | 'yidamsPathTitle'
+  | 'yidamsPathDescription'
   | 'discoverYourYidamButton'
   | 'yidamsPageTitle'
   | 'yidamsPageDescription'
@@ -360,6 +361,8 @@ export type TranslationKey =
   | 'searchInDictionaryLabel'
   | 'searchInDictionaryPlaceholder'
   | 'noResultsFoundForQuery'
+  | 'mesaRealTitle'
+  | 'mesaRealDescription'
   ;
 
 interface LanguageContextType {
@@ -597,10 +600,10 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     freeCreditClaimFailedToast: "Failed to claim free credit. Please try again later.",
     ourOraclesTitle: "Our Oracles",
     ourOraclesSubtitle: "Explore the wisdom of the Cards, Dreams, Ogham, and Yidams.",
-    missionIntuitionTitle: "Amplified Intuition",
-    missionIntuitionDescription: "Unlock deep insights and enhance your spiritual connection.",
-    missionPrecisionTitle: "Prophetic Precision",
-    missionPrecisionDescription: "Receive clear and direct interpretations for your most important questions.",
+    missionIntuitionTitle: "Your Tarot",
+    missionIntuitionDescription: "Upload your tarot spread to get a mystical interpretation.",
+    missionPrecisionTitle: "Dream Interpretation",
+    missionPrecisionDescription: "Describe your detailed dream to get a prophetic interpretation.",
     missionConnectionTitle: 'Coruja Mística', // Corrected
     freeCreditAlreadyClaimedButton: "Already Claimed",
     satisfiedClientsLabel: "Satisfied clients",
@@ -721,6 +724,8 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     searchInDictionaryLabel: 'Search for a word',
     searchInDictionaryPlaceholder: 'Search in letter {letter}...',
     noResultsFoundForQuery: 'No results found for "{query}".',
+    mesaRealTitle: "Mesa Real Online",
+    mesaRealDescription: "Todas as áreas da sua vida reveladas em um quadro.",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -1074,6 +1079,8 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     searchInDictionaryLabel: 'Buscar palavra',
     searchInDictionaryPlaceholder: 'Buscar na letra {letter}...',
     noResultsFoundForQuery: 'Nenhum resultado para "{query}".',
+    mesaRealTitle: "Mesa Real Online",
+    mesaRealDescription: "Todas as áreas da sua vida reveladas em um quadro.",
   }
 };
 
