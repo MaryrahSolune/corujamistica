@@ -127,7 +127,7 @@ export default function MesaRealPage() {
       
       {!readingStarted && (
           <div className="flex justify-center -mt-4">
-              <img src="/img/rosa.gif" alt="Rosa Mística" className="w-full max-w-4xl" />
+              <img src="/img/rosa.gif" alt="Rosa Mística" className="w-full max-w-2xl" />
           </div>
       )}
 
