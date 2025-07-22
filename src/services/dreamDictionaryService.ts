@@ -4,10 +4,14 @@
 import { rtdb } from '@/lib/firebase';
 import { ref, get, set } from 'firebase/database';
 
+// NOTE: This local dictionary is a fallback. The primary source should be the Firebase RTDB,
+// which is managed via the admin panel. Any changes here should also be reflected in the DB.
 const dictionaryData: Record<string, string> = {
     'A': `Abacate - Sonhar com abacate mostra que as coisas poderão fluir melhor e mais rápido por agora. Assim como o abacateiro que em comparação a muitas árvores, cresce bem rápido e possui um grande porte, ele no sonho deixa bem representado este seu crescimento. O que já vem acontecendo de forma gradativa, mas que agora será percebido por você e pelas pessoas a sua volta. Afinal é preciso ter solidez e segurança para assim se manter firme e não cair depois conforme sua jornada. Confiança e força de vontade o levam a lugares melhores, e se por acaso fraquejar ou até se acomodar as coisas certamente podem voltar ao começo, onde o caminho é mais longo e difícil.
+Abacate - Na vida: alegrias. No amor: amor inútil. G. 2, 8, 24. D. 52, 35, 94. C. 351, 829, 796. M. 8732.
 Abacateiro - Sonhar com abacateiro mostra que as coisas poderão fluir melhor e mais rápido por agora. Assim como o abacateiro que em comparação a muitas árvores, cresce bem rápido e possui um grande porte, ele no sonho deixa bem representado este seu crescimento. O que já vem acontecendo de forma gradativa, mas que agora será percebido por você e pelas pessoas a sua volta. Afinal é preciso ter solidez e segurança para assim se manter firme e não cair depois conforme sua jornada. Confiança e força de vontade o levam a lugares melhores, e se por acaso fraquejar ou até se acomodar as coisas certamente podem voltar ao começo, onde o caminho é mais longo e difícil.
 Abacaxi - Ver um abacaxi em seu sonho significa que você precisa ser menos dependente dos outros. Se você está comendo abacaxi em seu sonho, então o sonho representa o sucesso em seus empreendimentos.
+Abacaxi - Na vida: contrariedades. No amor: desilusão. G. 8, 23, 24. D. 23, 04, 81. C. 729, 989, 999. M. 1531.
 Abadá - Sonhar com abadá mostra que você está à procura do seu lugar. Quando se compra um abadá você quer ter acesso e saber que terá o seu lugar e participará da festa. A abadá no sonho indica mais ou menos isso, você se vê preparado para alcançar e o ocupar o lugar que sempre almejou e que agora pode estar mais próximo. Por isso procure continuar seu trajeto, fazendo o necessário para alcançar seus objetivos, isso continuará lhe conduzindo ao seu objetivo final e assim conseguirá o seu lugar, aquele que deseja e quer conquistar.
 Abadia - Ver uma abadia em seu sonho simboliza tranqüilidade e paz. Você poderá superar tempos difíceis.
 Abajur - Sonhar com abajur indica que deve ter cuidado com novas aventuras. Outro significado para o sonho com abajur é que pode ocorrer alguma mudança importante no relacionamento. Abajur aceso sinaliza o desejo de conquistar um novo amor. Abajur apagado ou quebrado simboliza insatisfação no relacionamento atual.
@@ -16,22 +20,30 @@ Abandonar - Sonhar que você é abandonado sugere que está na hora de deixar pa
 Abastecer - Sonhar com abastecer mostra a reposição de algo. Você pode tentar perceber o que precisa ser reposto, seja sua saúde, trabalho, qualidade de vida, há algo que está faltando e você precisa ver o que é. Isso fará com que as coisas caminhem melhor e você vai perceber que tudo irá fluir muito bem, depois que conseguir se abastecer. Isso pode ser para tudo, boas energias, fazer coisa prazerosas a você, sair, se distrair, ou até trabalhar, colocar coisas em ordem, se analisar vai ajudar a saber o que lhe faz falta no momento, e isso vai fazer com que se recomponha e se sinta cada vez melhor.
 Abertura - Sonhar com abertura mostra sair de sua rotina. A vida, tarefas, obrigações do dia a dia precisam em algum momento, mudar, ter uma abertura para coisas novas e talvez incorporar ao que será feito depois. Você precisa ser mais flexível, é isso que o sonho com abertura quer lhe mostrar. Pense de forma mais leve, e de relevância a opinião de pessoas que são importantes para você, estás podem lhe ajudar muito a ter um novo olhar, uma nova jornada.
 Abeto - Sonhar com abeto mostra dois extremos. Sim, se você sonhou que cortou ou viu alguém cortar um abeto, as coisas poderão ficar bem difíceis por agora, tanto para você, se foi quem cortou a planta em sonho, ou para alguém próximo, mas não necessariamente quem o cortou em sonho. Mas se você estava vendo, ou plantando o abeto, isso indica muita fartura, e coisas boas se multiplicando, as coisas caminharão muito bem, e você viverá ótimos momentos logo, logo, caso ainda não tenha começado a viver isso.
+Abelha - Na vida: dinheiro. No amor: surpresas. G. 1, 4, 17. D. 57, 14, 17. C. 950, 314, 367. M. 3516.
 Abismo - Possível preocupação, uma queda no amor ou nos negócios, mas com melhoras imediatas. Pensamento positivo e fé.
+Abismo - Na vida: inimigos. No amor: incerteza. G. 11, 10, 16. D. 44, 07, 63. C. 143, 608, 862. M. 7564.
 Abóbada - Ver uma abóbada em seu sonho simboliza o inconsciente, seus recursos pessoais e potencial latente. O sonho pode estar indicando que você precisa usar seu potencial, habilidade e energia.
 Abóbora - Fartura, boa alimentação, dinheiro entrando. Felicidade conjugal.
+Abóbora - Na vida: recompensa. No amor: desconfiança. G. 1, 13, 25. D. 25, 02, 79. C. 925, 602, 379. M. 4602.
 Abordagem - Ver uma abordagem policial em seu sonho significa que pode estar se sentindo culpado por algo que não fez. Ver policiais abordando alguém que conhece simboliza preocupação excessiva com esta pessoa.
 Abordar - Alguém: cuidado com sua segurança pessoal, previna-se de assaltos. Ser abordado: felicidade familiar, nascimento de gêmeos, noticias boas.
-Aborígine - Ver um aborígine em seu sonho representa seu lado puro, selvagem. Você precisa dar mais atenção e importância a sua intuição. Sonhar com aborígene também significa que você pode estar sendo emocional demais. Você pode estar se prejudicando e pode alterar o seu bem estar, devido a sua falta de confiança em sua própria intuição.
+Aborígine - Ver um aborígine em seu sonho representa seu lado puro, selvagem. Você precisa dar mais atenção e importância a sua intuição. Sonhar com aborígine também significa que você pode estar sendo emocional demais. Você pode estar se prejudicando e pode alterar o seu bem estar, devido a sua falta de confiança em sua própria intuição.
 Aborrecimento - Ter a sensação de aborrecimento durante o sonho simboliza que deve ficar atento a pequenos detalhes que poderão de fato lhe trazer algum aborrecimento na vida real. Normalmente durante o sonho o aborrecimento é causado por algum outro evento e na maioria das vezes este deve ser o significado a ser buscado.
 Aborto - Sonhar com aborto mostra certa insegurança de sua parte. Medos e angustias podem estar martelando sua cabeça, algo lhe aflige e isto não é nada bom. Tente relaxar e observar as coisas de forma mais prática, para então poder resolver estas situações e assim ficar melhor consigo mesmo. Caso não consiga pensar em nada, peça ajuda, converse com alguém, isto pode ajudar a esclarecer pensamentos e ideias.
+Aborto - Na vida: azar. No amor: desilusão. G. 18, 19, 25. D. 71, 74, 79. C. 071, 876, 577. M. 2379.
 Abotoadura - Sonhar com abotoadura demonstra seu jeito de ser. Detalhista e perfeccionista está deve ser sua personalidade, mas caso seja totalmente o oposto a abotoadura no sonho esclarece então que você deve ser mais atento aos detalhes e precisa melhorar sua atenção, principalmente aos detalhes. Muitas vezes não damos a devida importância aos detalhes, afinal podem ser tão pequenos. Mas são estes que fazem toda a diferença principalmente no trabalho, por isso fique mais atento a isso.
+Abotoar - Na vida: dificuldades. No amor: compromisso. G. 13, 25, 22. D. 05, 85, 86. C. 349, 678, 287. M. 3601.
 Abraçar - Abraçar alguém durante o sonho ou ser abraçado simboliza reencontro com alguém querido que não vê há muito tempo. Abraçar também significa reconciliação com seu amor ou com um amigo. O significado deste sonho também pode ser entendido com um novo começo para um relacionamento ou para uma amizade sincera. Abraçar sempre está relacionado a alguém que é importante e querido por você.
 Abraço - Visita de parente distante, novas amizades, boas notícias, reconciliação com amigos, parentes ou com o ser amado.
+Abraço - Na vida: auxilio inesperado. No amor: traição. G. 1, 6, 18. D. 56, 24, 69. C. 550, 522, 872. M. 0472.
 Abridor de lata - Ver um abridor de lata em seu sonho simboliza sua busca por novas idéias e conceitos. Usar um abridor de latas significa confiança e modo afirmativo de pensar.
 Abrigo - Proteção, aconchego, defesa contra o mal e a intriga.
+Abrigo - Na vida: aborrecimentos. No amor: desavenças. G. 2, 14, 21. D. 51, 06, 82. C. 415, 704, 384. M. 1306.
 Abrir - Novos horizontes se abrindo, felicidade a caminho, perspectivas de promoção no emprego ou negócios.
 Abscesso - Sonhar com abscesso simboliza que você guarda algo que não lhe faz bem. Você pode ter alguma mágoa que por agora pode vir a tona, por isso o abscesso no sonho, ele quer lhe mostrar que uma hora as coisas devem ser resolvidas, você precisa fazer algo, não haverá mais como guardar isso para si. Por isso se você tem uma questão que lhe incomoda e que estava esquecida até agora, o faça, resolva. Conversar, dedicar tempo e atenção a isso pode não ser agradável, mas será um alívio e uma libertação para que possa fazer e viver as coisas de forma diferente. Tudo ficará mais leve e você será outra pessoa, acredite, não guarde nada de ruim dentro de si.
 Absinto - Sonhar com absinto mostra um sentimento muito forte chegando a você. Este sentimento chega de maneira forte e arrebatadora, principalmente em seus relacionamentos pessoais. Por isso viva este momento ele é necessário, sempre podemos aprender muito com estes momentos. Aproveite ao máximo as coisas boas que a vida está lhe trazendo. Proporcionar coisas boas a você e quem você ama, faz parte dos cuidados de seus sentimentos e do outro. Não fique parado, este desanimo não combina com sentimentos fortes e felizes.
+Absolvição - Na vida: sorte no jogo. No amor: confiança. G. 19, 25, 24. D. 73, 78, 96. C. 276, 378, 093. M. 1678.
 Absolver - Sonhar com absolver mostra um período de adaptação. Sim, você vai precisar se adaptar de forma rápida, para que as coisas consigam continuar caminhando da forma que você planejou. E o absolver indica, que você deve ter maior compreensão diante das decisões dos outros, sim, a sua adaptação, pode depender da ação de outros, e muitas vezes este não pode ou até não quer fazer isso, e você deve saber que todos temos momentos e vivências, e você não deve se deixar aborrecer por coisas assim.
 Absolvido - Sonhar que você é absolvido de um crime significa que precisa tirar uma valiosa lição de algum acontecimento recente. Ver outros absolvidos em seu sonho indica que você precisa equilibrar seu tempo dedicado ao trabalho com tempo disponível para diversão e lazer.
 Absorvente - Mulher: fase de muita tensão no plano emocional, que você deve levar com muito cuidado e compreensão. Homem: fantasias eróticas reprimidas.
@@ -40,9 +52,11 @@ Abstinência - Sonhar com abstinência simboliza algo no sentido contrário. Vej
 Abundância - Bom período para o trabalho e/ou negócios, grandes realizações à vista. No amor grandes emoções. Não jogue.
 Abusar - Sonhar com abusar simboliza um abuso seu. Agora resta a você perceber onde você pode estar abusando, pois isso pode ser muito difícil de ser percebido por aquele que o está fazendo, é preciso um olhar um pouco mais empático para que assim possa perceber o que faz e o quanto pode estar sendo abusivo de sua parte. Por isso reveja algumas atitudes e falas de sua parte e se por acaso perceber que pode sim estar abusando de alguém, pare, converse, peça desculpas e tente organizar as coisas de forma mais leve e que posam ser feitas sim, mas de maneira mais leve.
 Academia - Sonhar ou ver que está em uma academia significa novas amizades e oportunidades. Estar fazendo exercícios ou praticando algum esporte na academia simboliza atenção com seu corpo. Evite excessos.
+Academia - Na vida: embaraços. No amor: ciúme. G. 7, 8, 9. D. 20, 29, 30. C. 220, 231, 136. M. 4631.
 Açafrão - Sonhar com açafrão mostra que você se sente forte e protegido. O açafrão que possui muitos benefícios a saúde lhe faz se sentir forte e é por isso que ele aparece em seu sonho. No fundo, você se sente bem e orgulhoso por algo que tenha feito, mesmo que não deixe transparecer aos outros. Muitas vezes o reconhecimento de todos não é dito e nem sinalizado. Mas neste momento você não precisa dele, o açafrão no sonho mostra isso, você se reconhece e sabe o esforço que tem feito e por isso tudo fica mais calmo e tranquilo, por agora.
 Açaí - Sonhar com açaí simboliza força, energia natural. Consumir açaí durante o sonho significa que você está sendo energizado para enfrentar eventuais problemas. No sonho o açaí representa alimento espiritual. Na lenda tupi sobre a origem do açaí, após a morte índia Iaça (açaí invertido) o cacique Itaki, seu pai, alimentou seu povo com o açaí e resolveu um grave problema de alimentação na tribo.
 Acampamento - Estar acampando sorte em casa. Amigos acampando: bons resultados no trabalho.
+Acampamento - Na vida: problemas. No amor: separação. G. 1, 13, 24. D. 14, 49, 93. C. 017, 301, 590. M. 4017.
 Acampamento de férias - Sonhar com acampamento de férias mostra leveza nas coisas. Se você é uma pessoa que gosta de acampar, este sonho indica que as coisas precisam ficar mais leves, sim trabalho e tarefas do dia a dia são obrigações, mas estás podem ser feitas de uma maneira mais dividida, com mais ajuda ou até um desabafo sobre estás com alguém, pois suas obrigações são muitas e você precisa trazer está leveza para o dia a dia e não somente quando se está de férias, tente fazer isso, vai lhe ajudar bastante.
 Acampar - Renove suas energias mentais, você vai precisar no seu relacionamento social. Novos amigos, possível promoção.
 Ação de graças - Sonhar com Ação de graças representa união, reuniões familiares, festividades e vida em comunidade. O sonho é uma reflexão sobre sua vida e as conexões que você fez. Alternativamente, este sonho pode ser uma metáfora que indica que você precisa agradecer alguém. Você pode estar sentindo que tem uma dívida com alguém por algum benefício, ajuda ou favor recebido. Também considere suas próprias associações e tradições relacionadas à Ação de graças.
@@ -58,10 +72,12 @@ Achar - Sonhar que você acha algo significa que você está entrando em contato
 Achar uma foto - Sonhar com achar uma foto mostra um reencontro. Sim, este reencontro poderá ser físico, com alguém de seu passado, caso a pessoa desta foto achada em sonho, seja muito importante para você, talvez seja hora de conversar, retomar as conversas e fazer com quem ela retorne a sua vida. Mas se esse não foi o caso, você poderá se sentir mais nostálgico, perante as coisas, onde pessoas ou momentos poderão ser lembrados com muito carinho e porque não retomar algo que pode ser prazeroso a você, e que não o faz mais, essa pode ser uma boa ideia para o agora.
 Achocolatado - Sonhar com achocolatado simboliza sua vida amorosa daqui uns dias. Está deve ser cuidada e regada, mas não de forma muito “melada”, você deve fazer isso por querer, ou se até achar exagerado, pense em demonstrações de amor espontâneas, nada forçado. Afinal é preciso cuidar e regar as coisas que se ama, não há como você querer receber apenas, é preciso cuidar também. O amor é doce como chocolate e muito mais doce é o achocolatado que deixa claro que é preciso sim viver mais seu amor, e cuidar do mesmo.
 Acidente - Más notícias. Alguns problemas na família e entre os cônjuges. Pensar antes de falar.
+Acidente - Na vida: contrariedades. No amor: deslealdade. G. 1, 11, 21. D, 19, 41, 84. C. 325, 542, 281. M. 3919.
 Acidente de moto - Sonhar com acidente de moto mostra que você deve repensar seu estilo de vida, o excesso de trabalho e preocupação financeira está fazendo com que o lazer fique totalmente de lado. Se este é o seu caso este é um bom momento para programar merecidas férias. Se o acidente de moto, durante o sonho, ocorreu no seu trabalho fique atento a pessoas próximas que podem desaprovar seu desempenho profissional e causar intrigas.
 Acidificante - Sonhar com acidificante mostra atitudes mais ásperas. Veja, mesmo que você seja uma pessoa mais calma, há momentos em que o outro pode abusar disso, ou até que você não seja está pessoa tão calma, mas que tenta sim, resolver as coisas com paciência, mesmo sendo difícil para você, neste período talvez as coisas mudem um pouco, ou alguém poderá lhe tirar do sério e sim, você pode e deve ser um pouco mais grosseiro e você sabe que está certo e quer o mínimo do outro, que muitas vezes não é feito, algumas pessoas só funcionam assim e você cruzou o caminho de umas delas, então faça acontecer.
 Ácido - Sonhar com ácido mostra atenção as promessas. Sim, é preciso ficar atento a algo que pode ter sido oferecido a você, não que este não será cumprido, mas pode haver ressalvas, e é isso que você deve saber. E ele vale, para caso você, quem tenha prometido algo a alguém, procure se esforçar e fazer exatamente o que foi falado, ou melhor. Seja com você, ou com o outro, isso gera uma expectativa, e decepções nestas horas são bem ruins.
 Ácido fólico - Sonhar com ácido fólico simboliza um cuidado com sua mente. Uma mulher ao saber que esta grávida precisa tomar ácido fólico para um melhor desenvolvimento do sistema nervoso de seu filho e você está precisando cuidar de si. Em sua maioria você olha para os outros e nas coisas que acontece ao redor e vai deixando que a coisas aconteçam com você sem dar a devida atenção. Por isso é hora de tirar e ter momentos para si, se cuidar, fazer algo que gosta, ir a uma consulta necessária a tempos, mas que não vai por outras prioridades. Isso vai refletir em bem-estar e por consequência em todo o resto de você. As coisas irão acontecer de forma mais leve e fluída acredite.
+Aço - Na vida: bons negócios. No amor: enganos. G. 21, 23, 24. D. 83, 95, 93. C. 181, 792, 694. M. 6781.
 Acolchoado - Sonhar com acolchoado simboliza preocupações suas. O acolchoado é algo confortável, macio e você no momento poderá viver momentos mais nervosos, onde haverá uma preocupação específica com algo, e a sua incerteza o faz pensar demais sobre o assunto, e o acolchoado seria algo confortável, tentando lhe mostrar que não precisa se preocupar tanto. Está preocupação se já não percebeu logo irá perceber, mas continua a caminhar da maneira que você achar melhor, não sofra por antecedência, as coisas irão acontecer como devem.
 Acompanhar - Alguém: um parente ou amigo está precisando de apoio mas não quer procurá-lo. Ser acompanhado: carência afetiva.
 Aconchego - Sonhar com aconchego simboliza que você precisa de algo acolhedor. Seja para você ou até para proporcionar a alguém, este tipo de sentimento onde se pode ser você mesmo, se sentir confortável e fazer o bem a alguém pode lhe fazer crescer e perceber certas coisas que até hoje poderiam não ser valorizadas por você. Por isso procure ser mais verdadeiro consigo e com os outros, demonstre carinho e amor por aqueles que possui este sentimento, faça pequenos gestos e atos que demonstrem isso. Se sentir acolhido pode fazer coisas muito boas para todos.
@@ -69,16 +85,22 @@ Aconselhar - Sonhar que está aconselhando alguém simboliza que será portador 
 Acontecimento histórico - Sonhar com acontecimento histórico simboliza que você está regressando para um período de tempo anterior. Você pode estar tentando reviver acontecimentos do passado que deixaram boas lembranças. Este sonho também pode indicar interesse por acontecimentos históricos e como eles podem ter influenciado sua vida ou de sua família.
 Acordar - Período sereno, mas você vai pôr mais emoção na sua vida. Vai ousar nos seus objetivos e avançar nos seus projetos.
 Acordeão - Ouvir música tocada em um acordeão significa que precisa dedicar mais tempo para diversão. Mais lazer contribuirá para tirar de sua mente um assunto que está deixando você triste e deprimido. Sonhar que você toca o acordeão significa que intensas emoções estão causando tensão física a seu corpo.
+Acordeão - Na vida: tranquilidade. No amor: felicidade. G. 7, 9, 15. D. 28, 34, 39. C. 128, 236, 238. M. 1320.
 Acordo - Sonhar com um acordo significa solução para um conflito ou problema. Seu inconsciente está trabalhando em harmonia com seu consciente.
 Açougue - Sinal de boas melhoras, de grande confiança no futuro, no sucesso. Grande subida nos negócios e propostas de emprego.
+Açougue - Na vida: doença. No amor: desavenças e ciúme. G. 4, 9, 14. D. 16, 36, 04. C. 213, 236, 406. M. 8604.
 Acrílico - Sonhar com acrílico simboliza uma certa resistência. Este resistência pode ser de sua parte ou de outra pessoa, é preciso que você análise um pouco o sonho para saber se você pode ser resistente a algo ou talvez alguém não o deixe fazer o que quer. O acrílico pode ser bastante transparente, mas também bastante resistente, o que pode vir a acontecer. É preciso analisar os prós e contras na hora de ceder a algo. Isso depende muito do quanto deseja algo, do quanto está disposto a ser flexível. Enfim, nunca deixe de fazer as coisas da forma que acredita, isso vai lhe garantir satisfação e nenhum arrependimento depois.
 Acrobacia - Rapidez e facilidade para resolver problemas. Melhoras financeiras consideráveis.
 Acrobata - Ver ou ser acrobata em seu sonho significa que você precisa equilibrar melhor seus esforços para atingir suas metas. Não seja afoito. Também pode significar que precisará superar seus medos para alcançar seus objetivos.
 Açúcar - Vida melhor, mais próspera e afortunada. Grandes alegrias a caminho com relação aos filhos.
+Açúcar - Na vida: êxito financeiro. No amor: carinho e alegria. G. 7, 8, 9. D. 26, 29, 36. C. 427, 435, 436. M. 3032.
 Açucareiro - Sonhar com açucareiro cheio simboliza abundancia. Se o açucareiro está vazio simboliza prejuízo financeiro. Derrubar um açucareiro ou quebrá-lo indica perda com negócio mal feito. Sonhar que o açucareiro tem outra coisa diferente de açúcar simboliza que deve evitar assumir compromissos neste dia.
+Açucareiro - Na vida: prosperidade. No amor: felicidade. G. 7, 13, 20. D. 27, 01, 99. C. 620, 401, 197. M. 9120.
 Açude - Sonhar com açude mostra que você está fazendo algo que pode limitar o outro. O açude construído para represar água evidência que há algo que pode acontecer e você não quer que isso aconteça, e por força de suas ações e fala, você pode estar influenciando alguém a fazer ou não algo que você não queira. Veja, sempre temos a confiança e contato direto com amigos, parentes e até pessoas que possam ser mais influenciáveis com pequenos “conselhos”, podem ou não ter certas atitudes e falas. Por isso veja se realmente vale a pena tentar “manipular” alguém com sua fala, pois por melhor que seja a sua intenção as pessoas devem viver aquilo que fizerem de escolhas para si, sejam estás boa ou ruim. Tente sim expressar sua opinião, mas com cautela e mais imparcialidade.
+Açude - Na vida: Tranquilidade. No amor: bom presságio. G. 13, 16, 17. D. 01, 63, 67. C. 602, 362, 467. M. 1067.
 Acúmulo - Sonhar com acúmulo mostra que você está sim acumulando algo. Isto pode ser em objetos, em rancor, em sentimentos, em opiniões, enfim, você precisa se soltar mais. Você pode fazer isso conversando mais com as pessoas, seja para desabafar, ou para ter uma outra opinião. Resolver suas questões, aquelas que você sabe que o incomodam, porque afinal se você ficar protelando isso, ninguém irá resolver por você, apenas você mesmo poderá resolver suas questões, se for muito difícil, peça ajuda, isso não é sinal de fraqueza, pelo contrário.
 Acupuntura - Amigos querem lhe ajudar, mas você não quer. Seja mais simpático, Sorte nos jogos.
+Acusação - Na vida: enganos. No amor: inveja e intrigas. G. 3, 9, 11. D. 12, 30, 41. C. 412, 134, 843. M. 6512.
 Acusar - Lutas, controvérsias, desgostos, embaraços no trabalho. Indica rivalidades mal; resolvidas, vaidades e ambições que você ainda não notou. Não se deixe influenciar.
 Acústica - Sonhar com acústica simboliza suas escolhas, o que está sendo percebido por você. A acústica deixa claro que você deve escutar melhor as pessoas que lhe querem bem, e até os sinais que a vida possa estar lhe dando nos próximos dias. Você pode até não acreditar muito nisso, ou já ter se decepcionado por acreditar em algo assim, mas veja, com a acústica melhor é possível perceber e ouvir melhor as coisas e você deve sim escutar mais, para assim perceber e compreender certas questões que até agora possam ser confusas a você.
 Adaga - Intriga, inveja, falsidade. Cautela com os falsos amigos.
@@ -102,24 +124,39 @@ Adoração - Sonhar que você está adorando alguém ou algo indica que você es
 Adormecer - Sonhar com adormecer mostra calmaria. Você pode estar em um período muito agitado, e isso poderá lhe fazer mal se você não conseguir diminuir o ritmo das coisas. Mesmo que não lhe pareça que as coisas estejam assim, respire, faça as coisas de forma mais calma, afinal, você está se acostumando com este ritmo e isso não deve ser o normal. Em alguns períodos sim a demanda será maior, mas isso não deve se prorrogar e se tornar uma rotina, e talvez isso esteja acontecendo para você, respire, tenha calma, será necessário para sua saúde mental.
 Adotar - Ser adotado: pessoas próximas querem o seu bem e o estimam. Adotar uma criança: seus nobres sentimentos serão recompensados. Pense em ser voluntário.
 Adrenalina - Sonhar com adrenalina mostra agitação. E sim mesmo que as coisas já estejam corridas, elas podem se acumular ainda mais e suas tarefas se multiplicarem de uma maneira onde você pode ficar bastante perdido. Por isso tenha prioridades e resolva isso para então depois fazer o que for possível, seja criterioso, caso contrário, isso não vai lhe ajudar a resolver.
+Adubo - Na vida: promessa futura. No amor: conquista. G. 6, 8, 9. D. 22, 32, 30. C. 521, 831, 130. M. 1530.
 Adubo - Sonhar com adubo significa que as experiências vividas por você têm contribuído para que possa ser uma pessoa melhor a cada dia. Atualmente você usa esta bagagem de aprendizado e desenvolvimento pessoal em beneficio das pessoas a seu redor e de você mesmo, naturalmente. Outro significado para sonhar com adubo é sua estreita ligação como símbolo de fertilidade.
+Adulação - Na vida: perdas. No amor: intrigas. G. 1, 3, 14. D. 56, 11, 04. C. 150, 159, 504. M. 1306.
 Adulteração - Sonhar com adulteração simboliza uma mudança. E esta deve ser feita por você, você é quem fará uma adulteração em algo que já vem trabalhando e planejando e isto pode ser tanto para o trabalho como para casa, mas isso provavelmente aconteça por alguma oportunidade percebida por você. E isso o fará pensar se vale a pena ou não a mudança e talvez opte por mudar, já que está pode ser mais vantajosa, principalmente na questão financeira, o que irá pesar muito em sua decisão. Mas veja, talvez mudar seja a melhor alternativa mesmo, mas saiba que se for algo que espera, planeja e deseja de uma determinada forma a muito tempo, talvez seja melhor esperar, ou até investir um pouco mais por aquilo que quer.
 Adultério - Ver alguém conhecido em adultério: Tristeza, intriga, infelicidade. Ver o cônjuge em adultério: Separação, discussão, desunião.
+Adultério - Na vida: contrariedades. No amor: imprevistos. G. 1, 3, 4. D. 50, 15, 10. C. 456, 559, 914. M. 3560.
 Adversário - Sonhar que você é confrontado por um adversário significa que você defenderá com unhas e dentes qualquer ataque contra seus interesses. Sonhar que você supera um adversário simboliza que você escapará ileso dos efeitos de algum problema sério.
-Advertência - Receber uma advertência em seu sonho indica que algo em sua vida está precisando de mais atenção. O sonho pode servir como um alerta para que faça uma análise de seus procedimentos e ações e repensar as conseqüências de seus atos ou ações. Sonhar que você está advertindo alguém simboliza que você pode reconhecer os perigos ou pontos negativos em alguma situação.
+Adversário - Na vida: obstáculos. No amor: oposições. G. 1, 12, 10. D. 17, 48, 08. C. 418, 548, 109. M. 2340.
 Advogado - Possibilidade de problemas com documentos. Cautela com escrituras e certidões.
+Advogado - Na vida: más notícias. No amor: separação. G. 16, 17, 25. D. 63, 60, 78. C. 961, 167, 278. M. 5987.
 Aeróbica - Sonhar que você está fazendo aeróbica simboliza que você precisa respirar mais ar puro. O sonho com ginástica aeróbica é uma indicação de que você deve abandonar o sedentarismo e ser mais ativo. Faça exercícios regularmente.
 Aeromoça - Sonhar com aeromoça mostra que uma figura feminina fará muito diferença. Preste atenção ao seu redor, você deve estar tendo o apoio de alguém, e este alguém deve ser uma mulher. Assim como a aeromoça que está ali para orientar e apoiar no que for preciso, esta pessoa também está participando de sua vida desta maneira. Mas será que você a reconhece por isso? Preste atenção e perceba se você também apóia a esta pessoa, caso não o faça, comece a fazer, reconheça seus esforços e retribua isso de alguma maneira, será gratificante.
+Aeroplano - Na vida: incerteza. No amor: insegurança. G. 2, 19, 20. D. 51, 76, 97. C. 552 476, 198. M. 2551.
 Aeroporto - Ver aeronaves aterrissando no aeroporto em seu sonho simboliza nascimento (chegadas) e ver aeronaves decolando simboliza morte de alguém conhecido (partidas). Se o aeroporto estiver fechado, então significa seu desejo de liberdade, ambição e esperança. Sonhar com aeroporto também é uma indicação que você poderá de dedicar a novos projetos. Alguma idéia nova está chegando. Sonhar com um aeroporto deserto indica que seus planos de viagem serão mudados ou poderão demorar mais tempo do que gostaria.
+Aeroporto - Na vida: visitas. No amor: desavenças. G. 6, 13, 19. D. 21, 02, 76. C. 521, 105, 870. M. 8274.
 Aerossol - Ver uma lata de aerossol em seu sonho significa que você esta vivendo sob pressão. Você precisa se libertar.
 Afago - Sonhar com afago simboliza coisas boas. Se você estava confortável com o afago, este mostra que as coisas irão caminhar muito bem por agora, principalmente no trabalho em algo que antes vinha tomando seus pensamentos e sua tranquilidade. Se você viu alguém ganhando o afago ou apenas observou o mesmo, você deve saber que sua visão sobre as coisas estará mais leve, e você não deve fazer isso de maneira muito “fechada”, não, você estará confortável em adaptar e fazer mudanças, pois elas podem ser necessárias e você terá melhores resultados se o fizer.
+Afago - Na vida: boas notícias. No amor: compromisso sério. G. 3, 15, 11. D. 15, 38, 41. C. 712, 837, 841. M. 6438.
+Afiador - Na vida: sucesso. No amor: mudança de situação. G. 3, 17, 19. D. 25, 67, 76. C. 615, 460, 070. M. 0315.
+Afiar - Na vida: mudança para melhor. No amor: felicidade. G. 6, 11, 20. D. 23, 44, 98. C. 824, 643, 198. M. 5721.
+Afilhado - Na vida: prosperidade. No amor: união. G. 7, 8, 17. D. 28, 28, 67. C. 928, 235, 260. M. 5520.
+Afinar - Na vida: novos projetos. No amor: paixão e saudade. G. 6, 9, 14. D. 23, 30, 04. C. 421, 134. 106. M. 1704.
 Aflição - Sonhar com aflição simboliza um acontecimento contrário em sua vida. Se você teve aflição sobre algo em sonho, isto será algo que vai lhe trazer prazer e sucesso nos próximos dias. Por isso se você sentiu muita aflição em sonho, não se preocupe, isto não é um problema, pelo contrário, pois está aflição tem sentido contrário para a sua vida.
-Afogar - Alguém: indica sentimentos negativos de vingança em relação a pessoa do sexo oposto. Ser afogado: não exagere nos ciúmes, cuidado com os que se dizem amigos.Afogar. Alguém: indica sentimentos negativos de vingança em relação a pessoa do sexo oposto. Ser afogado: não exagere nos ciúmes, cuidado com os que se dizem amigos.
+Aflição - Na vida: aborrecimentos. No amor: ciúme à toa. G. 19, 23, 24. D. 74, 95, 93. C. 874, 791, 198. M. 8170.
 Afogamento - Alguém se afogando: alegria e sucesso. Afogar-se sinal de que terá pequenas perdas. Também é um aviso e pede para que a pessoa evite viajar e fechar negócios por uma semana.
+Afogamento - Na vida: perigo. No amor: separação. G. 1, 12, 22. D. 17, 44, 88. C. 118, 640, 287. M. 2387.
+Afogar - Alguém: indica sentimentos negativos de vingança em relação a pessoa do sexo oposto. Ser afogado: não exagere nos ciúmes, cuidado com os que se dizem amigos.Afogar. Alguém: indica sentimentos negativos de vingança em relação a pessoa do sexo oposto. Ser afogado: não exagere nos ciúmes, cuidado com os que se dizem amigos.
 Afronta - Sonhar com afronta mostra que algo muito maior do que se julga capaz de resolver está por vir. Mas não se preocupe, pois se você sonhou com a afronta, mesmo que inconscientemente você já pressentiu algo, sente que as coisas estão por acontecer, é preciso dar atenção aos seus sonhos e pensamentos. Sabendo disso, ficará mais confortável, afinal você não levará sustos ou será pego de surpresa. Saiba que não recebemos nada maior do que alquilo que possamos enfrentar, não tenha medo, nem receios, sempre haverá uma razão, uma aprendizagem depois de tudo. Afronta lhe deixará mais forte e preparado para a vida, mas principalmente para perceber o sentido e valor de certas coisas.
 Agachamento - Sonhar com agachamento mostra preparação para desafios, autocontrole e resiliência. O ato de agachar pode representar a necessidade de se adaptar a uma situação difícil ou de se reerguer após um momento de vulnerabilidade. Se no sonho você se sentia seguro, pode indicar que está pronto para enfrentar mudanças e desafios com confiança. Por outro lado, se o agachamento parecia pesado, pode sugerir insegurança ou medo de fracasso.
+Agarrar - Na vida: embaraços. No amor: incertezas. G. 13, 14, 19. D. 01, 04, 76. C. 701, 203, 176. M. 6702.
 Agar-agar - Sonhar com agar-agar mostra que as coisas podem ficar mais “grossas”. O agar-agar é um espessante natural que faz com que algo engrosse. Por isso o sonho pode indicar que dificuldade em algo pode aparecer e está mudará tudo. Será preciso então parar e refletir para que assim consiga pensar em uma melhor solução para o problema que pode surgir. Mas saiba, ficar esperando que algo aconteça e assim o tempo resolva tudo não será uma opção, pois será preciso agir, ter a reação para que assim as coisas melhorem e se resolvam perante os problemas. Não tenha pena de nada e muito menos de si mesmo, as coisas ruins acontecem para todos e não apenas para você ou a sua volta, tome uma postura mais firme e caminhe perante a solução. Ficar parado esperando ajuda ou esperando a solução não lhe ajudará em nada.
 Agasalho - Sonhar com agasalho simboliza proteção. Sonhar que procura um agasalho indica busca por proteção, carinho e afeição. Presentear alguém com um agasalho simboliza que alguém precisará de seu apoio, carinho e atenção. Ser presenteado com um agasalho indica felicidade no relacionamento e bons amigos.
+Agasalho - Na vida: sossego e conforto. No amor: felicidade. G. 8, 18, 23. D. 31, 71, 91. C. 831, 371, 391. M. 4032.
 Ágata - Sonhar com ágata simboliza uma situação entre amigos. É preciso saber se está ágata que aparece em sonho, se ela está mais bruta ou se já foi trabalhada, polida. Isso vai indicar se poderá ter momentos e conversas mais tensas, caso a pedra esteja em seu estado bruto, ou até discussões mais amenas e prazerosas, se ela estiver em uma joia ou já polida. Por isso se atende a isso. O importante é não deixar que grandes conflitos aconteçam entre amigos, já que você já sabe que poderia acontecer, releve.
 Agência bancária - Sonhar com agência bancária mostra que você pode estar preso a algo desnecessário. Hoje em dia se você parar para pensar, ir a uma agência bancária quase não se faz mais necessário. As coisas podem ser feitas em casa, e até mesmo da rua, e se para você isso é muito difícil, lhe falta experiência e conhecimento para o mesmo. Por isso, procure não se deixar apegar a coisas, não que não são necessárias. Você deve ser mais independente para fazer e ter aquilo que quer da forma que quer, e com isso se desligar de pessoas ou impressões que você acha estar deixando.
 Agencia de viagens - Sonhar com agencia de viagens significa desejo de conhecer lugares novos, paisagens e sabores diferentes. O sonho com agencia de viagem simboliza a transição do dia a dia por vezes corrido e conturbado para momentos de relaxamente e lazer junto de pessoas queridas. Este sonho sinaliza que seu subconsciente está clamando por um merecido descanso. Bom momento para fazer uma viagem e relaxar.
@@ -130,14 +167,18 @@ Agente - Sonhar com agente mostra que você poderá ter ajuda. Sim, o agente pod
 Agente funerário - Sonhar com agente funerário ao contrário do que indica a profissão simboliza união feliz e estável. Ver ou falar com um agente funerário durante o sonho também significa que haverá um nascimento na família em breve ou um casamento que já foi adiado finalmente acontecerá.
 Agiota - Sonhar com agiota demonstra sua preocupação com uma certa pessoa. Você parece ter um rancor ou uma divida sentimental com alguém, e o agiota no sonho esclarece que isto está lhe incomodando mais do que o esperado. Por isso tente resolver qualquer que seja seu receio. Conversar com quem está envolvido pode ser uma ótima solução, isso seria o ideal, mas caso não seja possível procure pensar em algo que poderia aliviar em você está sensação. Este sentimento não está lhe fazendo bem, e pode trazer mais consequências no futuro. Sentimentos como culpa, rancor ou divida podem ter um peso muito grande sobre você, resolva as coisas, isto pode mudar muita coisa.
 Agitação - Sonhar com agitação mostra que você passar por momentos mais calmos e brandos por agora. Você já teve seu momento de agitação, seja por algum motivo no trabalho ou na vida pessoal, seus pensamentos e atenções estavam diretamente voltados a algo que lhe perseguiu durante alguns dias. Mas agora essa agitação irá acabar, o sonho com a agitação deixa bem claro que agora ficará tudo mais calmo e sútil, muito bom, já que todos precisamos sempre nos recompor em momentos assim.
+Agitação - Na vida: desarmonia. No amor: rompimento. G. 9, 11, 17. D. 34, 42, 60. C. 936, 041, 160. M. 3460.
 Agouro - Sonhar com agouro mostra que você poderá em breve sentir algo muito real. Este sonho com agouro deixa muito claro que poderá e deverá confiar em sua intuição, ou naquilo que sentirá em breve sobre algo. E isto pode ser em relação a você ou a alguém muito próximo, você pode sentir se algo que já planeja acontecerá e de que forma isso vai se desfazer. Ou até algo novo, algo que ainda nem sonhe que poderá acontecer. O agouro no sonho é apenas um aviso para algo que se aproxima de você, fique atento, qualquer assunto deve ficar muito claro para você nos próximos dias.
 Agradar - Grandes alegrias, dentro e fora do lar, boas notícias, contentamento, comemoração de uma grande vitória.
 Agradecer - Pessoa interessada ou grata poderá resolver um problema. Nova amizade sincera a caminho.
 Agravo - Sonhar com agravo mostra que deve haver atenção. Sim se algo estava se agravando você deverá ficar atento, principalmente se este foi algo físico, em sonho, ele mostra que as coisas podem ficar mais difíceis e talvez você precise se preparar melhor para isso, ter a consciência de que pode acontecer. Mas se o agravo foi contra sua imagem, ou reputação, não se preocupe, pois este não vai se estender muito, pois as pessoas saberão que foi algo plantado por alguém e que não tem fundamento.
 Agressão - Briga, discussão, intriga, talvez uma desunião, mas sempre passageira. Cautela nos relacionamentos.
+Agressão - Na vida: sucesso. No amor: ciúme. G. 4, 8, 25. D. 10, 31, 85. C. 810, 235, 678. M. 5610.
 Agrião - Plantar: você vai colher bons frutos por um trabalho bem feito. Comer: use e abuse de sua imaginação principalmente no sexo.
+Agrião - Na vida: bons negócios. No amor: contrariedades. G. 4, 19, 25. D. 13, 73, 77. C. 410, 876, 378. M. 5276.
 Agricultura - Sonhar com agricultura incluindo campos arados, plantações e paisagens do campo indicam sua ligação com a terra. Este sonho também é comum para pessoas que deixaram o campo e hoje vivem nos centros urbanos e refletem as boas lembranças da vida no campo. Mesmo quem tem algum acontecimento negativo daquela época gravado na memória tem muitos outros motivos para ter boas lembranças. Campos arados, bem cuidados ou verdejantes indicam bons negócios e ganhos financeiros. Terra mal cuidada e plantações secas ou abandonadas sinalizam período no qual deve evitar assinar contratos ou assumir grandes compromissos.
 Água - Limpeza, purificação. Água corrente: Todo o mal está sendo levado para longe.
+Água - Na vida: paz e harmonia. No amor: fidelidade. G. 2, 0, 15. D. 52, 17, 37. C. 052, 918, 237. M. 1518.
 Água de coco - Sonhar com água de coco simboliza um ótimo momento. A água de coco é muito rica e muitas vezes está ligada a momentos de prazer e descanso. Por isso ela no sonho deixa bastante evidente que você vai aproveitar muito as coisas em um momento próximo, e isso não será necessariamente apenas no lazer, não você saberá usufruir e tirar o que tem de melhor em cada momento, de aprendizado, trabalho, há sempre algo para se perceber e aprender. Por isso aproveite isso a fique mais leve e relaxado.
 Água fervendo - Sonhar com água fervendo mostra que você deve tirar um dia, um tempo para se divertir. Trabalhar e ser focado e saber de suas obrigações é algo muito bom, mas para que tudo isso, se você não tem tempo ou não sabe usufruir de tudo o que ganha para se divertir. É preciso viver um pouco de forma mais livre e menos planejada em alguns momentos, que para você estão sendo muito poucos. Por isso se organize, você está em ebulição o tempo todo, como a água fervendo, se permita ser mais relaxado por um momento e curtir, fazer o que gosta, isso lhe trará grande retorno, inclusive em seu trabalho e obrigações com a família, acredite, você vai render muito mais e vai aprender a valorizar e perceber o quanto isso também faz parte da vida.
 Água gelada - Sonhar com água gelada simboliza que você deve mudar um pouco. É preciso perceber em qual contexto a água gelada aparece em seu sonho, ela pode ser para refrescar, e no caso você deve relaxar um pouco, fazer algo que lhe traga um alivio, um conforto, tanto espiritual quanto físico. Mas se a água gelada aparece como um despertar como um banho de água gelada, você realmente deve ver isso como um alerta para mudança, um chacoalhão para que você perceba que é preciso fazer de outra forma, acordar, da forma que vem fazendo não irá funcionar, por isso pare de insistir.
@@ -148,12 +189,16 @@ Agricultura - Sonhar com agricultura incluindo campos arados, plantações e pai
 Água termal - Sonhar com água termal simboliza um momento mais leve e feliz. A água termal que faz a pele ser acalmada e hidratada mostra exatamente este momento mais leve que se aproxima. Por isto não deixe de aproveitar isto, afinal na maioria do tempo nos sentimos atrasados, com diversas tarefas a fazer e na correria. Tente aprender a se sentir mais leve, com este período, que fará com que perceba que levar a vida desta maneira pode lhe fazer mais saudável e feliz. Seja menos ansioso e nervoso isto mudará tudo para melhor.
 Água-viva - Ver uma água-viva em seu sonho representa recordações dolorosas que estão emergindo de seu inconsciente. Sentimentos de hostilidade ou agressão em algum aspecto de sua relação podem ser interpretados com este sonho. Alternativamente, pode indicar carência e que deve ter um pouco mais de amor-próprio. Você terá a oportunidade que espera para se afirmar.
 Aguardente - Festa, muita alegria, contentamento. Alguém na família muito feliz devido a boas notícias.
+Aguardente - Na vida: doença. No amor: notícias. G. 9, 12, 22. D. 36, 46, 88. C. 034, 140, 187. M. 2146.
 Águia - Alguém trará boas notícias. Proteção e forças divinas diante dos problemas. Esperança e energia.
+Águia - Na vida: bons empreendimentos. No amor: paixão. G. 1, 3, 19. D. 58, 59, 76. C. 257, 611, 576. M. 8576.
 Agulha - Problemas sendo resolvidos, dificuldades a serem superadas logo. Cautela com agulhas e crianças.
+Agulha - Na vida: intrigas. No amor: brigas. G. 2, 8, 23. D. 54, 29, 95. C. 252, 031, 191. M. 0652.
 Agulha de crochê - Sonhar com agulha de crochê demonstra um momento de mais cuidado e carinho. A agulha de crochê nos remete à algo feito com carinho e atenção, por ser algo feito manualmente, e é este comportamento que você deve ter nas coisas que você faz. Muitas vezes na pressa do dia a dia acabamos não colocando o devido amor e cuidado nas coisas em que estamos fazendo, você está no automático. Isso deve mudar, isso trará melhores resultados e trabalhos cada vez mais reconhecidos pelos outros. A qualidade do que faz poderá ser vista e apreciada, trazendo assim mais satisfação pessoal e profissional.
 Agulha de tricô - Sonhar com agulha de tricô demonstra que é preciso colocar a mão na massa. Você está buscando algo e para conseguir, é preciso trabalhar mais. A agulha de tricô no sonho deixa isso bem claro, já que ela é usada para fazer um trabalho totalmente feito a mão, quer dizer, um trabalho que depende exclusivamente de quem o faz. Por isso faça por merecer e corra atrás de seus objetivos. Não espere que as coisas aconteçam porque devem acontecer, faça e assim conseguira o que quer. Tudo o que fazemos nos dará um resultado, o seu só está dependendo de você.
 Agulha mágica - Sonhar com agulha mágica mostra facilidade. Sim, você pode conseguir uma forma de fazer algo de maneira mais fácil, algo que pode lhe vir com uma ideia, ou com algum facilitador em si, e então você deve verificar se isso pode dar certo, afinal as coisas precisam funcionar ao final. Mas, a agulha mágica facilita muito o processo de bordar, e é esta facilidade que o sonho mostra, as coisas irão fluir bem, por isso não se preocupe.
 Aids - Estar com: indica pessoa consciente com capacidade de compreensão dos problemas da vida.Ver alguém com: um amigo precisa de ajuda espiritual.
+Aipim - Na vida: descobertas. No amor: paixão e sexo. G. 13, 10, 24. D. 49, 08, 90. C. 801, 407, 894. M. 9805.
 Aipo ou salsão - Ver ou comer aipo ou salsão simboliza desejo de purificação física ou emocional. Este sonho também pode ser indicar necessidade de alimentação mais saudável, rica em fibras.
 Airbag - Sonhar com airbag demonstra que logo precisará de suporte. O airbag que nos ajuda em momentos de fragilidade, lhe mostra que logo poderá precisar de algum suporte, seja ele emocional ou de saúde. Por isso veja e perceba com quem você pode contar nestes momentos, afinal todos precisamos poder contar com alguém, este em diversos momentos de nossas vidas. Ou até você pode ser a pessoa que precisará dar suporte e apoio a pessoas próximas. Se prestar atenção você poderá perceber se você precisará ou irá dar suporte, pois esta situação já começou.
 Airsoft - Sonhar com airsoft mostra que você deverá enfrentar algo logo, logo. Assim como no airsoft que se “enfrenta” o inimigo, logo você passará por uma situação em que precisará enfrentar algo, seja uma concorrência, um grupo, um medo. Mas saiba que para você as coisas irão acontecer de modo muito fácil e tudo vai se resolver rápido, pois assim como o jogo airsoft que não deixa de ser uma brincadeira, o sonho é para este alerta que por mais que você entenda ou ache que poderá ter um grande problema a ser enfrentado, não ele será rápido e para você fácil de ser resolvido. O airsoft no sonho é um tranquilizador para algo que esteja ou venha lhe preocupar por agora.
@@ -176,39 +221,51 @@ Albino - Ver um albino em seu sonho significa pureza e longevidade. O sonho com 
 Albumina - Sonhar com albumina mostra pensar a longo prazo. Você pode e deve começar a pensar a longo prazo e isso pode se referir a diversos aspectos em sua vida, mas saúde e financeiro podem ser os mais impactantes. Por isso comece a pensar nisso de forma mais séria e regrada, é preciso sim dedicar um tempo para sua saúde e poupar, as coisas não serão iguais para sempre, elas mudam positivamente ou não, e você deve se preparar para momentos mais difíceis ou até para ser mais tranquilo e realizar desejos de uma foram mais leve. Por isso aprenda a poupar, pode ser pouco, mas comece isso fará total diferença a longo prazo.
 Alcachofra - Sonhar que está comendo alcachofra indica que poderá ter problemas de relacionamento no emprego. Evite atritos desnecessários durante esta semana. Comprar alcachofras indica que pode estar adquirindo inimigos ao não dar atenção a alguém.
 Alce - Sonhar com alce mostra que sua aparência passa uma imagem sobre você. O alce tem chifres enormes e que fazem com que tenha uma figura imponente e que ao mesmo tempo pode ser temido. E talvez você neste momento possa precisar disto para você. Há momentos em que você precisa sim se impor e isso não pode ser para você um mal sinal, uma arrogância ou algo que alguém possa pensar sobre você. Por isso cuide de si, de sua imagem, suas roupas, da sua forma de se expor para os outros. Isso não está relacionado a dinheiro ou investimento, claro se puder e quiser, invista mais em si, mas o importante é que você esteja de acordo com aquilo que quer, com o que gosta e não conforme alguém ao seu lado gosta, ou diz ficar melhor. Você verá que fazendo isso as pessoas começarão a lhe ver de outra forma, de maneira mais segura e com admiração.
+Álcool - Na vida: fuga. No amor: novas aventuras. G. 11, 18, 22. D. 43, 69, 86. C. 041, 871, 287. M. 5542.
 Álcool gel - Sonhar com álcool gel mostra que algo deve ser limpado de sua vida. É preciso prestar atenção e tentar perceber o que poderia ser isso. E saiba que está limpeza do álcool gel pode ser física ou até mesmo sentimental. Procure perceber o que não faz mais parte de sua vida, mas que você continua carregando, como se fosse algo que ainda lhe pertence. Você precisa se desapegar disso e deixar que coisas novas aconteçam para você. Pois enquanto se prender a sentimentos e coisas que não fazem parte de sua vida, o novo não poderá acontecer.
 Alcova - Casamento em breve. Adultério, infidelidade conjugal. Para os recém-casados, muita alegria.
 Aldeia - Sonhar que você está em uma aldeia simboliza restrições. Também pode indicar que você é natural, mas sensato. Outro significado para sonhar com aldeia representa a comunidade, simplicidade, e tradição.
+Aldeia - Na vida: cansaço. No amor: mudanças. G. 10, 25, 22. D. 08, 78, 80. C. 508, 178, 187. M. 6708.
 Aldrava - Ver ou usar uma aldrava ou batedor de porta em seu sonho simboliza oportunidades e boas-vindas. Você pode estar buscando ajuda e orientação espiritual. Sonhar com aldrava também pode significar pensamentos reprimidos.
 Alecrim - Ver um ramo de alecrim em seu sonho simboliza saudade de alguém e recordação de momentos felizes. Você está refletindo sobre algo em seu sonho.
+Alecrim - Na vida: ameaças. No amor: desilusão. G. 18, 23, 20. D. 75, 89, 99. C. 171, 389, 555. M. 0671.
 Alegria - Estar alegre é sinal que passará por momentos de tranqüilidade. Alegria exagerada: receberá más notícias em breve.
+Alegria - Na vida: contrariedades. No amor: ilusão. G. 15, 16, 24. D. 45, 61, 93. C. 137, 064, 193. M. 2693.
 Aleijado - ver um: poderá sofrer uma grande desilusão. Sonhar que é aleijada: quer dizer que enfrentará obstáculos no ambiente de trabalho.
 Aleijão - Sorte no jogo e na vida. Casamento duradouro e filhos sadios. Uma gravidez desejável a caminho.
 Aleitamento - Sonhar com aleitamento mostra que você passará por um momento de doação.
 Alentar - Sonhar com alentar mostra que você deve acreditar.
 Alergia - Sonhar que você tem alergia a alguma coisa simboliza sua sensibilidade em relação a alguma situação. O sonho com alergia também significa que você está se sentindo fisicamente ou emocionalmente impedido de fazer algo.
-Alerta - Sonhar com alerta mostra que é preciso ter atenção.
 Alfabeto - Sonhar com alfabeto, letras formando palavras ou mesmo letras soltas simboliza que poderá receber boas notícias em breve. Se as letras formam palavras procure o significado de cada uma delas para interpretação do sonho complementar. Alfabeto de idiomas desconhecidos (grego, japonês, …) indicam a solução de um problema que julgava sem solução.
 Alface - Sonhar com alface brotando simboliza momentos felizes e período de tranqüilidade. Comer alface durante o sonho significa intriga causada por pessoa próxima. Plantar alface indica que deve dar mais atenção a sua alimentação e momento propício para melhorar a qualidade dos alimentos que ingere. Sonhar que está comprando alface durante o sonho simboliza pequeno problema no orçamento doméstico.
+Alface - Na vida: tranquilidade. No amor: fim da paixão. G. 1, 7, 24. D. 58, 28, 96. C. 150, 026, 193. M. 0596.
 Alface crespa - Sonhar com alface crespa indica que é preciso ter mais qualidade de vida.
+Alfafa - Na vida: sucesso no emprego. No amor: azar. G. 6, 7, 20. D. 24, 28, 98. C. 421, 529, 497. M. 5567.
 Alfaiate - Ser: sua criatividade não anda lá muito fértil, procure passear e se divertir. Ir a um: sua auto-estima está baixa.
+Alfaiate - Na vida: más notícias. No amor: instabilidade. G. 1, 10, 23. D. 58, 65, 92. C. 957, 465, 192. M. 0356.
 Alfajor - Sonhar com alfajor simboliza que algo que acontecerá será bem “recheado”. Você deve esperar que algo aconteça por agora, pois já sabe que terá um resultado, seja este positivo ou não, mas o alfajor que quer dizer recheado, mostra que esse resultado terá algo a mais do que você espera. Por isso saiba e se prepare para coisas grandes e fortes nos próximos dias. O sonho deixa isso muito claro, e sabendo disso você deve sim se preparar para as coisas que viram em forma de avalanche de forma rápida e repentina.
 Alfândega - Sonhar com alfândega simboliza seu desejo de conhecer novos destinos de viajem. Problema na alfândega indica que corre o risco de ter segredos revelados. Sonhar que está saindo da alfândega simboliza o retorno de pessoa ausente.
 Alfinete - Um alfinete significa sucesso nos negócios e casamento para quem sonha. Se no seu sonho você engole um alfinete, um acidente doméstico vai atrapalhar seus planos. Perder um alfinete é sinal de perda ou discussões com a pessoa amada. Achar um alfinete significa que você terá sorte em seus empreendimentos. Um alfinete torto significa frustração e decepções. Um alfinete enferrujado significa que sua reputação está em perigo. Sonhar que alguém está espetando você com um alfinete indica que alguma pessoa está tentando irritá-lo.
+Alfinete - Na vida: preocupações. No amor: inveja. G. 1, 10, 16. D. 56, 09, 64. C. 156, 409, 063. M. 7962.
 Alfinete de segurança - Sonhar com alfinete de segurança simboliza que é preciso ser mais precavido.
 Alforje - Cuidado com os gastos desnecessários, supérfluos. Poupar hoje para uma eventualidade amanhã. Guardar o dinheiro para um futuro melhor.
 Alga - Alimentação farta, saúde, vida. Para as crianças, saúde e alegria. Para os idosos, melhoras e saúde.
 Alga marinha - Sonhar com alga marinha mostra certa leveza e resistência. A alga marinha pode parecer leve, fluída e até um pouco frágil, mas está pode ser a imagem que você deva ou precisa passar por agora. Pois se observou a alga marinha, ela o quer mostrar algo, e se ela estava toda emaranhada, está lhe dizendo que as coisas poderão ser um pouco turbulentas, mas que você logo conseguirá passar por isso, pois será resistente e persistente naquilo que deseja.
 Algarismo - Possibilidades de grandes ganhos no trabalho, negócios ou jogo. Dinheiro à vista.
+Algarismo - UM - Na vida: negócios comuns. No amor: paixão passageira. DOIS - Na vida: ganhos na justiça. No amor: união. TRÊS - Na vida: falsos amigos. No amor: intriga e inveja. QUATRO - Na vida: sucesso. No amor: ciúme. CINCO - Na vida: problemas domésticos. SEIS - Na vida: dificuldades. No amor: separação. SETE - Na vida: preocupações. No amor: dificuldades de relacionamento. OITO - Na vida: sucesso com esforço. No amor: sentimentos desencontrados. NOVE - Na vida: futuro tranquilo. No amor: superação das dificuldades. ZERO - Na vida: início promissor de novos projetos. No amor: fecundidade. Observação: aos grupos e dezenas abaixo, acrescente o número sonhado. G. 2, 2, 10. D. 52, 50, 09. C. 951, 256, 107. M. 6253.
+Algema - Na vida: incerteza. No amor: legalização da união. G. 13, 14, 24. D. 02, 04, 94. C. 402, 403, 590. M. 3590.
 Algemas - Um casamento apenas de aparência ou conveniência. Possível divórcio a caminho.
 Algodão - Sonho muito propício. Pureza, limpeza, felicidade e alegria à vista.
+Algodão - Na vida: lucros. No amor: realização sexual. G. 11, 12, 21. D. 41, 48, 82. C. 043, 140, 181. M. 8642.
 Algodão doce - Ver ou comer algodão doce em seu sonho representa prazeres de sua infância ou recompensas que recebeu. Você está contente com as coisas e da maneira como está levando sua vida.
 Algoritmo - Sonhar com algoritmo mostra observação. É preciso lembrar que não se é o foco de atenção de ninguém, mas em alguns momentos há sim alguém observando, seja você sem sua vida pessoal, ou em seu trabalho e o algoritmo em sonho simboliza isso, afinal o mesmo consegue observar suas ações no mundo digital e ele o alerta para isso, se quer segredo e descrição, você deve ser mais discreto por agora, mas se isso não é um problema para você vá em frente, apenas saiba que há alguém lhe observando neste período.
 Alguém batendo na porta - Ouvir alguém batendo na porta em seu sonho significa que seu inconsciente está tentando chamar sua atenção para determinada situação. Se você está batendo na porta simboliza que está chamando alguém para ajudá-lo na solução de algum problema. Uma nova oportunidade pode ser apresentada a você.
 Alguém forte - Sonhar com alguém forte simboliza que você pode precisar de ajuda.
 Alho - Todo o mal está sendo espantado. Amigos falsos sendo afastados. Bons fluidos para a família.
+Alho - Na vida: surpresas. No amor: paixão desmedida. G. 2, 3, 15. D. 51, 15, 37. C. 351, 815, 238. M. 1539.
 Alho poró - Sonhar com alho poró mostra que é preciso se livrar de algo que lhe perturba. O alho poró que é utilizado por algumas pessoas para fazer uma desintoxicação mostra isto. Você sabe que algo esta lhe incomodando e continua a reclamar, mas não faz nada. Mude esta postura tome uma atitude efetiva e com isto as coisas irão melhorar bastante.
 Aliança - Casamento mais próximo que o esperado. Amor, felicidade e filhos sadios.
+Aliança - Na vida: compromissos sérios. No amor: lealdade. G. 11, 12, 16. D. 41, 48, 64. C. 341, 140, 764. M. 6043.
 Aliança de casamento - Sonhar com aliança de casamento simboliza união estável e boas relações com seu parceiro. Dar ou receber a aliança da pessoa amada simboliza felicidade e amor duradouro, se for um estranho indica que não conhece suficientemente seu parceiro. Se você não é casado e acha uma aliança de casamento durante o sonho pode significar que sua relação amorosa está amadurecendo e se encaminhando para o matrimonio ou que encontrará seu par ideal em breve. Sonhar que você perdeu sua aliança de casamento simboliza problemas na relação que podem estar mal resolvidos. Dialogo e compreensão serão fundamentais para estabilizar a relação. Aliança de ouro, prata ou outro metal podem ser pesquisados separadamente para enriquecer a interpretação deste sonho.
 Álibi - Sonhar com álibi mostra que você pode precisar se justificar.
 Alicate - Sonhar com alicate mostra que você deve precisar ajustar algum aspecto de sua vida. Veja, as coisas podem estar indo muito bem ou você já sabe o que deve ser ajustado, após saber que o alicate no sonho lhe indica isso. Na verdade, há sempre algo a melhorar e você deve aprender a fazer isso em sua vida e nas suas relações.
@@ -216,6 +273,7 @@ Alicate de cutícula - Sonhar com alicate de cutícula simboliza que você tem l
 Alienígena - Sonhar com alienígena simboliza que coisas bem diferentes estão para acontecer. O alienígena que é algo muito diferente deixa claro que novidades estão por vir, estas podem ser agradáveis ou não, basta saber como você irá receber estas novidades. Afinal nem tudo que é diferente é ruim, pelo contrário você pode aprender muito com coisas novas e rotinas diferentes. P
 Alimentação - Sonhar com alimentação simboliza fome de emoções. Viva suas emoções plenamente, pare de se segurar ou de ficar preocupado com a opinião de pessoas que não são importantes para você. Exagerar na alimentação durante o sonho representa medo de privação das conquistas obtidas com esforço. Você tem dúvidas sobre a solidez de suas conquistas profissionais ou pessoais. O tipo de alimentação também pode ser pesquisado para interpretação adicional. Alimentação equilibrada e saudável denota autoconfiança. Alimentação inadequada, segundo seus padrões, representa que ressentimentos podem se transformar em obstáculos no seu caminho. Alimentação exagerada significa sentimento de culpa.
 Alimentar - Sonhar com alimentar mostra que é preciso cuidar.
+Alimento - Na vida: futuro encaminhado. No amor: desejo. G. 16, 21, 22. D. 63, 84, 87. C. 761, 783, 787. M. 1683.
 Alimentos - Sonhar com alimentos mostra que é preciso se nutrir.
 Alimentos congelados - Sonhar com alimentos congelados mostra que algo está parado.
 Alimentos saudáveis - Sonhar com alimentos saudáveis mostra que é preciso cuidar da saúde.
@@ -226,10 +284,12 @@ Alisar - Sonhar com alisar mostra que é preciso ser mais flexível.
 Alistamento - Sonhar com alistamento mostra algo contraditório em você. Talvez você esteja bastante relutante em viver algo sério, estabelecer disciplina em certa área ou até em sua vida, por agora. Se este sentimento for muito forte, faça um acordo consigo mesmo, trace uma meta, um tempo para conseguir se adaptar e sim começar a fazer as coisas de forma mais centrada, com prazos a serem compridos e começar a estabelecer rotinas serias de trabalho. É preciso, e você sabe disso.
 Aljava - Sonhar com aljava mostra que é preciso se preparar.
 Alma - Ver a alma desprendendo do corpo indica que você está apegada demais às coisas materiais. Se ela estiver voltando ao corpo, aguarde boas notícias nos negócios.
+Alma - Na vida: auxílio de amigos. No amor: esperança. G. 3, 4, 13. D. 12, 13, 62. C. 312, 210, 101. M. 6011.
 Almeirão - Sonhar com almeirão mostra que fofocas estão acontecendo. Assim como o almeirão que nos traz um gosto amargo a boca, este amargo esta relacionado a fofocas e intrigas criadas pela fala de alguém. Agora é preciso saber por quem isto acontece. O amargo do almeirão pode estar vindo de você que conscientemente ou não esta falando mal de alguém por aí e parando de fazer isto estará tudo resolvido, ou alguém fala de você aos outros. De qualquer forma é preciso saber que não se deve julgar aos outros, é difícil, mas algo a ser aprendido.
 Almirante - Sonhar que você é um almirante simboliza que é hábil para resolver os problemas de seu dia a dia com confiança e determinação. O sonho com almirante também pode significar uma figura paterna ou pessoa importante em sua vida.
 Almíscar - Surpresas muito boas no amor, ser amado fiel e sincero, bons amigos virão ajudar.
 Almoço - Saúde e alegria, mas com moderação no comer e no beber.
+Almoço - Na vida: sucesso no trabalho. No amor: união. G. 25, 22, 20. D. 78, 80, 55. C. 178, 387, 155. M. 5198.
 Almofada - Ver ou usar uma almofada em seu sonho significa que você está precisando de mais descanso e relaxamento. Outro significado para o sonho com almofadas é que deve se proteger contra uma situação que pode ser danosa ou ofensiva.
 Almofada de alfinete - Sonhar com almofada de alfinete mostra que é preciso ter cuidado.
 Almofada de amamentação - Sonhar com almofada de amamentação mostra que é preciso cuidar.
@@ -243,15 +303,18 @@ Alpinista - Sonhar com alpinista simboliza as superações e desafios que você 
 Alpiste - Sonhar que está alimentando pássaros com alpiste ou outro tipo de semente simboliza que você está energizando seu corpo e alma. Você tem uma meta definida e sabe aonde quer chegar. Espalhar alpiste pelo chão indica desperdício de energia ao não definir claramente seus objetivos. Você precisa saber aonde quer chegar e definir claramente suas metas.
 Alquimia - Sonhar com alquimia significa que você está passando por um período de tumulto, transformação interna e ego-renovação. Embora este período possa ser de tempos difíceis, terá um resultado positivo.
 Altar - Sonho excelente. Casamento bem próximo.
+Altar - Na vida: felicidade. No amor: amor retribuído. G. 6, 15, 10. D. 23, 37, 65. C. 321, 138, 607. M. 1921.
 Altas temperaturas - Sonhar com alta temperatura mostra algum incômodo. Veja algum fator externo, isso pode ser uma situação, uma pessoa, enfim, você vai se sentir bastante desconfortável em uma situação que se aproxima e não será possível fazer muita coisa, assim como quando chegamos a ter altas temperaturas, as coisas devem ser resolvidas, mas este não é o momento, pois não estará em suas mãos resolver isso. Então espere deixe que o tempo organize isso para você, não se prejudique diante daquilo aqui e não está em suas mãos.
 Alteração - Sonhar com alteração mostra que é preciso ter cuidado.
 Alternativas - Sonhar com alternativas mostra que é preciso ter escolhas.
 Alto-falante - Ver um alto-falante em seu sonho simboliza sua necessidade de ser ouvida. Você precisa expressar sua opinião.
+Alto-falante - Na vida: doença. No amor: insegurança. G. 2, 12, 21. D. 54, 47, 81. C. 251, 847, 184. M. 7181.
 Altura - Sonhar que você está a uma grande altura significa que você alcançará suas metas ou objetivos que julgava ser impossível. Sonhar que você tem medo de alturas denota que você não está se esforçando o suficiente para atingir as metas que parecem além de seu alcance.
 Alucinação - Ter uma alucinação em seu sonho simboliza uma imagem de seu inconsciente. Sonhar com alucinação significa emoções reprimidas e sentimentos que você não quer enfrentar. Seu sonho pode estar dizendo para estar atento aos detalhes e se expressar claramente. Também pode seu um recado de seu inconsciente para o peso que representa esconder algo importante. Discuta eventual problema com as pessoas que o amam e são importantes para você.
 Alucinógeno - Sonhar com alucinógeno mostra que você está com uma ideia equivocada sobre algo. O alucinógeno no sonho deixa claro que você está indo pelo caminho errado em uma decisão ou opinião no momento. Por isso procure prestar atenção na opinião das pessoas ao seu redor e de sua confiança sobre o mesmo assunto. Isto fará com que perceba mais rápido onde esta errando. Ou será que todos estão errados, menos você., isto é pouco provável, já que o alucinógeno deixa claro que pode estar “viajando”.
 Alugar casa - Alugar casa durante o sonho ou procurar uma casa para alugar simboliza desejo de mudança. No entanto está mudança pode ser temporária, como é o aluguel que tem prazo pré estipulado. Isto reflete incerteza sobre o que você deseja com a mudança.
 Aluguel - Pagar aluguel: você está em falta com alguém, falta moral. Receber aluguel: pessoa que está afastada do seu convívio, voltará a aproximar-se.
+Aluguel - Na vida: bons negócios. No amor: promessas. G. 11, 21, 24. D. 42, 82, 93. C. 042, 851, 194. M. 5743.
 Aluguel de carrinho - Sonhar com aluguel de carrinho mostra acomodação. Sim, é muito fácil que alguém se utilize de algo para que fique mais cômodo, onde precise andar e por fim se esforçar menos para então prosseguir, isso que o carrinho faz, e se houver o aluguel de carrinho por agora, as coisas deve fluir, de forma leve, mas nada mudará, pois não há esforço e nem trabalho para isso por agora, apenas acomodação e a vontade se seguir o fluxo sem que nada seja alterado.
 Aluguel de carro - Sonhar com aluguel de carro mostra que é preciso ter cuidado.
 Alumínio - Sonhar com alumínio simboliza nova chance.
@@ -262,13 +325,16 @@ Amabilidade - Sonhar com amabilidade mostra que é preciso ser gentil.
 Amaciante - Sonhar com amaciante simboliza que você pode mudar um pouco sua forma de ser.
 Amador - Sonhar com amador mostra que há um começo.
 Amamentar - Notícias em breve de uma gravidez bem-vinda. Vida forte e feliz.
+Amamentar - Na vida: novos projetos. No amor: mudança. G. 11, 22, 20. D. 42, 86, 99. C. 341, 087, 255. M. 1597.
 Amanhecer - O mesmo que alvorada. Grandes esperanças, vida nova, problemas resolvidos.
 Amante - Sonhar que tem um amante simboliza que é incapaz de trair a pessoa amada. Encontrar-se com amante significa discussão à vista. Brigar com amante simboliza novidades na vida amorosa
+Amante - Na vida: desavenças. No amor: separação. G. 1, 18, 21. D. 50, 71, 82. C. 158, 671, 682. M. 7158.
 Amar - Ser amada: terá satisfação na vida afetiva. Amar alguém: poderá se magoar com uma pessoa próxima. Se for correspondida no amor: tem uma rival no seu caminho querendo atrapalhar seus planos.
 Amarelinha - Sonhar que você está brincando de amarelinha simboliza seu carinho pelas crianças e também pode representar boas lembranças da infância. Sonhar com amarelinha também pode indicar uma tendência a pular etapas durante o trabalho ou ainda saltar as tarefas das quais não gosta e com isso começar diversos projetos sem concluir nenhum.
 Amarelo - Sonhar com amarelo mostra que é preciso ter atenção.
 Amargura - Sonhar com amargura simboliza atenção. Se você sentiu a amargura no paladar ou em sentimentos, você deve ficar atento a sua fala, por isso será importante não ser impulsivo, e não pensar antes de dizer algo, pois isso pode evitar discussões com pessoas importantes e necessárias a você.
 Amarrar - Alguém: medo de perder alguém ou algo muito valioso. Ser amarrado: você não perderá sua liberdade, confie mais em você.
+Amarrar - Na vida: oportunidades. No amor: preocupação. G. 11, 14, 16. D. 41, 04, 62. C. 241, 103, 262. M. 0041.
 Amassador de batata - Sonhar com amassador de batata simboliza um abalo em sua relação amorosa. O amassador de batata que consegue realmente amassar o que lhe é proposto mostra que você poderá se sentir mais frágil e abalado dentro da relação.
 Amassar - Sonhar com amassar simboliza uma postura sua. Se você viu alguém amassar algo, isso indica que você não se deve deixar influenciar muito por agora, você deve se impor mais e deixar bem clara sua opinião e as coisas que quer. Este não é o momento de ser flexível, se você já tem uma opinião bem formada sobre algo. Isso será muito benéfico e satisfatório ao final.
 Amazônia - Sonhar com a Amazônia mostra que é preciso ter cuidado com a natureza.
@@ -278,6 +344,7 @@ Ambição - Sonhar com ambição mostra tomada de atitude. Pessoas ambiciosas ta
 Ambientalista - Sonhar com ambientalista mostra que você deve se preocupar mais com o próximo.
 Ambrosia - Sonhar com ambrosia mostra que suas relações estão fortes e estabelecidas. A ambrosia que é doce, esclarece que não há com o que se preocupar em suas relações, principalmente amorosas. Se há alguma dúvida ou fofoca, esqueça, você não deve acreditar nisso. Deve acreditar no que sabe sobre as pessoas ao seu redor e não nas fofocas.
 Ambulância - Receberá notícias de pessoas que não vê há muito tempo.
+Ambulância - Na vida: doença na família. No amor: brigas. G. 15, 14, 17. D. 37, 06, 67. C. 237, 406, 760. M. 8604.
 Ameaça - Sonhar que você ameaça alguém simboliza que você se sente ameaçado ou que precisa se defender em seu dia a dia. Sonhar que você está sendo ameaçado indica que você interiorizou algum medo e tem se sentido inadequado ou oprimido.
 Ameixa - Presságio ruim, tristeza, desilusão amorosa. Com calda, um novo amor à vista, melhoras no emprego.
 Ameixas - Plantar: através do seu talento, você adquirirá bens materiais. Colher: o seu trabalho será reconhecido. Comer: seu sucesso mesmo só virá nas ondas de um grande amor.
@@ -286,6 +353,7 @@ Amendoim - Ver ou comer amendoim em seu sonho simboliza que está empregando mui
 Ametista - Ver uma ametista em seu sonho significa satisfação em sua vida profissional e pessoal. Se não está feliz agora, saiba que muito breve a felicidade fará parte de seu dia a dia. Você está satisfeito com estagio que atingiu em sua vida. Sonhar que você perde uma ametista significa desgosto e decepção.
 Amígdalas - Ver suas amígdalas em seu sonho simboliza que você gostaria de compartilhar detalhes de sua vida pessoal com alguma pessoa próxima, mas se sente inibido. Sonhar com amígdalas irritadas ou infeccionadas significa que você gostaria, mas não deveria compartilhar segredos pessoais com alguém próximo a você.
 Amigo - Sonhar com amigo mostra que é preciso ter amigos.
+Amigo - Na vida: dinheiro. No amor: sinceridade e carinho. G. 1, 11, 23. D. 25, 41, 95. C. 119, 144, 191. M. 8143.
 Amigo de infância - Sonhar com amigo de infância simboliza que algo muito bom do passado deve retornar. Algum fato, ou pessoa que fez parte do seu passado deve retornar em breve a sua vida. O amigo de infância deixa claro pode confiar e se entregar a esta situação. Amigo é sempre muito bom e sabemos que nestes podemos confiar. Por isso saiba a situação está melhorando e vai melhorar ainda mais, acredite.
 Amigo morto - Sonhar com amigo morto geralmente tem relação com uma perda. Está pode ser realmente sobre perder um amigo, isto não quer dizer que seja definitivamente, ou até com um relacionamento afetivo que pode estar abalado. Caso esteja envolvido com alguém procure perceber como anda esta relação, caso algo não esteja lhe satisfazendo procure parar e pensar para assim saber o que pode melhorar, afinal se este for o seu caso, empurrar com a barriga só lhe fará perder tempo e depois este desgaste e perda podem ser bem maiores. Então veja onde pode melhorar e assim fazer com que não acha nenhuma perda significativa para você nos próximos dias.
 Amigo secreto - Sonhar com amigo secreto mostra que sua ajuda e esperança poderá vir de onde menos se espera. Seja por ser de alguém que você não acredita e com isso acha que não poderá lhe fazer algo para agregar. Ou até mesmo por ser por alguém totalmente desconhecido, mas que poderá se tornar fundamental. Isso não importa, há momentos em que precisamos de alguém, isso pode ser por um momento ou até para uma grande decisão em sua vida.
@@ -313,7 +381,7 @@ Ampliação - Sonhar com ampliação simboliza ambição.
 Ampola - Sonhar com ampola mostra que você guarda uma informação ou segredo importante.
 Ampulheta - Sonhar ou ver uma ampulheta em seu sonho simboliza que deve cuidar melhor de seu tempo. Sonhar com ampulheta também pode ser uma alerta para que assuma de vez um compromisso que está adiando – que pode ser pessoal, profissional ou acadêmico – antes que seja tarde demais.
 Amputação - Pode estar ligado com a sua vida sexual ou indicar a perda de uma amizade que você prezava muito.
-Amputado - Sonhar com amputado simboliza um sentimento de perda sentimental. Você deve estar vivendo um momento emocional mais delicado.
+Amputado - Sonhar com amputado simboliza um sentimento de perda sentimental.
 Amuleto - Olhar um: tome cuidado com uma pessoa invejosa. Se estiver usando um: mudança em sua vida e será logo. Comprar um: indica casamento. Se estiver vendendo terá desgosto.
 Amurada - Proteção, obstáculo diante do mal, da intriga e da inveja.
 Anágua - Sonhar com anágua mostra que é preciso ter cuidado com a aparência.
@@ -322,23 +390,31 @@ Analfabetismo - Sonhar com analfabetismo mostra que é preciso estudar.
 Análise - Sonhar com análise mostra que é preciso refletir.
 Analista - Sonhar com analista mostra que é preciso ajuda.
 Anão - Grande sorte nos negócios, investimentos e projetos. Azar no jogo.
+Anão - Na vida: desgostos. No amor: fim de relação. G. 1, 7, 13. D. 25, 28, 05. C. 918, 126, 201. M. 6149.
 Anarquia - Sonhar com anarquia mostra que é preciso ter cuidado com a desordem.
 Ancas - Sonhar com ancas mostra força e estabilidade.
 Ancestrais - Sonhar com ancestrais mostra algo oculto.
 Anchova - Sonhar com anchova simboliza apenas coisa boas.
 Âncora - Segurança, estabilidade, firmeza nos negócios e na vida conjugal.
+Âncora - Na vida: realizações. No amor: vai melhorar. G. 15, 13, 14. D. 38, 02, 06. 437, 601, 204. M. 6302.
 Andaço - Sonhar com andaço mostra que é preciso ter cuidado com a saúde.
 Andador - Sonhar com andador simboliza o seu apoio a alguém.
 Andaime - Sonhos que há muito você idealizava, vão se realizar. Se há viagem planejada, esta é a hora. Cuidado com proposta no trabalho e nos negócios.
+Andaime - Na vida: ascensão social. No amor: riscos. G. 4, 9, 18. D. 10, 36, 69. C. 213, 430, 671. M. 7171.
 Andar - Simboliza sorte e progresso. Andando depressa: você precisa conter a sua ansiedade. Devagar: poderá enfrentar obstáculos para alcançar seus objetivos.
+Andar - Na vida: oportunidades. No amor: contrariedades. G. 8, 12, 17. 31, 48, 67. C. 131, 046, 067. M. 6560.
 Andar de bicicleta - Sonhar com andar de bicicleta mostra um desafio a cumprir.
 Andar de carro - Sonhar com andar de carro simboliza aonde que ir. Sim, um carro pode levar você a qualquer lugar, mesmo que seja longe, ele consegue, mas claro você vai precisar de mais tempo para isso.
 Andar na corda bamba - Sonhar que você está andando na corda bamba simboliza que você está sentindo inseguro. Você pode estar vivendo uma situação ou relação instável.
 Andar para trás - Sonhar que você está andando para trás significa que você está se afastando de seus objetivos. Na vida real você pode estar encontrando problemas para alcançar suas metas e não entende porque isto acontece.
 Andorinha - Liberdade dos problemas e preocupações. Evitar atitudes impensadas.
+Andorinha - Na vida: boas notícias. No amor: falsidade. G. 1, 3, 15. D. 57, 59, 39. C. 358, 112, 537. M. 5512.
+Andrajo - Na vida: pobreza. No amor: tristeza e perda. G. 1, 3, 13. D. 57, 11, 02. C. 157, 315, 302. M. 6550.
 Andróide - Sonhar com andróide simboliza que você está agindo mecanicamente. O sonho com andróide indica dificuldade para ouvir outras pessoas e se for o caso mudar de opinião. O sonho com andróide também simboliza que pode estar agindo por impulso, sem pensar nas conseqüências.
 Anedota - Sonhar que você está contando uma anedota simboliza que você prefere a companhia de pessoas bem humoradas ao invés de pessoas serias e compenetradas. Se você ouve uma anedota durante o sonho indica que está cercado de pessoas alegres e bem humoradas.
+Anedota - Na vida: desavenças. No amor: rompimento. G. 3, 18, 23. D. 15, 75, 89. C. 312, 875, 891. M. 1115.
 Anel - Nova amizade sincera. Pedido de casamento à vista.
+Anel - Na vida: sorte e prosperidade. No amor: realização. G. 8, 14, 16. D. 31, 06, 61. C. 131, 106, 761. M. 6162.
 Anel de brilhante - Sonhar com anel de brilhante simboliza sua expectativa perante algo.
 Anel de formatura - Sonhar com anel de formatura simboliza o fim de uma etapa em sua vida.
 Anel solitário - Sonhar com anel solitário mostra que logo você deve viver algo único e muito importante para você.
@@ -352,13 +428,16 @@ Angustiado - Estar: desarmonia na família por questões de dinheiro, tome cuida
 Anil - Sonhar com anil mostra que você precisa de mais clareza neste momento.
 Anilina - Sonhar com anilina simboliza mudança.
 Animadora de torcida - Ver uma animadora de torcida em seu sonho simboliza competição e triunfo. O sonho pode ser uma indicação de que deve oferecer seu apoio e encorajar as conquistas de alguém próximo. Sonhar que você é líder de torcida simboliza sua autoconfiança e amor-próprio. Pode estar faltando entusiasmo em relação a alguma situação em sua vida.
-Animais - Grandes: Boa sorte em tudo, entregue-se ao amor. Pequenos: boas notícias estão para chegar, use a cor branca.
 Animal - Em geral, é um bom sonho, traz boa sorte.
+Animal - Na vida: insegurança. No amor: paixão insegura. G. 4, 6, 25. D. 10, 23, 85. C. 110, 222, 078. M. 2978.
 Animal morto - Sonhar com animal morto simboliza um pequeno momento de tristeza.
 Animal perdido - Sonhar com animal perdido simboliza que você está se sentindo excluído, perdido ou fora de sintonia com as pessoas próximas a você.
+Animais - Grandes: Boa sorte em tudo, entregue-se ao amor. Pequenos: boas notícias estão para chegar, use a cor branca.
 Aniversário - Festejar de alguém: sinal de aborrecimentos.
+Aniversário - Na vida: longevidade. No amor: discórdia. G. 2, 2, 22. D. 54, 57, 86. C. 952, 756, 487. M. 7750.
 Aniversário do namorado - Sonhar com aniversário do namorado ou da namorada reflete sua expectativa em relação a data. Normalmente o sonho acontece quando você pretende, consciente ou inconscientemente, preparar algum evento especial para a comemoração.
 Anjo - Ótimo sonho. Paz, felicidade, bem-estar, problemas resolvidos.
+Anjo - Na vida: boa sorte. No amor: fidelidade e felicidade. G. 3, 4, 21. D. 15, 10, 81. C. 911, 213, 783. M. 1916.
 Ano - Sonhar com ano mostra que é preciso ter paciência.
 Ano novo - Sonhar com Ano novo simboliza um recomeço ou uma oportunidade para iniciar uma vida nova. Também representa o começo de novos projetos ou uma perspectiva diferente em vida. Sonhar com o Ano novo também significa prosperidade e esperança. Recomeçar em um nível espiritual mais elevado com mais compreensão e amor.
 Anões - Sonhar com anões mostra que coisas pequenas podem chamar sua atenção num próximo momento.
@@ -384,6 +463,7 @@ Anulação - Sonhar com anulação mostra que é preciso ter cuidado com os cont
 Anúncio - Sonhar com anúncio mostra que é preciso ter atenção.
 Anus - Sonhar com anus mostra que é preciso ter cuidado com a saúde.
 Anzol - Boas melhoras no ambiente familiar e nos negócios. Pazes entre namorados.
+Anzol - Na vida: dificuldades. No amor: ressentimento. G. 2, 4, 6. D. 51, 16, 23. D. 754, 314, 721. M. 1510.
 Apagador - Sonhar com apagador mostra que é preciso apagar o passado.
 Apagão - Sonhar com apagão mostra que é preciso ter cuidado com a energia.
 Apagar - Sonhar com apagar mostra que é preciso apagar o passado.
@@ -395,13 +475,18 @@ Aparelho de academia - Sonhar com aparelho de academia mostra que é preciso cui
 Aparelho para surdez - Sonhar com aparelho para surdez mostra que é preciso ter atenção.
 Aparência - Sonhar com aparência mostra que é preciso ter cuidado com a aparência.
 Aparição - Sonhar com aparição mostra que é preciso ter atenção.
+Aparição - Na vida: rancor. No amor: desentendimentos. G. 1, 0, 9. D. 58, 17, 30. C. 957, 219, 534. M. 1118.
 Apartamento - Sonhar com apartamento mostra que é preciso ter um lugar para morar.
+Apartamento - Na vida: sucesso. No amor: felicidade. G. 2, 4, 11. D. 53, 16, 42. C. 253, 814, 043. M. 9643.
 Apelação - Sonhar com apelação mostra que é preciso recorrer a alguém.
 Apelido - Sonhar com apelido mostra que é preciso ter cuidado com os apelidos.
 Apendicite - Sonhar com apendicite mostra que é preciso cuidar da saúde.
+Aperitivo - Na vida: prejuízos. No amor: desgosto. G. 1, 0, 13. D. 50, 19, 05. C. 956, 019, 349. M. 9550.
 Aperto de mão - Sonhar com aperto de mão mostra que é preciso fazer as pazes.
 Apetite - Sonhar com apetite mostra que é preciso ter fome de vida.
+Apetite - Na vida: negócios arriscados. No amor: mágoa. G. 2, 4, 8. D. 54, 10, 35. C. 751, 613, 732. M. 9154.
 Apito - Sonhar com apito mostra que é preciso ter atenção.
+Aplauso - Na vida: sucesso. No amor: sedução. G. 14, 22, 23. D. 06, 86, 89. C. 760, 787, 691. M. 0306.
 Aplausos - Sonhar com aplausos mostra que é preciso ser reconhecido.
 Aplicação - Sonhar com aplicação mostra que é preciso investir em algo.
 Aplicador - Sonhar com aplicador mostra que é preciso ter cuidado.
@@ -415,7 +500,9 @@ Apontador - Sonhar com apontador mostra que é preciso ter atenção.
 Apontar - Sonhar com apontar mostra que é preciso ter cuidado.
 Aporrinhar - Sonhar com aporrinhar mostra que é preciso ter paciência.
 Aposentadoria - Sonhar com aposentadoria mostra que é preciso descansar.
+Aposento - Na vida: bons negócios. No amor: realização. G. 3, 0, 11. D. 15, 19, 42. C. 215, 617, 041. M. 2541.
 Aposta - Sonhar com aposta mostra que é preciso arriscar.
+Aposta - Na vida: prejuízos e perdas. No amor: dificuldades. G. 3, 4, 11. D. 15, 14, 44. C. 715, 716, 841. M. 9815.
 Apostar - Sonhar com apostar mostra que é preciso arriscar.
 Apostila - Sonhar com apostila mostra que é preciso estudar.
 Apóstolo - Proteção divina. Amor correspondido. Solução de um grande problema.
@@ -436,13 +523,16 @@ Aptidão - Sonhar com aptidão mostra que é preciso ter talento.
 Apuro - Sonhar com apuro mostra que é preciso ter cuidado.
 Aquarela - Sonhar com aquarela mostra que é preciso ter criatividade.
 Aquário - Sonhar com aquário mostra que é preciso ter liberdade.
+Aquário - Na vida: tranquilidade. No amor: realização sexual. G. 4, 0, 20. D. 14, 19, 91. C. 313, 718, 955. M. 1198.
 Aquecedor - Sonhar com aquecedor mostra que é preciso se aquecer.
 Aquecimento - Sonhar com aquecimento mostra que é preciso se preparar.
 Aqueduto - Uma grande ligação amorosa em breve.
 Aquietar - Sonhar com aquietar mostra que é preciso ter calma.
 Ar - Sonhar com ar mostra que é preciso respirar.
+Ar - Na vida: projetos promissores. No amor: boas notícias. G. 15, 12, 10. D. 38, 40, 65. C. 238, 340, 408. M. 4238.
 Ar condicionado - Sonhar com ar condicionado mostra que é preciso se refrescar.
 Arado - Prosperidade moderada. Sorte relativa no jogo.
+Arado - Na vida: sucesso futuro. No amor: ajuda de amigos. G. 12, 13, 16. D. 47, 05, 61. C. 648, 401, 561. M. 4562.
 Aramado - Sonhar com aramado mostra que é preciso ter cuidado.
 Arame farpado - Sonhar com arame farpado mostra que é preciso ter cuidado.
 Arandela - Sonhar com arandela mostra que é preciso ter iluminação.
@@ -455,25 +545,32 @@ Arbustos - Sonhar com arbustos mostra que é preciso ter cuidado.
 Arca - Sonhar com arca mostra que é preciso guardar segredos.
 Archote - Aceso: Bom agouro, luz, energia. Apagado: Mau agouro, má sorte.
 Arco - Notícia inesperada em breve. Visita de parente distante.
+Arco - Na vida: reconhecimento. No amor: encontro. G. 7, 9, 10. D. 28, 36, 09. C. 728, 430, 907. M. 1836.
 Arco e flecha - Sonhar com arco e flecha mostra que é preciso ter objetivo.
 Arco-Íris - Sonho excelente. Bonança, calma após os problemas.
+Arco-íris - Na vida: melhoria de vida. No amor: reconciliação. G. 17, 19, 25. D. 60, 70, 77. C. 760, 476, 978. M. 5973.
 Arcos - Sonhar com arcos mostra que é preciso ter objetivo.
 Ardência - Sonhar com ardência mostra que é preciso ter cuidado com o fogo.
 Área - Sonhar com área mostra que é preciso ter espaço.
 Área restrita - Sonhar com área restrita mostra que é preciso ter cuidado.
 Areia - Retorno de pessoa querida com boas notícias. Novas amizades.
+Areia - Na vida: dinheiro. No amor: sensualidade. G. 14, 17, 25. D. 04, 68, 78. C. 604, 666, 478. M. 1978.
 Areia de praia - Sonhar com areia de praia mostra que é preciso ter descanso.
 Arena - Sonhar com arena mostra que é preciso lutar.
+Arena - Na vida: boas perspectivas. No amor: perigo. G. 1, 8, 25. D. 57, 32, 78. C. 256, 731, 879. M. 9558.
 Argola - Sonhar com argola mostra que é preciso ter união.
 Arlequim - Sonhar com arlequim mostra que é preciso ter alegria.
+Arma - Na vida: vontade de vencer. No amor: sexo e desejo. G. 2, 13, 23. D. 53, 02, 91. C. 052, 501, 491. M. 4802.
 Arma branca - Traição, infidelidade, intrigas.
 Arma de fogo - Discussão em família, briga, namoro desfeito.
 Armação - Sonhar com armação mostra que é preciso ter cuidado.
 Armação de óculos - Sonhar com armação de óculos mostra que é preciso ter cuidado.
 Armadilha - Sonhar com armadilha mostra que é preciso ter cuidado.
 Armadura - Proteção, segurança, força diante dos problemas.
+Armadura - Na vida: dificuldades. No amor: falsidade. G. 3, 9, 15. D. 11, 34, 38. C. 711, 330, 739. M. 2730.
 Armamento - Sonhar com armamento mostra que é preciso ter cuidado.
 Armário - Poupança, evitar gastos supérfluos. Sorte no jogo por três dias.
+Armário - Na vida: segurança. No amor: traição. G. 2, 3, 22. D. 54, 12, 88. C. 851, 215, 487. M. 9551.
 Armário embutido - Sonhar com armário embutido mostra que é preciso ter organização.
 Armário planejado - Sonhar com armário planejado mostra que é preciso ter organização.
 Armas de fogo - Sonhar com armas de fogo mostra que é preciso ter cuidado.
@@ -491,6 +588,7 @@ Arquivo morto - Sonhar com arquivo morto mostra que é preciso guardar coisas.
 Arraiolo - Sonhar com arraiolo mostra que é preciso ter cuidado com os animais.
 Arranha-céu - Sonhar com arranha-céu mostra que é preciso ter ambição.
 Arranhão - Sonhar com arranhão mostra que é preciso ter cuidado.
+Arranhão - Na vida: riscos. No amor: sofrimento. G. 11, 21, 22. D. 43, 81, 87. C. 043, 784, 087. M. 7881.
 Arranhar - Sonhar com arranhar mostra que é preciso ter cuidado.
 Arrastão - Sonhar com arrastão mostra que é preciso ter cuidado com a violência.
 Arrebentar - Sonhar com arrebentar mostra que é preciso ter cuidado.
@@ -502,6 +600,7 @@ Arrepiar - Sonhar com arrepiar mostra que é preciso ter cuidado com o medo.
 Arrepio - Sonhar com arrepio mostra que é preciso ter cuidado com o medo.
 Arroto - Sonhar com arroto mostra que é preciso ter educação.
 Arroz - Sonhar com arroz mostra que é preciso ter fartura.
+Arroz - Na vida: fartura. No amor: sinceridade. G. 1, 22, 23. D. 17, 80, 91. C. 419, 088, 291. M. 3119.
 Arroz com feijão - Sonhar com arroz com feijão mostra que é preciso ter fartura.
 Arroz doce - Sonhar com arroz doce mostra que é preciso ter doçura.
 Arruda - Sonhar com arruda mostra que é preciso se proteger.
@@ -516,7 +615,9 @@ Artesanato - Sonhar com artesanato mostra que é preciso ter criatividade.
 Ártico - Sonhar com o Ártico mostra que é preciso ter cuidado com o frio.
 Artilharia - Sonhar com artilharia mostra que é preciso ter cuidado com as armas.
 Artista - Sonhar com artista mostra que é preciso ter criatividade.
+Artista - Na vida: desejo de realização. No amor: mentira. G. 10, 16, 20. D. 09, 61, 99. C. 709, 061, 355. M. 7199.
 Árvore - Ótimo sonho. Grandes esperanças, a situação vai melhorar.
+Árvore - Na vida: solidez e paz. No amor: estabilidade. G. 15, 14, 19. D. 39, 03, 74. C. 945, 900, 073. M. 5337.
 Árvore de natal - Sonhar com árvore de natal mostra que é preciso ter alegria.
 Ás - Sonhar com ás mostra que é preciso ter sorte.
 Asa - Sonhar com asa mostra que é preciso voar.
@@ -525,29 +626,40 @@ Asas - Sonhar com asas mostra que é preciso voar.
 Ascensão - Sonhar com ascensão mostra que é preciso subir na vida.
 Asfalto - Sonhar com asfalto mostra que é preciso ter cuidado com o caminho.
 Asfixia - Sonhar com asfixia mostra que é preciso respirar.
+Asfixia - Na vida: pressões externas. No amor: insatisfação. G. 6, 7, 25. D. 21, 26, 77. C. 922, 727, 085. M. 5422.
 Asilo - Sonhar com asilo mostra que é preciso cuidar dos mais velhos.
+Asilo - Na vida: abandono. No amor: desilusão e solidão. G. 1, 13, 18. D. 56, 49, 72. C. 058, 505, 969. M. 9205.
 Asma - Sonhar com asma mostra que é preciso cuidar da saúde.
+Asma - Na vida: projetos fracassados. No amor: instabilidade. G. 7, 19, 25. D. 27, 70, 85. C. 527, 673, 777. M. 4328.
 Asno - Com insistência e fé, tudo há de se resolver.
+Asno - Na vida: ingenuidade. No amor: traição. G. 7, 10, 18. D. 20, 07, 72. C. 020, 608, 575. M. 7065.
 Aspargos - Sonhar com aspargos mostra que é preciso ter cuidado com a saúde.
 Aspirador de pó - Sonhar com aspirador de pó mostra que é preciso limpar a vida.
 Assadeira - Sonhar com assadeira mostra que é preciso cozinhar.
 Assado - Sonhar com assado mostra que é preciso cozinhar.
+Assado - Na vida: fartura. No amor: realização sexual. G. 9, 11, 18. D. 33, 44, 72. C. 933, 744, 669. M. 6933.
 Assadura - Sonhar com assadura mostra que é preciso ter cuidado com a pele.
 Assaltante - Sonhar com assaltante mostra que é preciso ter cuidado com a violência.
 Assalto - Sonhar com assalto mostra que é preciso ter cuidado.
+Assalto - Na vida: sorte no jogo. No amor: turbulência. G. 2, 3, 7. D. 52, 12, 26. C. 654, 659, 926. M. 5159.
 Assar - Sonhar com assar mostra que é preciso cozinhar.
 Assar no forno - Sonhar com assar no forno mostra que é preciso cozinhar.
 Assassinato - Sonhar com assassinato mostra que é preciso ter cuidado.
+Assassinato - Na vida: perturbações. No amor: fim de caso. G. 1, 3, 6. D. 56, 59, 22. C. 458, 659, 323. M. 6623.
 Assassino - Sonhar com assassino mostra que é preciso ter cuidado.
+Assassino - Na vida: visita inesperada. No amor: rival à vista. G. 7, 10, 19. D. 27, 65, 74. C. 327, 965, 974. M. 3307.
 Assédio - Sonhar com assédio mostra que é preciso ter cuidado.
+Assembléia - Na vida: amizades. No amor: cerimônia. G. 6, 16, 25. D. 22, 64, 79. C. 923, 564, 985. M. 5077.
 Assembléia de condôminos - Sonhar com assembléia de condôminos mostra que é preciso ter cuidado com os vizinhos.
 Assessor - Sonhar com assessor mostra que é preciso ter ajuda.
 Assinatura - Sonhar com assinatura mostra que é preciso ter compromisso.
+Assinatura - Na vida: sucesso. No amor: afirmação. G. 7, 25, 24. D. 21, 77, 94. C. 722, 279, 596. M. 9094.
 Assistência - Sonhar com assistência mostra que é preciso ajudar alguém.
 Assistir televisão - Sonhar com assistir televisão mostra que é preciso se distrair.
 Assoalho - Sonhar com assoalho mostra que é preciso ter cuidado com o chão.
 Assobiar - Alguém chegará de surpresa para ajudar. Novo amor pode acontecer.
 Assobio - Alguém chegará de surpresa para ajudar. Novo amor pode acontecer.
+Assobio - Na vida: mau negócio. No amor: perigo. G. 6, 21, 24. D. 24, 83, 90. C. 824, 882, 996. M. 6290.
 Assombração - Sonhar com assombração mostra que é preciso ter cuidado.
 Assombro - Sonhar com assombro mostra que é preciso ter cuidado.
 Asteroide - Sonhar com asteroide mostra que é preciso ter cuidado.
@@ -558,9 +670,11 @@ Astrônomo - Sonhar com astrônomo mostra que é preciso ter cuidado com o futur
 Ataduras - Sonhar com ataduras mostra que é preciso ter cuidado com a saúde.
 Atalho - Sonhar com atalho mostra que é preciso ter cuidado com o caminho.
 Ataque - Sonhar com ataque mostra que é preciso se defender.
+Ataque - Na vida: doença. No amor: esforço recompensado. G. 19, 25, 21. D. 73, 77, 84. C. 973, 885, 982. M. 5373.
 Ataque aéreo - Sonhar com ataque aéreo mostra que é preciso se defender.
 Ataque do coração - Sonhar com ataque do coração mostra que é preciso ter cuidado com a saúde.
 Ataúde - Sonho de mau agouro. Morte na família ou fora dela.
+Ataúde - Na vida: prejuízos. No amor: vazio. G. 17, 19, 24. D. 68, 70, 96. C. 268, 274, 994. M. 9094.
 Ateliê - Sonhar com ateliê mostra que é preciso ter criatividade.
 Atemoia - Sonhar com atemoia mostra que é preciso ter cuidado com a saúde.
 Atenas - Sonhar com Atenas mostra que é preciso ter cuidado com a história.
@@ -583,6 +697,7 @@ Atletismo - Sonhar com atletismo mostra que é preciso ter disciplina.
 Atmosfera - Sonhar com atmosfera mostra que é preciso respirar.
 Ato de heroísmo - Sonhar com ato de heroísmo mostra que é preciso ter coragem.
 Atoleiro - Sonhar com atoleiro mostra que é preciso ter cuidado com o caminho.
+Ator - Na vida: situação embaraçosa. No amor: indefinição. G. 4, 6, 9. D. 13, 21, 33. C. 516, 722, 633. M. 7436.
 Ator-atriz - Sonhar com ator-atriz mostra que é preciso ter criatividade.
 Atrasado - Sonhar com atrasado mostra que é preciso ter pontualidade.
 Atraso - Sonhar com atraso mostra que é preciso ter pontualidade.
@@ -591,6 +706,7 @@ Atribuição - Sonhar com atribuição mostra que é preciso ter responsabilidad
 Atrocidade - Sonhar com atrocidade mostra que é preciso ter cuidado com a violência.
 Atrofia - Sonhar com atrofia mostra que é preciso ter cuidado com a saúde.
 Atropelamento - Sonhar com atropelamento mostra que é preciso ter cuidado.
+Atriz - Na vida: decepções. No amor: desejos ocultos. G. 7, 9, 13. D. 27, 33, 49. C. 027, 833, 549. M. 0826.
 Atualização - Sonhar com atualização mostra que é preciso se atualizar.
 Atuar - Sonhar com atuar mostra que é preciso ter criatividade.
 Atum - Sonhar com atum mostra que é preciso ter cuidado com a saúde.
@@ -609,36 +725,51 @@ Ausência - Sonhar com ausência mostra que é preciso sentir falta de alguém.
 Autenticação - Sonhar com autenticação mostra que é preciso ter segurança.
 Autocolante - Sonhar com autocolante mostra que é preciso ter cuidado com as aparências.
 Automóvel - Andando: Prosperidade, sorte. Parado: Dificuldades financeiras.
+Automóvel - Na vida: bom presságio. No amor: prestígio. G. 8, 17, 25. D. 32, 68, 79. C. 632, 568, 285. M. 9735.
 Autor - Sonhar com autor mostra que é preciso ter criatividade.
+Autor - Na vida: progresso. No amor: realizações. G. 15, 11, 14. D. 39, 43, 03. C. 739, 942, 700. M. 9645.
+Autoridade - Na vida: desejos. No amor: contrariedades. G. 9, 13, 18. D. 33, 01, 72. C. 833, 049, 469. M. 0933.
 Autorização - Sonhar com autorização mostra que é preciso ter permissão.
 Avalanche - Sonhar com avalanche mostra que é preciso ter cuidado.
 Avaliação - Sonhar com avaliação mostra que é preciso ser avaliado.
 Avarento - Sonhar com avarento mostra que é preciso ter cuidado com o dinheiro.
+Avarento - Na vida: medo do futuro. No amor: prejuízos. G. 3, 6, 24. D. 11, 21, 96. C. 759, 022, 096. M. 7524.
 Ave - Sonhar com ave mostra que é preciso ter liberdade.
+Ave - Na vida: esperança. No amor: prisão. G. 2, 6, 23. D. 52, 24, 92. C. 554, 924, 589. M. 4191.
 Aveia - Sonhar com aveia mostra que é preciso ter cuidado com a saúde.
 Avelã - Sonhar com avelã mostra que é preciso ter cuidado com a saúde.
+Avenida - Na vida: falta de perspectiva. No amor: indecisão. G. 14, 10, 16. D. 03, 08, 63. C. 603, 208, 464. M. 8762.
 Avental - Sonhar com avental mostra que é preciso se proteger.
+Avental - Na vida: sorte. No amor: sinceridade. G. 15, 13, 19. D. 39, 49, 74. C. 039, 949, 773. M. 3139.
 Aventura - Sonhar com aventura mostra que é preciso viver.
 Aversão - Sonhar com aversão mostra que é preciso ter cuidado com os sentimentos.
 Aves - Aves em geral: Sonho auspicioso, liberdade, vida, beleza, felicidade.
 Aves silvestres - Sonhar com aves silvestres mostra que é preciso ter liberdade.
 Avestruz - Sonhar com avestruz mostra que é preciso ter cuidado com os problemas.
+Avestruz - Na vida: boas notícias. No amor: fartura. G. 1, 7, 24. D. 25, 26, 90. C. 325, 226, 094. M. 1428.
 Aviador - Sonhar com aviador mostra que é preciso voar.
 Avião - Viagem longa bem próxima.
+Avião - Na vida: bons negócios. No amor: êxito. G. 6, 7, 20. D. 21, 28, 55. C. 822, 328, 655. M. 0524.
 Aviso - Sonhar com aviso mostra que é preciso ter atenção.
+Aviso - Na vida: boa sorte. No amor: perigo. G. 1, 13, 10. D. 18, 01, 07. C. 925, 505, 407. M. 9607.
 Avó-avô - Sonhar com avó-avô mostra que é preciso ter sabedoria.
 Avocado - Sonhar com avocado mostra que é preciso ter cuidado com a saúde.
+Avós - Na vida: desorientação. No amor: dúvidas. G. 1, 3, 14. D. 50, 59, 03. C. 250, 411, 308. M. 0856.
 Axilas - Sonhar com axilas mostra que é preciso ter cuidado com a higiene.
 Azálea - Sonhar com azálea mostra que é preciso ter cuidado com as flores.
 Azar - Sonhar com azar mostra que é preciso ter cuidado.
 Azedo - Sonhar com azedo mostra que é preciso ter cuidado com o sabor.
 Azeite - Mudança de casa, grande prosperidade, encontro inesperado.
+Azeite - Na vida: calmaria. No amor: tédio. G. 7, 9, 20. D. 28, 36, 55. C. 328, 336, 399. M. 9655.
 Azeitona - Verde: Esperança e alegria. Preta: Cautela com amigos falsos.
+Azeitona - Na vida: bons negócios. No amor: êxito. G. 7, 15, 17. D. 26, 45, 68. C. 326, 745, 468. M. 7526.
 Azeviche - Sonhar com azeviche mostra que é preciso ter cuidado com as pedras.
 Azia - Sonhar com azia mostra que é preciso ter cuidado com a saúde.
 Azul - Sonho excelente. Felicidade. Escuro: Boas notícias. Claro: Casamento.
 Azulão - Felicidade à vista, bom casamento.
-Azulejo - Branco: Felicidade. Colorido: Novo amor. Escuro: Cuidado com a inveja.`
+Azulejo - Branco: Felicidade. Colorido: Novo amor. Escuro: Cuidado com a inveja.
+Azulejo - Na vida: melhorias. No amor: valorização. G. 2, 18, 21. D. 53, 69, 84. C. 953, 272, 784. M. 7853.
+INTERPRETAÇÃO`
 };
 
 // Function to get the dictionary entry for a specific letter
@@ -697,44 +828,51 @@ export async function getDictionaryEntriesForKeywords(keywords: string[]): Promi
   // Get the full dictionary content for the first letter of the first keyword.
   const firstLetter = keywords[0][0].toUpperCase();
   const fullContent = await getDreamDictionaryEntry(firstLetter);
-
-  // Split the dictionary content into lines.
-  const lines = fullContent.split('\\n');
   
-  const foundMeanings: string[] = [];
+  // Split content by newline to process line by line, but handle multiple definitions for the same term.
+  const lines = fullContent.split(/\\n|\n/);
+  
+  const foundMeanings: { [key: string]: string[] } = {};
 
   for (const keyword of normalizedKeywords) {
-    // Find the line where the keyword is defined.
-    const entryLineIndex = lines.findIndex(line => {
-      const match = line.match(/^([A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s-]+)\s*-/);
-      if (match) {
-        const dictWord = match[1].trim();
-        return normalizeText(dictWord) === keyword;
-      }
-      return false;
-    });
+    let keywordFound = false;
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        // Match lines that start with a word (potentially multi-word, with accents and hyphens) followed by a dash.
+        const match = line.match(/^([A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s-]+?)\s*—/i);
+        if (match) {
+            const entryTerm = normalizeText(match[1].trim());
 
-    if (entryLineIndex !== -1) {
-      // Found the keyword. Now, extract its full definition.
-      let entryContent = lines[entryLineIndex];
-      let nextLineIndex = entryLineIndex + 1;
+            if (entryTerm === keyword) {
+                // Found a matching entry. Extract the full definition.
+                let definitionContent = line;
+                let nextLineIndex = i + 1;
+                
+                // Keep adding subsequent lines until we hit the next definition or the end of the file.
+                while (nextLineIndex < lines.length && !/^[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s-]+?\s*—/i.test(lines[nextLineIndex])) {
+                    if (lines[nextLineIndex].trim()) { // Avoid adding empty lines
+                        definitionContent += '\n' + lines[nextLineIndex];
+                    }
+                    nextLineIndex++;
+                }
 
-      // Keep adding lines until we hit the next keyword definition or the end.
-      while (nextLineIndex < lines.length && !/^[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s-]+ \s*-/.test(lines[nextLineIndex])) {
-          entryContent += '\\n' + lines[nextLineIndex];
-          nextLineIndex++;
-      }
-      
-      // Avoid adding duplicate entries if multiple keywords point to the same definition
-      if (!foundMeanings.includes(entryContent)) {
-          foundMeanings.push(entryContent);
-      }
+                if (!foundMeanings[keyword]) {
+                    foundMeanings[keyword] = [];
+                }
+                foundMeanings[keyword].push(definitionContent);
+                keywordFound = true;
+            }
+        }
     }
   }
 
-
-  if (foundMeanings.length > 0) {
-    return foundMeanings.join('\\n\\n');
+  if (Object.keys(foundMeanings).length > 0) {
+    // Format the output string
+    let resultString = '';
+    for (const keyword in foundMeanings) {
+        resultString += foundMeanings[keyword].join('\n\n') + '\n\n';
+    }
+    return resultString.trim();
   }
 
   return `Nenhum significado específico foi encontrado no dicionário para os símbolos: ${keywords.join(', ')}. A interpretação será baseada no conhecimento geral do Profeta.`;
