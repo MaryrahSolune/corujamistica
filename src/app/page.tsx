@@ -171,7 +171,7 @@ export default function HomePage() {
   const displayCount = INITIAL_SYMBOLIC_COUNT + (userCount || 0);
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-black">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex justify-between items-center px-4 h-36">
           <Link href="/" className="flex items-center space-x-4">
@@ -198,7 +198,7 @@ export default function HomePage() {
 
       <main className="flex-grow">
         <section className="py-20 sm:py-28 text-center bg-cover bg-center relative overflow-hidden hero-background-section">
-           <div className="absolute inset-0 -z-10 animated-aurora-background opacity-90"></div>
+           <div className="absolute inset-0 -z-10 bg-black/50"></div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="inline-block bg-black/40 p-4 sm:p-6 rounded-xl backdrop-blur-sm mb-10">
                 <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 text-primary animate-fade-in" style={{animationDelay: '0.2s'}}>

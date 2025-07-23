@@ -57,7 +57,6 @@
   }
   body {
     @apply bg-background text-foreground font-sans;
-    background: linear-gradient(to bottom, hsl(var(--primary) / 0.15), hsl(var(--background)));
     position: relative;
   }
 
@@ -128,15 +127,15 @@
   }
 
   .hero-background-section {
-      background-image: url('/img/4Q46.gif');
-      background-size: 80% auto;
+      background-image: url('/img/espiral.gif');
+      background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
   }
 
   @media (min-width: 768px) {
       .hero-background-section {
-          background-size: 40% auto;
+          background-size: cover;
       }
   }
 
