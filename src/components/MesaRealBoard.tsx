@@ -124,12 +124,17 @@ export function MesaRealBoard({ onInterpretationReady }: { onInterpretationReady
       
       {!allCardsPlaced ? (
          <div className="flex flex-col items-center gap-4">
-            <div className="relative w-24 h-36 cursor-pointer group" onClick={handlePlaceCard}>
+            <motion.div 
+                className="relative w-24 h-36 cursor-pointer group" 
+                onClick={handlePlaceCard}
+                whileTap={{ scale: 0.95, x: 2, y: 2 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
                 <div className="absolute w-full h-full bg-gradient-to-br from-primary to-secondary rounded-lg shadow-lg transform transition-transform duration-300 group-hover:scale-105"></div>
                 <div className="absolute w-full h-full flex items-center justify-center">
                     <Wand2 className="w-8 h-8 text-primary-foreground" />
                 </div>
-            </div>
+            </motion.div>
             <p className="text-sm text-muted-foreground">Clique no baralho para posicionar as cartas ({deck.length} restantes).</p>
         </div>
       ) : (
