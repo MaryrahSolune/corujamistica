@@ -10,6 +10,9 @@ import { ref, onValue, off, get } from 'firebase/database'; // Added get
 import type { UserCreditsData } from '@/services/creditService';
 import { getUserProfile, type UserProfileData } from '@/services/userService';
 
+// Flag to enable/disable login requirement
+const AUTH_ENABLED = false;
+
 interface AuthContextType {
   currentUser: User | null;
   userProfile: UserProfileData | null;
@@ -19,6 +22,41 @@ interface AuthContextType {
   refreshCredits: () => void;
   refreshUserProfile: () => void;
 }
+
+// Create a mock user for testing when auth is disabled
+const mockUser: User = {
+  uid: 'test-user-123',
+  email: 'mestra@corujamistica.com',
+  displayName: 'Mestra',
+  photoURL: null,
+  emailVerified: true,
+  isAnonymous: true,
+  tenantId: null,
+  providerData: [],
+  metadata: {},
+  providerId: 'password',
+  delete: async () => {},
+  getIdToken: async () => 'mock-token',
+  getIdTokenResult: async () => ({ token: 'mock-token', claims: {}, authTime: '', issuedAtTime: '', signInProvider: null, signInSecondFactor: null, expirationTime: '' }),
+  reload: async () => {},
+  toJSON: () => ({}),
+};
+
+const mockUserProfile: UserProfileData = {
+    uid: 'test-user-123',
+    displayName: 'Mestra',
+    email: 'mestra@corujamistica.com',
+    createdAt: Date.now(),
+    role: 'admin', // Give admin role for full access
+    dailyRewardStreak: 10,
+    lastClaimTimestamp: null,
+};
+
+const mockUserCredits: UserCreditsData = {
+    balance: 999, // Ample credits for testing
+    freeCreditClaimed: true,
+};
+
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -51,43 +89,56 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 
   useEffect(() => {
-    setLoading(true);
-    const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
-      setCurrentUser(user);
-      let creditsCleanup: (() => void) | null = null;
-      if (user) {
-        creditsCleanup = await fetchUserData(user.uid);
-      } else {
-        setUserProfile(null); // Explicitly clear profile on logout
-        setUserCredits(null); // Explicitly clear credits on logout
-      }
-      setLoading(false);
-      
-      return () => {
-        if (creditsCleanup) {
-          creditsCleanup();
-        }
-      };
-    });
+    if (AUTH_ENABLED) {
+        setLoading(true);
+        const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+          setCurrentUser(user);
+          let creditsCleanup: (() => void) | null = null;
+          if (user) {
+            creditsCleanup = await fetchUserData(user.uid);
+          } else {
+            setUserProfile(null);
+            setUserCredits(null);
+          }
+          setLoading(false);
+          
+          return () => {
+            if (creditsCleanup) {
+              creditsCleanup();
+            }
+          };
+        });
 
-    return () => {
-      unsubscribeAuth();
-    };
+        return () => {
+          unsubscribeAuth();
+        };
+    } else {
+        // Use mock data if auth is disabled
+        setCurrentUser(mockUser);
+        setUserProfile(mockUserProfile);
+        setUserCredits(mockUserCredits);
+        setLoading(false);
+    }
   }, [fetchUserData]);
 
   const logout = async () => {
-    try {
-      await firebaseSignOut(auth);
-      setUserProfile(null); // Clear profile immediately on logout action
-      setUserCredits(null); // Clear credits immediately on logout action
-      // router.push('/login'); // Handled by AuthGuard or layout effects
-    } catch (error) {
-      console.error('Error signing out:', error);
+    if (AUTH_ENABLED) {
+        try {
+          await firebaseSignOut(auth);
+          setUserProfile(null); 
+          setUserCredits(null); 
+          router.push('/login');
+        } catch (error) {
+          console.error('Error signing out:', error);
+        }
+    } else {
+        // In mocked auth, logout just goes to login page
+        router.push('/login');
     }
   };
 
   const refreshCredits = useCallback(async () => {
-    if (currentUser) {
+     if (AUTH_ENABLED && currentUser) {
       const creditsRef = ref(rtdb, `users/${currentUser.uid}/credits`);
        try {
           const snapshot = await get(creditsRef);
@@ -99,7 +150,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [currentUser]);
 
   const refreshUserProfile = useCallback(async () => {
-    if (currentUser) {
+    if (AUTH_ENABLED && currentUser) {
       try {
         const profile = await getUserProfile(currentUser.uid);
         setUserProfile(profile);

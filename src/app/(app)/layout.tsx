@@ -1,7 +1,7 @@
 
 'use client';
 
-import AuthGuard from '@/components/AuthGuard';
+// import AuthGuard from '@/components/AuthGuard'; // AuthGuard desabilitado
 import AppHeader from '@/components/AppHeader';
 import type { ReactNode } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -23,16 +23,10 @@ export default function AppLayout({ children }: { children: ReactNode }) {
         router.push('/dashboard');
       }
     }
-    if (!authLoading && !currentUser && !pathname.startsWith('/login') && !pathname.startsWith('/signup')) {
-        // If not loading, no user, and not on auth pages, redirect to login
-        // This complements AuthGuard for scenarios where AuthGuard might not cover initial page load complexities.
-        // router.push('/login'); // AuthGuard should handle this primarily. This is a fallback.
-    }
-
   }, [userProfile, authLoading, currentUser, router, pathname]);
 
   return (
-    <AuthGuard>
+    // <AuthGuard> // AuthGuard desabilitado
       <div className="flex min-h-screen flex-col">
         <AppHeader />
         <main className="flex-1">
@@ -46,6 +40,6 @@ export default function AppLayout({ children }: { children: ReactNode }) {
           </div>
         </footer>
       </div>
-    </AuthGuard>
+    // </AuthGuard> // AuthGuard desabilitado
   );
 }
