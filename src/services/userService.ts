@@ -1,4 +1,6 @@
 
+'use server';
+
 import { rtdb } from '@/lib/firebase';
 import { ref, set, get, serverTimestamp, update, remove, runTransaction } from 'firebase/database';
 import type { User } from 'firebase/auth';
@@ -43,6 +45,9 @@ export async function createUserProfile(user: User): Promise<void> {
         email: user.email || existingProfile.email,
         photoURL: user.photoURL || existingProfile.photoURL,
     };
+     if (existingProfile.createdAt === undefined) {
+      updates.createdAt = serverTimestamp();
+    }
     if (existingProfile.dailyRewardStreak === undefined) {
       updates.dailyRewardStreak = 0;
     }
