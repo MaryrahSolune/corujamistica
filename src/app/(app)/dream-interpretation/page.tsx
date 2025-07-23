@@ -76,7 +76,10 @@ export default function DreamInterpretationPage() {
     }
 
     const normalizedQuery = normalizeText(searchQuery);
-    const definitions = dictionaryContent.split(/(?=[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ][a-zA-Záéíóúàâêôãõç\s-]*?\s—)/);
+    // This regex splits the text into definitions. It looks for a pattern that is likely to be a new term:
+    // A word starting with a capital letter (including accented ones), followed by more characters, and then a long dash (—).
+    // The (?=...) is a positive lookahead, which splits the string without consuming the delimiter, keeping the term in the result.
+    const definitions = dictionaryContent.split(/\r?\n(?=[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ])/);
     
     const foundDefinitions = definitions.filter(def => {
       const match = def.trim().match(/^([a-zA-Záéíóúàâêôãõç\s-]+?)\s—/);
