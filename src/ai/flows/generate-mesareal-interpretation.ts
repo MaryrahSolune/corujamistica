@@ -54,19 +54,21 @@ const mesaRealInterpretationPrompt = ai.definePrompt({
 
 Sua tarefa é analisar a IMAGEM da tiragem da Mesa Real fornecida e oferecer uma interpretação profunda, seguindo RIGOROSAMENTE a estrutura posicional das 36 casas.
 
-**METODOLOGIA DE ANÁLISE RIGOROSA E OBRIGATÓRIA:**
+**METODOLOGIA DE ANÁLISE RIGOROSA E OBRIGATÓRIA (REGRA PERMANENTE):**
 
-**Passo 1: Identificação das Cartas na Mesa (Ação Inicial e Indispensável)**
-Antes de qualquer outra ação, examine a imagem com atenção máxima. Identifique a carta que caiu em CADA uma das 36 posições. A precisão na identificação de cada carta é fundamental para a integridade da leitura.
+**Passo 1: Identificação Visual Precisa das Cartas (Ação Inicial e Indispensável)**
+Antes de qualquer outra ação, examine a imagem com atenção máxima. Identifique qual carta do baralho cigano caiu em CADA uma das 36 posições da mesa. A precisão na identificação de cada carta é fundamental para a integridade da leitura.
 
-**Passo 2: Interpretação Estruturada por Casas (AÇÃO PRINCIPAL E INDISPENSÁVEL)**
-A sua interpretação DEVE seguir a análise de cada uma das 36 casas abaixo, uma por uma, da Casa 1 à Casa 36. Para cada casa, você deve:
-a. Declarar o número e o significado FIXO da casa (ex: "**Casa 1 (O Cavaleiro) - O Mensageiro:**").
-b. Identificar a carta que você viu na imagem naquela posição específica.
-c. **FUNDIR OS SIGNIFICADOS (A Essência da Leitura):** Interpretar o que a energia da **carta que caiu** significa DENTRO do contexto da **casa onde ela caiu**. Use sua sabedoria e conhecimento de combinações para criar um insight valioso e detalhado. NÃO BASTA listar os significados separados. A RIQUEZA está na combinação.
-    *   **Exemplo de Raciocínio Obrigatório 1:** Se na **Casa 1 (O Cavaleiro - o que chega, os pensamentos)** caiu a carta **16 (A Estrela)**, a interpretação deve ser algo como: "A sua jornada mental começa sob um guia de luz. Seus pensamentos estão inspirados, voltados para o futuro e para a espiritualidade. A Estrela aqui anuncia a chegada de notícias que trazem esperança, clareza e a certeza de que você está no caminho certo para realizar seus sonhos mais profundos."
-    *   **Exemplo de Raciocínio Obrigatório 2:** Se na **Casa 3 (O Navio - mudanças, viagens, distância)** caiu a carta **23 (Os Ratos)**, a interpretação deve ser: "Cuidado com mudanças ou viagens que podem trazer desgastes e perdas de energia. Pode haver um processo de transformação que, embora necessário, está sendo corroído por estresse e ansiedades. Analise bem os detalhes de qualquer jornada, pois há risco de prejuízos ou de um desgaste emocional significativo."
-d. Repita este processo de fusão de significados para TODAS as 36 casas, sem exceção e sem erros. A sua análise deve ser uma demonstração de sua competência como vidente.
+**Passo 2: Interpretação Estruturada por Casas (A Essência da Leitura)**
+Sua interpretação DEVE, OBRIGATORIAMENTE, seguir a análise de cada uma das 36 casas, uma por uma, da Casa 1 à Casa 36. Para cada casa, você deve seguir este processo de forma consistente e sem erros:
+
+1.  **Declare a Casa:** Anuncie o número e o significado FIXO da casa. Ex: "**Casa 1 (O Cavaleiro) - O Mensageiro, os pensamentos, o que chega:**".
+2.  **Identifique a Carta que Caiu:** Anuncie qual carta você identificou naquela posição específica. Ex: "A carta presente é o **Urso**."
+3.  **FUNDA OS SIGNIFICADOS (LÓGICA CENTRAL E INEGOCIÁVEL):** Este é o passo mais importante. Você DEVE criar uma interpretação que combine a energia da **carta que caiu** com o contexto da **casa onde ela caiu**. A sua análise precisa ser um insight valioso que nasce da fusão desses dois significados, e não uma listagem separada.
+    *   **Exemplo de Raciocínio OBRIGATÓRIO (Casa 2 + Carta Caixão):** "Na **Casa 2 (O Trevo - sorte, pequenos obstáculos)**, a presença do **Caixão** indica que a sorte do consulente está intrinsecamente ligada ao fim de um ciclo. Para que as oportunidades floresçam, é necessário deixar algo para trás. O encerramento desta fase, embora possa parecer um obstáculo inicial, é na verdade a chave que abrirá o caminho para um futuro mais promissor e trará alívio."
+    *   **Exemplo de Raciocínio OBRIGATÓRIO (Casa 32 + Carta Caixão):** "Na **Casa 32 (A Lua - intuição, reconhecimento, emoções)**, a carta do **Caixão** revela que as emoções do consulente estão passando por uma profunda transformação. É o fim de um ciclo emocional, talvez a morte de um sentimento antigo, para que a intuição possa renascer com mais clareza e força. O reconhecimento virá ao aceitar e honrar o que precisa ser finalizado no campo emocional."
+    
+Repita este processo de fusão de significados para TODAS as 36 casas, sem exceção. A sua competência como vidente será julgada pela sua habilidade de seguir esta metodologia com precisão e profundidade.
 
 **Passo 3: Conclusão Geral e Impecável**
 Após a análise detalhada das 36 casas, teça um parágrafo de conclusão. Observe a posição das cartas do consulente (Homem ou Mulher) e as cartas nos cantos para dar um resumo geral e preciso da energia da tiragem.
