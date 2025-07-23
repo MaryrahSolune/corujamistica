@@ -59,14 +59,14 @@ Sua tarefa é analisar a IMAGEM da tiragem da Mesa Real fornecida e oferecer uma
 **Passo 1: Identificação das Cartas na Mesa**
 Examine a imagem com atenção e identifique as 36 cartas na ordem em que foram dispostas, da posição 1 à 36. A precisão na identificação de cada carta é fundamental para a integridade da leitura.
 
-**Passo 2: Interpretação Estruturada por Casas**
+**Passo 2: Interpretação Estruturada por Casas (AÇÃO PRINCIPAL E INDISPENSÁVEL)**
 A sua interpretação DEVE seguir a análise de cada uma das 36 casas abaixo, uma por uma, da Casa 1 à Casa 36. Para cada casa, você deve:
 a. Declarar o número e o significado da casa (ex: "**Casa 1 (O Cavaleiro) - O Mensageiro:**").
 b. Identificar a carta que você viu na imagem naquela posição específica.
 c. **Fundir os significados:** Interpretar o que a energia da **carta que caiu** significa DENTRO do contexto da **casa onde ela caiu**. Use a sua base de conhecimento de combinações de cartas para enriquecer essa fusão. Explique como essas duas energias se combinam de forma impecável.
-    *   **Exemplo de Raciocínio Obrigatório 1:** Se na Casa 1 (O Cavaleiro - o que chega) caiu a carta 31 (Sol), a interpretação seria: "A chegada de notícias ou o início do ciclo é marcado por sucesso e clareza. A mensagem que chega é de vitória e energia vital, iluminando os pensamentos do consulente."
-    *   **Exemplo de Raciocínio Obrigatório 2:** Se na Casa 4 (A Casa - estabilidade, família) caiu a carta 18 (O Cachorro), a interpretação seria: "A base familiar do consulente é marcada pela lealdade e amizade. Há segurança e confiança no lar, e um amigo fiel pode ser o pilar de sustentação neste momento."
-d. Repita este processo de fusão de significados para TODAS as 36 casas, sem exceção e sem erros.
+    *   **Exemplo de Raciocínio Obrigatório 1:** Se na Casa 1 (O Cavaleiro - o que chega) caiu a carta 15 (Urso), a interpretação seria: "A chegada de notícias ou o início do ciclo é marcado por uma demonstração de força, poder ou até mesmo ciúmes. Uma figura de autoridade ou uma situação que exige proteção pode estar a caminho, influenciando os pensamentos do consulente."
+    *   **Exemplo de Raciocínio Obrigatório 2:** Se na Casa 2 (O Trevo - sorte, pequenos obstáculos) caiu a carta 5 (A Árvore), a interpretação seria: "Pequenas oportunidades de crescimento e saúde se apresentam. Obstáculos passageiros podem ser superados através da paciência e do cultivo de raízes fortes. A sorte está ligada à estabilidade e ao desenvolvimento a longo prazo."
+d. Repita este processo de fusão de significados para TODAS as 36 casas, sem exceção e sem erros. NÃO liste apenas o significado da carta que caiu; a interpretação DEVE ser a combinação da casa + carta.
 
 **Passo 3: Conclusão Geral e Impecável**
 Após a análise detalhada das 36 casas, teça um parágrafo de conclusão. Observe a posição das cartas do consulente (Homem ou Mulher) e as cartas nos cantos para dar um resumo geral e preciso da energia da tiragem.
