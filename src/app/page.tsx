@@ -172,7 +172,7 @@ export default function HomePage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-black">
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex justify-between items-center px-4 h-36">
           <Link href="/" className="flex items-center space-x-4">
             <Image src="/img/simples.png" alt="Coruja Mística Logo" width={120} height={120} />
