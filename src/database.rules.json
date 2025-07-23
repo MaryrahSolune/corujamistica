@@ -29,6 +29,7 @@
           }
         },
         "readings": {
+          ".read": "auth != null && auth.uid == $uid",
           ".write": "auth != null && auth.uid == $uid",
           ".indexOn": [
             "interpretationTimestamp"
@@ -52,7 +53,7 @@
       }
     },
     "dreamDictionary": {
-      ".read": "auth != null",
+      ".read": true,
       ".write": "auth != null && root.child('users').child(auth.uid).child('profile').child('role').val() === 'admin'",
       "$letra": {
         ".validate": "$letra.matches(/^[A-Z]$/)"
