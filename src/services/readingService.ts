@@ -1,4 +1,6 @@
 
+'use server';
+
 import { rtdb } from '@/lib/firebase';
 import { ref, push, set, get, serverTimestamp, query, orderByChild, limitToLast } from 'firebase/database';
 import type { ProcessedStorySegment } from '@/ai/flows/interpret-dream-flow';
@@ -55,32 +57,16 @@ export async function saveReading(uid: string, readingData: Omit<ReadingData, 'i
   const readingsRef = ref(rtdb, `users/${uid}/readings`);
   const newReadingRef = push(readingsRef); // Generates a unique ID
   
-  const dataWithTimestamp: ReadingData = {
+  const dataWithTimestamp = {
     ...readingData,
     interpretationTimestamp: serverTimestamp(),
-  } as ReadingData;
+  };
 
-  // Create a clean object to save, explicitly removing any undefined properties
-  const dataToSave: Partial<ReadingData> = { ...dataWithTimestamp };
-  if (dataToSave.type === 'ogham') {
-     if (dataToSave.treeImageUri === undefined || dataToSave.treeImageUri === null) {
-      delete (dataToSave as Partial<OghamReadingData>).treeImageUri;
-    }
-     if (dataToSave.adviceImageUri === undefined || dataToSave.adviceImageUri === null) {
-      delete (dataToSave as Partial<OghamReadingData>).adviceImageUri;
-    }
-  }
-
-  if (dataToSave.type === 'tarot') {
-    if (dataToSave.cardSpreadImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).cardSpreadImageUri;
-    if (dataToSave.mandalaImageUri === undefined) delete (dataToSave as Partial<TarotReadingData>).mandalaImageUri;
-  }
-  
-  if (dataToSave.type === 'yidams') {
-    if (dataToSave.yidamImageUri === undefined) delete (dataToSave as Partial<YidamsReadingData>).yidamImageUri;
-    if (dataToSave.mandalaImageUri === undefined) delete (dataToSave as Partial<YidamsReadingData>).mandalaImageUri;
-    if (dataToSave.mandalaCouncil === undefined) delete (dataToSave as Partial<YidamsReadingData>).mandalaCouncil;
-  }
+  // Create a clean object to save, explicitly removing any undefined properties.
+  // This helps prevent validation errors in Firebase for fields that are truly optional.
+  const dataToSave = Object.fromEntries(
+    Object.entries(dataWithTimestamp).filter(([_, v]) => v !== undefined)
+  );
 
 
   try {
