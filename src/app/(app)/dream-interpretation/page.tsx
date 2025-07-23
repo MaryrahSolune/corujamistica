@@ -338,7 +338,7 @@ export default function DreamInterpretationPage() {
       </div>
 
 
-      <img src="/img/olho.gif" alt="Olho místico" className="mt-8 mx-auto block w-full max-w-4xl h-auto" />
+      <img src="/img/olho.gif" alt="Olho místico" className="mt-8 mx-auto block w-full max-w-2xl h-auto" />
     </div>
   );
 }
