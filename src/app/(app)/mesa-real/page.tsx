@@ -16,6 +16,7 @@ import { saveReading, type ReadingData } from '@/services/readingService';
 import { MesaRealBoard } from '@/components/MesaRealBoard';
 import { AdSlot } from '@/components/AdSlot';
 import { FallingPetals } from '@/components/FallingPetals';
+import { cn } from '@/lib/utils';
 
 export default function MesaRealPage() {
   const [query, setQuery] = useState<string>('');
@@ -129,7 +130,7 @@ export default function MesaRealPage() {
       {!readingStarted && (
           <div className="relative flex justify-center -mt-8">
               <div className="relative w-full max-w-xl h-auto">
-                <img src="/img/rosa.gif" alt="Rosa Mística" className="w-full h-auto" />
+                <img src="/img/rosa.gif" alt="Rosa Mística" className={cn("w-full h-auto", "transform scale-80")} />
                 <div className="absolute inset-0 pointer-events-none overflow-hidden">
                     <FallingPetals />
                 </div>

@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback, type ComponentType } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock, TreeDeciduous, VenetianMask, Flower } from 'lucide-react';
+import { CreditCard, BookOpen, Lightbulb, PlusCircle, BookMarked, Gift, Loader2, Eye, BrainCircuit, LogOut, CheckCircle2, Lock, TreeDeciduous, VenetianMask, Flower, Grid3x3 } from 'lucide-react';
 import { 
   Gem, Sparkles, Moon, Sun, Star, Crown, Feather, Key, Scroll, 
   BrainCircuit as BrainIcon, Shield, Pyramid, Infinity as InfinityIcon, Hexagon, Flame, Leaf, 
@@ -194,6 +194,23 @@ export default function DashboardPage() {
                 <CardFooter>
                   <Button asChild className="w-full">
                     <Link href="/new-reading"><span>{t('startNewReadingButton')}</span></Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+            
+            <div className="rounded-lg animated-aurora-background">
+              <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 relative z-10 bg-card/80 dark:bg-card/75 backdrop-blur-md h-full flex flex-col">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-xl font-serif">{t('mesaRealTitle')}</CardTitle>
+                  <Grid3x3 className="h-6 w-6 text-primary" />
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-muted-foreground mb-4 font-medium">{t('mesaRealDescription')}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild className="w-full">
+                    <Link href="/mesa-real"><span>{t('mesaRealTitle')}</span></Link>
                   </Button>
                 </CardFooter>
               </Card>

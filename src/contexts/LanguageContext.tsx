@@ -703,7 +703,7 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     oghamAdviceVisual: "A Visual Sigil for Your Path",
     oghamAdviceImageAlt: "Image representing Merlin's advice",
     oghamMysticalTreeAlt: "Mystical tree",
-    yidamsPath: 'Yidams Path',
+    yidamsPath: 'Caminho dos Yidams',
     yidamsPathTitle: 'Path of the Yidams',
     yidamsPathDescription: 'Choose a sacred symbol to discover the deity that guides your journey.',
     discoverYourYidamButton: 'Discover your Yidam',
@@ -720,12 +720,12 @@ const translationsData: Record<Locale, Record<TranslationKey, string>> = {
     yidamsErrorDate: 'Please enter a valid birth date.',
     yidamsErrorGenerating: 'An error occurred while revealing your Yidam.',
     yidamsSuccessToast: 'Your Yidam has been revealed!',
-    dreamDictionaryTitle: 'Dream Dictionary',
-    searchInDictionaryLabel: 'Search for a word',
-    searchInDictionaryPlaceholder: 'Search in letter {letter}...',
-    noResultsFoundForQuery: 'No results found for "{query}".',
+    dreamDictionaryTitle: 'Dicionário de Sonhos',
+    searchInDictionaryLabel: 'Buscar palavra',
+    searchInDictionaryPlaceholder: 'Buscar na letra {letter}...',
+    noResultsFoundForQuery: 'Nenhum resultado para "{query}".',
     mesaRealTitle: "Mesa Real Online",
-    mesaRealDescription: "All areas of your life revealed in the 36-card Gipsy Deck.",
+    mesaRealDescription: "Todas as áreas da sua vida reveladas no Baralho Cigano de 36 cartas.",
   },
   'pt-BR': {
     mysticInsights: 'Coruja Mística',
@@ -1157,4 +1157,5 @@ export const useLanguage = (): LanguageContextType => {
 };
 
     
+
 
