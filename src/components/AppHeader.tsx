@@ -100,7 +100,7 @@ export default function AppHeader() {
   const showAuthLinks = !currentUser && (isLandingPage || isAuthPage);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/40 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-36 max-w-screen-2xl items-center">
         <Link href={logoLink} className="mr-6 flex items-center space-x-4">
           <Image src="/img/simples.png" alt="Coruja Mística Logo" width={130} height={130} />
